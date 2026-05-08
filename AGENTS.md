@@ -1,33 +1,40 @@
-# Project: PRAXIS — Automated NQ Futures Trading System
+# Agent Instructions
 
-## Identity
-- Automated trading infrastructure: TradingView → n8n → NinjaTrader 8 → Rithmic → MFFU
-- Primary language: NinjaScript (C# on .NET 4.8), Python, JavaScript
-- Key dependencies: NinjaTrader 8, n8n (self-hosted Docker), TradingView, Rithmic API
+This project uses **bd** (beads) for issue tracking. Run `bd prime` for full workflow context.
 
-## Current Phase
-Read STATUS.md for current state before doing anything.
+## Quick Reference
 
-## Rules
-- Read STATUS.md first, every session
-- Update STATUS.md at session end
-- Update MANIFEST.md when creating or modifying files
-- Append to DECISIONS.md for any architectural choice
-- Use `bd ready` to find work, `bd show <id>` for details, `bd close <id>` when done
-- Commit after every meaningful change
-- Do not advance to next phase without trader confirmation
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --claim  # Claim work atomically
+bd close <id>         # Complete work
+bd dolt push          # Push beads data to remote
+```
 
-## Architecture
-Signal flow: TradingView alert → webhook → n8n workflow → JSON file drop → NinjaScript FileSystemWatcher → bracket order → Rithmic → MFFU
-Monitoring: Git (source of truth) → STATUS.md → Google Sheets → ClickUp → n8n → Telegram
+## Non-Interactive Shell Commands
 
-## Do Not
-- Skip STATUS.md read
-- Make architectural decisions without logging to DECISIONS.md
-- Create files without updating MANIFEST.md
-- Advance phases without trader sign-off
-- Trade or execute orders on live accounts without explicit authorization
+**ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.
 
+Shell commands like `cp`, `mv`, and `rm` may be aliased to include `-i` (interactive) mode on some systems, causing the agent to hang indefinitely waiting for y/n input.
+
+**Use these forms instead:**
+```bash
+# Force overwrite without prompting
+cp -f source dest           # NOT: cp source dest
+mv -f source dest           # NOT: mv source dest
+rm -f file                  # NOT: rm file
+
+# For recursive operations
+rm -rf directory            # NOT: rm -r directory
+cp -rf source dest          # NOT: cp -r source dest
+```
+
+**Other commands that may prompt:**
+- `scp` - use `-o BatchMode=yes` for non-interactive
+- `ssh` - use `-o BatchMode=yes` to fail instead of prompting
+- `apt-get` - use `-y` flag
+- `brew` - use `HOMEBREW_NO_AUTO_UPDATE=1` env var
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker
