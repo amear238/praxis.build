@@ -1,20 +1,22 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
-**Last updated:** 2026-05-08 by Trader (session #1 — infrastructure setup)
+**Last updated:** 2026-05-08 by Coworker (session #1 — infrastructure setup)
 
 ## Current Phase
 Block 0 of 6 — Infrastructure Setup (Prerequisite)
 
 ## Current Step
-0.2: Template files created. Next: Beads installation, Sheets dashboard, n8n configuration.
+0.4: Git, templates, and Beads complete. Next: Google Sheets dashboard.
 
 ## Blockers
 - None
 
 ## Next Action When Resuming
 1. Read this file
-2. Check if Beads is installed (`bd --version`)
-3. If not installed, run Beads installation (Step 0.3)
-4. Continue with Google Sheets dashboard setup (Step 0.4)
+2. Create Google Sheets dashboard (Step 0.4)
+3. Configure n8n webhook (Step 0.5)
+4. Configure n8n Telegram notifications (Step 0.6)
+5. Verify Coworker folder connection (Step 0.7)
+6. Run full-loop verification test (Step 0.8)
 
 ## Recent Decisions
 - 2026-05-08 — Git repo initialized at /Volumes/Sensidine/Praxis.build/, pushed to GitHub as amear238/praxis.build (DECISIONS.md#decision-1)
@@ -23,8 +25,8 @@ Block 0 of 6 — Infrastructure Setup (Prerequisite)
 ## Phase Progress
 - [ ] Block 0 — Infrastructure Setup (current)
   - [x] 0.1 Git repo init + GitHub push
-  - [x] 0.2 Template files created
-  - [ ] 0.3 Beads installation
+  - [x] 0.2 Template files created (CLAUDE.md, STATUS.md, DECISIONS.md, MANIFEST.md, README.md)
+  - [x] 0.3 Beads installation + Claude Code hooks
   - [ ] 0.4 Google Sheets dashboard
   - [ ] 0.5 n8n webhook configuration
   - [ ] 0.6 n8n Telegram notification workflow
