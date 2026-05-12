@@ -10,3 +10,4 @@
 | /README.md | Docs | 0 | 2026-05-08 | Project overview and quick links |
 | /signals/ | Data | 0 | 2026-05-11 | TradingView signal drop dir; gitignored payloads |
 | /docs/reports/2026-05-11-sess2-step-0.5-webhook.md | Report | 0 | 2026-05-11 | Block 0 step 0.5 subagent report |
+| /docs/reports/2026-05-11-sess2-step-0.6-telegram.md | Report | 0 | 2026-05-11 | Block 0 step 0.6 subagent report |

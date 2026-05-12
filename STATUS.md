@@ -5,7 +5,7 @@
 Block 0 of 6 — Infrastructure Setup (Prerequisite)
 
 ## Current Step
-0.6: n8n webhook published. Next: n8n Telegram notification workflow.
+0.7: n8n Telegram notification nodes added. Next: Coworker folder connection.
 
 ## Blockers
 - None
@@ -29,7 +29,7 @@ Block 0 of 6 — Infrastructure Setup (Prerequisite)
   - [x] 0.3 Beads installation + Claude Code hooks
   - [x] 0.4 Google Sheets dashboard
   - [x] 0.5 n8n webhook configuration
-  - [ ] 0.6 n8n Telegram notification workflow
+  - [x] 0.6 n8n Telegram notification workflow
   - [ ] 0.7 Coworker folder connection
   - [ ] 0.8 Full-loop verification test
 - [ ] Block 1 — Foundation (Education + Build)
