@@ -10,3 +10,6 @@ Redemtion/
 .dolt/
 *.db
 .beads-credential-key
+
+# Live signal payloads (not committed)
+signals/*.json
