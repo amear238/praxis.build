@@ -9,7 +9,7 @@ TradingView → n8n → NinjaTrader 8 → Rithmic → MFFU
 
 ## Monitoring
 - **ClickUp:** [PRAXIS — Phase 3 Build space — link TBD]
-- **Google Sheets:** [PRAXIS Phase 3 Build Tracker — link TBD]
+- **Google Sheets:** [PRAXIS Phase 3 Build Tracker](https://docs.google.com/spreadsheets/d/12XNBvD6Ybp5HMGeU_XG6chKUzxWurn-z7M6TUbLvKoc/edit)
 - **GitHub:** https://github.com/amear238/praxis.build
 
 ## Architecture
