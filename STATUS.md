@@ -33,7 +33,7 @@ Block 0 of 6 — Infrastructure Setup (Prerequisite)
   - [x] 0.5 n8n webhook configuration
   - [x] 0.6 n8n Telegram notification workflow
   - [ ] 0.7 Coworker folder connection — Drive-side prep done — awaiting trader: Drive for Desktop install + folder selection (see docs/reports/2026-07-08-step-0.7-drive-folder.md)
-  - [ ] 0.8 Full-loop verification test
+  - [x] 0.8 Full-loop verification test (verified via remote /tmp/praxis-signals — local delivery is Block 1; see docs/reports/2026-07-08-step-0.8-full-loop.md)
 - [ ] Block 1 — Foundation (Build-First — education runs parallel, gate moved to pre-live per D-2026-07-04-A)
 - [ ] Block 2 — Backtesting
 - [ ] Block 3 — Circuit Breakers (includes Strategy Health Monitor per D-2026-07-04-B)
