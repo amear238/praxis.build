@@ -2,6 +2,27 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-08
+
+**HEAD:** `2032bc1` (+ session-wrap commit after this card)
+
+**Shipped this session (autonomous run, 6 commits, 0 gate violations):**
+- `291826f` — orchestrator-mine v3 scaffold self-installed, enforcement live-verified; bd reinstalled (1.1.0)
+- `d18df54` — Jul 4 update integrated: D-2026-07-04-A/B into DECISIONS.md, SHM spec + skill outline into docs/specs/
+- `6b776a8` — Telegram notify path live (n8n workflow Wq90beq5oysV1bpe, /webhook/praxis-orch-notify, ORCH_N8N_WEBHOOK in settings env — loads next session)
+- `323e692` — Step 0.7 Drive-side prep: PRAXIS folder 1_59Pz_vdgxuPeMmp0yfuVHGDcbF1c9fU
+- `8e82010` — praxis-build-manager SKILL.md DRAFT v0.1 (NOT live until trader dry-run sign-off)
+- `2582531` — Step 0.8 PASSED: full loop webhook→file(/tmp/praxis-signals on n8n host)→200→Telegram + 400-reject path, verified live by implementer AND auditor
+- `2032bc1` — Block 1 delivery design PROPOSAL (SFTP push over private tunnel, 31/35)
+
+**Open beads (2, both blocked on trader):**
+1. `Praxis_build-rnu` (0.7) — Amear: drag tracker sheet 12XNBvD6… into PRAXIS Drive folder; optional coworker share; optional Full Disk Access for local verification (Drive for Desktop confirmed installed)
+2. `Praxis_build-amd` (Block 1 design) — Amear: sign off docs/design/2026-07-08-block1-signal-delivery.md + answer its 3 open questions; then DECISIONS.md entry + beads B1-a..e
+
+**Next 3 dispatches once unblocked:** B1-a tunnel + scoped SSH key → B1-b n8n push node → B1-c launchd reconciliation sweep.
+
+**Blockers / notes:** Block 0 = 0.7 trader-half only. Telegram token rotation decision still open (ISSUE_REGISTER 2026-05-12). Test signals block0-verify-001 / audit-verify-002 were fake (sim verification, no live trading surface exists yet).
+
 ## Resume card — 2026-05-12
 
 **HEAD:** `4b2c0b9`

@@ -13,3 +13,14 @@
 | /docs/reports/2026-05-11-sess2-step-0.6-telegram.md | Report | 0 | 2026-05-11 | Block 0 step 0.6 subagent report |
 | /docs/specs/STRATEGY_HEALTH_MONITOR_SPEC.md | Spec | 3 | 2026-07-08 | Strategy Health Monitor spec (D-2026-07-04-B); thresholds locked at Block 2 milestone |
 | /docs/specs/praxis-build-manager_SKILL_outline.md | Spec | 1 | 2026-07-08 | praxis-build-manager skill outline (build-first reorder, D-2026-07-04-A) |
+| /.claude/hooks/ | Config | 0 | 2026-07-08 | Orchestrator-mine v3 enforcement hooks (commit gate, audit, notify, handoff, stop gate) |
+| /.claude/agents/orchestrator-auditor.md | Config | 0 | 2026-07-08 | Read-only auditor agent — grades diffs, mints commit tokens |
+| /AUDIT_LOG.md | Log | 0 | 2026-07-08 | Append-only audit trail, written by audit-approve.sh only |
+| /.claude/skills/praxis-build-manager/SKILL.md | Skill | 1 | 2026-07-08 | PRAXIS build orchestration skill, DRAFT v0.1 — live after trader dry-run sign-off |
+| /docs/design/2026-07-08-block1-signal-delivery.md | Design | 1 | 2026-07-08 | Block 1 signal delivery proposal (SFTP push recommended) — pending trader sign-off |
+| /docs/reports/2026-07-08-integrate-jul4-update.md | Report | 0 | 2026-07-08 | Jul 4 update integration report (bead 8jq) |
+| /docs/reports/2026-07-08-orch-notify.md | Report | 0 | 2026-07-08 | Orchestrator Telegram notify path report (bead w7b) |
+| /docs/reports/2026-07-08-step-0.7-drive-folder.md | Report | 0 | 2026-07-08 | Step 0.7 Drive-side prep report (bead rnu) |
+| /docs/reports/2026-07-08-step-0.8-full-loop.md | Report | 0 | 2026-07-08 | Step 0.8 full-loop verification report (bead v5h) |
+| /docs/reports/2026-07-08-build-manager-skill-draft.md | Report | 1 | 2026-07-08 | Skill draft report (bead e8c) |
+| /docs/reports/2026-07-08-block1-delivery-design.md | Report | 1 | 2026-07-08 | Block 1 delivery design report (bead amd) |
