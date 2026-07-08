@@ -13,3 +13,4 @@ Redemtion/
 
 # Live signal payloads (not committed)
 signals/*.json
+.claude/state/
