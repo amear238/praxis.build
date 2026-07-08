@@ -11,3 +11,5 @@
 | /signals/ | Data | 0 | 2026-05-11 | TradingView signal drop dir; gitignored payloads |
 | /docs/reports/2026-05-11-sess2-step-0.5-webhook.md | Report | 0 | 2026-05-11 | Block 0 step 0.5 subagent report |
 | /docs/reports/2026-05-11-sess2-step-0.6-telegram.md | Report | 0 | 2026-05-11 | Block 0 step 0.6 subagent report |
+| /docs/specs/STRATEGY_HEALTH_MONITOR_SPEC.md | Spec | 3 | 2026-07-08 | Strategy Health Monitor spec (D-2026-07-04-B); thresholds locked at Block 2 milestone |
+| /docs/specs/praxis-build-manager_SKILL_outline.md | Spec | 1 | 2026-07-08 | praxis-build-manager skill outline (build-first reorder, D-2026-07-04-A) |
