@@ -1,4 +1,7 @@
 {
+  "env": {
+    "ORCH_N8N_WEBHOOK": "https://n8n.myzerker626.win/webhook/praxis-orch-notify"
+  },
   "hooks": {
     "PreCompact": [
       {
