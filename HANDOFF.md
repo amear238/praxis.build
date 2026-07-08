@@ -15,13 +15,18 @@ Resume cards go here, newest on top.
 - `2582531` — Step 0.8 PASSED: full loop webhook→file(/tmp/praxis-signals on n8n host)→200→Telegram + 400-reject path, verified live by implementer AND auditor
 - `2032bc1` — Block 1 delivery design PROPOSAL (SFTP push over private tunnel, 31/35)
 
-**Open beads (2, both blocked on trader):**
-1. `Praxis_build-rnu` (0.7) — Amear: drag tracker sheet 12XNBvD6… into PRAXIS Drive folder; optional coworker share; optional Full Disk Access for local verification (Drive for Desktop confirmed installed)
-2. `Praxis_build-amd` (Block 1 design) — Amear: sign off docs/design/2026-07-08-block1-signal-delivery.md + answer its 3 open questions; then DECISIONS.md entry + beads B1-a..e
+**Post-run updates (2026-07-08, later commits):**
+- `2a423c5` — D-2026-07-08-A: coworker visibility via GitHub read access, Drive sync dropped. Step 0.7 CLOSED (trader confirmed access). Drive-for-Desktop no longer needed; empty PRAXIS Drive folder is optional scratch.
+- **Block 0: all 8 steps DONE.** Not marked complete as a block milestone — that is a trader sign-off gate.
 
-**Next 3 dispatches once unblocked:** B1-a tunnel + scoped SSH key → B1-b n8n push node → B1-c launchd reconciliation sweep.
+**Open beads (1, blocked on trader):**
+1. `Praxis_build-amd` (Block 1 design) — Amear: sign off docs/design/2026-07-08-block1-signal-delivery.md + answer its 3 open questions (Mac NAT reality; Tailscale vs plain WireGuard under no-cloud-API rule; where NT8 actually runs). On sign-off → DECISIONS.md entry + create beads B1-a..e.
 
-**Blockers / notes:** Block 0 = 0.7 trader-half only. Telegram token rotation decision still open (ISSUE_REGISTER 2026-05-12). Test signals block0-verify-001 / audit-verify-002 were fake (sim verification, no live trading surface exists yet).
+**Next 3 dispatches once Block 1 design is signed off:** B1-a tunnel + scoped SSH key → B1-b n8n push node → B1-c launchd reconciliation sweep.
+
+**Also pending trader:** (a) Block 0 milestone sign-off; (b) praxis-build-manager SKILL.md dry-run sign-off before it goes live; (c) Telegram token rotation decision still open (ISSUE_REGISTER 2026-05-12).
+
+**Notes:** Test signals block0-verify-001 / audit-verify-002 were fake (sim verification, no live trading surface exists yet).
 
 ## Resume card — 2026-05-12
 

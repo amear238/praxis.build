@@ -5,24 +5,22 @@
 Block 0 of 6 — Infrastructure Setup (Prerequisite)
 
 ## Current Step
-0.7: n8n Telegram notification nodes added. Next: Coworker folder connection.
+Block 0 all 8 steps DONE. Awaiting trader sign-off on Block 0 milestone, then Block 1 kickoff.
 
 ## Blockers
-- None
+- Block 1 signal-delivery design (Praxis_build-amd) awaiting trader sign-off + answers to 3 open questions in docs/design/2026-07-08-block1-signal-delivery.md
 
 ## Next Action When Resuming
-1. Read this file
-2. Create Google Sheets dashboard (Step 0.4)
-3. Configure n8n webhook (Step 0.5)
-4. Configure n8n Telegram notifications (Step 0.6)
-5. Verify Coworker folder connection (Step 0.7)
-6. Run full-loop verification test (Step 0.8)
+1. Read this file + HANDOFF.md resume card
+2. Trader: sign off Block 0 milestone (all 8 steps done) and Block 1 delivery design
+3. On Block 1 sign-off: append DECISIONS.md entry, create beads B1-a..e (tunnel+key, n8n push node, launchd sweep, latency test, offline drill)
 
 ## Recent Decisions
 - 2026-05-08 — Git repo initialized at /Volumes/Sensidine/Praxis.build/, pushed to GitHub as amear238/praxis.build (DECISIONS.md#decision-1)
 - 2026-05-08 — Local server architecture confirmed over VPS. No cloud API in execution stack. (DECISIONS.md#decision-2)
 - 2026-07-04 — D-2026-07-04-A: Build-first reorder. Education no longer a Block 1 prerequisite; comprehension gate moved to pre-live, gating Block 5 (recorded debrief pass/fail).
 - 2026-07-04 — D-2026-07-04-B: Strategy Health Monitor added (docs/specs/STRATEGY_HEALTH_MONITOR_SPEC.md). Thresholds locked at Block 2 milestone; built in Block 3; live before Block 5 Phase A.
+- 2026-07-08 — D-2026-07-08-A: Coworker visibility via GitHub read access, not Drive sync. Drive-for-Desktop dropped from Step 0.7; Google Sheets tracker retained.
 
 ## Phase Progress
 - [ ] Block 0 — Infrastructure Setup (current)
@@ -32,7 +30,7 @@ Block 0 of 6 — Infrastructure Setup (Prerequisite)
   - [x] 0.4 Google Sheets dashboard
   - [x] 0.5 n8n webhook configuration
   - [x] 0.6 n8n Telegram notification workflow
-  - [ ] 0.7 Coworker folder connection — Drive-side prep done — awaiting trader: Drive for Desktop install + folder selection (see docs/reports/2026-07-08-step-0.7-drive-folder.md)
+  - [x] 0.7 Coworker visibility — via GitHub read access (trader confirmed 2026-07-08); Drive sync dropped per D-2026-07-08-A
   - [x] 0.8 Full-loop verification test (verified via remote /tmp/praxis-signals — local delivery is Block 1; see docs/reports/2026-07-08-step-0.8-full-loop.md)
 - [ ] Block 1 — Foundation (Build-First — education runs parallel, gate moved to pre-live per D-2026-07-04-A)
 - [ ] Block 2 — Backtesting
