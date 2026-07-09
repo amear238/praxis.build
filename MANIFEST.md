@@ -19,6 +19,7 @@
 | /.claude/skills/praxis-build-manager/SKILL.md | Skill | 1 | 2026-07-08 | PRAXIS build orchestration skill, DRAFT v0.1 — live after trader dry-run sign-off |
 | /docs/design/2026-07-08-block1-signal-delivery.md | Design | 1 | 2026-07-08 | Block 1 signal delivery proposal (SFTP push recommended); "Resolved — 2026-07-09" section appended (WireGuard + Parallels VM target, D-2026-07-09-A/B) — pending Block 1 sign-off |
 | /docs/reports/2026-07-09-block1-design-finalized.md | Report | 1 | 2026-07-09 | Block 1 design finalization report (bead elo) — WireGuard/Parallels decisions recorded, beads B1-0..B1-e queued |
+| /docs/reports/2026-07-09-block0-milestone-audit.md | Report | 0 | 2026-07-09 | Block 0 milestone independent audit (bead 9m3) — 5 VERIFIED / 3 trader-confirmed / 0 FAIL; informed trader Block 0 sign-off |
 | /docs/reports/2026-07-08-integrate-jul4-update.md | Report | 0 | 2026-07-08 | Jul 4 update integration report (bead 8jq) |
 | /docs/reports/2026-07-08-orch-notify.md | Report | 0 | 2026-07-08 | Orchestrator Telegram notify path report (bead w7b) |
 | /docs/reports/2026-07-08-step-0.7-drive-folder.md | Report | 0 | 2026-07-08 | Step 0.7 Drive-side prep report (bead rnu) |
