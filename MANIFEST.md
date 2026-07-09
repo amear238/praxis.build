@@ -26,3 +26,4 @@
 | /docs/reports/2026-07-08-step-0.8-full-loop.md | Report | 0 | 2026-07-08 | Step 0.8 full-loop verification report (bead v5h) |
 | /docs/reports/2026-07-08-build-manager-skill-draft.md | Report | 1 | 2026-07-08 | Skill draft report (bead e8c) |
 | /docs/reports/2026-07-08-block1-delivery-design.md | Report | 1 | 2026-07-08 | Block 1 delivery design report (bead amd) |
+| /docs/briefs/2026-07-09-b1-0-coworker.md | Brief | 1 | 2026-07-09 | Coworker dispatch brief for B1-0 (bead 3i7) — NT8-on-Parallels validation, C2/C3/C4 checkpoints |
