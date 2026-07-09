@@ -2,6 +2,26 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-09
+
+**HEAD:** `be920c1` (+ a session-wrap commit lands right after this card)
+
+**Shipped this session (2 audited commits, 0 gate violations):**
+- `82b7cf1` — Block 1 design LOCKED: WireGuard tunnel (D-2026-07-09-A) + Parallels NT8 host (D-2026-07-09-B). Beads B1-0..B1-e queued with dependency graph.
+- `be920c1` — **Block 0 milestone TRADER-SIGNED-OFF (Amear, 2026-07-09)** after an independent read-only audit (5 VERIFIED / 3 trader-confirmed / 0 FAIL). Repo advanced to **Block 1 — Foundation (Build-First)**. Evidence: `docs/reports/2026-07-09-block0-milestone-audit.md`.
+
+**Decisions locked this session (append-only):**
+- **D-2026-07-09-A** — Block 1 tunnel = plain WireGuard (no third-party cloud coordinator; fits 'no cloud API in execution stack').
+- **D-2026-07-09-B** — NT8 host = Parallels Win11-ARM VM on the Mac Studio for build-first sim NOW; a dedicated **native x64 Windows PC is a REQUIRED pre-Block-5 purchase**; NT8-on-Parallels viability gated by B1-0. (Boot Camp is impossible on Apple Silicon.)
+
+**Current block:** Block 1 — Foundation. Open beads: 6 (B1-0..B1-e). `bd ready` = B1-0 (in progress) + B1-a. B1-c blocked on B1-0; B1-b on B1-a; B1-d on B1-b+B1-c; B1-e on B1-d.
+
+**B1-0 (`Praxis_build-3i7`) pickup point — IN PROGRESS, trader-executed:** Parallels is already installed on the Mac Studio. Trader was handed Checkpoint 1 (install Windows 11 ARM) + Checkpoint 2 (install + launch NT8, confirm responsive under x64 emulation, connect a free NT sim account). **NEXT SESSION STARTS BY ASKING the trader's Checkpoint 2 result:** did NT8 launch cleanly / is it responsive or sluggish / any errors. NOT yet started: C3 (connect sim data feed + stream a chart), C4 (Parallels shared folder Mac->VM + test .json drop + measure latency). On results -> write `docs/reports/<date>-b1-0-nt8-parallels-validation.md`, audit, close B1-0. If NT8 is unviable under emulation -> escalate the native-mini-PC purchase now.
+
+**Next 3 dispatches (P0->P2):** (1) finish B1-0 from the trader's checkpoint results; (2) B1-a WireGuard tunnel n8n-host<->Mac + scoped SSH key (trader-machine + n8n host work); (3) B1-b n8n SCP-push node into the VM shared folder (blocked until B1-a).
+
+**Notes:** (a) NT8 is Windows-only — Linux/Wine considered and rejected as unsupported (trader asked; answered inline, NOT appended to DECISIONS). (b) `AUDIT_LOG.md` carries the normal rolling +1 PASS row uncommitted between commits — expected, folds into the next commit. (c) PHASE 3 BUILD SPECIFICATION still not in-repo; Block-0 milestone was judged against reconstructed criteria — consider importing the source spec. (d) No blockers, no quota issues.
+
 ## Resume card — 2026-07-08
 
 **HEAD:** `2032bc1` (+ session-wrap commit after this card)
