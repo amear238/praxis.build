@@ -152,3 +152,20 @@ Scores 1 (poor) – 5 (excellent). Weights reflect the stated constraints (laten
 ---
 
 Sign-off: pending trader — on approval this becomes a DECISIONS.md entry
+
+---
+
+## Resolved — 2026-07-09
+
+The trader answered the three open questions. Option 1 (SCP push over a private tunnel) stands; the parameters are now fixed.
+
+**Answers:**
+
+1. **NAT (Q1):** The Mac is behind residential NAT with **no public inbound reachability**. Confirms the security assumption in the Problem section — the private-tunnel variant of Option 1 is required (no plain public-SSH simplification).
+2. **Tunnel technology (Q2):** **Plain WireGuard**, not Tailscale — no third-party coordination plane, satisfying "no cloud API in the execution stack" (locked as **D-2026-07-09-A**). Same mechanism, config-only difference.
+3. **NT8 host (Q3):** NT8 is not yet installed. The Mac Studio is Apple Silicon, so Boot Camp / a native Windows partition is **not possible**; NT8 runs in a **Parallels Windows 11 ARM VM** for build-first Block 1 sim, with a **dedicated native x64 Windows PC required before Block 5 goes live** (locked as **D-2026-07-09-B**). NT8 is x86-under-emulation and therefore **UNPROVEN** — validated first by bead **B1-0**.
+
+**Delivery-target consequence:**
+This is the design's "watcher lands on a Windows VM with a non-shared filesystem" branch (see *What would change this recommendation*). The FileSystemWatcher runs inside Windows, so the SCP push **target becomes a folder shared into the Parallels VM**, not a native macOS directory. Mechanism choice is unaffected, but **B1-b and B1-c paths point at that shared-folder target**. B1-c also owns the Mac→VM shared-folder mapping.
+
+**Status:** Trader-parameter-confirmed. Pending only the explicit **Block 1 design sign-off** plus the **Block 0 milestone sign-off** before any Block 1 build is dispatched. Bead decomposition below is now B1-0..B1-e (B1-0 = the NT8-on-Parallels validation spike, prepended).
