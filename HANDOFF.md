@@ -2,6 +2,20 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-09 (session 3)
+
+**HEAD:** `dc5216c` (+ a ledger/wrap commit lands right after this card) · Block 1 (Foundation, Build-First).
+
+**Big move this session — TOPOLOGY PIVOT (D-2026-07-09-D):** trader has no VPS and n8n already runs LOCALLY on the Mac (Docker), so public-ingress (VPS+WireGuard vs tunnel) is DEFERRED to pre-live. Block-1 build-first now runs fully local + free. Re-scoped: **B1-a → DEFERRED** (runbook + `/Users/admin/praxis-wg` scaffold parked, not deleted); **B1-b → local file-write node**.
+
+**Shipped/closed:**
+- `dc5216c` — **B1-c CLOSED (audited PASS):** `~/praxis-signals` layout + launchd 60s rsync backstop (n8n outbox→drop dir) + heartbeat + stale-alert. Deployed to INTERNAL disk — macOS TCC blocks launchd from the external Sensidine volume (saved as bd memory). Parallels VM share scoped to `/Users/admin/praxis-signals` ONLY; **whole-home over-share (B1-0 finding) RETIRED** (prlctl-confirmed). Sweep live-verified end-to-end (file swept + visible in VM).
+- Decisions logged: **D-2026-07-09-C** (signals dir owner) + **D-2026-07-09-D** (local n8n / defer ingress). Drift row: a parallel stale session was reconciled (its `~/Downloads/files/` D-C draft is NOT applied — in-repo ledgers are authoritative).
+
+**Next 3 dispatches (P0→P2):** (1) **B1-b** (`Praxis_build-p7s`) — point n8n workflow `EmMbN4sslwIx1ydn` at `/Users/admin/n8n-compose/local-files/outbox`; sweep relays to VM. (2) **B1-c-fu** — live-fire the stale-alert to confirm Telegram delivery (ties to open Telegram token rotation). (3) **B1-d** — end-to-end sim latency + idempotency.
+
+**Open housekeeping:** bug `30h` (AUDIT_LOG rolling-row path — resolution chosen: option (a) dedicated flush change; not yet built, rows still strand, AUDIT_LOG.md stays modified). PHASE 3 BUILD SPEC still not in-repo. praxis-build-manager SKILL.md still DRAFT. Parallels prlctl share-config is Pro-only (this Mac = Standard → VM-share is GUI-only).
+
 ## Resume card — 2026-07-09 (session 2)
 
 **HEAD:** `6909b96` · Block 1 (Foundation, Build-First) · 6 open beads (0 in progress)
