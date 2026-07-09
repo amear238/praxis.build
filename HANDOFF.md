@@ -2,6 +2,29 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-09 (session 2)
+
+**HEAD:** `6909b96` · Block 1 (Foundation, Build-First) · 6 open beads (0 in progress)
+
+**Shipped this session (5 audited commits, 0 gate violations after the audit caught 1 scope defect and I fixed it):**
+- `e586aff` / `370841c` — B1-0 coworker dispatch brief + clarified installer/no-login sim (`docs/briefs/2026-07-09-b1-0-coworker.md`).
+- `4680386` — **B1-a prep runbook** (`docs/design/2026-07-09-b1-a-wireguard-ssh-runbook.md`): both wg0.conf templates, keygen, macOS sshd tunnel-bind, rrsync `-wo` forced-command (internal-sftp fallback), verify checklist mapping 1:1 to B1-a. Placeholders only. Bead `dgt.1` closed.
+- `6909b96` — **B1-0 CLOSED: NT8-on-Parallels validation PASS.** C2/C3/C4 all pass (NT8 8.1.7.2 installs/launches/streams real-time data under x64 emulation; FSW file-drop 130–264ms, 100% detection 13/13). Trader-executed, independently audited. Evidence: `docs/reports/2026-07-09-b1-0-nt8-parallels-validation.md`. **D-2026-07-09-B (build-first on Parallels) now confirmed viable; native x64 mini-PC stays pre-Block-5, NOT escalated.**
+
+**▶ START NEXT SESSION — B1-a and B1-c are the ready live-machine work (need trader/coworker at the Mac + n8n host):**
+1. **B1-a** (`Praxis_build-dgt`) — bring up the WireGuard tunnel from the runbook; fill the placeholder table (VPS public IP, WG port, 4 keys, signals dir). Verify: scp-into-signals succeeds / scp-elsewhere denied / off-tunnel sshd times out. Then B1-b (n8n SCP-push node, workflow EmMbN4sslwIx1ydn) unblocks.
+2. **B1-c** (`Praxis_build-dnt`) — create `~/praxis-signals/` and **scope the Parallels VM share to THAT dir only.** SECURITY FINDING from the B1-0 spike: C4 shared the **entire Mac home** into the VM (`\\psf\Home` / `Z:\`) — tighten before any real signal flows. Add launchd reconciliation.
+
+**Next 3 dispatches (P0→P2):** (1) B1-a live bring-up → (2) B1-b n8n push node → (3) B1-c scoped share + launchd. Dep graph: B1-b←B1-a; B1-c unblocked (B1-0 closed); B1-d←B1-b+B1-c; B1-e←B1-d.
+
+**Open housekeeping:**
+- `Praxis_build-30h` (P2 bug) — **AUDIT_LOG rolling-row recording path unresolved.** A strict auditor pass rejected folding the prior commit's rolling PASS row into a feature commit (looks like a smuggled self-approval). So audit-trail rows now **strand uncommitted** — `AUDIT_LOG.md` shows as modified in the working tree at session end (3–4 rows), which is EXPECTED until 30h is resolved. Local trail is intact; they just aren't in git. Decide the sanctioned flush path (see bead).
+- Gate over-matches any Bash command containing "git"…"commit" as substrings (e.g. the word "uncommitted", or "commit" in a bd description) — documented fail-closed behavior; pass such text via a file or reword.
+- PHASE 3 BUILD SPEC still not in-repo (Block-0 milestone judged on reconstructed criteria); Google Sheet still splits Block 1 into Education/Build rows vs the beads' single Build-First — reconcile when the spec lands.
+- praxis-build-manager SKILL.md still DRAFT (pending trader dry-run sign-off); Telegram token rotation still open.
+
+**Notes:** Google Sheet Block-0 row was reconciled to Complete + trader sign-off this session; Block-1 rows set In Progress. No quota issues. The coworker brief is on GitHub for pickup, but B1-0 ended up trader-executed directly so the coworker hand-off may be moot.
+
 ## Resume card — 2026-07-09
 
 **HEAD:** `be920c1` (+ a session-wrap commit lands right after this card)
