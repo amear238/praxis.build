@@ -27,6 +27,7 @@ Monitoring: Git (source of truth) → STATUS.md → Google Sheets → ClickUp �
 - Create files without updating MANIFEST.md
 - Advance phases without trader sign-off
 - Trade or execute orders on live accounts without explicit authorization
+- Run multiple Claude sessions against this working tree — one session per repo; parallel work goes in its own `git worktree` (docs/runbooks/2026-07-10-single-session-rule.md)
 
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
