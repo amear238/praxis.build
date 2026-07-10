@@ -17,6 +17,15 @@
   </array>
   <key>StartInterval</key>
   <integer>60</integer>
+  <!-- Event-driven trigger (B1-b-fu): launchd fires the sweep within ~1-2s of any
+       change to the outbox dir contents, so an n8n outbox write relays to the drop
+       dir well under 5s. StartInterval above is retained as a 60s backstop. This is
+       a fixed data path (not the internal BIN_DIR), so it is a literal — the
+       installer's __BIN_DIR__ sed pass leaves it untouched. -->
+  <key>WatchPaths</key>
+  <array>
+    <string>/Users/admin/n8n-compose/local-files/outbox</string>
+  </array>
   <key>RunAtLoad</key>
   <true/>
   <key>ProcessType</key>
