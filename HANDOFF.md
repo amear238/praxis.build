@@ -2,6 +2,55 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-10 (session 5) — ✅ RECONCILED the session-4 halt; tip clean + pushed
+
+**HEAD:** wrap commit on top of `1c53a18` (22r) ← `e76f5c6` (jpe) ← `5822420`. **Tip is clean and pushed.** Block 1 (Foundation, Build-First).
+
+**What happened:** This session started from the trader's request to build the `/progress` plugin (bead `Praxis_build-jpe`). Mid-flight it collided with session 4's F-B1e-1 commit — the shared-index race session 4 documented (its 15:00:22Z token was minted while THIS session's plugin files were staged; 7f54ba9 recorded plugin files under the 22r message). Session 5 executed session 4's RECONCILE PLAN as the single active writer:
+1. `git reset --soft` on 7f54ba9; split-staged by pathspec.
+2. Plugin diff re-audited (token 297c68d4) → committed `e76f5c6`, bead jpe CLOSED.
+3. F-B1e-1 diff re-staged + re-audited (token c072de2c; auditor re-verified deployed runtime + drill logs) → committed `1c53a18`, bead 22r CLOSED.
+4. STATUS.md drift repaired (B1-b/d/e checked with commit refs), ledgers appended, wrap committed + PUSHED.
+
+**Shipped by session 5 itself:** `praxis-progress` local plugin — `/progress` renders the ASCII progress report toward live SIM (STATUS.md + bd + AUDIT_LOG + git; report-only, milestones stay human-gated). Installed user-scope (`praxis-progress@praxis-local`); source `plugins/praxis-progress/`; after source edits run `claude plugin update praxis-progress`.
+
+**Parked beads (5) — unpark after trader reviews the incident:** `v6y` (P1 gate hardening — ATTENDED session only; do not hot-patch gate hooks autonomously), `30h` (AUDIT_LOG flush; note the VOID 15:00:22Z 22r row, hash 19927e89), `10i` (design doc only; build trader-gated), `9tl` (F2 dedup contract — fold into the NinjaScript consumer build), `8xf` (P3 burst latency).
+
+**Hygiene notes:** AUDIT_LOG.md remains modified/unstaged by design (30h). RUN_DECISIONS.md left untracked (session-4 run ledger). 5 other idle `claude` procs existed at wrap — trader should close them before the next session (v6y root cause).
+
+## Resume card — 2026-07-10 (session 4, autonomous) — ⚠️ HALTED on concurrent-session repo corruption
+
+**HEAD:** `7f54ba9` — ⚠️ **CONTAMINATED tip, LOCAL only, NOT pushed.** 5 clean audited commits sit below it. Block 1 (Foundation, Build-First).
+
+**🚨 READ FIRST — WHY THIS SESSION HALTED:** `ps` showed **6 concurrent `claude` processes** sharing this repo. A parallel session authored a `praxis-progress` Claude plugin (`plugins/**`, `docs/specs/2026-07-10-praxis-progress-plugin.md`) + a `STATUS.md` edit and **staged them into the shared `.git/index`** during my F-B1e-1 audit window. My no-pathspec tip write (`7f54ba9`) recorded **their 7 files under my "Praxis_build-22r (F-B1e-1)" message**, and my own audited F-B1e-1 files were **dropped from the write** (they sit untracked/staged in the working tree). The audit gate mints a token but does not re-bind the staged tree at write time, so the concurrent injection slipped through (filed `Praxis_build-v6y`, P1). I did **NOT** rewrite history (unsafe while other sessions can wake) and **did not push**. Full detail: DECISION_LOG `2026-07-10T15:20Z`.
+
+**RECONCILE PLAN (do this FIRST next session, as the ONLY session on the repo):**
+1. Confirm no other `claude` procs are touching the repo (`ps aux | grep claude`); if any, stop them / use a git worktree.
+2. Decide the fate of `7f54ba9`: it holds a legitimate but mis-attributed `praxis-progress` plugin. Cleanest = `git reset --soft HEAD~1`, then unstage plugin/STATUS/docs-specs, re-stage ONLY the F-B1e-1 files, re-audit (fresh token), and record them under the 22r message; separately record the plugin work under its own message/bead. My audited F-B1e-1 source is backed up at `scratchpad/f-b1e-1-backup/` and also live in the working tree.
+3. Then close `Praxis_build-22r` (fix already deployed+audited — see below).
+4. Only push AFTER the tip is clean.
+
+**Shipped this session (5 CLEAN audited commits, in the repo, pushable once tip is fixed):**
+- `b5e022e` — **B1-b (p7s) CLOSED:** n8n local file-write node in workflow `EmMbN4sslwIx1ydn` — atomic `.tmp`→`.json` into `/files/outbox`, 3×/2s retry, error→existing Telegram node. Happy+error paths live-fired.
+- `7420ae5` — **B1-c-fu (4hd) CLOSED:** stale-heartbeat alert live-fired end-to-end (heartbeat 601s → n8n exec 1087018 → Telegram msg 29); raw evidence embedded (survives n8n's <1-day pruning); durable `ALERT FIRED` log line added.
+- `c19531b` — **B1-b-fu (3m8) CLOSED:** event-driven sweep via launchd **WatchPaths** on outbox (relay ~0.25–0.6s, was up to 60s), 60s poll kept as backstop — required for B1-d's <5s.
+- `d24537c` — **B1-d (4wk) CLOSED:** e2e sim latency 4.18–4.31s (<5s PASS, auditor re-ran 4.18s) + idempotency at contract level (same signal_id+ts → 1 drop file). Findings F1/F2 filed.
+- `5822420` — **B1-e (63b) CLOSED:** local offline failure drill (re-scoped off the dead WireGuard wording). Spool+replay PASS; found a **HIGH silent-loss gap** → F-B1e-1.
+
+**F-B1e-1 (22r) — DEPLOYED LIVE + audited PASS, but NOT in the repo (the contamination):** a new **stuck-backlog detector** launchd job (`praxis-signals-backlog-check.sh` + plist, 30s, 60s threshold) fires a Telegram alert when `*.json` persists in `incoming/`/outbox — closing the gap where a drop-promotion failure was SILENT (sweep touched `.heartbeat` unconditionally). The detector **is running now** (3 praxis launchd jobs healthy) and the auditor independently re-ran the drill (exec 1089263/msg47). Only the repo record is missing — reconcile per plan above.
+
+**All beads terminal-stated. Open work = 6 PARKED blocked (unpark after reconciliation):**
+- `Praxis_build-22r` (P1) — record the F-B1e-1 fix in the repo + close (fix already live).
+- `Praxis_build-v6y` (P1) — gate/concurrency gap: bind audit token to the staged tree hash + enforce one-session-per-repo (or worktrees).
+- `Praxis_build-30h` (P2) — AUDIT_LOG rolling-row flush path (still stranding rows; AUDIT_LOG.md stays modified).
+- `Praxis_build-10i` (P2) — Telegram→Claude inbound control channel: **design-doc-only was the plan; build stays PARKED (never-default external→shell control path, needs trader authority-scope sign-off).** Not started this session.
+- `Praxis_build-9tl` (P2) — F2: NT8 watcher must dedupe on in-file `signal_id` (drop filename is ts+signal_id).
+- `Praxis_build-8xf` (P3) — F1: relay burst latency >5s under ~2s bursts (launchd WatchPaths ~10s throttle); also investigate why steady is ~4.2s vs ~0.6s raw relay.
+
+**Next 3 dispatches (P0→P2):** (1) reconcile tip `7f54ba9` + close 22r (above); (2) `v6y` gate/concurrency hardening so this can't recur; (3) `10i` design doc (build parked pending trader). Telegram blocker already sent to trader re: stop the other sessions.
+
+**Notes:** ORCH_N8N_WEBHOOK live all session (blockers+safe-defaults delivered). Safe-defaults logged: WatchPaths sweep (3m8), B1-e re-scope. AUDIT_LOG.md + DECISION_LOG.md remain modified/unstaged (30h + this session's rows). RUN_DECISIONS.md (untracked) documents the autonomous-run scope.
+
 ## Resume card — 2026-07-09 (session 3)
 
 **HEAD:** `dc5216c` (+ a ledger/wrap commit lands right after this card) · Block 1 (Foundation, Build-First).

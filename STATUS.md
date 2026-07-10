@@ -1,21 +1,22 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
-**Last updated:** 2026-07-09 (session 3 — TOPOLOGY PIVOT to local n8n [D-2026-07-09-D]; B1-c signals layout + launchd + scoped VM share DONE + closed)
+**Last updated:** 2026-07-10 (session 5 — commit-race RECONCILED [DECISION_LOG 2026-07-10T15:20Z + resolution row]; B1-b/B1-d/B1-e + F-B1e-1 detector + /progress plugin all committed + audited; tip clean + pushed)
 
 ## Current Phase
 Block 1 of 6 — Foundation (Build-First)
 
 ## Current Step
-**Topology pivot (D-2026-07-09-D):** n8n runs LOCALLY on the Mac (Docker) for Block-1 build-first; public-ingress (VPS+WireGuard vs tunnel) deferred to pre-live. B1-a WireGuard work is therefore DEFERRED (no remote host to push from); B1-b re-scoped to a local file-write node.
-**B1-c CLOSED (commit dc5216c, audited PASS):** ~/praxis-signals layout (incoming/ + final root) + launchd 60s rsync backstop (n8n outbox -> drop dir) + heartbeat + stale-alert, deployed to INTERNAL disk (macOS TCC blocks launchd from the external Sensidine volume — see bd memory). Parallels VM share scoped to /Users/admin/praxis-signals ONLY; whole-home 'admin' share unchecked — B1-0 over-share finding RETIRED (prlctl-confirmed). Sweep live-verified end-to-end (file swept + visible in VM). Next up: B1-b (wire n8n workflow EmMbN4sslwIx1ydn to write signal JSON into the outbox).
+**Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> event-driven launchd sweep (<5s, WatchPaths) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). Remaining before the Block 1 milestone ask: NinjaScript FileSystemWatcher consumer inside NT8 (not yet built) + open findings below. Milestone sign-off is trader-gated.
+**2026-07-10 concurrency incident RESOLVED:** a commit race between two concurrent sessions briefly misattributed the /progress plugin diff to bead 22r (7f54ba9). Reconciled by single session per HANDOFF plan: e76f5c6 (jpe plugin) + 1c53a18 (22r detector), both freshly audited. Gate-hardening bead v6y (P1) parked for an ATTENDED session — do not hot-patch gate hooks autonomously.
 
 ## Blockers
 - None hard. B1-c-fu (P2): stale-heartbeat Telegram alert verified dry-run only — live-fire pending (ties to open Telegram token rotation). Parallels prlctl share-config is Pro/Business-only; this Mac runs Standard, so VM-share changes are GUI-only (documented).
 
 ## Next Action When Resuming
-1. **B1-b** (re-scoped, Praxis_build-p7s): point n8n workflow EmMbN4sslwIx1ydn at the local outbox (/Users/admin/n8n-compose/local-files/outbox) so it drops signal JSON there; the launchd sweep relays into ~/praxis-signals for the VM. No SSH/scp.
-2. **B1-c-fu**: live-fire the stale-heartbeat alert to confirm Telegram delivery (resolve Telegram creds first if needed).
-3. **B1-d**: end-to-end sim latency + idempotency once B1-b lands.
-4. Optional: import PHASE 3 BUILD SPEC + reconcile Google Sheet Block-1 naming.
+1. **Trader review of the 2026-07-10 concurrency incident** (DECISION_LOG 15:20Z + resolution row; HANDOFF session-5 card), then unpark the 5 blocked beads.
+2. **v6y (P1, attended):** bind audit token to staged tree hash at commit time + one-session-per-repo enforcement (worktrees or lock).
+3. **10i design doc** (build stays parked — trader authority-scope sign-off needed), **30h** AUDIT_LOG flush path, **8xf** burst latency (P3), **9tl** F2 watcher-dedup contract (folds into the NinjaScript consumer build).
+4. NinjaScript FileSystemWatcher consumer in NT8 sim — the remaining Block-1 build item.
+5. Optional: import PHASE 3 BUILD SPEC + reconcile Google Sheet Block-1 naming. Try `/progress` for the block report.
 
 ## Recent Decisions
 - 2026-05-08 — Git repo initialized at /Volumes/Sensidine/Praxis.build/, pushed to GitHub as amear238/praxis.build (DECISIONS.md#decision-1)
@@ -42,10 +43,11 @@ Block 1 of 6 — Foundation (Build-First)
 - [ ] Block 1 — Foundation (current — Build-First; education runs parallel, gate moved to pre-live per D-2026-07-04-A)
   - [x] B1-0 NT8-on-Parallels validation spike (PASS 2026-07-09 — commit 6909b96)
   - [~] B1-a WireGuard tunnel + scoped SSH — DEFERRED per D-2026-07-09-D (n8n local; no remote host). Runbook preserved for pre-live ingress.
-  - [ ] B1-b n8n LOCAL file-write node (re-scoped; writes into outbox — no scp)
+  - [x] B1-b n8n LOCAL file-write node (DONE 2026-07-09 — commit b5e022e; atomic .tmp->.json into outbox, 3x/2s retry, Telegram error route)
   - [x] B1-c Mac signals layout + scoped VM share + launchd reconciliation (DONE 2026-07-09 — commit dc5216c; whole-home over-share retired)
-  - [ ] B1-d end-to-end sim latency + idempotency test
-  - [ ] B1-e offline failure drill
+  - [x] B1-c-fu stale-heartbeat alert live-fired (7420ae5) · B1-b-fu WatchPaths <5s relay (c19531b)
+  - [x] B1-d end-to-end sim latency + idempotency test (PASS 2026-07-10 — d24537c; 4.2-4.3s <5s; findings F1/F2 filed)
+  - [x] B1-e offline failure drill (PASS 2026-07-10 — 5822420; spool+replay OK; found F-B1e-1 silent-loss gap — FIXED by stuck-backlog detector, 1c53a18, deployed live)
 - [ ] Block 2 — Backtesting
 - [ ] Block 3 — Circuit Breakers (includes Strategy Health Monitor per D-2026-07-04-B)
 - [ ] Block 4 — Paper Trading
