@@ -14,7 +14,7 @@
 #     DROP    = /Users/admin/praxis-signals                (internal disk, data/logs)
 #     ENV     = ~/.praxis/signals.env                      (git-ignored, ORCH_N8N_WEBHOOK)
 #
-#   ./scripts/praxis-signals-install.sh install    # copy scripts internal, load both agents
+#   ./scripts/praxis-signals-install.sh install    # copy scripts internal, load all agents
 #   ./scripts/praxis-signals-install.sh deploy     # copy scripts internal only (NO launchctl)
 #   ./scripts/praxis-signals-install.sh uninstall  # unload + remove installed plists (keeps bin)
 #   ./scripts/praxis-signals-install.sh status     # show loaded praxis agents
@@ -29,8 +29,8 @@ OUTBOX="/Users/admin/n8n-compose/local-files/outbox"
 ENV_DIR="$HOME/.praxis"
 ENV_FILE="$ENV_DIR/signals.env"
 NOTIFY_SRC="$REPO_DIR/.claude/hooks/notify.sh"
-SCRIPTS=(praxis-signals-sweep.sh praxis-signals-stale-check.sh)
-LABELS=(build.praxis.signals-sweep build.praxis.signals-stale-check)
+SCRIPTS=(praxis-signals-sweep.sh praxis-signals-stale-check.sh praxis-signals-backlog-check.sh)
+LABELS=(build.praxis.signals-sweep build.praxis.signals-stale-check build.praxis.signals-backlog-check)
 ACTION="${1:-install}"
 
 deploy_bin() {

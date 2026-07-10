@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template. __BIN_DIR__ (the INTERNAL-disk runtime dir
+     ~/Library/Application Support/Praxis/bin) is substituted by
+     scripts/praxis-signals-install.sh at install/deploy time. The script MUST run from
+     internal disk: macOS TCC blocks launchd from executing scripts on the external
+     volume /Volumes/Sensidine ("Operation not permitted"). Installed copy lives at
+     ~/Library/LaunchAgents/build.praxis.signals-backlog-check.plist
+     StartInterval=30 with the script's 60s stuck-threshold guarantees a stuck backlog is
+     detected within ~90s worst case (F-B1e-1, bead 22r). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>build.praxis.signals-backlog-check</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__BIN_DIR__/praxis-signals-backlog-check.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>30</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>/Users/admin/praxis-signals/logs/signals-backlog-check.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/admin/praxis-signals/logs/signals-backlog-check.err.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+</dict>
+</plist>
