@@ -2,6 +2,22 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-10 (session 6) — ✅ incident trader-ACCEPTED; v6y gate hardening SHIPPED; 30h flush one step from done
+
+**HEAD:** wrap commit on top of `1ca57aa` (30h infra) ← `fec1722` (v6y) ← `f0da783`. Pushed. Block 1 (Foundation, Build-First).
+
+**Trader gate cleared:** trader reviewed + ACCEPTED the session-4/5 concurrency incident (DECISION_LOG 2026-07-10T16:03Z row); all 5 parked beads unparked. Single-writer established FIRST: idle claude PID 88776 (cwd this repo) killed; PID 15918 belongs to another repo and was left alone.
+
+**Shipped:**
+- `fec1722` — **v6y CLOSED (P1):** audit token now embeds the staged tree hash (`git write-tree`) and the gate re-verifies it at commit time (mismatch/legacy token → deny + burn); tokens strictly single-use (consumed on allow; 2 stale tokens removed); commit DENIED while a foreign claude process has cwd in this repo (fail-closed, ancestry-walk excludes own session); runbook `docs/runbooks/2026-07-10-single-session-rule.md` + CLAUDE.md Do-Not line. 11/11 gate tests, auditor re-ran independently.
+- `1ca57aa` — **30h infra (bead still OPEN):** sanctioned AUDIT_LOG flush path — `scripts/audit-log-flush-verify.sh` (classifies every staged row LANDED/SUPERSEDED/LANDED-WRAP/VOID-ANNOTATED/ANNOTATION, else exit 1), append-only `scripts/audit-log-annotate.sh` (VOID annotation for the 19927e89 incident row APPLIED), auditor FLUSH-MODE (staged set must be exactly AUDIT_LOG.md; staged AUDIT_LOG outside flush = auto-FAIL), runbook `docs/runbooks/2026-07-10-audit-log-flush.md`.
+
+**▶ FIRST DISPATCH NEXT SESSION — finish 30h (trader halted session 6 right at this step):** `git add AUDIT_LOG.md` (alone) → dispatch orchestrator-auditor with the words **"flush mode"** + bead id 30h → it runs `scripts/audit-log-flush-verify.sh` + spot-checks → plain gated commit → `bd close Praxis_build-30h`. All 18 stranded rows already verified classifiable by both implementer and auditor in scratch clones.
+
+**Open beads (5):** `30h` (P2, above) · `10i` (P2 — design doc ONLY; build stays trader-gated, external→shell control path) · `9tl` (P2 — F2 dedup, folds into the NinjaScript FileSystemWatcher consumer build, the remaining Block-1 item) · `587` (P3 NEW — gate form-check false-positive: armed gate denies unrelated Bash calls whose free text mentions the vcs name near the committing word; ATTENDED session, needs regression tests) · `8xf` (P3 burst latency).
+
+**Operational notes:** One-session-per-repo is now ENFORCED by the gate, not just policy — a second claude session cwd'd here blocks all commits. Until 587 lands, phrase `bd`/`echo` free text to avoid "git … commit" adjacency or the armed gate false-positive-denies the call. AUDIT_LOG.md deliberately modified/unstaged (flush pending); RUN_DECISIONS.md untracked (session-4 ledger).
+
 ## Resume card — 2026-07-10 (session 5) — ✅ RECONCILED the session-4 halt; tip clean + pushed
 
 **HEAD:** wrap commit on top of `1c53a18` (22r) ← `e76f5c6` (jpe) ← `5822420`. **Tip is clean and pushed.** Block 1 (Foundation, Build-First).

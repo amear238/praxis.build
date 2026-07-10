@@ -1,21 +1,21 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
-**Last updated:** 2026-07-10 (session 5 — commit-race RECONCILED [DECISION_LOG 2026-07-10T15:20Z + resolution row]; B1-b/B1-d/B1-e + F-B1e-1 detector + /progress plugin all committed + audited; tip clean + pushed)
+**Last updated:** 2026-07-10 (session 6 — incident trader-REVIEWED+ACCEPTED, beads unparked; v6y gate hardening CLOSED fec1722; 30h flush infra landed 1ca57aa, first flush pending; bug 587 filed; tip pushed)
 
 ## Current Phase
 Block 1 of 6 — Foundation (Build-First)
 
 ## Current Step
 **Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> event-driven launchd sweep (<5s, WatchPaths) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). Remaining before the Block 1 milestone ask: NinjaScript FileSystemWatcher consumer inside NT8 (not yet built) + open findings below. Milestone sign-off is trader-gated.
-**2026-07-10 concurrency incident RESOLVED:** a commit race between two concurrent sessions briefly misattributed the /progress plugin diff to bead 22r (7f54ba9). Reconciled by single session per HANDOFF plan: e76f5c6 (jpe plugin) + 1c53a18 (22r detector), both freshly audited. Gate-hardening bead v6y (P1) parked for an ATTENDED session — do not hot-patch gate hooks autonomously.
+**2026-07-10 concurrency incident CLOSED:** a commit race between two concurrent sessions briefly misattributed the /progress plugin diff to bead 22r (7f54ba9). Reconciled by single session per HANDOFF plan: e76f5c6 (jpe plugin) + 1c53a18 (22r detector), both freshly audited. Session 6: trader reviewed + ACCEPTED the incident; **v6y CLOSED at fec1722** — audit token now binds the staged tree hash and is re-verified at commit time, tokens strictly single-use, and commits are DENIED while another claude session has cwd in this repo (one-session-per-repo enforced by hook + runbook, no longer just policy).
 
 ## Blockers
 - None hard. B1-c-fu (P2): stale-heartbeat Telegram alert verified dry-run only — live-fire pending (ties to open Telegram token rotation). Parallels prlctl share-config is Pro/Business-only; this Mac runs Standard, so VM-share changes are GUI-only (documented).
 
 ## Next Action When Resuming
-1. **Trader review of the 2026-07-10 concurrency incident** (DECISION_LOG 15:20Z + resolution row; HANDOFF session-5 card), then unpark the 5 blocked beads.
-2. **v6y (P1, attended):** bind audit token to staged tree hash at commit time + one-session-per-repo enforcement (worktrees or lock).
-3. **10i design doc** (build stays parked — trader authority-scope sign-off needed), **30h** AUDIT_LOG flush path, **8xf** burst latency (P3), **9tl** F2 watcher-dedup contract (folds into the NinjaScript consumer build).
-4. NinjaScript FileSystemWatcher consumer in NT8 sim — the remaining Block-1 build item.
+1. **Finish 30h — execute the first AUDIT_LOG flush** (session 6 halted right at this step): stage AUDIT_LOG.md alone → auditor "flush mode" dispatch → gated commit → close 30h. Procedure: docs/runbooks/2026-07-10-audit-log-flush.md.
+2. **10i design doc** (build stays parked — trader authority-scope sign-off needed).
+3. **NinjaScript FileSystemWatcher consumer in NT8 sim** — the remaining Block-1 build item; fold in **9tl** (F2 in-file signal_id dedup) there.
+4. **587** (P3, attended): gate form-check false positive — armed gate denies unrelated Bash calls whose free text mentions git near "commit"; until fixed, phrase bd/echo text to avoid that adjacency. **8xf** burst latency (P3).
 5. Optional: import PHASE 3 BUILD SPEC + reconcile Google Sheet Block-1 naming. Try `/progress` for the block report.
 
 ## Recent Decisions
