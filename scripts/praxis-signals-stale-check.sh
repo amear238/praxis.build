@@ -26,6 +26,9 @@ THRESHOLD="${PRAXIS_HEARTBEAT_THRESHOLD:-180}"
 NOTIFY="${PRAXIS_NOTIFY:-$SCRIPT_DIR/notify.sh}"
 ENV_FILE="${PRAXIS_ENV_FILE:-$HOME/.praxis/signals.env}"
 LATCH="$DROP/.stale-alerted"
+# Durable, append-only trail of every alert fire (survives n8n execution pruning,
+# which drops regular executions in <1 day). Complements the send-side n8n record.
+ALERT_LOG="${PRAXIS_ALERT_LOG:-$DROP/logs/signals-alerts.log}"
 
 # Pull ORCH_N8N_WEBHOOK (and optional CLAUDE_PROJECT_DIR) from the git-ignored env file.
 if [ -f "$ENV_FILE" ]; then
@@ -44,7 +47,15 @@ fi
 if [ "$age" -gt "$THRESHOLD" ]; then
   if [ ! -f "$LATCH" ]; then
     "$NOTIFY" praxis-signals-stale "signals-sweep heartbeat stale: ${age}s > ${THRESHOLD}s threshold (heartbeat=$HEARTBEAT)" || true
-    date +%s > "$LATCH" 2>/dev/null || true
+    fired=$(date +%s)
+    echo "$fired" > "$LATCH" 2>/dev/null || true
+    # Durable local evidence line (append-only; failure-tolerant). The n8n execution id
+    # is NOT available here (notify.sh discards the curl response), so the authoritative
+    # send-side proof remains the n8n execution; this line is the durable local trail.
+    fired_utc=$(date -u -r "$fired" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u +%Y-%m-%dT%H:%M:%SZ)
+    mkdir -p "$(dirname "$ALERT_LOG")" 2>/dev/null || true
+    printf 'ALERT FIRED %s (%s) age=%ss threshold=%ss heartbeat=%s\n' \
+      "$fired" "$fired_utc" "$age" "$THRESHOLD" "$HEARTBEAT" >> "$ALERT_LOG" 2>/dev/null || true
   fi
 else
   rm -f "$LATCH" 2>/dev/null || true
