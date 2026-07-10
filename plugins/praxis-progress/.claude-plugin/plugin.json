@@ -1,0 +1,9 @@
+{
+  "name": "praxis-progress",
+  "description": "Renders a stakeholder-readable ASCII progress report toward live SIM trading from STATUS.md, beads (bd), AUDIT_LOG.md and git. Directional estimates only — milestone sign-off stays human-gated.",
+  "version": "0.1.0",
+  "author": {
+    "name": "PRAXIS build"
+  },
+  "keywords": ["praxis", "progress", "report", "beads"]
+}

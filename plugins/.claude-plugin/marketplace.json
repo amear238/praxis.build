@@ -1,0 +1,16 @@
+{
+  "name": "praxis-local",
+  "owner": {
+    "name": "Amear Bani-Ahmad"
+  },
+  "metadata": {
+    "description": "Local plugins for the PRAXIS build repo"
+  },
+  "plugins": [
+    {
+      "name": "praxis-progress",
+      "source": "./praxis-progress",
+      "description": "ASCII progress-bar report toward live SIM trading, built from STATUS.md + beads + audit state"
+    }
+  ]
+}
