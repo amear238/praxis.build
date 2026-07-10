@@ -2,6 +2,23 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-10 (session 7) — ✅ 30h flush LANDED; 10i design doc SHIPPED; B1-f consumer source BUILT — Block 1 build work done, trader-touch remains
+
+**HEAD:** wrap commit on top of `ed2bc9e` (ct5 consumer) ← `b3dbb99` (10i design) ← `562e7bd` (30h flush) ← `19b324f`. Pushed. Block 1 (Foundation, Build-First).
+
+**Shipped:**
+- `562e7bd` — **30h CLOSED:** first AUDIT_LOG flush — 19 rows through 2026-07-10T19:38:09Z, auditor FLUSH-MODE PASS (flush-verify exit 0, 3 row spot-checks, VOID 19927e89 annotation verified). The rolling-row pattern works as designed.
+- `b3dbb99` — **10i design doc** (bead OPEN, `human`-labeled): docs/design/2026-07-10-10i-telegram-inbound-control.md — B1-c launchd pattern reuse, JSON command-file spec, scope options A/B/C with TRADER DECISION REQUIRED (A = read/report/status only, recommended), 10 security controls, TCC internal-disk layout. Build bead opens only after the trader records the scope choice in DECISIONS.md.
+- `ed2bc9e` — **B1-f consumer source (bead ct5 OPEN, `human`-labeled):** ninjascript/PraxisSignalConsumer.cs — SIM-only account guard (re-asserted at submit), FSW + startup scan + 15s rescan, strict hand-rolled parser, 9tl in-file signal_id dedup (journal-before-submit = at-most-once, restart-safe), bracket orders both sides, rejected/+processed/ dispositions. Static audit PASS. Install runbook + T1-T4 test plan: docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md.
+
+**▶ FIRST ACTIONS NEXT SESSION (both trader-touch/trader-decision):**
+1. In the NT8 VM: compile PraxisSignalConsumer.cs, run T1-T4 per the runbook → close ct5 + 9tl → Block-1 milestone ask.
+2. 10i scope decision (A recommended) → DECISIONS.md entry → open the build bead.
+
+**Open beads (6):** `ct5` (P2, trader-touch T1-T4) · `9tl` (P2, closes with ct5 T2/T4) · `10i` (P2, trader scope decision) · `587` (P3, attended gate fix) · `8xf` (P3) · `fz6` (P4 NEW — B1-f nits: readAttempts purge on reject; entrySignal 40-char truncation collision).
+
+**Operational notes:** consumer assumes in-VM path `Z:\praxis-signals` (parameterized; scoped-share `\\Mac\praxis-signals` still an unapplied trader TODO) and default 40/80-tick stop/target when the payload has none — placeholder until the TV alert schema lands. AUDIT_LOG.md again carries stranded rows by design (session-7 mints); flush per runbook when they accumulate. 587 phrasing caution still applies.
+
 ## Resume card — 2026-07-10 (session 6) — ✅ incident trader-ACCEPTED; v6y gate hardening SHIPPED; 30h flush one step from done
 
 **HEAD:** wrap commit on top of `1ca57aa` (30h infra) ← `fec1722` (v6y) ← `f0da783`. Pushed. Block 1 (Foundation, Build-First).

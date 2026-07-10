@@ -1,21 +1,21 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
-**Last updated:** 2026-07-10 (session 6 — incident trader-REVIEWED+ACCEPTED, beads unparked; v6y gate hardening CLOSED fec1722; 30h flush infra landed 1ca57aa, first flush pending; bug 587 filed; tip pushed)
+**Last updated:** 2026-07-10 (session 7 — 30h CLOSED: first AUDIT_LOG flush landed 562e7bd; 10i design doc landed b3dbb99 (scope decision trader-gated); B1-f NinjaScript consumer source landed ed2bc9e as bead ct5 (in-VM compile+tests trader-touch); tip pushed)
 
 ## Current Phase
 Block 1 of 6 — Foundation (Build-First)
 
 ## Current Step
-**Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> event-driven launchd sweep (<5s, WatchPaths) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). Remaining before the Block 1 milestone ask: NinjaScript FileSystemWatcher consumer inside NT8 (not yet built) + open findings below. Milestone sign-off is trader-gated.
+**Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> event-driven launchd sweep (<5s, WatchPaths) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). **B1-f NinjaScript FileSystemWatcher consumer SOURCE BUILT (ct5, ed2bc9e):** SIM-only account guard, in-file signal_id dedup journal (9tl contract, at-most-once), bracket orders; static audit PASS. Remaining before the Block 1 milestone ask: TRADER-TOUCH in-VM compile + T1-T4 sim tests per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md, then close ct5+9tl. Milestone sign-off is trader-gated.
 **2026-07-10 concurrency incident CLOSED:** a commit race between two concurrent sessions briefly misattributed the /progress plugin diff to bead 22r (7f54ba9). Reconciled by single session per HANDOFF plan: e76f5c6 (jpe plugin) + 1c53a18 (22r detector), both freshly audited. Session 6: trader reviewed + ACCEPTED the incident; **v6y CLOSED at fec1722** — audit token now binds the staged tree hash and is re-verified at commit time, tokens strictly single-use, and commits are DENIED while another claude session has cwd in this repo (one-session-per-repo enforced by hook + runbook, no longer just policy).
 
 ## Blockers
 - None hard. B1-c-fu (P2): stale-heartbeat Telegram alert verified dry-run only — live-fire pending (ties to open Telegram token rotation). Parallels prlctl share-config is Pro/Business-only; this Mac runs Standard, so VM-share changes are GUI-only (documented).
 
 ## Next Action When Resuming
-1. **Finish 30h — execute the first AUDIT_LOG flush** (session 6 halted right at this step): stage AUDIT_LOG.md alone → auditor "flush mode" dispatch → gated commit → close 30h. Procedure: docs/runbooks/2026-07-10-audit-log-flush.md.
-2. **10i design doc** (build stays parked — trader authority-scope sign-off needed).
-3. **NinjaScript FileSystemWatcher consumer in NT8 sim** — the remaining Block-1 build item; fold in **9tl** (F2 in-file signal_id dedup) there.
-4. **587** (P3, attended): gate form-check false positive — armed gate denies unrelated Bash calls whose free text mentions git near "commit"; until fixed, phrase bd/echo text to avoid that adjacency. **8xf** burst latency (P3).
+1. **TRADER-TOUCH (ct5/9tl):** in the NT8 VM, install + compile `ninjascript/PraxisSignalConsumer.cs`, run T1-T4 per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md; on T2/T4 pass, close ct5 + 9tl. This is the last Block-1 build item before the milestone ask.
+2. **TRADER DECISION (10i):** authority scope for the Telegram inbound channel — Option A (read/report/status only, recommended) vs B/C — docs/design/2026-07-10-10i-telegram-inbound-control.md; record in DECISIONS.md, then the build bead can open.
+3. **587** (P3, attended): gate form-check false positive — armed gate denies unrelated Bash calls whose free text mentions git near "commit"; until fixed, phrase bd/echo text to avoid that adjacency. **8xf** burst latency (P3). **fz6** (P4) B1-f nits.
+4. Next AUDIT_LOG flush when stranded rows accumulate (runbook: docs/runbooks/2026-07-10-audit-log-flush.md — expect 3 stranded rows from session 7 + wrap row).
 5. Optional: import PHASE 3 BUILD SPEC + reconcile Google Sheet Block-1 naming. Try `/progress` for the block report.
 
 ## Recent Decisions
@@ -48,6 +48,7 @@ Block 1 of 6 — Foundation (Build-First)
   - [x] B1-c-fu stale-heartbeat alert live-fired (7420ae5) · B1-b-fu WatchPaths <5s relay (c19531b)
   - [x] B1-d end-to-end sim latency + idempotency test (PASS 2026-07-10 — d24537c; 4.2-4.3s <5s; findings F1/F2 filed)
   - [x] B1-e offline failure drill (PASS 2026-07-10 — 5822420; spool+replay OK; found F-B1e-1 silent-loss gap — FIXED by stuck-backlog detector, 1c53a18, deployed live)
+  - [~] B1-f NinjaScript FileSystemWatcher consumer (SOURCE landed ed2bc9e, static audit PASS; in-VM compile + T1-T4 sim tests TRADER-TOUCH pending — then Block-1 milestone ask)
 - [ ] Block 2 — Backtesting
 - [ ] Block 3 — Circuit Breakers (includes Strategy Health Monitor per D-2026-07-04-B)
 - [ ] Block 4 — Paper Trading
