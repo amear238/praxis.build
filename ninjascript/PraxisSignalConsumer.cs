@@ -336,7 +336,10 @@ namespace NinjaTrader.NinjaScript.Strategies
 		{
 			string fileName = Path.GetFileName(fullPath);
 			if (!File.Exists(fullPath))
-				return; // already moved (duplicate enqueue race)
+			{
+				PurgeReadAttempts(fullPath); // already moved/gone (duplicate enqueue race) — drop any stale retry counter
+				return;
+			}
 
 			string text;
 			try
@@ -361,7 +364,7 @@ namespace NinjaTrader.NinjaScript.Strategies
 				RejectFile(fullPath, "?", "unreadable after " + MaxReadAttempts + " attempts: " + ioex.Message);
 				return;
 			}
-			lock (sync) { readAttempts.Remove(fullPath); }
+			PurgeReadAttempts(fullPath); // read succeeded — retry counter done its job
 
 			// Parse (strict hand-rolled flat-JSON parser — see report; no external packages).
 			Dictionary<string, object> fields;
@@ -429,6 +432,10 @@ namespace NinjaTrader.NinjaScript.Strategies
 
 		private void MoveTo(string fullPath, string destDir, string signalId)
 		{
+			// EVERY terminal disposition (processed/, processed/duplicates/, rejected/) funnels
+			// through this method, so purging here is the single chokepoint that keeps the
+			// per-file retry counter from leaking on a long-running strategy (bead fz6).
+			PurgeReadAttempts(fullPath);
 			try
 			{
 				if (!File.Exists(fullPath))
@@ -445,6 +452,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 				Print(LogPrefix + " signal_id=" + signalId + " could not move '" + Path.GetFileName(fullPath)
 					+ "' to " + destDir + ": " + ex.Message + " (dedup still holds via journal).");
 			}
+		}
+
+		// Drop the per-file read-retry counter. Called from every terminal disposition (via
+		// MoveTo), on successful read, and on the already-moved early return, so entries can
+		// never outlive their file (bead fz6 leak fix).
+		private void PurgeReadAttempts(string fullPath)
+		{
+			lock (sync) { readAttempts.Remove(fullPath); }
 		}
 		#endregion
 
@@ -602,13 +617,38 @@ namespace NinjaTrader.NinjaScript.Strategies
 			}
 		}
 
+		// NT8 keys bracket/exit pairing on the entry-signal NAME, so two distinct signal_ids
+		// must NEVER map to the same name — including across restarts (bead fz6). Plain
+		// 40-char truncation collided on shared prefixes. Format (before the caller's "PRX-"):
+		//   sanitized id <= 40 chars -> used verbatim (unchanged from ct5; runbook T-ids fit).
+		//   sanitized id  > 40 chars -> first 31 sanitized chars (human-readable) + '~'
+		//                               + 8 lowercase-hex chars of FNV-1a-32 over the FULL
+		//                               ORIGINAL signal_id = 40 chars exactly.
+		// Deterministic (pure function of signal_id, no per-run state) and worst case
+		// "PRX-" + 40 = 44 chars, inside NT8's ~50-char signal-name tolerance.
 		private static string SanitizeSignalName(string id)
 		{
 			var sb = new StringBuilder(id.Length);
 			foreach (char c in id)
 				sb.Append(char.IsLetterOrDigit(c) || c == '_' || c == '-' || c == '.' ? c : '_');
 			string s = sb.ToString();
-			return s.Length > 40 ? s.Substring(0, 40) : s;
+			return s.Length > 40 ? s.Substring(0, 31) + "~" + Fnv1a32Hex(id) : s;
+		}
+
+		// FNV-1a 32-bit over UTF-8 bytes. Built-ins only (no crypto deps); deterministic
+		// across restarts. Collision needs SAME 31-char prefix AND same 32-bit hash.
+		private static string Fnv1a32Hex(string text)
+		{
+			unchecked
+			{
+				uint hash = 2166136261u;
+				foreach (byte b in Encoding.UTF8.GetBytes(text))
+				{
+					hash ^= b;
+					hash *= 16777619u;
+				}
+				return hash.ToString("x8", CultureInfo.InvariantCulture);
+			}
 		}
 		#endregion
 
