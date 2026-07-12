@@ -2,6 +2,24 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-12 (session 9 cont.) — 🔬 NT8 WPF storm root-caused + cleared (518); VM harness ARMED, awaiting trader GUI steps
+
+**HEAD:** session-9-cont wrap on top of `2294d0e`. Block 1. Docs+ledger session; no code.
+
+**What happened after the first session-9 wrap:**
+- VM coworker aborted its run correctly: NT8 WPF layout was throwing `NotSupportedException` in DirectWrite `GetDesignGlyphMetrics` on EVERY layout pass since 11:20 → no new window/menu/dialog could render for ANYONE (human included), trace storm 231 MB/min (3.98 GB total). The prior "input injection broken" diagnosis was wrong — bead **518 rescoped** (P2) with full stack signature; ct5 dep-linked to it. T1–T4 honestly recorded NOT RUN (never FAIL — strategy never started). Blocked report collected: `docs/reports/2026-07-12-b1f-t1-t4-vm-run-blocked.md` (+ MANIFEST row).
+- Trader restarted NT8 → **STORM CLEAR** (pid 9672, 0 bytes trace in 5 min vs 231 MB/min; process-state fault, not VM-level). Coworker deleted 23 storm trace files (3.98 GB freed) and re-armed the automated harness: journal-file go-signal → T1–T3 unattended → `NEEDS-TRADER-T4-RESTART.txt` handshake → final report to the share.
+- Unknown trigger remains: storm began at the first Connections click — trader's GUI session is the recurrence probe (518 notes).
+
+**▶ FIRST ACTIONS NEXT SESSION (trader wants to discuss before executing):**
+1. Check `~/praxis-signals/b1f-t1-t4-report-2026-07-12.md` — if the run completed: collect → verify → close **ct5+9tl** on T2/T4 pass → un-dep ct5, drop 518 to monitor-only → **Block-1 milestone ask**. If storm re-ignited: 518 becomes critical path (font-stack investigation).
+2. **TRADER DECISION (10i):** scope A/B/C → DECISIONS.md.
+3. Dispatchable: **qxd** (P3 n8n retry bug), **6h7** (P4 template), **518** follow-up per outcome.
+
+**Open beads (6):** `ct5` (in_progress, blocked-by 518 dep — remove after clean GUI run) · `9tl` · `10i` · `qxd` · `6h7` · `518` (P2, monitor/investigate per outcome).
+
+**Operational notes:** AUDIT_LOG.md still deliberately dirty (~10 stranded rows incl. two session-9 wraps) — flush is getting due. VM harness logs: `%TEMP%\praxis-phase0-watch.log` in the VM. Warp TCC lockout fix (session-9 card) held all session.
+
 ## Resume card — 2026-07-12 (session 9) — 🔄 B1-f T1-T4 delegated to VM Claude coworker, run IN FLIGHT; no code shipped
 
 **HEAD:** session-9 wrap commit on top of `bf25592` (session-8 wrap). Block 1 (Foundation, Build-First). Docs-only session.
