@@ -1,11 +1,11 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
-**Last updated:** 2026-07-10 (session 7 — 30h CLOSED: first AUDIT_LOG flush landed 562e7bd; 10i design doc landed b3dbb99 (scope decision trader-gated); B1-f NinjaScript consumer source landed ed2bc9e as bead ct5 (in-VM compile+tests trader-touch); tip pushed)
+**Last updated:** 2026-07-12 (session 8 — bug-backlog sweep: 587 CLOSED 8a872d9 (gate matcher anchored, 27/27 tests); fz6 CLOSED 294287d (B1-f nits); 8xf CLOSED a6ce1c4 (relay re-architected to KeepAlive 1s-sweep daemon per D-2026-07-12-A, deployed live, bursts 6/6 <5s); new bug qxd filed (n8n write-node false-failure retry); tip pushed)
 
 ## Current Phase
 Block 1 of 6 — Foundation (Build-First)
 
 ## Current Step
-**Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> event-driven launchd sweep (<5s, WatchPaths) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). **B1-f NinjaScript FileSystemWatcher consumer SOURCE BUILT (ct5, ed2bc9e):** SIM-only account guard, in-file signal_id dedup journal (9tl contract, at-most-once), bracket orders; static audit PASS. Remaining before the Block 1 milestone ask: TRADER-TOUCH in-VM compile + T1-T4 sim tests per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md, then close ct5+9tl. Milestone sign-off is trader-gated.
+**Block 1 delivery pipe COMPLETE on sim data:** webhook -> local n8n -> atomic outbox write -> persistent KeepAlive 1s-sweep daemon (bursts <5s, was WatchPaths; D-2026-07-12-A) -> ~/praxis-signals -> Parallels VM share. Latency + idempotency verified (B1-d), offline drill passed (B1-e), silent-loss gap closed by stuck-backlog detector (F-B1e-1, 3 launchd agents healthy). **B1-f NinjaScript FileSystemWatcher consumer SOURCE BUILT (ct5, ed2bc9e):** SIM-only account guard, in-file signal_id dedup journal (9tl contract, at-most-once), bracket orders; static audit PASS. Remaining before the Block 1 milestone ask: TRADER-TOUCH in-VM compile + T1-T4 sim tests per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md, then close ct5+9tl. Milestone sign-off is trader-gated.
 **2026-07-10 concurrency incident CLOSED:** a commit race between two concurrent sessions briefly misattributed the /progress plugin diff to bead 22r (7f54ba9). Reconciled by single session per HANDOFF plan: e76f5c6 (jpe plugin) + 1c53a18 (22r detector), both freshly audited. Session 6: trader reviewed + ACCEPTED the incident; **v6y CLOSED at fec1722** — audit token now binds the staged tree hash and is re-verified at commit time, tokens strictly single-use, and commits are DENIED while another claude session has cwd in this repo (one-session-per-repo enforced by hook + runbook, no longer just policy).
 
 ## Blockers
@@ -14,8 +14,8 @@ Block 1 of 6 — Foundation (Build-First)
 ## Next Action When Resuming
 1. **TRADER-TOUCH (ct5/9tl):** in the NT8 VM, install + compile `ninjascript/PraxisSignalConsumer.cs`, run T1-T4 per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md; on T2/T4 pass, close ct5 + 9tl. This is the last Block-1 build item before the milestone ask.
 2. **TRADER DECISION (10i):** authority scope for the Telegram inbound channel — Option A (read/report/status only, recommended) vs B/C — docs/design/2026-07-10-10i-telegram-inbound-control.md; record in DECISIONS.md, then the build bead can open.
-3. **587** (P3, attended): gate form-check false positive — armed gate denies unrelated Bash calls whose free text mentions git near "commit"; until fixed, phrase bd/echo text to avoid that adjacency. **8xf** burst latency (P3). **fz6** (P4) B1-f nits.
-4. Next AUDIT_LOG flush when stranded rows accumulate (runbook: docs/runbooks/2026-07-10-audit-log-flush.md — expect 3 stranded rows from session 7 + wrap row).
+3. **qxd** (P3): n8n Write-Signal-File node false-failure retry — writes succeed in ~1ms but n8n retries 2x2s, delaying TV-facing HTTP 200 by ~4s and triple-writing each signal (benign under 9tl dedup). Touches prod n8n workflow; verify on a test workflow first. 30s diagnostic documented in docs/reports/2026-07-12-8xf-latency-investigation.md.
+4. Next AUDIT_LOG flush when stranded rows accumulate (runbook: docs/runbooks/2026-07-10-audit-log-flush.md — ~8 stranded rows through session 8 + wrap row).
 5. Optional: import PHASE 3 BUILD SPEC + reconcile Google Sheet Block-1 naming. Try `/progress` for the block report.
 
 ## Recent Decisions
@@ -29,6 +29,7 @@ Block 1 of 6 — Foundation (Build-First)
 - 2026-07-09 — D-2026-07-09-C: Signals drop dir = dedicated low-priv path (`/Users/admin/praxis-signals` at execution; praxispush user dropped for local-Docker build-first). Structural least-privilege / clean VM-share boundary.
 - 2026-07-09 — D-2026-07-09-D: n8n runs LOCALLY on the Mac for Block-1 build-first; public-ingress topology (VPS+WireGuard vs tunnel) DEFERRED to pre-live. Re-scopes B1-a (deferred) + B1-b (local file-write). Keeps D-2026-07-09-A intact for when ingress returns.
 - 2026-07-09 — Block 0 milestone — trader sign-off (Amear), 2026-07-09. Independent audit 5 VERIFIED / 3 trader-confirmed / 0 FAIL. Evidence: docs/reports/2026-07-09-block0-milestone-audit.md.
+- 2026-07-12 — D-2026-07-12-A: signals relay moved from launchd WatchPaths (10s respawn throttle broke bursts) to persistent KeepAlive 1s-sweep daemon. B1-d's "~4.3s e2e" reclassified as measurement artifact; true unthrottled delivery ~0.5–1.3s.
 
 ## Phase Progress
 - [x] Block 0 — Infrastructure Setup (milestone trader-signed-off 2026-07-09)

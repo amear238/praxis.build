@@ -2,6 +2,24 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-12 (session 8) — ✅ bug backlog swept: 587 + fz6 + 8xf CLOSED; relay re-architected + deployed live; qxd filed
+
+**HEAD:** wrap commit on top of `a6ce1c4` (8xf daemon) ← `294287d` (fz6) ← `8a872d9` (587) ← `a91cee9`. Pushed. Block 1 (Foundation, Build-First).
+
+**Shipped:**
+- `8a872d9` — **587 CLOSED:** gate form-check matcher anchored at command position (BINPRE path/backslash prefix); no more free-text false denials; 27/27 gate tests. One audit-FAIL round: first fix opened `/usr/bin/git`-style bypasses, auditor caught it, J8–J11 regression class added.
+- `294287d` — **fz6 CLOSED:** B1-f nits — readAttempts purged on all 7 terminal dispositions (MoveTo chokepoint); entrySignal >40ch gets FNV-1a-32 hash suffix (no prefix collisions; ≤40ch ids byte-identical). T1–T4 in the VM will exercise this updated source.
+- `a6ce1c4` — **8xf CLOSED (D-2026-07-12-A):** relay re-architected WatchPaths → persistent KeepAlive 1s-sweep daemon, DEPLOYED LIVE (installer v3, legacy job removed, kill-restart verified). Bursts 6/6 <5s, max ~1.0s (was 3/6 FAIL, max 9.15s). Investigation report reclassified B1-d's ~4.3s as a blocking-curl artifact — real cause was n8n write-node false-failure retry (2×2s + triple writes) → filed as **qxd** (P3).
+
+**▶ FIRST ACTIONS NEXT SESSION:**
+1. **TRADER-TOUCH (ct5/9tl):** in-VM compile + T1–T4 per docs/runbooks/2026-07-10-b1f-nt8-consumer-install.md → close ct5+9tl → Block-1 milestone ask.
+2. **TRADER DECISION (10i):** scope A/B/C → DECISIONS.md → open build bead.
+3. **Dispatchable: qxd** (P3, n8n write-node false-failure retry) — prod n8n workflow edit; verify on a test workflow first; 30s diagnostic in docs/reports/2026-07-12-8xf-latency-investigation.md.
+
+**Open beads (4):** `ct5` (in_progress, trader-touch) · `9tl` (P2, closes with ct5) · `10i` (P2, trader decision) · `qxd` (P3, above).
+
+**Operational notes:** relay is now the KeepAlive daemon (`build.praxis.signals-sweep-daemon`, internal-disk deploy, rollback in report §6). AUDIT_LOG.md carries ~8 stranded rows through session 8 — flush per runbook when convenient. Session 8 fired 12 clearly-TEST-marked Telegram notifications during latency probes — ignore them. RUN_DECISIONS.md (07-09 autonomous-run record) committed in this wrap.
+
 ## Resume card — 2026-07-10 (session 7) — ✅ 30h flush LANDED; 10i design doc SHIPPED; B1-f consumer source BUILT — Block 1 build work done, trader-touch remains
 
 **HEAD:** wrap commit on top of `ed2bc9e` (ct5 consumer) ← `b3dbb99` (10i design) ← `562e7bd` (30h flush) ← `19b324f`. Pushed. Block 1 (Foundation, Build-First).
