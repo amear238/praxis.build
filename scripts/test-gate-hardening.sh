@@ -1,5 +1,6 @@
 #!/bin/bash
-# Verification for bead v6y gate hardening. Exercises .claude/hooks/gate-commit.sh
+# Verification for bead v6y gate hardening + bead 587 command-position form
+# matcher (I/J series). Exercises .claude/hooks/gate-commit.sh
 # DIRECTLY by piping crafted PreToolUse JSON to it (same technique as the
 # 2026-07-08 install verification). All staging/committing happens in a THROWAWAY
 # git repo under the session scratchpad — the real repo's index is never touched.
@@ -137,6 +138,67 @@ verdict "H2: non-commit command passthrough -> allow" 0 "$RC"
 JSON='{"tool_input":{"command":"git commit -am \"sweep\""}}'
 run_gate
 verdict "H3: -am form -> deny (form check intact)" 2 "$RC" "short flag sweeps"
+JSON=$SAVE_JSON
+
+# I. bead-587 regression: commands whose QUOTED free text merely mentions the
+# vcs name + tip-write word are NOT commits and must pass through untouched —
+# both armed (no token) and unarmed. These false-denied live twice in session 6.
+new_repo
+JSON='{"tool_input":{"command":"bd close 587 --reason=\"fixed the git commit gate matcher\""}}'
+run_gate
+verdict "I1: armed, bd close w/ quoted vcs words in reason -> allow" 0 "$RC"
+JSON='{"tool_input":{"command":"echo \"note: gate fixed; git commit now anchored (command position)\""}}'
+run_gate
+verdict "I2: armed, echo w/ quoted words + separators inside quotes -> allow" 0 "$RC"
+JSON='{"tool_input":{"command":"bd create -d '"'"'watch git commit forms'"'"' new-bead"}}'
+run_gate
+verdict "I3: armed, bd create w/ single-quoted words -> allow" 0 "$RC"
+rm -f "$SREPO/.claude/state/orchestrator-active"
+JSON='{"tool_input":{"command":"bd close 587 --reason=\"fixed the git commit gate matcher\""}}'
+run_gate
+verdict "I4: unarmed, bd close w/ quoted words -> allow" 0 "$RC"
+touch "$SREPO/.claude/state/orchestrator-active"
+JSON='{"tool_input":{"command":"echo \"audit fix: /usr/bin/git commit path form now gated\""}}'
+run_gate
+verdict "I5: armed, echo w/ quoted PATH-form mention -> allow" 0 "$RC"
+
+# J. bead-587 no-weakening: REAL tip-write invocations in command position stay
+# gated when armed with no token (plain form is test D). Fresh repo, never mint.
+new_repo
+( cd "$SREPO" && echo j1 > j.txt && git add j.txt )
+JSON='{"tool_input":{"command":"cd subdir && git commit -m \"msg\""}}'
+run_gate
+verdict "J1: chained after && -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"echo prep; git commit -m \"msg\""}}'
+run_gate
+verdict "J2: chained after ; -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"echo y | git commit -m \"msg\""}}'
+run_gate
+verdict "J3: piped form -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"(git commit -m \"msg\")"}}'
+run_gate
+verdict "J4: subshell form -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"git -C /tmp/elsewhere commit -m \"msg\""}}'
+run_gate
+verdict "J5: git -C <dir> commit -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"GIT_AUTHOR_NAME=x git commit -m \"msg\""}}'
+run_gate
+verdict "J6: VAR=... assignment prefix -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"bash -c \"git commit -m msg\""}}'
+run_gate
+verdict "J7: nested shell -c string -> deny (not introspected, fail closed)" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"/usr/bin/git commit -m \"msg\""}}'
+run_gate
+verdict "J8: absolute-path binary form -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"cd /tmp && /usr/bin/git commit -m \"msg\""}}'
+run_gate
+verdict "J9: absolute-path form chained after && -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"\\git commit -m \"msg\""}}'
+run_gate
+verdict "J10: backslash-escaped form -> deny" 2 "$RC" "denied"
+JSON='{"tool_input":{"command":"GIT_DIR=.git /usr/bin/git commit -m \"msg\""}}'
+run_gate
+verdict "J11: VAR= prefix + absolute-path form -> deny" 2 "$RC" "denied"
 JSON=$SAVE_JSON
 
 echo

@@ -14,19 +14,46 @@
 #   3. orphaned-token sweep — tokens >30 min old are deleted even if their hash
 #      never matches again (previously they lingered forever).
 #
-# The commit match is deliberately broad (`*git*commit*`): it also catches
-# `git -C <dir> commit`, `git --work-tree=... commit`, and chained forms
-# (`cd x && git commit ...`). Over-match is intentional and fail-closed — a
-# non-commit command that trips it just gets re-issued clean; a
-# `cd otherrepo && git commit` burns THIS armed repo's token (fail-safe for the
-# armed repo, not a bypass). Non-git commands (git status, ls, echo) pass through.
+# The commit match anchors on a real `git ... commit` invocation in COMMAND
+# POSITION (bead 587, 2026-07-12; the previous bare `*git*commit*` glob also
+# fired on quoted free text that merely MENTIONED the words — two live false
+# denials in session 6). Within that anchor it stays broad: `git -C <dir>
+# commit`, `git --work-tree=... commit`, chained (`cd x && git commit`), piped,
+# subshell, VAR=... prefixes, common wrappers, and nested `sh -c`/eval strings
+# are all still gated. Over-match inside a gated segment remains intentional
+# and fail-closed — a non-commit command that trips it just gets re-issued
+# clean; a `cd otherrepo && git commit` burns THIS armed repo's token
+# (fail-safe for the armed repo, not a bypass).
 set -uo pipefail
 INPUT=$(cat)
 CMD=$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("command",""))' 2>/dev/null || true)
 case "$CMD" in
-  *git*commit*) ;;
+  *git*commit*) ;;   # cheap pre-filter only; precise command-position check below
   *) exit 0 ;;
 esac
+# --- Precise form matcher (bead 587). Gate only when `git ... commit` is a real
+# invocation in COMMAND POSITION: start of string/line, or right after a command
+# separator (; & | pipe, subshell "(", backtick — "$(" is covered by "("),
+# optionally behind VAR=... assignments and/or one common wrapper (env, sudo,
+# xargs, ...), with the binary itself allowed in path (/usr/bin/git) or
+# backslash-escaped (\git) form. Quoted regions are stripped FIRST so free text
+# can never anchor a match; an unbalanced leftover quote merely over-matches
+# (fail closed). A nested `sh -c '...'`/eval in command position keeps the old
+# broad gating — nested command strings are not introspected, they deny by
+# default. This narrows only WHERE the pattern may match, never WHAT is gated:
+# every downstream form, single-session, and token/tree check is unchanged.
+SCRUB=$(printf '%s' "$CMD" | sed -e "s/'[^']*'//g" -e 's/"[^"]*"//g')
+ANCHOR='(^|[;&|(`])[[:space:]]*'
+PRE='([A-Za-z_][A-Za-z_0-9]*=[^[:space:]]*[[:space:]]+)*((command|builtin|exec|env|sudo|nohup|nice|time|xargs)([[:space:]]+[^;&|`]*)?[[:space:]]+)?'
+# BINPRE: the binary name may be invoked backslash-escaped (\git) or via any
+# path ending in "/" (/usr/bin/git, ../bin/git) — same tip-write, still gated.
+BINPRE='(\\|[^[:space:];&|`]*/)?'
+GITCOMMIT="${BINPRE}"'git[[:space:]]+([^;&|`]*[[:space:]])?commit([[:space:];&|)`]|$)'
+NESTSHELL="${BINPRE}"'(sh|bash|zsh|dash|ksh|eval)([[:space:]]|$)'
+if ! printf '%s' "$SCRUB" | grep -Eq "${ANCHOR}${PRE}${GITCOMMIT}" \
+   && ! printf '%s' "$SCRUB" | grep -Eq "${ANCHOR}${PRE}${NESTSHELL}"; then
+  exit 0
+fi
 ROOT="${CLAUDE_PROJECT_DIR:-.}"
 STATE="$ROOT/.claude/state"
 [ -f "$STATE/orchestrator-active" ] || exit 0
