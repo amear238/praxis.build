@@ -2,6 +2,25 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-12 (session 9) — 🔄 B1-f T1-T4 delegated to VM Claude coworker, run IN FLIGHT; no code shipped
+
+**HEAD:** session-9 wrap commit on top of `bf25592` (session-8 wrap). Block 1 (Foundation, Build-First). Docs-only session.
+
+**What happened:**
+- Session opened locked out: Warp lost TCC access to /Volumes (all external volumes "Operation not permitted"); trader re-granted Full Disk Access — if it recurs, that's the fix.
+- **B1-f T1-T4 delegated** (trader-directed) to a Claude coworker agent controlling the Win11 VM; brief = runbook rewritten agent-executable (this session's transcript + DECISION_LOG 2026-07-12T18:25Z).
+- Coworker preflight caught 3 real issues, all resolved: (1) `.cs` wasn't staged (orchestrator omission) — staged to `~/praxis-signals/` at 11:17 (sha `e4581f4a`, git-clean source) and pulled into the VM by the coworker ~11:20, share copy deleted per brief Step 2.1; (2) stale B1-b signal `SIM-B1B-0001.json` would have fired an unplanned Sim101 order on first scan — archived to `~/praxis-signals/archive/`; (3) suspected 1s sweep-daemon race — REFUTED by reading deployed sweep source (outbox → incoming/ → drop ROOT; root is final, never swept). Daemon untouched.
+- New bead **6h7** (P4): `signal-template.json` stale schema.
+
+**▶ FIRST ACTIONS NEXT SESSION:**
+1. Collect `~/praxis-signals/b1f-t1-t4-report-2026-07-12.md` → docs/reports/; verify vs runbook; on T2/T4 pass close **ct5 + 9tl** → Block-1 milestone ask (trader-gated).
+2. **TRADER DECISION (10i):** scope A/B/C → DECISIONS.md → open build bead.
+3. Dispatchable: **qxd** (P3, n8n write-node false-failure retry; test workflow first).
+
+**Open beads (5):** `ct5` (in_progress, VM run in flight) · `9tl` (closes with ct5) · `10i` (trader decision) · `qxd` (P3) · `6h7` (P4 template nit).
+
+**Operational notes:** AUDIT_LOG.md still deliberately dirty (~8 stranded rows + this wrap row) — flush per runbook when convenient. Sim101 was not visible in the VM because NT8 wasn't connected — coworker instructed to connect Simulated Data Feed first.
+
 ## Resume card — 2026-07-12 (session 8) — ✅ bug backlog swept: 587 + fz6 + 8xf CLOSED; relay re-architected + deployed live; qxd filed
 
 **HEAD:** wrap commit on top of `a6ce1c4` (8xf daemon) ← `294287d` (fz6) ← `8a872d9` (587) ← `a91cee9`. Pushed. Block 1 (Foundation, Build-First).
