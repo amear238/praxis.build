@@ -2,6 +2,21 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-14 (session 10) — ✅ B1-f consumer STARTED on Sim101; T1–T4 in the harness's hands
+
+**HEAD:** session-10 wrap on top of `63aa234`. Block 1. Docs+ledger session; no repo code changed.
+
+**What happened:** attended GUI session, trader driving NT8, orchestrator step-coaching. Consumer went from never-started to RUNNING (journal `praxis-processed-signals.log` + `processed/`, `rejected/` dirs created 15:23 ET = StartConsumer on a Sim account). Four faults cleared in sequence — all config, zero code defects: clipboard-corrupt paste (file-replace fix, sha `e4581f4a`), DEMO1628771 display-renamed as "sim101" (wall REFUSED correctly, rename undone), chart on MNQ not NQ (switched to NQ 09-26), and the root of "no Sim101 exists": **Multi-provider mode was OFF** (Tools>Options>General; forum-confirmed) — enabled + restart made Sim101 appear. Bead **518 storm probe NEGATIVE** all session (~107KB traces vs GBs on 07-12). VM coworker did read-only forensics only — **NT8 was granted at read-only tier**; its blocked report overwrote-in-spirit `b1f-t1-t4-report-2026-07-14.md` (pre-STARTED findings).
+
+**▶ FIRST ACTIONS NEXT SESSION:**
+1. Check `~/praxis-signals/b1f-t1-t4-report-2026-07-14.md` + journal contents: journal appearance was the armed harness go-signal → T1–T3 should have run unattended; T4 needs an NT8 restart (trader, or raise coworker NT8 permission from read-only to full control — briefs already on the share authorize it).
+2. On T2/T4 PASS: close **ct5+9tl**, un-dep ct5 from 518 (drop 518 to monitor-only) → **Block-1 milestone ask** (trader-gated).
+3. Then: **10i** trader scope decision → **qxd** (P3) → **6h7** (P4) → AUDIT_LOG flush (overdue, ~11 stranded rows).
+
+**Open beads (6):** `ct5` (in_progress, consumer LIVE, awaiting T1–T4 evidence) · `9tl` (closes with ct5) · `518` (P2, probe negative — near monitor-only) · `10i` · `qxd` · `6h7`.
+
+**Operational notes:** AUDIT_LOG.md deliberately dirty (flush next session). Trader-workflow memory saved: anything he must hand off goes to clipboard via pbcopy automatically. Coworker briefs live at `~/praxis-signals/BRIEF-2026-07-14-*.md`.
+
 ## Resume card — 2026-07-12 (session 9 cont.) — 🔬 NT8 WPF storm root-caused + cleared (518); VM harness ARMED, awaiting trader GUI steps
 
 **HEAD:** session-9-cont wrap on top of `2294d0e`. Block 1. Docs+ledger session; no code.
