@@ -29,6 +29,13 @@ using NinjaTrader.Core.FloatingPoint;
 // in-memory HashSet backed by an append-only journal reloaded on startup, so an NT8
 // restart does NOT replay already-actioned signals.
 //
+// GEOMETRY GATE (bead btb, incident 2026-07-15 10:35 ET): schema validity is NOT enough —
+// a payload's reference `price` can sit far from the live market, producing a bracket whose
+// legs are all on the wrong side of the fill (NT8 stop reject -> OCO-teardown cascade ->
+// safety flatten). Every signal must ALSO pass a market-relative check (LONG: stop < market
+// < target; SHORT mirrored) before ANY order is submitted; failures move to rejected/ and
+// journal an audit-only REJECTED-GEOMETRY line that does NOT arm dedup.
+//
 // HARD SCOPE WALL: refuses to run unless the attached account name starts with "Sim"
 // (e.g. Sim101). The guard is a const — there is no parameter to disable it.
 
@@ -221,8 +228,11 @@ namespace NinjaTrader.NinjaScript.Strategies
 		#region Journal (persisted dedup — reload on startup so restart does not replay)
 		// Append-only, one line per actioned signal: signal_id <TAB> utc-ts <TAB> filename <TAB> status
 		// Retention: permanent within the file (effectively an unbounded idempotency window). At sim
-		// signal volumes this stays tiny; archive manually if it ever grows large. Rejected files are
-		// NOT journaled — a corrected redelivery of a previously-malformed signal_id may still trade.
+		// signal volumes this stays tiny; archive manually if it ever grows large. Parse/schema-rejected
+		// files are NOT journaled — a corrected redelivery of a previously-malformed signal_id may still
+		// trade. Exception (bead btb): market-geometry rejections DO write an audit-only line with status
+		// "REJECTED-GEOMETRY: <reason>" so the near-order event is durably recorded, but LoadJournal
+		// skips REJECTED* lines so those signal_ids are NOT burned for dedup either.
 		private void LoadJournal()
 		{
 			processedSignals.Clear();
@@ -232,8 +242,12 @@ namespace NinjaTrader.NinjaScript.Strategies
 			{
 				if (string.IsNullOrWhiteSpace(line))
 					continue;
-				int tab = line.IndexOf('\t');
-				string id = tab > 0 ? line.Substring(0, tab) : line.Trim();
+				string[] parts = line.Split('\t');
+				// REJECTED* lines (geometry gate, bead btb) are audit-only: they must NOT arm
+				// dedup, so a corrected redelivery of a rejected signal_id may still trade.
+				if (parts.Length >= 4 && parts[3].StartsWith("REJECTED", StringComparison.Ordinal))
+					continue;
+				string id = parts[0].Trim();
 				if (id.Length > 0)
 					processedSignals.Add(id);
 			}
@@ -398,6 +412,19 @@ namespace NinjaTrader.NinjaScript.Strategies
 				return;
 			}
 
+			// ---- Market-relative bracket-geometry gate (bead btb, 2026-07-15 incident) ----
+			// Runs AFTER dedup (a replayed id still lands as DUPLICATE) and BEFORE the ACCEPTED
+			// journal write, so a geometry-rejected signal_id is NOT burned — a corrected
+			// redelivery of the same signal_id may still trade. NO orders of any kind are
+			// submitted for a signal that fails here.
+			string geometryError = ValidateMarketGeometry(sig);
+			if (geometryError != null)
+			{
+				JournalWrite(sig.SignalId, fileName, "REJECTED-GEOMETRY: " + geometryError);
+				RejectFile(fullPath, sig.SignalId, geometryError);
+				return;
+			}
+
 			// Record BEFORE submitting (at-most-once: a crash between journal write and submit
 			// loses the order but can never double-fire it — correct bias for an order pipeline).
 			processedSignals.Add(sig.SignalId);
@@ -551,6 +578,42 @@ namespace NinjaTrader.NinjaScript.Strategies
 			sig.ResolvedStop   = stop;
 			sig.ResolvedTarget = target;
 
+			return null;
+		}
+
+		// Market-relative bracket-geometry gate (bead Praxis_build-btb). ValidateSignal's
+		// stop<price<target check is relative to the payload's OWN reference price; the
+		// 2026-07-15 10:35 ET incident (payload price 29874, long entry filled 29826.75)
+		// proved a schema-valid payload can carry a bracket sitting entirely on the wrong
+		// side of the live market: NT8 rejected the stop-market leg ("sell stop above
+		// market"), the paired target leg then died on the same burned OCO id, and the
+		// strategy safety-flattened and self-terminated. That flatten/terminate backstop is
+		// NT8's RealtimeErrorHandling default and is deliberately PRESERVED — this gate's
+		// job is to make sure geometry failures never reach NT8 in the first place.
+		//
+		// Reference-price choice: the entry is a MARKET order, so its fill tracks the live
+		// inside market, not the payload price (observed fill 29820 vs reference 29821.25).
+		// Validate against the entry-side inside quote — ask for BUY, sell into bid for
+		// SELL — the closest knowable pre-submit proxy for the fill; Close[0] is the
+		// fallback if the quote is unusable, and with NO usable reference we fail closed.
+		// No slippage buffer: strict inequalities, with NT8's own reject + safety flatten
+		// remaining the backstop for pathological slippage.
+		// LONG: stop < market < target. SHORT: target < market < stop. Equality fails.
+		private string ValidateMarketGeometry(ParsedSignal sig)
+		{
+			bool isBuy = sig.Side == "BUY";
+			double reference = isBuy ? GetCurrentAsk() : GetCurrentBid();
+			if (double.IsNaN(reference) || double.IsInfinity(reference) || reference <= 0)
+				reference = CurrentBar >= 0 ? Close[0] : double.NaN;
+			if (double.IsNaN(reference) || double.IsInfinity(reference) || reference <= 0)
+				return "bracket geometry unverifiable: no usable market reference (ask/bid and Close[0] all invalid) — failing closed, NO order";
+
+			if (isBuy && !(sig.ResolvedStop < reference && reference < sig.ResolvedTarget))
+				return "BUY bracket geometry invalid vs live market: need stop < market < target (stop="
+					+ sig.ResolvedStop + " market=" + reference + " target=" + sig.ResolvedTarget + ")";
+			if (!isBuy && !(sig.ResolvedTarget < reference && reference < sig.ResolvedStop))
+				return "SELL bracket geometry invalid vs live market: need target < market < stop (target="
+					+ sig.ResolvedTarget + " market=" + reference + " stop=" + sig.ResolvedStop + ")";
 			return null;
 		}
 
