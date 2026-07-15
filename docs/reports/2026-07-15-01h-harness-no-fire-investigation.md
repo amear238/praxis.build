@@ -125,3 +125,42 @@ Keep as-is: `praxis-processed-signals.log`, `.heartbeat`, `incoming/`, `processe
 ---
 
 *Investigation by Mac-side subagent, 2026-07-15. No share files modified or deleted. No VM access used.*
+
+---
+
+## 4. Retirement cleanup EXECUTED (bead Praxis_build-0s7, 2026-07-15 ~15:05 ET)
+
+Checklist items 1–6 are done. Item 1 (`BRIEF-2026-07-14-coworker-take-over.md`) was archived before this
+bead by the orchestrator. This session (0s7) did the rest — **nothing deleted; all moves to
+`~/praxis-signals/archive/`**:
+
+- **Captured into repo first:** `b1f-t1-t4-report-2026-07-14.md` → exact copy at
+  `docs/reports/2026-07-14-b1f-t1-t4-vm-run-blocked.md` (diff-verified identical), then share original archived.
+- **Archived:** `BRIEF-2026-07-14-status-check.md`, `BRIEF-2026-07-14-reject-reason-request.md`,
+  `b1f-t1-t4-report-2026-07-12.md` (repo copy diff-verified 07-15), `b1f-t1-t4-report-2026-07-14.md`,
+  `PraxisSignalConsumer.cs` (sha256 re-verified `e4581f4a…` before the move).
+- **Created:** `VM-CLEANUP-NOTE-2026-07-15.md` on the share root — the two VM-side items (7–8) for the next
+  attended VM session, plus the explicit statement that the harness is retired and no brief on this share
+  authorizes unattended signal drops.
+- **Untouched:** `praxis-processed-signals.log`, `.heartbeat`, `incoming/`, `processed/`, `rejected/`,
+  `logs/`, `signal-template.json`, `archive/` contents.
+
+**Share root before (ls -laT, entries only):**
+
+```
+.heartbeat  archive/  b1f-t1-t4-report-2026-07-12.md  b1f-t1-t4-report-2026-07-14.md
+BRIEF-2026-07-14-reject-reason-request.md  BRIEF-2026-07-14-status-check.md  incoming/  logs/
+praxis-processed-signals.log  PraxisSignalConsumer.cs  processed/  rejected/  signal-template.json
+```
+
+**Share root after:**
+
+```
+.heartbeat  archive/  incoming/  logs/  praxis-processed-signals.log  processed/  rejected/
+signal-template.json  VM-CLEANUP-NOTE-2026-07-15.md
+```
+
+**Sweep-daemon health after moves:** `.heartbeat` confirmed still updating — content advanced
+1784142302 → 1784142304 (epoch seconds), mtime 15:05:04 ET, post-move. Live signal path unaffected.
+
+Remaining: checklist items 7–8 (VM-side, next attended VM session — see the share note).
