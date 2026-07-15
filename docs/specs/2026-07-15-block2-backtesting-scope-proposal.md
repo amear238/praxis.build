@@ -124,6 +124,12 @@ Not proposed here (trader/spec territory): any change to the firing protocol (§
 | Q8 | Where do backtest runs execute (VM NT8, Mac-side Python, both) and what artifacts must be archived? | Platform annotations are mandatory per skill §B; affects bead decomposition below |
 | Q9 | SHM-4/SHM-5 band *form* preference (ppts/ticks bands as proposed vs statistical test) | Trader must be willing to be auto-demoted by the chosen form — behavioral fit matters (SHM §2 rationale) |
 
+### Q1 — RESOLVED (proposed, pending trader confirmation)
+
+**Answer:** The strategy under test is the **Zarattini–Aziz–Barbon NQ "Noise-Area" intraday breakout** (clock-anchored, rules-based, one bracket/session). It is **NOT exportable from TradingView** — no Pine source exists in-repo and the live webhook payload `{symbol, side, qty, price, signal_id, ts}` carries no strategy internals. It must be **re-implemented as a NinjaScript strategy and backtested in NT8 Strategy Analyzer**, which the Phase 3 Build Spec already mandates (High fill res, 1-tick series, 1-tick slippage, $2.96 RT commission; rolling WFA 252/63/63; optimize {lookback, noise mult, stop-ATR mult, exit policy}). Toolchain = **NT8 Strategy Analyzer** (primary) + FirstRate 1-min NQ history + forward Rithmic tick for OOS; Python only as a downstream Monte Carlo layer over the exported OOS trade list. This collapses execution-sketch bead **b2-signal-repro** to a NinjaScript port + live-alert reconciliation — no external-export or signal-replay harness is needed.
+
+**Still PENDING trader confirmation:** whether any TradingView Pine source exists / TradingView's role (generator vs passthrough); the canonical ruleset + parameter ranges + concrete exit-policy form; and Q7 (optimize vs validate-only). Full evidence and per-path assessment: `docs/reports/2026-07-15-b2-q1-strategy-exportability.md`.
+
 ---
 
 ## 6. Execution Sketch — likely bead decomposition (dependency order)
