@@ -104,3 +104,29 @@ mv .t3b.tmp 2026-07-10T21-11-00.000Z-B1F-T3-0002.json
 - **Share unreachable at enable-time:** strategy logs a start failure to the Log tab; fix the path parameter and re-enable.
 - **Entry is a market order** priced off live sim data; the payload `price` only anchors the derived stop/target when no explicit `stop`/`target` fields exist. See implementer report for rationale.
 - **Order-submit failure after journaling:** by design NOT auto-retried (at-most-once bias); Log-tab error names the signal_id, file goes to `rejected\`.
+
+## 6. Session-hours guard (bead Praxis_build-di9; added 2026-07-15)
+
+**Rule: NO order-generating test drops (T1, T2, T4's optional probe — anything that could submit an order) during the CME equity-index futures daily maintenance halt, 17:00–18:00 ET (Mon–Thu).** Also observe the weekly close: market closes **Friday 17:00 ET** and does not reopen until **Sunday 18:00 ET** — no order-generating drops in that window either.
+
+Why: on 2026-07-14 the T1 order was submitted at 17:05 ET, inside the halt. The prime suspect (per `docs/reports/2026-07-14-b1f-t1-t3-mac-run.md`, "Rerun after NQ remount") is that the sim engine rejected the order asynchronously and NT8's default realtime-error handling **auto-disabled the strategy ~17 s after the signal was ACCEPTED**, killing the consumer mid-suite (see §6.1).
+
+**Exempt:** malformed/reject-path tests (T3-style probes) produce no order and may run any time.
+
+**Operator pre-drop check (run on the Mac before any order-generating drop):**
+
+```bash
+TZ=America/New_York date '+%a %H:%M ET'
+```
+
+Do NOT drop if the output shows **17:00–17:59** on any day, or anywhere between **Fri 17:00** and **Sun 18:00**.
+
+### 6.1 NT8 auto-disable on order rejection
+
+- **Symptom (Mac side):** the consumer goes silent — FSW stops picking up new files, the 15 s rescan stops, the journal stops growing, files sit untouched in the drop-dir root. This is **indistinguishable from idle** on the Mac; the only positive signal is a fresh drop that never gets processed (07-14: T2 untouched >3.5 min, malformed T3 probe untouched >80 s).
+- **Diagnosis (TRADER-TOUCH):** Control Center → **Log** tab — look for the strategy disable entry (order-rejection error naming the strategy, followed by the strategy being disabled). NinjaScript Output may also show the last lines before termination.
+- **Recovery (TRADER-TOUCH):** re-enable PraxisSignalConsumer on the correct chart (NQ front month) and account (Sim101), **outside the halt window**. The consumer's startup catch-up scan then processes files that arrived while it was down — no manual re-drop needed. Evidence from 07-14: T1's ACCEPTED journal line survived the death, so restart will NOT replay T1; the leftover T2/T3 files in the root are expected to be consumed on re-enable (T2 → DUPLICATE, no order; T3 probe → `rejected\`).
+
+### 6.2 Operator note — OnTermination journaling: recommendation DECLINE (pending ratification)
+
+**Recommendation (recorded here per bead Praxis_build-di9; NOT yet ratified — decision belongs to the orchestrator/trader):** DECLINE adding a terminal/DISABLED journal line in `OnTermination` for now. Rationale: it means a code change to `PraxisSignalConsumer.cs` plus a retest of the whole consumer (T1–T4) during Block-1 close-out — disproportionate to the benefit. The existing detection layer is the Mac-side `.heartbeat` / stale-alert daemon (`scripts/praxis-signals-sweep-daemon.sh` + `scripts/praxis-signals-stale-check.sh` → Telegram); consumer-death detection beyond that (e.g. a journal-growth watchdog) can be revisited post-Block-1 if silent deaths recur. If ratified, log the decision in DECISIONS.md through the normal channel; this note is not that log entry.
