@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Praxis_build-10i — Telegram inbound control channel LaunchAgent (TEMPLATE).
+     __BIN_DIR__ (the INTERNAL-disk runtime dir
+     ~/Library/Application Support/Praxis/bin) is substituted by
+     scripts/praxis-inbound-control-install.sh at deploy/install time. The runner
+     MUST run from internal disk: macOS TCC blocks launchd from EXECUTING scripts on
+     the external volume /Volumes/Sensidine ("Operation not permitted"). Installed
+     copy: ~/Library/LaunchAgents/build.praxis.tg-inbound.plist
+
+     Human-cadence chat channel (design §3): WatchPaths wakes the runner within
+     ~1-2s of an n8n command-file drop; StartInterval=60 is the sweep/requeue
+     backstop that also recovers files stranded in work/ by a crash. NOT a
+     KeepAlive daemon — one bounded drain per wake, single-flighted by flock. The
+     launchd ~10s WatchPaths respawn throttle (bead 8xf) is acceptable here: the
+     runner drains the WHOLE inbox queue per wake, so a burst costs one throttle
+     window, not one per message. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>build.praxis.tg-inbound</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__BIN_DIR__/praxis-inbound-control-watch.sh</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>WatchPaths</key>
+  <array>
+    <string>/Users/admin/n8n-compose/local-files/tg-inbox</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>60</integer>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>/Users/admin/praxis-tg/logs/tg-inbound.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/admin/praxis-tg/logs/tg-inbound.err.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+</dict>
+</plist>

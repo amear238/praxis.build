@@ -1,0 +1,86 @@
+{
+  "name": "PRAXIS — Telegram Inbound Control (10i)",
+  "active": false,
+  "description": "Praxis_build-10i inbound control channel. Telegram Trigger (message) -> GUARD 1 sender allowlist (from.id AND chat.id == trader 6156528469) -> Build+Write command file /files/tg-inbox/cmd-<update_id>.json (.tmp->rename, atomic appearance) which the host launchd build.praxis.tg-inbound runner claims. Unauthorized senders are dropped (NoOp) and never written to the host inbox. AUTHORITY LOCKED read/report/status only — the host runner enforces the verb allowlist; this workflow only relays the trader's raw text as a command file. active:false — trader imports + activates.",
+  "nodes": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Telegram Command Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300],
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": { "id": "F9Q7ibTWgyAQpNAT", "name": "Orchastrator-Mine" }
+      },
+      "webhookId": "10i0inbo-und0-4000-8000-c0mmandtr1gg"
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Is Trader (allowlist)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [480, 300],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "id": "guard-from-id",
+              "leftValue": "={{ $json.message.from.id }}",
+              "rightValue": 6156528469,
+              "operator": { "type": "number", "operation": "equals" }
+            },
+            {
+              "id": "guard-chat-id",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": 6156528469,
+              "operator": { "type": "number", "operation": "equals" }
+            }
+          ],
+          "options": { "caseSensitive": true, "typeValidation": "loose", "version": 2 },
+          "combinator": "and"
+        },
+        "looseTypeValidation": true
+      }
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Write Command File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [740, 200],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const fs = require('fs');\nconst dir = '/files/tg-inbox';\nfs.mkdirSync(dir, { recursive: true });\nconst results = [];\nfor (const it of $input.all()) {\n  const u = it.json || {};\n  const msg = u.message || {};\n  const dateSec = Number(msg.date) || Math.floor(Date.now() / 1000);\n  const cmd = {\n    update_id: u.update_id,\n    chat_id: msg.chat && msg.chat.id,\n    from_id: msg.from && msg.from.id,\n    text: (msg.text || ''),\n    ts: new Date(dateSec * 1000).toISOString()\n  };\n  const base = 'cmd-' + String(cmd.update_id).replace(/[^0-9]/g, '') + '.json';\n  const finalPath = dir + '/' + base;\n  const tmpPath = finalPath + '.tmp';\n  fs.writeFileSync(tmpPath, JSON.stringify(cmd, null, 2), 'utf-8');\n  fs.renameSync(tmpPath, finalPath);\n  results.push({ json: Object.assign({}, cmd, { written: finalPath }) });\n}\nreturn results;"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Drop Unauthorized",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [740, 420],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Telegram Command Trigger": {
+      "main": [[{ "node": "Is Trader (allowlist)", "type": "main", "index": 0 }]]
+    },
+    "Is Trader (allowlist)": {
+      "main": [
+        [{ "node": "Write Command File", "type": "main", "index": 0 }],
+        [{ "node": "Drop Unauthorized", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "staticData": null,
+  "pinData": null,
+  "meta": { "note": "10i inbound control channel — sender-restricted; host runner enforces read/report/status verb allowlist" },
+  "tags": []
+}
