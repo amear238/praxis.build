@@ -29,13 +29,13 @@ The entry is a **market order**, so its fill tracks the live inside market, not 
 
 - Header doc block: "GEOMETRY GATE" paragraph (lines ~35–40).
 - `ProcessFile`: gate inserted **after** the dedup check and **before** the ACCEPTED journal write (lines ~416–428). Ordering rationale: a replayed signal_id still lands as DUPLICATE (dedup contract untouched), and a geometry-rejected signal_id is never added to `processedSignals` nor journaled ACCEPTED — so a **corrected redelivery of the same signal_id may still trade**, matching the file's existing "rejects don't burn ids" convention.
-- On failure: `JournalWrite(sig.SignalId, fileName, "REJECTED-GEOMETRY: <reason>")` (durable audit record of a near-order event) then the existing `RejectFile(...)` path (Print + Log warning with the specific reason string, move to `rejected/`). **No orders of any kind are submitted.**
+- On failure: the existing `RejectFile(...)` path (Print + Log warning with the specific geometry reason string, move to `rejected/`) — identical in shape to a parse/schema reject. **No journal line is written and no orders of any kind are submitted.**
 - `ValidateMarketGeometry(ParsedSignal)` (new, Validation region, before `TryGetString`): BUY requires `ResolvedStop < ref < ResolvedTarget`; SELL requires `ResolvedTarget < ref < ResolvedStop`; strict, on the tick-rounded resolved levels.
-- `LoadJournal`: now splits on tab and **skips lines whose 4th field starts with `REJECTED`**, so the new audit lines never arm dedup on restart. Backward compatible — all pre-existing lines are 4-field ACCEPTED/DUPLICATE and load exactly as before. Journal-region comment updated to document the exception.
+- `LoadJournal`: unchanged from ct5 — splits each line on tab and arms dedup from the signal_id in field 0. No REJECTED lines are ever written, so no reload-time exclusion is needed. Journal-region comment simply notes that all rejects (parse/schema/geometry) are un-journaled.
 
-### Journaling-convention note (deliberate, documented deviation)
+### Journaling-convention note (trader DECLINED, 2026-07-15)
 
-Parse/schema rejects remain un-journaled (unchanged). Geometry rejects — the one class that got *within one step of a live order* — now DO journal, with a status namespace (`REJECTED-GEOMETRY: …`) that the reload path explicitly excludes from dedup. This gives an at-rest audit trail Mac-side observers can see (the incident was invisible outside NT8's Log) without breaking the corrected-redelivery contract.
+An earlier revision of this fix journaled geometry rejects with a `REJECTED-GEOMETRY: …` status. The trader DECLINED that convention (DECISION_LOG 2026-07-15T21:10Z): geometry rejects are now handled **uniformly**, exactly like parse/schema rejects — Print + Log warning + move to `rejected/`, with NO journal line at all. Rationale: the file at rest in `rejected/` already provides the filesystem audit trace, journaling near-order events is unwanted, and uniform reject-handling is simpler.
 
 ## 3. Unit-style case walk (through `ValidateMarketGeometry`, ref = market reference)
 
@@ -43,20 +43,20 @@ Assume tick-rounded resolved levels; ref = ask (BUY) / bid (SELL), say 29800.
 
 | # | Case | Inputs | Predicate | Outcome |
 |---|------|--------|-----------|---------|
-| 1 | LONG, stop above market (the incident) | stop 29864, target 29894, ref 29800 | `29864 < 29800` false | REJECTED-GEOMETRY, no order |
-| 2 | LONG, target below market | stop 29700, target 29750, ref 29800 | `29800 < 29750` false | REJECTED |
-| 3 | LONG, both legs below market | stop 29700, target 29760, ref 29800 | second conjunct false | REJECTED |
-| 4 | LONG, stop == market | stop 29800, ref 29800 | strict `<` fails | REJECTED |
-| 5 | LONG, target == market | target 29800, ref 29800 | strict `<` fails | REJECTED |
+| 1 | LONG, stop above market (the incident) | stop 29864, target 29894, ref 29800 | `29864 < 29800` false | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 2 | LONG, target below market | stop 29700, target 29750, ref 29800 | `29800 < 29750` false | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 3 | LONG, both legs below market | stop 29700, target 29760, ref 29800 | second conjunct false | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 4 | LONG, stop == market | stop 29800, ref 29800 | strict `<` fails | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 5 | LONG, target == market | target 29800, ref 29800 | strict `<` fails | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
 | 6 | LONG, valid | stop 29700 < ref 29800 < target 29900 | both true | pass → journal ACCEPTED → SubmitBracket |
-| 7 | SHORT, stop below market | stop 29750, ref 29800 | `29800 < 29750` false | REJECTED |
-| 8 | SHORT, target above market | target 29850, ref 29800 | `29850 < 29800` false | REJECTED |
-| 9 | SHORT, stop == market / target == market | equality | strict `<` fails | REJECTED |
+| 7 | SHORT, stop below market | stop 29750, ref 29800 | `29800 < 29750` false | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 8 | SHORT, target above market | target 29850, ref 29800 | `29850 < 29800` false | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
+| 9 | SHORT, stop == market / target == market | equality | strict `<` fails | REJECTED (Print+Log+move to rejected/), NO journal line, zero orders |
 | 10 | SHORT, valid | target 29700 < ref 29800 < stop 29900 | both true | pass |
 | 11 | stop == target (either side) | — | cannot satisfy `ValidateSignal`'s own `stop < price < target` (still runs first) | rejected earlier, un-journaled schema reject |
-| 12 | No usable reference (ask/bid ≤0 or NaN, `CurrentBar < 0` so no `Close[0]`) | — | fail-closed branch | REJECTED "bracket geometry unverifiable", no order |
+| 12 | No usable reference (ask/bid ≤0 or NaN, `CurrentBar < 0` so no `Close[0]`) | — | fail-closed branch | REJECTED (Print+Log+move to rejected/) "bracket geometry unverifiable", NO journal line, zero orders |
 
-Dedup interplay: duplicate id → DUPLICATE (gate never reached). Bad-geometry id, then corrected redelivery of the SAME id → first drop REJECTED-GEOMETRY (id not burned, in-memory or on reload), second drop trades normally.
+Dedup interplay: duplicate id → DUPLICATE (gate never reached). A bad-geometry id is never journaled, so it is never burned — a corrected redelivery of the SAME id trades normally: first drop is rejected (moved to `rejected/`, no journal line, id not in `processedSignals`), second drop trades.
 
 ## 4. Test payload + attended sim-test instructions (trader / Win11 VM — cannot be run from the Mac orchestrator)
 
@@ -71,10 +71,10 @@ Design: passes every `ValidateSignal` check including the payload-relative brack
 **Procedure (after the updated .cs is deployed and F5-compiled in NT8 on the VM, consumer enabled on NQ / Sim101, market open, outside the 17:00–18:00 ET halt per runbook §6):**
 
 1. Copy the fixture, set a FRESH `signal_id` (e.g. `SIM-BTB-GEOMBAD-<yyyymmdd-hhmmss>`) and a current `ts`; write to `~/praxis-signals/` (Mac) via atomic `.tmp` → `mv`, filename per convention e.g. `2026-07-15T18-00-00.000Z-SIM-BTB-GEOMBAD-<id>.json`.
-2. Expect within ~1 s (≤15 s rescan worst case): file → `rejected/`; journal gains one line `<signal_id> <TAB> <utc> <TAB> <filename> <TAB> REJECTED-GEOMETRY: BUY bracket geometry invalid vs live market: need stop < market < target (stop=99864 market=<live> target=99894)`.
+2. Expect within ~1 s (≤15 s rescan worst case): file → `rejected/`; a Log Warning entry `PRAXIS-B1f rejected signal_id=… : BUY bracket geometry invalid vs live market: need stop < market < target (stop=99864 market=<live> target=99894)`; and **NO new journal line** (the `rejected/` file is the only at-rest trace — uniform with parse/schema rejects).
 3. NT8 GUI (trader-touch): Control Center → Log shows the `PRAXIS-B1f signal_id=… REJECTED … — NO order.` line and the Warning log entry; Orders tab shows **zero** new orders; strategy stays enabled (no disable, no flatten).
 4. Regression pair: drop a fresh VALID signal (explicit stop ~80 pts below / target ~80 pts above live NQ, per the 11:12:45 ET corrected-T1 shape) → ACCEPTED journal line + exactly one bracket, proving the gate does not block good geometry.
-5. Restart probe (journal semantics): restart NT8, re-enable; startup line's "N journaled signal_ids loaded" must count ACCEPTED/DUPLICATE lines only (the REJECTED-GEOMETRY line adds nothing); optionally redrop the bad id with corrected geometry/live-market prices → it must trade (id not burned).
+5. Restart probe (journal semantics): restart NT8, re-enable; startup line's "N journaled signal_ids loaded" is unchanged by the geometry reject (no journal line was ever written for it); optionally redrop the bad id with corrected geometry/live-market prices → it must trade (id not burned).
 
 ## 5. Compilation sanity (this file compiles only inside NT8 — cannot build here)
 
@@ -84,7 +84,7 @@ Final diff re-read line-by-line; checked: balanced braces/regions; C# 5-compatib
 
 | File | Change |
 |---|---|
-| `ninjascript/PraxisSignalConsumer.cs` | v3: geometry gate (~70 lines added: header block, ProcessFile gate, ValidateMarketGeometry, LoadJournal REJECTED-skip + comments) |
+| `ninjascript/PraxisSignalConsumer.cs` | v4: geometry gate (header block, ProcessFile gate, ValidateMarketGeometry); geometry rejects handled uniformly like parse/schema rejects — Print+Log+move to rejected/, NO journal line (trader DECLINED REJECTED-GEOMETRY journaling, 2026-07-15); LoadJournal unchanged from ct5 |
 | `tests/fixtures/btb-bad-geometry-long.json` | NEW — bad-geometry attended-sim-test payload |
 | `docs/reports/2026-07-15-btb-oco-geometry-fix.md` | NEW — this report |
 | `MANIFEST.md` | rows appended for the three files above |

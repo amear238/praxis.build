@@ -33,8 +33,8 @@ using NinjaTrader.Core.FloatingPoint;
 // a payload's reference `price` can sit far from the live market, producing a bracket whose
 // legs are all on the wrong side of the fill (NT8 stop reject -> OCO-teardown cascade ->
 // safety flatten). Every signal must ALSO pass a market-relative check (LONG: stop < market
-// < target; SHORT mirrored) before ANY order is submitted; failures move to rejected/ and
-// journal an audit-only REJECTED-GEOMETRY line that does NOT arm dedup.
+// < target; SHORT mirrored) before ANY order is submitted; failures are handled exactly
+// like parse/schema rejects — Print + Log warning + move to rejected/, no journal line.
 //
 // HARD SCOPE WALL: refuses to run unless the attached account name starts with "Sim"
 // (e.g. Sim101). The guard is a const — there is no parameter to disable it.
@@ -228,11 +228,9 @@ namespace NinjaTrader.NinjaScript.Strategies
 		#region Journal (persisted dedup — reload on startup so restart does not replay)
 		// Append-only, one line per actioned signal: signal_id <TAB> utc-ts <TAB> filename <TAB> status
 		// Retention: permanent within the file (effectively an unbounded idempotency window). At sim
-		// signal volumes this stays tiny; archive manually if it ever grows large. Parse/schema-rejected
-		// files are NOT journaled — a corrected redelivery of a previously-malformed signal_id may still
-		// trade. Exception (bead btb): market-geometry rejections DO write an audit-only line with status
-		// "REJECTED-GEOMETRY: <reason>" so the near-order event is durably recorded, but LoadJournal
-		// skips REJECTED* lines so those signal_ids are NOT burned for dedup either.
+		// signal volumes this stays tiny; archive manually if it ever grows large. Rejected files
+		// (parse/schema/geometry) are NOT journaled — a corrected redelivery of a previously-rejected
+		// signal_id may still trade.
 		private void LoadJournal()
 		{
 			processedSignals.Clear();
@@ -243,10 +241,6 @@ namespace NinjaTrader.NinjaScript.Strategies
 				if (string.IsNullOrWhiteSpace(line))
 					continue;
 				string[] parts = line.Split('\t');
-				// REJECTED* lines (geometry gate, bead btb) are audit-only: they must NOT arm
-				// dedup, so a corrected redelivery of a rejected signal_id may still trade.
-				if (parts.Length >= 4 && parts[3].StartsWith("REJECTED", StringComparison.Ordinal))
-					continue;
 				string id = parts[0].Trim();
 				if (id.Length > 0)
 					processedSignals.Add(id);
@@ -420,7 +414,6 @@ namespace NinjaTrader.NinjaScript.Strategies
 			string geometryError = ValidateMarketGeometry(sig);
 			if (geometryError != null)
 			{
-				JournalWrite(sig.SignalId, fileName, "REJECTED-GEOMETRY: " + geometryError);
 				RejectFile(fullPath, sig.SignalId, geometryError);
 				return;
 			}
