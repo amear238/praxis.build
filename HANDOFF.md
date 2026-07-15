@@ -2,6 +2,20 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-15 (session 11) — B1-f test matrix GREEN except one trader glance; milestone ask ARMED
+
+**HEAD:** `ec10f58` + this wrap commit. Block 1. Shipped (all auditor-PASS): `d78e6ef` di9 runbook §6 session-hours guard · `5a05a67` T2-DUPLICATE/T3/T4-no-replay evidence · `ec10f58` corrected-geometry T1 ACCEPTED + honest 10:35 bracket-failure record. (07-14: `b17d1c4`, `ae1da60`.)
+
+**Scoreboard:** T2 dedupe PASS · T3 PASS · T4 no-replay PASS (NT8 restarted 9:43, enable 10:31:58, zero replays) · T1 ACCEPTED 15:12:45Z with correct geometry (29821.25 / stop 29741.25 / target 29901.25) — **GUI standing-bracket confirm is the SOLE remaining ct5 evidence** (trader never answered before close).
+
+**⚠️ OPEN SIM POSITION:** long 1 NQ 09-26 + working bracket likely still LIVE on Sim101 from 11:12 ET. First thing: trader flattens or lets it work. Sim-only, no real risk.
+
+**▶ FIRST DISPATCHES NEXT SESSION:** P0 ask trader: "did the 11:12 bracket stand — entry + stop 29741.25 + target 29901.25, no Log errors?" → on YES close **ct5** then **9tl** (dep order; 9tl evidence already audited), un-dep ct5 from 518 → **Block-1 milestone ask (trader-gated, never self-certify)**. P1 **btb** (P2 bug: OCO-ID-reuse cascade after stop-leg reject + add bracket-geometry pre-validation; not dep-linked to ct5). P2 **10i** trader scope decision, then qxd/6h7/01h; AUDIT_LOG flush still overdue (unstaged working-tree rows, grew again this session).
+
+**Open beads (8):** ct5 (blocked: 1 trader answer) · 9tl (closes right after ct5) · btb P2 · 518 P2 (probe negative, near monitor-only) · 10i P2 · 01h P3 (VM harness no-fire) · qxd P3 · 6h7 P4. Closed this session: 8tz, di9.
+
+**Ratification pending:** runbook §6.2 OnTermination-journaling DECLINE recommendation (trader yes/no).
+
 ## Resume card — 2026-07-14 (session 10) — ✅ B1-f consumer STARTED on Sim101; T1–T4 in the harness's hands
 
 **HEAD:** session-10 wrap on top of `63aa234`. Block 1. Docs+ledger session; no repo code changed.
