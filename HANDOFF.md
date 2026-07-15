@@ -2,6 +2,16 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-15 (session 13) — Block 2 opened: btb code landed, scope proposal in, qxd+01h+0s7 closed
+
+**HEAD:** wrap on top of `0086e5a`. Shipped (all auditor-PASS): `59268a9` btb OCO root-cause (NT8 cascade artifact) + fail-closed geometry gate + fixture · `113ef5b` Block-2 scope proposal (8 SHM PROPOSALS, 9 spec-gap Qs, CANDIDATE exit checklist) · `31eb6cc` qxd n8n false-failure FIXED prod-verified (Validate error:'' → 0.043s/1 attempt/1 file) · `532f6da` 01h harness no-fire root-cause + RETIRE (DECISION_LOG 19:20Z) · `0086e5a` 0s7 share cleanup (VM report captured, 5 items archived, live path verified).
+
+**Closed:** s1c, qxd, 01h, 0s7. **Open (6):** btb ◐ (code landed; blocked on trader VM sim test + journaling ratification) · **lhw P2 NEW trader-touch** (SIM-QXD-TEST-0001..0004 reached the RUNNING consumer during qxd testing — check Sim101, cancel/flatten) · 10i P2 (trader scope) · 518 P3 monitor-only · 6h7 P4.
+
+**▶ NEXT SESSION:** everything front-of-queue is trader-gated — lhw Sim101 check, btb sim test (redeploy consumer from repo, share copy archived) + ratification, Block-2 Q1 (TV strategy export vs re-implement = toolchain hard blocker), PHASE 3 BUILD SPEC import, 10i scope. First orchestrator dispatches unlock after Q1: Block-2 execution beads per proposal §6.
+
+**⚠️ Sim101:** 11:12 long 1 NQ + bracket still trader's call; plus possible QXD-TEST far-off limits (lhw).
+
 ## Resume card — 2026-07-15 (session 12) — 🏁 BLOCK 1 MILESTONE SIGNED OFF; Block 2 opens
 
 **HEAD:** wrap commit on top of `d405125`. Shipped (all auditor-PASS): `228b586` ct5/9tl close evidence (trader GUI-confirmed the 11:12:45 bracket — fill 29820, OCO stop 29741.25/target 29901.25 working, no Log errors; screenshot transcribed, PNG OS-purged) · `d405125` Block-1 milestone evidence audit (all items VERIFIED / T1 TRADER-CONFIRMED / 0 FAIL).
