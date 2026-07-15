@@ -2,6 +2,18 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-15 (session 12) — 🏁 BLOCK 1 MILESTONE SIGNED OFF; Block 2 opens
+
+**HEAD:** wrap commit on top of `d405125`. Shipped (all auditor-PASS): `228b586` ct5/9tl close evidence (trader GUI-confirmed the 11:12:45 bracket — fill 29820, OCO stop 29741.25/target 29901.25 working, no Log errors; screenshot transcribed, PNG OS-purged) · `d405125` Block-1 milestone evidence audit (all items VERIFIED / T1 TRADER-CONFIRMED / 0 FAIL).
+
+**Trader decisions this session (all recorded):** Block 1 SIGNED OFF (DECISIONS.md entry + Sheets row via clipboard) · §6.2 OnTermination-journaling decline RATIFIED (D-2026-07-15-A) · btb = next-session first dispatch (post-milestone, his call). ct5+9tl CLOSED; 518 dropped to P3 monitor-only (probe negative 3 sessions).
+
+**▶ FIRST DISPATCHES NEXT SESSION:** P0 **btb** (OCO-ID-reuse cascade fix + live-market bracket-geometry pre-validation; sim-test per runbook session-hours guard). P1 Block-2 planning (walk-forward OOS + Monte Carlo scope; SHM threshold PROPOSALS only — trader locks at milestone; PHASE 3 BUILD SPEC import still missing). P2 **10i** scope decision → qxd → 01h → 6h7.
+
+**Open beads (6):** btb P2 · 10i P2 · 518 P3 (monitor-only) · 01h P3 · qxd P3 · 6h7 P4.
+
+**⚠️ Sim101:** the 11:12 long 1 NQ + working bracket may still be live — trader flattens or lets it work (sim-only, untracked).
+
 ## Resume card — 2026-07-15 (session 11) — B1-f test matrix GREEN except one trader glance; milestone ask ARMED
 
 **HEAD:** `ec10f58` + this wrap commit. Block 1. Shipped (all auditor-PASS): `d78e6ef` di9 runbook §6 session-hours guard · `5a05a67` T2-DUPLICATE/T3/T4-no-replay evidence · `ec10f58` corrected-geometry T1 ACCEPTED + honest 10:35 bracket-failure record. (07-14: `b17d1c4`, `ae1da60`.)
