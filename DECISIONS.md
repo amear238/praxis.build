@@ -176,3 +176,16 @@ Block 1 (Foundation, build-first) milestone SIGNED OFF by Amear, 2026-07-15, in-
 
 ## 2026-07-15 — D-2026-07-15-A: OnTermination-journaling DECLINED (trader-ratified)
 The B1-f consumer deliberately does NOT write journal entries during NT8 strategy termination (OnTermination). Runbook §6.2 recommendation RATIFIED by Amear 2026-07-15. WHY: a journal write during WPF/strategy teardown risks corrupt or partial lines in the at-most-once dedup journal; the restart catch-up scan already re-derives state safely from journal + processed/ dirs (proven by T4 no-replay, 2026-07-15 9:43 restart evidence, commit 5a05a67). Revisit only if a future incident shows signal loss attributable to termination-window drops.
+
+## 2026-07-15 — D-2026-07-15-B: Block-2 spec gaps Q2–Q9 RESOLVED (trader, session 15)
+Q1 was closed session 14 (re-implement in NT8, D 21:10Z). The remaining Block-2 scope gaps (docs/specs/2026-07-15-block2-backtesting-scope-proposal.md §5/§6) are now trader-locked via in-session AskUserQuestion (bead Praxis_build-cd4):
+- **Q2 exit-milestone:** Adopt §4's 7-item CANDIDATE checklist as the WORKING Block-2 exit definition. Reconcile against the PHASE 3 BUILD SPEC verbatim text if/when that spec is imported; final trader sign-off still human-gated.
+- **Q3 WFA gate:** WFE (OOS/IS ratio) ≥ 0.5 is a HARD pass/fail gate for the walk-forward result.
+- **Q4 data:** NT8 default-provider MINUTE history — no paid-data budget this block. Depth target ≥4 yrs NQ / ≥12 OOS windows (subject to what the default provider supplies; shortfall to be logged, not silently accepted).
+- **Q5 cost model:** $2.96 round-turn commission + 1 tick/side slippage + High fill resolution. Applies to ALL P&L / SHM distributions.
+- **Q6 sizing (RoR basis):** MFFU account + trailing-drawdown. P&L held in R-multiples throughout. SUB-INPUT PENDING: exact MFFU account size + trailing-DD limit numbers needed before b2-refdist RoR can compute — captured as a trader-input gap on that bead, not a blocker to b2-data/b2-wfa.
+- **Q7 optimize:** OPTIMIZE {lookback, noise multiplier, stop-ATR multiplier, exit policy} inside rolling WFA (252 IS / 63 OOS / 63 step). OOS windows guard against curve-fit. (Larger scope than validation-only, chosen deliberately.)
+- **Q8 platform:** BOTH — NT8 Strategy Analyzer (VM) runs WFA + fills; Python (Mac) runs Monte Carlo over the exported OOS trade list. Artifacts archived from both layers.
+- **Q9 SHM band form:** FIXED pre-declared bands. SHM-4: win-rate >15 ppts below backtest OR slippage >2 ticks/side worse, over a 20-trade window. SHM-5: monthly trade count within [0.5×, 2.0×] of backtest mean; breach = 2 consecutive months. (Coarse + transparent chosen over fitted statistical test.)
+
+**Unblocks:** b2-data (Praxis_build-hlw) and b2-wfa (Praxis_build-zi1) now have their data source, cost model, gate, and optimize scope. b2-refdist carries the Q6 numeric sub-input gap.
