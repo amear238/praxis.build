@@ -1,0 +1,36 @@
+{
+  "$schema_note": "PRAXIS Block-2 backtest cost + instrument model. Single source of truth consumed by BOTH the NT8 Strategy Analyzer (VM) backtest config and the Python (Mac) Monte Carlo layer. Encodes trader-locked decision D-2026-07-15-B (Q5). Do NOT hand-edit numbers without a corresponding DECISIONS.md entry.",
+  "version": "1.0.0",
+  "created": "2026-07-15",
+  "decision_ref": "DECISIONS.md D-2026-07-15-B (Q5)",
+  "bead": "Praxis_build-hlw",
+  "instrument": {
+    "symbol": "NQ",
+    "name": "E-mini Nasdaq-100 futures",
+    "exchange": "CME",
+    "currency": "USD",
+    "tick_size": 0.25,
+    "point_value_usd": 20.0,
+    "tick_value_usd": 5.0,
+    "ticks_per_point": 4
+  },
+  "cost_model": {
+    "commission_round_turn_usd": 2.96,
+    "commission_basis": "round_turn",
+    "commission_note": "Applied once per completed round-turn (entry+exit) per contract. If the backtest engine expresses commission per-side, use 1.48 USD/side.",
+    "slippage_ticks_per_side": 1,
+    "slippage_usd_per_side": 5.0,
+    "slippage_round_turn_ticks": 2,
+    "slippage_round_turn_usd": 10.0,
+    "fill_resolution": "High",
+    "fill_resolution_note": "NT8 Strategy Analyzer 'Order fill resolution' = High (intrabar sub-bar granularity for stop/target/entry fills; reduces optimistic same-bar fill artifacts). Python MC assumes fills already reflect this via the exported NT8 trade list.",
+    "total_cost_per_round_turn_usd": 12.96,
+    "total_cost_per_round_turn_ticks": 2.592,
+    "total_cost_breakdown_note": "12.96 = 2.96 commission + 10.00 slippage (2 ticks x 5.00). In ticks: 0.592 commission-equivalent + 2.0 slippage = 2.592 ticks round-turn."
+  },
+  "applies_to": [
+    "All P&L distributions (NT8 WFA fills + Python Monte Carlo)",
+    "All Strategy Health Monitor (SHM) distributions and threshold derivations (D-2026-07-04-B)",
+    "R-multiple conversion: costs deducted before R normalization (Q6)"
+  ]
+}

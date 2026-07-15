@@ -189,3 +189,11 @@ Q1 was closed session 14 (re-implement in NT8, D 21:10Z). The remaining Block-2 
 - **Q9 SHM band form:** FIXED pre-declared bands. SHM-4: win-rate >15 ppts below backtest OR slippage >2 ticks/side worse, over a 20-trade window. SHM-5: monthly trade count within [0.5×, 2.0×] of backtest mean; breach = 2 consecutive months. (Coarse + transparent chosen over fitted statistical test.)
 
 **Unblocks:** b2-data (Praxis_build-hlw) and b2-wfa (Praxis_build-zi1) now have their data source, cost model, gate, and optimize scope. b2-refdist carries the Q6 numeric sub-input gap.
+
+---
+
+## 2026-07-15 — b2-data (Praxis_build-hlw): cost-model artifact path + roll-convention RECOMMENDATION
+
+**Cost-model config artifact (pointer, not a new decision):** The Q5 cost model already locked in D-2026-07-15-B is now ENCODED in a machine-readable artifact consumed by BOTH the NT8 Strategy Analyzer backtest and the Python Monte Carlo layer: **`config/backtest-cost-model.json`** ($2.96 RT commission, 1 tick/side slippage, High fill resolution, plus NQ tick size 0.25 / point value $20 / tick value $5 metadata). This restates D-2026-07-15-B Q5; it does not change it.
+
+**Roll convention — RECOMMENDED, PENDING TRADER LOCK (NOT ratified):** For the NT8 continuous NQ contract, b2-data (spec `docs/specs/2026-07-15-b2-data-acquisition-spec.md` §2) RECOMMENDS **volume/OI-crossover roll trigger + Difference (back-adjusted / Panama) adjustment**. Rationale: a breakout strategy measures signals as absolute point distances, so (a) Difference back-adjustment removes the artificial price gap at each roll seam that would otherwise fabricate breakout signals/fake stop-outs, while preserving true point size; (b) Ratio adjustment is rejected because it distorts absolute point distances (the optimized inputs); (c) volume/OI roll keeps the series on the actually-traded, liquid contract for realistic fills. **This is a RECOMMENDATION only — roll construction materially affects backtest P&L, so final lock is trader-gated and is NOT yet ratified.** Concrete pull range specified: NQ 1-min, 2021-07-15 → 2026-07-14 (~5 yr / ~16 OOS windows, clears the ≥4-yr / ≥12-window floor with warmup headroom).
