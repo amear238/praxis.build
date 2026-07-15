@@ -2,6 +2,16 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-15 (session 15) — Block-2 kickoff: Q2–Q9 resolved, b2-data spec+cost landed, roll LOCKED
+
+**HEAD:** wrap on top of `26ce939`. Shipped (all auditor-PASS): `89f04b9` **b2-spec-gaps (cd4 CLOSED)** — Block-2 gaps Q2–Q9 trader-resolved (Q2 adopt §4 candidate checklist · Q3 WFE≥0.5 hard gate · Q4 NT8 default-provider minute, no paid budget, ~5yr/16 OOS · Q5 $2.96 RT + 1-tick slippage High-fill · Q6 MFFU acct+trailing-DD basis · Q7 optimize {lookback,noise,stop-ATR,exit} in WFA 252/63/63 · Q8 both NT8-VM + Python-Mac MC · Q9 fixed SHM-4/SHM-5 bands) → DECISIONS.md **D-2026-07-15-B**. `26ce939` **b2-data (hlw, Mac-side)** — data-acquisition spec (NQ 1-min 2021-07-15→2026-07-14), `config/backtest-cost-model.json` (encodes Q5), VM operator runbook + objective validation gate.
+
+**Trader decisions this session (AskUserQuestion, DECISION_LOG 22:05Z + 22:30Z):** Q2–Q9 all locked (above) · **roll convention LOCKED** = volume/OI-crossover + back-adjusted Difference.
+
+**Open beads (8):** **hlw ◐ half-open** — ONLY the VM-gated NT8 physical minute pull + §4 validation remains (roll locked, cost committed; run spec §5 runbook then check §4 gate → close). **b2-signal-repro (4uu) P2 — next buildable, but carries a trader gap: canonical Noise-Area breakout ruleset (Zarattini-Aziz-Barbon) not sourced in-repo — locate/supply before dispatch.** b2-wfa (zi1) blocked on 4uu+hlw · b2-mc · b2-refdist (xdr — carries Q6 numeric sub-input: needs MFFU acct size + trailing-DD numbers) · plus trader-VM: lhw (Sim101 QXD-TEST cancel), btb (sim test on 9d25243), 10i (activation). 518 P3 · 6h7 P4.
+
+**▶ NEXT SESSION first dispatch:** resolve the b2-signal-repro ruleset gap (scout in-repo for the paper/spec; if absent, trader supplies), then dispatch b2-signal-repro (NinjaScript re-impl). VM-touch queue unchanged: hlw pull, lhw, btb, 10i. ⚠️ Sim101 11:12 long 1 NQ + bracket still your call. AUDIT_LOG deliberately dirty (session-14 mint rows + session-15 rows; flush still deferred).
+
 ## Resume card — 2026-07-15 (session 14) — Q1 answered + confirmed, btb journaling reversed, 10i built; Block-2 unlocked
 
 **HEAD:** wrap on top of `9905338`. Shipped (all auditor-PASS): `8e739e4` **b2-q1** — Block-2 Q1 answered: Noise-Area Breakout is NOT TV-exportable (no Pine source in-repo; live payload carries no strategy internals) → re-implement in NinjaScript + NT8 Strategy Analyzer; trader CONFIRMED direction. `9d25243` **btb** — geometry rejects now handled uniformly like parse rejects (Print+Log+rejected/, NO journal line; trader DECLINED the REJECTED-GEOMETRY journaling). `9905338` **10i** — Telegram→Claude read/report/status-ONLY channel BUILT (fixed-argv allowlist, no claude -p passthrough, sender-restricted twice; STAGED not activated; registered Stop hook untouched after audit caught a hot-patch attempt).
