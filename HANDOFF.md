@@ -2,6 +2,16 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-15 (session 14) — Q1 answered + confirmed, btb journaling reversed, 10i built; Block-2 unlocked
+
+**HEAD:** wrap on top of `9905338`. Shipped (all auditor-PASS): `8e739e4` **b2-q1** — Block-2 Q1 answered: Noise-Area Breakout is NOT TV-exportable (no Pine source in-repo; live payload carries no strategy internals) → re-implement in NinjaScript + NT8 Strategy Analyzer; trader CONFIRMED direction. `9d25243` **btb** — geometry rejects now handled uniformly like parse rejects (Print+Log+rejected/, NO journal line; trader DECLINED the REJECTED-GEOMETRY journaling). `9905338` **10i** — Telegram→Claude read/report/status-ONLY channel BUILT (fixed-argv allowlist, no claude -p passthrough, sender-restricted twice; STAGED not activated; registered Stop hook untouched after audit caught a hot-patch attempt).
+
+**Trader decisions this session (AskUserQuestion, all in DECISION_LOG 21:10Z):** Q1 toolchain CONFIRMED (re-implement in NT8) · 10i scope = Option A read/report/status-only · btb journaling DECLINED → uniform (no journal line).
+
+**Open beads (9):** btb ◐→blocked (VM sim test only) · lhw P2 (Sim101 QXD-TEST cancel — trader VM) · 10i blocked (trader activation) · **NEW Block-2 skeleton:** b2-spec-gaps P2 (Q2-Q9) → b2-signal-repro P2 (first buildable — NinjaScript re-impl) · b2-data · b2-wfa · b2-mc · b2-refdist (dep-wired) · 518 P3 · 6h7 P4.
+
+**▶ NEXT SESSION — trader VM touches gate everything:** (1) lhw Sim101 cancel; (2) btb sim test on redeployed .cs (9d25243) → close btb; (3) 10i activation if wanted. **Your first Block-2 dispatch is now unlocked (Q1 confirmed):** b2-spec-gaps (resolve Q2-Q9) then b2-signal-repro. ⚠️ Sim101 11:12 long 1 NQ + bracket still your call. AUDIT_LOG deliberately dirty (4 session-14 mint rows; flush still deferred).
+
 ## Resume card — 2026-07-15 (session 13) — Block 2 opened: btb code landed, scope proposal in, qxd+01h+0s7 closed
 
 **HEAD:** wrap on top of `0086e5a`. Shipped (all auditor-PASS): `59268a9` btb OCO root-cause (NT8 cascade artifact) + fail-closed geometry gate + fixture · `113ef5b` Block-2 scope proposal (8 SHM PROPOSALS, 9 spec-gap Qs, CANDIDATE exit checklist) · `31eb6cc` qxd n8n false-failure FIXED prod-verified (Validate error:'' → 0.043s/1 attempt/1 file) · `532f6da` 01h harness no-fire root-cause + RETIRE (DECISION_LOG 19:20Z) · `0086e5a` 0s7 share cleanup (VM report captured, 5 items archived, live path verified).
