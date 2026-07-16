@@ -2,6 +2,16 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-16 (session 16) — Block-2 strategy foundation: ruleset sourced + NinjaScript authored
+
+**HEAD:** `de46c56`. Shipped (all auditor-PASS): `2a3f192` **b2-ruleset-source (2tm CLOSED)** — canonical Zarattini-Aziz-Barbon Noise-Area ruleset fetched from SSRN 4824172 (full 43-pg St. Gallen open-access copy; SSRN 403'd) → `docs/specs/2026-07-16-b2-noise-area-ruleset.md`. `719ab11` **b2-signal-repro (4uu ◐ half-open)** — paper-faithful `ninjascript/PraxisNoiseAreaBreakout.cs` (09:30-anchored gap-adjusted band, HH:00/HH:30 checkpoints, reverse/re-enter, 16:00 flat, ExitMode sole tunable, params fixed const, no look-ahead; audit caught+fixed 2 smuggled optimizable knobs). `de46c56` **6h7 CLOSED** — signal-template.json regenerated to live consumer contract + version-controlled canonical + .gitignore negation + ~/praxis-signals refresh.
+
+**Trader decisions (DECISION_LOG 2026-07-16, AskUserQuestion):** strategy LOCKED paper-faithful — **16:00 ET flat** (NOT 11:30), **reverse & re-enter** (NOT one-position), **replicate-first with FIXED params** (lookback=14, band=1×σ, no noise-mult, no ATR stop). SUPERSEDES D-2026-07-15-B Q7 optimize-set (noise-mult/stop-ATR have no paper analog; WFA optimization = later separate arm).
+
+**Open beads (7):** **4uu ◐ half-open** + **hlw ◐ half-open** — BOTH VM-gated; together they block the whole downstream chain **zi1 (WFA) → ajj (MC) → xdr (refdist)**. Plus trader-VM: lhw (Sim101 QXD-TEST cancel), btb (sim test on 9d25243), 10i (activation). 518 P3 (VM GUI bug).
+
+**▶ NEXT SESSION — everything front-of-queue is a trader-VM touch (unblocks Block-2 in one VM session):** (1) **hlw** — pull NQ 1-min history (roll=vol/OI + Difference). (2) **4uu** — F5-compile `PraxisNoiseAreaBreakout.cs` in NT8 → Strategy Analyzer on the hlw series → reconcile sample signals vs live/sim TV alerts (proc `docs/reports/2026-07-16-4uu-noise-area-strategy.md §B`); ⚠️ top compile risk = bar-timestamp convention (close-stamped RTH assumed). (3) lhw / btb / 10i as desired. **After hlw+4uu close: first orchestrator dispatch = zi1 (b2-wfa 252/63/63).** Will need your MFFU acct size + trailing-DD numbers for xdr (downstream). ⚠️ Sim101 11:12 long 1 NQ + bracket still your call. AUDIT_LOG deliberately dirty (deferred-flush convention; session-16 mint rows incl.).
+
 ## Resume card — 2026-07-15 (session 15) — Block-2 kickoff: Q2–Q9 resolved, b2-data spec+cost landed, roll LOCKED
 
 **HEAD:** wrap on top of `26ce939`. Shipped (all auditor-PASS): `89f04b9` **b2-spec-gaps (cd4 CLOSED)** — Block-2 gaps Q2–Q9 trader-resolved (Q2 adopt §4 candidate checklist · Q3 WFE≥0.5 hard gate · Q4 NT8 default-provider minute, no paid budget, ~5yr/16 OOS · Q5 $2.96 RT + 1-tick slippage High-fill · Q6 MFFU acct+trailing-DD basis · Q7 optimize {lookback,noise,stop-ATR,exit} in WFA 252/63/63 · Q8 both NT8-VM + Python-Mac MC · Q9 fixed SHM-4/SHM-5 bands) → DECISIONS.md **D-2026-07-15-B**. `26ce939` **b2-data (hlw, Mac-side)** — data-acquisition spec (NQ 1-min 2021-07-15→2026-07-14), `config/backtest-cost-model.json` (encodes Q5), VM operator runbook + objective validation gate.
