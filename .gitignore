@@ -13,4 +13,6 @@ Redemtion/
 
 # Live signal payloads (not committed)
 signals/*.json
+# ...except the version-controlled canonical schema template (bead 6h7)
+!signals/signal-template.json
 .claude/state/

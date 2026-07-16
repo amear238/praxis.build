@@ -9,6 +9,8 @@
 | /MANIFEST.md | Log | 0 | 2026-05-08 | Append-only file creation registry |
 | /README.md | Docs | 0 | 2026-05-08 | Project overview and quick links |
 | /signals/ | Data | 0 | 2026-05-11 | TradingView signal drop dir; gitignored payloads |
+| /signals/signal-template.json | Data | 1 | 2026-07-16 | 6h7 (P4) canonical version-controlled signal payload template — matches PraxisSignalConsumer.cs ValidateSignal B1-d contract (required: signal_id/symbol/side/qty/price/ts; optional: stop/target); replaces PRE-B1-b stale schema; .gitignore negation `!signals/signal-template.json` exempts it from `signals/*.json`; operational copy ~/praxis-signals/signal-template.json regenerated to match (no BOM) |
+| /signals/signal-template.README.md | Docs | 1 | 2026-07-16 | 6h7 (P4) field semantics for signal-template.json — required vs optional, types, validation rules, filename keyed on ts+signal_id, legacy keys (action/source/timestamp/strategy/test) NOT in schema |
 | /docs/reports/2026-05-11-sess2-step-0.5-webhook.md | Report | 0 | 2026-05-11 | Block 0 step 0.5 subagent report |
 | /docs/reports/2026-05-11-sess2-step-0.6-telegram.md | Report | 0 | 2026-05-11 | Block 0 step 0.6 subagent report |
 | /docs/specs/STRATEGY_HEALTH_MONITOR_SPEC.md | Spec | 3 | 2026-07-08 | Strategy Health Monitor spec (D-2026-07-04-B); thresholds locked at Block 2 milestone |
