@@ -2,6 +2,24 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-20 (session 18) — b2-data mailbox + live auto-validation watcher (trader no longer the VM↔Mac relay)
+
+**HEAD:** `1dfe7a8` · Block 2 (Backtesting). Open beads: ~9 (top 3 actionable: **6bw** b2-stitch READY, **cn4** telegram-activation, **2vu** P3 chunking-bug doc).
+
+**Shipped this session (1 audited commit):**
+- `1dfe7a8` **Praxis_build-3q4 (b2-data-mailbox)** — bidirectional VM↔Mac shared-folder mailbox + launchd watcher `build.praxis.b2data-watch` (auto-notify + auto raw-landing validation incl. the OI gate). Auditor PASS (token 95a6bb0e); self-test 5/5. **Daemon INSTALLED + LIVE**; `outbound/INSTRUCTIONS.md` seeded → coworker reads the export brief directly in the VM.
+
+**Also:** `lhw` CLOSED (trader flattened Sim101). Filed `6bw` (stitch pre-build, READY), `cn4` (telegram token rotation).
+
+**State of the world:** trader entered NT8 password; coworker is exporting the 22 contracts. As files land in `~/praxis-signals/b2-data/raw/`, the live daemon writes `reports/raw-landing-validation.md` + `landing-log.txt`. **Telegram pings are dry-run only** (cn4) — check the reports/ file, not a phone.
+
+**Next 3 dispatches (P0→P2):**
+1. **6bw (P2, READY)** — pre-build the Python Vol/OI-crossover + Difference stitch (against b2-data spec; validation-pending until raw/ lands). Implementer → auditor → commit.
+2. **Monitor the OI gate** — when the first `_daily.csv` lands, the watcher reports `OI_PRESENT` or `OI_BLANK`. **`OI_BLANK` → STOP; volume-only fallback needs trader sign-off + DECISIONS append (D-2026-07-17-A) before 6bw proceeds.**
+3. **AUDIT_LOG flush** (~22 stranded rows, flush-mode) + **cn4** (telegram) as hygiene/enablement.
+
+**Blockers/notes:** whole Block-2 chain (6bw→zi1→ajj→xdr) still waits on raw/ populated + OI confirmed — but that's now coworker-autonomous, no trader relay. `AUDIT_LOG.md` shows ~22 unstaged stranded rows (expected until flush; do NOT fold into a feature commit). Daemon off-switch: `launchctl unload ~/Library/LaunchAgents/build.praxis.b2data-watch.plist`.
+
 ## Resume card — 2026-07-16 (session 16) — Block-2 strategy foundation: ruleset sourced + NinjaScript authored
 
 **HEAD:** `de46c56`. Shipped (all auditor-PASS): `2a3f192` **b2-ruleset-source (2tm CLOSED)** — canonical Zarattini-Aziz-Barbon Noise-Area ruleset fetched from SSRN 4824172 (full 43-pg St. Gallen open-access copy; SSRN 403'd) → `docs/specs/2026-07-16-b2-noise-area-ruleset.md`. `719ab11` **b2-signal-repro (4uu ◐ half-open)** — paper-faithful `ninjascript/PraxisNoiseAreaBreakout.cs` (09:30-anchored gap-adjusted band, HH:00/HH:30 checkpoints, reverse/re-enter, 16:00 flat, ExitMode sole tunable, params fixed const, no look-ahead; audit caught+fixed 2 smuggled optimizable knobs). `de46c56` **6h7 CLOSED** — signal-template.json regenerated to live consumer contract + version-controlled canonical + .gitignore negation + ~/praxis-signals refresh.
