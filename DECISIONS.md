@@ -197,3 +197,22 @@ Q1 was closed session 14 (re-implement in NT8, D 21:10Z). The remaining Block-2 
 **Cost-model config artifact (pointer, not a new decision):** The Q5 cost model already locked in D-2026-07-15-B is now ENCODED in a machine-readable artifact consumed by BOTH the NT8 Strategy Analyzer backtest and the Python Monte Carlo layer: **`config/backtest-cost-model.json`** ($2.96 RT commission, 1 tick/side slippage, High fill resolution, plus NQ tick size 0.25 / point value $20 / tick value $5 metadata). This restates D-2026-07-15-B Q5; it does not change it.
 
 **Roll convention — TRADER-LOCKED 2026-07-15 (session 15):** For the NT8 continuous NQ contract, the roll construction is **volume/OI-crossover roll trigger + Difference (back-adjusted / Panama) adjustment** — Amear locked the b2-data spec recommendation (spec `docs/specs/2026-07-15-b2-data-acquisition-spec.md` §2) via in-session AskUserQuestion. Rationale: a breakout strategy measures signals as absolute point distances, so (a) Difference back-adjustment removes the artificial price gap at each roll seam that would otherwise fabricate breakout signals/fake stop-outs, while preserving true point size; (b) Ratio adjustment is rejected because it distorts absolute point distances (the optimized inputs); (c) volume/OI roll keeps the series on the actually-traded, liquid contract for realistic fills. The VM NT8 pull MUST use exactly this construction. Concrete pull range: NQ 1-min, 2021-07-15 → 2026-07-14 (~5 yr / ~16 OOS windows, clears the ≥4-yr / ≥12-window floor with warmup headroom).
+
+---
+
+## 2026-07-17 — D-2026-07-17-A: hlw continuous NQ series built OUTSIDE NT8 in Python (locked roll convention UNCHANGED)
+
+**Date:** 2026-07-17
+**Status:** LOCKED (trader-chosen via AskUserQuestion, session 17)
+
+**Context:** The VM coworker reports the locked roll convention — Vol/OI-crossover trigger + Difference back-adjustment (D-2026-07-15, b2-data §2) — is **not natively constructible** in the current NT8 install (NT8's built-in continuous contract offers Difference back-adjustment but a calendar/expiry roll trigger, not Vol/OI-crossover). Given four paths (NT8 native calendar approximation / NinjaTrader Continuum feed / build outside NT8 in Python / hold), the trader chose **build outside NT8 in Python**.
+
+**Decision:** Construct the continuous NQ 1-min series **outside NT8, in Python (Mac-side, per Q8)**, from individual expiry contracts — exactly reproducing the locked convention (Vol/OI-crossover roll + Difference back-adjustment) — then import the stitched series back into NT8 as a custom instrument for the Strategy-Analyzer WFA. **The 2026-07-15 roll convention itself is UNCHANGED**; this is an implementation-path decision, not a convention change. Trader chose fidelity over the faster NT8-native calendar approximation.
+
+**Method / division of labor:**
+- **VM / NT8 (coworker):** export per-contract **1-min OHLCV** + **daily bars (carry volume & open interest)** for each NQ quarterly (H/M/U/Z) whose liquid window overlaps 2021-07-15 → 2026-07-14 (≈06-21 through 09-26, ~20–22 contracts), to `\\Mac\praxis-signals\b2-data\raw\`.
+- **Mac / Python (Claude):** compute Vol/OI-crossover roll dates from the daily series, apply Difference back-adjustment across seams, emit the stitched continuous 1-min series + a validation report against b2-data spec §4; re-import to NT8 as a custom instrument.
+
+**OPEN RISK (flagged, not yet decided):** if the free default provider does **not** supply open interest, the roll trigger falls back to **volume-only crossover** — a documented deviation (logged, not silently accepted, per Q4), surfaced to the trader BEFORE any fallback is used.
+
+**Supersedes:** the "VM NT8 native continuous pull" execution assumption in `docs/specs/2026-07-15-b2-data-acquisition-spec.md` §5. That spec's §2 convention and §4 validation criteria stand unchanged.
