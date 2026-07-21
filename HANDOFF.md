@@ -2,6 +2,23 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-21 (session 19) — 6bw stitch pre-built + AUDIT_LOG flushed; 🛑 OI_BLANK stop hit, trader decision pending
+
+**HEAD:** wrap on top of `39d2301` · Block 2 (Backtesting). Open beads: 8 (top 3: **6hu** P1 OI-decision, **cn4** P2 telegram, **9qx** P3 reconciled-verb).
+
+**Shipped this session (2 audited commits + 1 wrap):**
+- `c2f674d` **6bw CLOSED** — `scripts/b2_stitch.py`: Python Vol/OI-crossover roll + Difference (Panama) back-adjustment, schema-configurable CSV parse, spec-§4 validation report, HARD OI-blank refusal (no silent volume-only), stdlib-only, fixture self-test 4/4. Auditor PASS 7661601f. **VALIDATION-PENDING until raw/ lands.**
+- `39d2301` **8q5 CLOSED (AUDIT_LOG flush)** — 24 stranded rows flushed append-only (flush-mode auditor PASS c0a1050c). The session-12 `block1-milestone-report` orphan (2f8cd726) VOID-annotated per trader AskUserQuestion: it landed as **d405125**, a slug/message wording mismatch, NOT invalid (DECISION_LOG 2026-07-20T17:02Z). Filed **9qx** (proper RECONCILED verb, build-if-recurs).
+
+**🛑 THE STOP (6hu, P1, OPEN):** coworker's export started mid-session. Daily files = 6-col `date;O;H;L;C;volume`, **no OI column**. Coworker confirmed OI is a **hard NT8 platform limit** (structurally absent from futures export schema) → re-export-with-OI is impossible. Daemon fired OI_BLANK on all landed files. Trader-locked Vol/OI-crossover roll is blocked. Coworker says the trader verbally approved volume-only in-VM and proceeded — **but there is NO DECISIONS append in-ledger, so it is not formally authorized.** I surfaced this and paused for the trader; he closed the session here.
+
+**Next 3 dispatches (P0→P2):**
+1. **6hu (P0):** get the trader's explicit volume-only sign-off → **append a DECISIONS entry** resolving D-2026-07-17-A OPEN RISK → unblock 6bw. (Or trader elects to source OI elsewhere.)
+2. **6bw real-data run** once 6hu resolved + raw/ fills (all 44 files): run `scripts/b2_stitch.py --root ~/praxis-signals/b2-data`, emit §4 validation report, re-import to NT8.
+3. **cn4** (Telegram token rotation) as enablement; **4uu** VM reconcile after the continuous series exists.
+
+**Blockers/notes:** export in progress (6/22 daily, 0/22 1-min; 17 contracts still need chunked downloads, 2vu). Daemon `build.praxis.b2data-watch` LIVE (auto-validates each landing → reports/landing-log.txt). Perpetual rolling AUDIT_LOG row (`c0a1050c`, the flush's own mint) stranded by design → next flush; do not fold into a feature commit. Orchestrator disarmed at close.
+
 ## Resume card — 2026-07-20 (session 18) — b2-data mailbox + live auto-validation watcher (trader no longer the VM↔Mac relay)
 
 **HEAD:** `1dfe7a8` · Block 2 (Backtesting). Open beads: ~9 (top 3 actionable: **6bw** b2-stitch READY, **cn4** telegram-activation, **2vu** P3 chunking-bug doc).
