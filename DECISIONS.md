@@ -216,3 +216,28 @@ Q1 was closed session 14 (re-implement in NT8, D 21:10Z). The remaining Block-2 
 **OPEN RISK (flagged, not yet decided):** if the free default provider does **not** supply open interest, the roll trigger falls back to **volume-only crossover** — a documented deviation (logged, not silently accepted, per Q4), surfaced to the trader BEFORE any fallback is used.
 
 **Supersedes:** the "VM NT8 native continuous pull" execution assumption in `docs/specs/2026-07-15-b2-data-acquisition-spec.md` §5. That spec's §2 convention and §4 validation criteria stand unchanged.
+
+---
+
+## 2026-07-21 — D-2026-07-21-A: OI_BLANK resolved — volume-only crossover roll trigger AUTHORIZED (resolves D-2026-07-17-A OPEN RISK)
+
+**Date:** 2026-07-21
+**Status:** LOCKED (trader-chosen via AskUserQuestion, session 20 — Amear)
+**Resolves:** the D-2026-07-17-A OPEN RISK (volume-only fallback), which is hereby CLOSED.
+**Bead:** Praxis_build-6hu (P1).
+
+**Context:** NinjaTrader 8 cannot export Open Interest. Confirmed a HARD platform limitation — OI is structurally absent from NT8's futures historical-export schema at every interval/data-type, NOT a config miss (coworker report 2026-07-20). Every landed daily file is 6-col `date;open;high;low;close;volume` with no OI column; the b2data-watch daemon's OI gate fired OI_BLANK on all of them (`~/praxis-signals/b2-data/reports/landing-log.txt`). Therefore "re-export the daily series WITH OI" is IMPOSSIBLE via this toolchain, and the Vol/OI-crossover roll trigger locked in D-2026-07-15 / reproduced in D-2026-07-17-A cannot be computed from NT8 data. Real choice presented to the trader: (A) volume-only crossover fallback, or (B) source daily OI from another provider (heavier, delays Block-2).
+
+**Decision:** The continuous NQ series roll trigger is changed to a **volume-only daily crossover** (roll to the back contract when the back month's daily volume strictly exceeds the front month's, per the tool's confirm-day logic). **The Difference (Panama / back-adjusted) adjustment is UNCHANGED** — it still removes the price gap at each seam so absolute point distances (what the Noise-Area breakout strategy measures) are preserved. This is the ONLY change: OI is dropped from the roll-trigger test; nothing else about the convention moves. Path (B) — sourcing OI elsewhere — was declined in favor of unblocking Block-2 now.
+
+**Rationale / accepted trade-off:** Roll seams may land ~1–2 days from where a true volume+OI crossover would place them, so for ~1–2 days per quarter the series may sit on a marginally-less-liquid contract around the roll. Impact on the strategy is bounded because (a) Difference back-adjustment preserves true point size regardless of the exact seam date, and (b) the seam shift is small relative to the contract's liquid window. Trader accepted this over the delay of sourcing OI from a second provider.
+
+**Scope of change (explicit):**
+- The 2026-07-15 roll convention is amended ONLY in its trigger term: `volume/OI-crossover` → `volume-only crossover`. Difference back-adjustment, the pull range (NQ 1-min 2021-07-15 → 2026-07-14), and b2-data spec §4 validation criteria all stand unchanged.
+- D-2026-07-17-A's build-outside-NT8-in-Python implementation path is unchanged and now proceeds without the OI dependency.
+
+**Enablement / guardrail (already built):** `scripts/b2_stitch.py` (bead 6bw, c2f674d) was pre-built to REFUSE OI-blank data (exit 2) unless invoked with `--allow-volume-only`, whose file-header contract states the flag may be used ONLY once a DECISIONS append authorizing volume-only exists. **This entry IS that authorization.** The stitch may now be run in volume-only mode; the tool still prints a loud VOLUME-ONLY DEVIATION banner on each such run (deviation logged, not silent — satisfies D-2026-07-15-B Q4). No code change was required.
+
+**Note on prior verbal approval:** the coworker's report that the trader verbally approved volume-only in the VM was NOT sufficient to authorize the change — a roll-convention deviation requires an in-ledger, append-only DECISIONS entry. This entry supplies it; the earlier verbal is now formalized here, not relied upon.
+
+**Unblocks:** Praxis_build-6bw real-data validate+run (in volume-only mode, once raw/ is fully populated) → NT8 re-import → 4uu reconcile → zi1 (WFA) → ajj (MC) → xdr (refdist).
