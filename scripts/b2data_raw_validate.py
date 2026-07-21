@@ -220,19 +220,19 @@ def run_battery(root):
     else:
         oi_verdict = "PRESENT"
 
-    ready = (len(present) == len(EXPECTED)) and (oi_verdict == "PRESENT") and (not hard_failures)
+    # OI-absent is INFORMATIONAL, not a blocker. Per D-2026-07-21-A the trader
+    # authorized volume-only crossover rolls and OI is structurally absent from
+    # every NT8 daily export (a HARD platform limitation, not a config miss).
+    # Readiness therefore depends only on completeness + per-file sanity.
+    ready = (len(present) == len(EXPECTED)) and (not hard_failures)
 
     summary = "SUMMARY present=%d/%d oi=%s ready=%s" % (
         len(present), len(EXPECTED), oi_verdict, "YES" if ready else "NO")
-    if oi_verdict == "BLANK":
-        summary += " stop=OI_BLANK"
 
-    # blockers list for the human verdict line
+    # blockers list for the human verdict line (OI-absent is NOT a blocker)
     blockers = []
     if len(present) != len(EXPECTED):
         blockers.append("incomplete %d/%d" % (len(present), len(EXPECTED)))
-    if oi_verdict == "BLANK":
-        blockers.append("OI_BLANK")
     if hard_failures:
         blockers.append("%d file-sanity failure(s)" % len(hard_failures))
 
@@ -243,14 +243,19 @@ def run_battery(root):
     lines.append("# Raw-Landing Validation — b2-data")
     lines.append("")
     if ready:
-        lines.append("**VERDICT: READY TO STITCH** — complete set, OI present, no sanity failures.")
+        if oi_verdict == "PRESENT":
+            lines.append("**VERDICT: READY TO STITCH** — complete set, OI present, no sanity failures.")
+        else:
+            lines.append("**VERDICT: READY TO STITCH** — complete set, volume-only per D-2026-07-21-A, no sanity failures.")
     else:
         lines.append("**VERDICT: NOT READY** (blockers: %s)" % ", ".join(blockers))
     if oi_verdict == "BLANK":
         lines.append("")
-        lines.append("> **STOP — OI_BLANK.** One or more daily files have blank/zero Open Interest. "
-                     "The volume-only crossover fallback is a documented deviation that needs trader "
-                     "sign-off + a DECISIONS entry (D-2026-07-17-A OPEN RISK) BEFORE any use.")
+        lines.append("> **OI absent — volume-only per D-2026-07-21-A (informational).** One or more daily "
+                     "files carry blank/zero Open Interest; OI is structurally absent from NT8 daily "
+                     "exports. The volume-only crossover roll trigger is trader-authorized "
+                     "(D-2026-07-21-A resolves the former D-2026-07-17-A OPEN RISK), so this does NOT "
+                     "block stitching.")
     lines.append("")
     lines.append("_Run: %s · root: %s_" % (now, root))
     lines.append("")

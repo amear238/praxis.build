@@ -91,7 +91,7 @@ process_new_file() {
       local oi; oi="$(python3 "$VALIDATOR" --oi-file "$f" 2>/dev/null)"
       case "$oi" in
         OI_BLANK*)
-          notify_and_log b2data-oi-stop "OI BLANK — STOP: $base has blank/zero Open Interest. Volume-only crossover fallback needs trader sign-off + a DECISIONS entry (D-2026-07-17-A OPEN RISK) BEFORE use. [$oi]"
+          notify_and_log b2data-oi-absent "OI absent — volume-only per D-2026-07-21-A (informational): $base has blank/zero Open Interest, as expected for NT8 daily exports. Volume-only crossover roll is trader-authorized; does NOT block. [$oi]"
           ;;
         OI_PRESENT*)
           notify_and_log b2data-oi-ok "OI present in $base [$oi]"

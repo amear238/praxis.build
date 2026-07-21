@@ -9,7 +9,7 @@
 #
 # Maps to design §6 acceptance:
 #   A good full set        -> ready=YES oi=PRESENT            (§6.3)
-#   B blank-OI first daily -> oi=BLANK ready=NO (STOP)        (§6.3)
+#   B blank-OI first daily -> oi=BLANK ready=YES (informational, D-2026-07-21-A)
 #   C missing files        -> ready=NO present=40/44          (§6.3)
 #   D watcher idempotency  -> settle-guard + notify-once      (§6.4, settle-guard)
 #   E notify failure        -> sweep survives, log still written (§6.5)
@@ -81,15 +81,24 @@ assert_contains "A: present=44/44" "$SUMA" "present=44/44"
 assert_contains "A: oi=PRESENT"    "$SUMA" "oi=PRESENT"
 assert_contains "A: ready=YES"     "$SUMA" "ready=YES"
 
-# --- Scenario B: blank-OI first daily -> OI_BLANK / STOP ----------------------
+# --- Scenario B: blank-OI first daily -> oi=BLANK but INFORMATIONAL -----------
+# Per D-2026-07-21-A the trader authorized volume-only crossover rolls and OI is
+# structurally absent from NT8 daily exports, so an absent OI column is reported
+# informationally and does NOT block: a complete 44/44 set still reads ready=YES.
 ROOTB="$(mktemp -d)"; gen_raw "$ROOTB/raw" blankoi
 SUMB="$(python3 "$VALIDATOR" --root "$ROOTB" 2>/dev/null | grep -m1 '^SUMMARY')"
 echo "[B blank]  $SUMB"
 assert_contains "B: oi=BLANK"      "$SUMB" "oi=BLANK"
-assert_contains "B: ready=NO"      "$SUMB" "ready=NO"
-assert_contains "B: stop=OI_BLANK" "$SUMB" "stop=OI_BLANK"
+assert_contains "B: ready=YES (OI-absent is informational)" "$SUMB" "ready=YES"
+if printf '%s' "$SUMB" | grep -q "stop=OI_BLANK"; then
+  fail "B: summary must NOT carry stop=OI_BLANK (OI-absent is informational)"; else
+  pass "B: summary drops stop=OI_BLANK"; fi
 if grep -q "STOP" "$ROOTB/reports/raw-landing-validation.md" 2>/dev/null; then
-  pass "B: report carries the STOP notice"; else fail "B: report missing STOP notice"; fi
+  fail "B: report must NOT carry a STOP notice for OI-absent"; else
+  pass "B: report carries no OI STOP notice"; fi
+if grep -q "informational" "$ROOTB/reports/raw-landing-validation.md" 2>/dev/null; then
+  pass "B: report carries the informational OI-absent line"; else
+  fail "B: report missing informational OI-absent line"; fi
 
 # --- Scenario C: missing files -> ready=NO present=40/44 ----------------------
 ROOTC="$(mktemp -d)"; gen_raw "$ROOTC/raw" missing
