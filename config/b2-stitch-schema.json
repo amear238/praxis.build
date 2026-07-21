@@ -1,5 +1,5 @@
 {
-  "_comment": "Praxis_build-6bw (b2-stitch) — DEFAULT column-alias schema for b2_stitch.py. Real coworker export headers are UNKNOWN; column resolution is schema-configurable (acceptance criterion 3). Matching is normalized (case/space/underscore/hyphen-insensitive) with exact -> substring precedence, then a documented positional fallback (daily date=col0, OI=last col). Copy + edit + pass via `--schema <path>` once the real export headers are known. Editing this file changes NOTHING about the TRADER-LOCKED roll convention (Vol/OI-crossover + Difference) — it only maps headers.",
+  "_comment": "Praxis_build-6bw / -8zd (b2-stitch) — DEFAULT column schema for b2_stitch.py. Two shapes are supported: (1) header-bearing files resolve columns by the alias maps below (normalized case/space/underscore/hyphen-insensitive, exact -> substring precedence, then a documented positional fallback: daily date=col0, OI=last col); (2) HEADER-LESS files (the real semicolon-delimited NinjaTrader export) resolve by the `*_positional` index layouts. The real export is: daily = YYYYMMDD;open;high;low;close;volume (6 cols, NO Open Interest); minute = 'YYYYMMDD HHMMSS';open;high;low;close;volume (field 0 is a single combined timestamp). A 6-col daily has no OI column, so oi_present() is False and the roll follows the volume-only crossover path (D-2026-07-21-A). Copy + edit + pass via `--schema <path>`. Editing this file changes NOTHING about the TRADER-LOCKED roll convention (Vol/OI-crossover + Difference) — it only maps columns.",
   "daily": {
     "date":          ["date", "time", "timestamp", "datetime"],
     "open":          ["open", "o"],
@@ -17,5 +17,7 @@
     "low":           ["low", "l"],
     "close":         ["close", "last", "c"],
     "volume":        ["volume", "vol", "v"]
-  }
+  },
+  "daily_positional":  ["date", "open", "high", "low", "close", "volume", "open_interest"],
+  "minute_positional": ["timestamp", "open", "high", "low", "close", "volume"]
 }

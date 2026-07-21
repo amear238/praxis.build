@@ -75,13 +75,26 @@ DEFAULT_SCHEMA = {
         "close":         ["close", "last", "c"],
         "volume":        ["volume", "vol", "v"],
     },
+    # Positional layouts for HEADER-LESS files (criterion 2). Index -> logical
+    # field. The real NinjaTrader export is semicolon-delimited with NO header:
+    #   daily  = YYYYMMDD;open;high;low;close;volume            (6 cols, NO OI)
+    #   minute = "YYYYMMDD HHMMSS";open;high;low;close;volume   (combined ts)
+    # A 6-col daily therefore has NO open_interest column at all -> oi_present()
+    # is False -> the volume-only crossover path (D-2026-07-21-A). A 7-col daily
+    # (if a future export adds it) maps its trailing column to open_interest.
+    "daily_positional":  ["date", "open", "high", "low", "close", "volume", "open_interest"],
+    "minute_positional": ["timestamp", "open", "high", "low", "close", "volume"],
 }
 
 _DT_FORMATS = (
     "%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M",
     "%m/%d/%Y %H:%M:%S", "%m/%d/%Y %H:%M", "%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M",
+    # NinjaTrader combined field-0 timestamp: "YYYYMMDD HHMMSS" (space/ T inside
+    # the single column). Layout CONFIRMED against the real b2-data export
+    # (Praxis_build-8zd), no longer a guess.
+    "%Y%m%d %H%M%S", "%Y%m%dT%H%M%S", "%Y%m%d%H%M%S",
 )
-_DATE_FORMATS = ("%Y-%m-%d", "%Y/%m/%d", "%m/%d/%Y", "%d/%m/%Y")
+_DATE_FORMATS = ("%Y-%m-%d", "%Y/%m/%d", "%m/%d/%Y", "%d/%m/%Y", "%Y%m%d")
 
 
 # ---------------------------------------------------------------------------- #
@@ -112,20 +125,33 @@ def load_schema(path):
     for section in ("daily", "minute"):
         if section in override:
             base.setdefault(section, {}).update(override[section])
+    # positional layouts (header-less files) are wholesale-replaced if provided
+    for key in ("daily_positional", "minute_positional"):
+        if key in override:
+            base[key] = override[key]
     return base
 
 
-def resolve_column(header, aliases, fallback_index=None):
+def resolve_column(header, aliases, fallback_index=None, exact_only=False):
     """Resolve one logical field to a column index in `header`.
     Precedence: (1) exact normalized equality; (2) alias substring of header or
     header substring of alias (normalized); (3) documented positional fallback.
-    Returns (index, how) or (None, 'unresolved')."""
+    Returns (index, how) or (None, 'unresolved').
+
+    exact_only=True stops after (1) and skips the fallback — used for HEADER-LESS
+    files whose header we SYNTHESIZE from canonical names (see _positional_header).
+    Substring matching there is both unnecessary and harmful: e.g. the canonical
+    'open' column is a substring of the open_interest alias 'openinterest', which
+    would otherwise mis-map OPEN price into the OI slot and mask the OI-absent
+    state that drives the volume-only path."""
     norm_hdr = [_norm(h) for h in header]
     norm_alias = [_norm(a) for a in aliases]
     # (1) exact
     for i, nh in enumerate(norm_hdr):
         if nh in norm_alias:
             return i, "exact:%s" % header[i].strip()
+    if exact_only:
+        return None, "unresolved"
     # (2) substring either direction (guard against empty)
     for i, nh in enumerate(norm_hdr):
         if not nh:
@@ -174,14 +200,64 @@ def _to_float(s):
         return None
 
 
+def _sniff_delimiter(sample_line):
+    """Pick the delimiter from a sample data line. Real NinjaTrader exports are
+    SEMICOLON-delimited; the bundled comma fixtures must still parse. Prefer
+    semicolon, then tab, else comma."""
+    if ";" in sample_line:
+        return ";"
+    if "\t" in sample_line:
+        return "\t"
+    return ","
+
+
+def _looks_like_header(row):
+    """True iff `row` carries a textual header label (a cell that is neither a
+    number nor a parseable date/timestamp). Real header-less data rows are all
+    numeric / date-like, so this cleanly separates the two export shapes without
+    a per-file flag."""
+    for c in row:
+        s = (c or "").strip()
+        if s == "":
+            continue
+        if _to_float(s) is not None:
+            continue
+        if _parse_dt(s) is not None:
+            continue
+        return True  # a non-numeric, non-date token -> this is a header row
+    return False
+
+
 def _read_csv(path):
+    """Return (header, data, has_header).
+
+    Delimiter is sniffed per file (semicolon / tab / comma) so real
+    semicolon-delimited NinjaTrader exports AND the comma fixtures both parse.
+    Header presence is detected from the first data row (criterion 2): a
+    header-less file returns header=None and has_header=False — callers then
+    apply a positional schema."""
     with open(path, "r", newline="") as fh:
-        rows = [r for r in csv.reader(fh)]
+        text = fh.read()
+    lines = text.splitlines()
+    first = next((ln for ln in lines if ln.strip()), "")
+    if not first:
+        return None, [], False
+    delim = _sniff_delimiter(first)
+    rows = [r for r in csv.reader(lines, delimiter=delim) if any(c.strip() for c in r)]
     if not rows:
-        return None, []
-    header = rows[0]
-    data = [r for r in rows[1:] if any(c.strip() for c in r)]
-    return header, data
+        return None, [], False
+    if _looks_like_header(rows[0]):
+        return rows[0], rows[1:], True
+    return None, rows, False
+
+
+def _positional_header(schema, section, ncols):
+    """Synthesize a canonical header for a header-less file from the section's
+    positional layout, sized to the actual column count. Extra columns get
+    inert 'colN' names so they resolve to nothing (never to OI/close by
+    accident)."""
+    layout = schema.get(section + "_positional", [])
+    return [layout[i] if i < len(layout) else "col%d" % i for i in range(ncols)]
 
 
 # ---------------------------------------------------------------------------- #
@@ -192,16 +268,28 @@ def read_daily(path, schema):
     OI resolution falls back to the LAST column (documented) — a blank/zero
     fallback column is still caught by the presence check, so it can never
     silently pass volume-only."""
-    header, data = _read_csv(path)
-    if header is None:
+    header, data, has_header = _read_csv(path)
+    if not data:
         raise StitchError("empty/unreadable daily file: %s" % path)
+    if not has_header:
+        header = _positional_header(schema, "daily", len(data[0]))
     sd = schema["daily"]
-    i_date, _ = resolve_column(header, sd["date"], fallback_index=0)
-    i_close, _ = resolve_column(header, sd["close"])
-    i_vol, _ = resolve_column(header, sd["volume"])
+    # Header-LESS files use a synthesized canonical header -> resolve by EXACT
+    # name only (no substring/fallback). Header-bearing files keep the full
+    # exact->substring->fallback resolution for unknown real column names.
+    xo = not has_header
+    i_date, _ = resolve_column(header, sd["date"], fallback_index=(None if xo else 0), exact_only=xo)
+    i_close, _ = resolve_column(header, sd["close"], exact_only=xo)
+    i_vol, _ = resolve_column(header, sd["volume"], exact_only=xo)
+    # OI: with an UNKNOWN real header we fall back to the last column (a
+    # blank/zero fallback is still caught by oi_present). A header-LESS file has
+    # a KNOWN positional layout — a 6-col daily has no OI column, so exact_only
+    # resolution returns None (OI absent) -> oi_present() False -> volume-only
+    # path. No fallback there (it would mask the OI-absent state).
+    oi_fallback = (len(header) - 1) if has_header else None
     i_oi, oi_how = resolve_column(header, sd["open_interest"],
-                                  fallback_index=len(header) - 1)
-    oi_resolved = not oi_how.startswith("fallback")
+                                  fallback_index=oi_fallback, exact_only=xo)
+    oi_resolved = (i_oi is not None) and not oi_how.startswith("fallback")
     if i_date is None or i_close is None or i_vol is None:
         raise StitchError("daily %s: could not resolve date/close/volume columns "
                           "(header=%s)" % (os.path.basename(path), header))
@@ -222,17 +310,20 @@ def read_daily(path, schema):
 
 def read_minute(path, schema):
     """Return list of dicts {ts(datetime), o,h,l,c,v} sorted by ts."""
-    header, data = _read_csv(path)
-    if header is None:
+    header, data, has_header = _read_csv(path)
+    if not data:
         raise StitchError("empty/unreadable minute file: %s" % path)
+    if not has_header:
+        header = _positional_header(schema, "minute", len(data[0]))
     sm = schema["minute"]
-    i_ts, _ = resolve_column(header, sm["timestamp"])
-    i_date, _ = resolve_column(header, sm["date"])
-    i_o, _ = resolve_column(header, sm["open"])
-    i_h, _ = resolve_column(header, sm["high"])
-    i_l, _ = resolve_column(header, sm["low"])
-    i_c, _ = resolve_column(header, sm["close"])
-    i_v, _ = resolve_column(header, sm["volume"])
+    xo = not has_header  # header-less -> exact-only canonical resolution
+    i_ts, _ = resolve_column(header, sm["timestamp"], exact_only=xo)
+    i_date, _ = resolve_column(header, sm["date"], exact_only=xo)
+    i_o, _ = resolve_column(header, sm["open"], exact_only=xo)
+    i_h, _ = resolve_column(header, sm["high"], exact_only=xo)
+    i_l, _ = resolve_column(header, sm["low"], exact_only=xo)
+    i_c, _ = resolve_column(header, sm["close"], exact_only=xo)
+    i_v, _ = resolve_column(header, sm["volume"], exact_only=xo)
     if i_c is None or (i_ts is None and i_date is None):
         raise StitchError("minute %s: could not resolve timestamp/close columns "
                           "(header=%s)" % (os.path.basename(path), header))
@@ -328,6 +419,29 @@ def compute_roll_date(front_daily, back_daily, confirm=1, allow_volume_only=Fals
         else:
             run = 0
             first_qual = None
+
+    # No strict crossover anywhere in the common overlap. Under the AUTHORIZED
+    # volume-only deviation only (D-2026-07-21-A), fall back to the last common
+    # date as the roll seam. Rationale (Praxis_build-8zd, real-data finding): the
+    # NinjaTrader export trims each contract's DAILY series to ~1-3 days past its
+    # own roll, so the earliest (2-day) overlaps end on the day the back month is
+    # still a hair UNDER the front — the true crossover lands on the first
+    # UN-shared day, for which there is no front row. The last shared date is
+    # therefore the effective front/back boundary (front daily data ends there),
+    # so we roll on it. This fires ONLY when allow_volume_only is set AND no
+    # strict crossover exists; the OI-present path (self-test Case A) and every
+    # genuine crossover (17 of 21 real seams, self-test Case D) are unaffected.
+    # The Difference/Panama offset math is untouched — the seam gap is still
+    # taken at this roll date.
+    if allow_volume_only and common:
+        last = common[-1]
+        return {
+            "roll_date": last["date"],
+            "trigger": "VOLUME-ONLY boundary (no crossover in trimmed overlap)",
+            "front_vol": last["volume"], "back_vol": fb[last["date"]]["volume"],
+            "front_oi": last["oi"], "back_oi": fb[last["date"]]["oi"],
+            "oi_used": False,
+        }
     raise StitchError("no vol/OI crossover found in the common daily window "
                       "(front %s..%s) — cannot roll" %
                       (common[0]["date"] if common else "?",
@@ -526,9 +640,16 @@ def validation_report(rows, seams, dupes, label="REAL"):
     lines.append("")
     lines.append("# Continuous NQ 1-min — Validation Report (b2-data spec §4)")
     lines.append("")
-    lines.append("**Dataset:** %s  ·  **Construction:** Vol/OI-crossover roll + "
-                 "Difference (Panama) back-adjustment (D-2026-07-15 lock, "
-                 "D-2026-07-17-A path)" % label)
+    n_boundary = sum(1 for s in seams if "boundary" in s.get("trigger", ""))
+    n_cross = len(seams) - n_boundary
+    if n_boundary:
+        constr = ("volume-crossover roll (%d of %d seams) + %d no-overlap "
+                  "BOUNDARY-fallback seam(s) (volume-only, D-2026-07-21-A) + "
+                  "Difference (Panama) back-adjustment" % (n_cross, len(seams), n_boundary))
+    else:
+        constr = ("Vol/OI-crossover roll + Difference (Panama) back-adjustment "
+                  "(D-2026-07-15 lock, D-2026-07-17-A path)")
+    lines.append("**Dataset:** %s  ·  **Construction:** %s" % (label, constr))
     lines.append("**Overall:** %s" % overall)
     if label == "REAL" and not rows:
         lines.append("")
@@ -548,12 +669,14 @@ def validation_report(rows, seams, dupes, label="REAL"):
     lines.append("## §3 roll seams")
     lines.append("")
     if seams:
-        lines.append("| # | Roll date | Front→Back | Front close | Back close | Raw gap | Front offset |")
-        lines.append("|---|---|---|---|---|---|---|")
+        lines.append("| # | Roll date | Front→Back | Front close | Back close | Raw gap | Front offset | Roll trigger |")
+        lines.append("|---|---|---|---|---|---|---|---|")
         for k, s in enumerate(seams, 1):
-            lines.append("| %d | %s | %s→%s | %g | %g | %+.2f | %+.2f |" % (
+            trig = s.get("trigger", "?")
+            marker = "⚠ BOUNDARY fallback (volume-only, D-2026-07-21-A)" if "boundary" in trig else trig
+            lines.append("| %d | %s | %s→%s | %g | %g | %+.2f | %+.2f | %s |" % (
                 k, s["roll_date"], s["front"], s["back"],
-                s["front_close"], s["back_close"], s["raw_gap"], s["offset_front"]))
+                s["front_close"], s["back_close"], s["raw_gap"], s["offset_front"], marker))
     else:
         lines.append("_(no seams — single contract or no data)_")
     lines.append("")
@@ -627,6 +750,22 @@ def run_pipeline(root, schema_path=None, out_path=None, report_path=None,
     # --- offsets + stitch (criterion 2) ---------------------------------------
     offsets, seams = build_offsets(codes, roll_dates, daily_by_code)
     rows, dupes = stitch(codes, roll_dates, offsets, minute_by_code)
+
+    # annotate each seam with the roll TRIGGER from roll_diags so the persisted
+    # report can distinguish true volume-crossover seams from the documented
+    # no-overlap boundary fallback (D-2026-07-21-A). Keyed by (front, back).
+    trig_by_pair = {(codes[i], codes[i + 1]): roll_diags[i]["trigger"]
+                    for i in range(len(codes) - 1)}
+    for s in seams:
+        s["trigger"] = trig_by_pair.get((s["front"], s["back"]), "?")
+    boundary = [s for s in seams if "boundary" in s.get("trigger", "")]
+    if boundary and verbose:
+        sys.stderr.write(
+            "NOTE: %d of %d roll seam(s) used the no-overlap VOLUME-ONLY BOUNDARY "
+            "fallback (D-2026-07-21-A), NOT a volume crossover: %s\n"
+            % (len(boundary), len(seams),
+               ", ".join("%s(%s->%s)" % (s["roll_date"], s["front"], s["back"])
+                         for s in boundary)))
 
     # --- validation report (criterion 5) --------------------------------------
     report_md, summary, overall = validation_report(rows, seams, dupes, label=label)
