@@ -20,6 +20,14 @@ Resume cards go here, newest on top.
 
 **Blockers/notes:** quota reset (was ~18:20 Toronto 2026-07-21) has passed — clear. AUDIT_LOG.md shows exactly ONE modified rolling row (f8a's own mint) — by design, do NOT "fix" it, it lands in the next flush. Orchestrator disarmed at close.
 
+**UPDATE — 4uu now LIVE in the VM (coworker relay, same session):**
+- ✅ Coworker confirmed `NQ-continuous-1min.csv` present in the VM at `C:\Mac\Home\praxis-signals\b2-data\` — 1,857,362 rows, ET wall-clock, header matches spec. NT8 running with the Historical Data → Import dialog open. `PraxisNoiseAreaBreakout.cs` deployed (VM copy dated 7/17).
+- 🔴 **BLOCKER: coworker has NT8 at READ-ONLY tier** — cannot click/type into the live platform (by design). Import + F5 + Strategy Analyzer (steps 2-4) need **trader hands-on**, not the coworker.
+- 📄 **Delivered to VM share:** reconcile checklist copied to `C:\Mac\Home\praxis-signals\b2-data\4uu-reconcile-checklist.md` (docs/ wasn't syncing, only b2-data). Strategy is byte-verifiable: repo `.cs` unchanged since 719ab11 (2026-07-16), 14,318 B, sha256 `35393823e9bc146e95dcb1d9f6fe5785a3c72ee3a3fb71287f33fe2242752265` — `certutil -hashfile ... SHA256` in VM to confirm the 7/17 deploy isn't stale.
+- ⚠️ **TOP RISK on import = bar-timestamp convention.** Series stamps RTH-open at 09:30:00 ET, but NT8 conventionally treats a minute stamp as bar-CLOSE → can shift one bar (09:29→09:30). **Definitive check:** put NT8 native NQ beside the imported series, confirm the 09:30 boundary aligns bar-for-bar. If shifted → STOP, re-stamp ±1min Mac-side + re-run §4 validation; do NOT fudge in NT8.
+- VM standby brief clipboarded + saved scratchpad `4uu-vm-standby-brief.txt`. Mac side offered to read compile-log/analyzer output off-screen after each step.
+- **Next-chat first move:** trader (not coworker) drives Import→F5→Analyzer per the checklist; relay compile log + sample entries back for reconcile. Then hlw closeable; then zi1→ajj→xdr.
+
 ## Resume card — 2026-07-22 (session 21) — 8zd + pb9 shipped; 1u6 tz-conversion FAILED audit (silent seam data loss), parked; quota-interrupted
 
 **HEAD:** `03281e6` on top of `c571c74`/`bacd63c` · Block 2 (Backtesting). **44/44 raw NT8 exports landed** (coworker completed the pull). Open beads incl. **1u6** (P2, parked w/ full fix spec), **cn4** (P2), plus P3s (9qx, 2vu, 518). Origin: pushing this wrap.
