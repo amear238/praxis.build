@@ -2,6 +2,24 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-22 (session 22) — 1u6 tz-conversion SHIPPED (attempt-2 lossless); AUDIT_LOG flushed; critical path now 100% trader-VM-gated
+
+**HEAD:** `9608843` on top of `f23b648` · Block 2 (Backtesting). Open beads: **4uu** (P2, VM half-open), **hlw** (P2, VM half-open), **cn4** (P2, trader-gated), P3s (9qx, 2vu, 518). Origin: pushing this wrap.
+
+**Shipped this session (2 audited commits):**
+- `f23b648` **1u6 CLOSED** — lossless UTC→ET conversion of the continuous NQ series. Fix: route front/back seam handoff on the source-tz (UTC) date (same basis as roll_dates), relabel to America/New_York only after routing+dedup → partition bit-identical to baseline, conversion is a pure 1:1 relabel. Attempt-1's ~2,498-minute seam loss GONE. Invariants proven by the auditor's own re-run: distinct_instants(ET)==baseline==**1,857,362**, seam-gap==0, §4 overall=PASS, 09:30-ET anchor verified. New self-test Case E discriminates fix (9 bars) from naive (6). §4.2 break-check regraded to true intent (48 real illiquid halt-prints retained as INFO) — auditor independently confirmed legitimate, NOT a goalpost-move. Protected areas byte-identical. Auditor PASS (token ac89c0f5).
+- `9608843` **f8a CLOSED** — AUDIT_LOG flush, 3 stranded rows (8zd/pb9/1u6) committed append-only per runbook; auditor flush-mode PASS. One rolling row stranded by design (expected).
+
+**ET continuous series is ON DISK + ready to re-import:** `~/praxis-signals/b2-data/NQ-continuous-1min.csv` (1,857,362 bars, ET wall-clock, cols `Timestamp,O,H,L,C,Volume,SrcContract`). Trader re-import brief prepared + copied to clipboard this session (also scratchpad `trader-reimport-brief.txt`).
+
+**Next 3 dispatches (P0→P2) — ALL trader-VM-gated, no autonomous Mac-side work left on the critical path:**
+1. **4uu (P1, VM/trader):** re-import NQ-continuous-1min.csv to NT8 → compile PraxisNoiseAreaBreakout.cs (F5) → Strategy-Analyzer reconcile vs known TV alerts (checklist docs/reports/2026-07-16-4uu-noise-area-strategy.md §B). Top risk: bar-timestamp convention (close-stamped RTH 1-min ET assumed).
+2. **zi1 → ajj → xdr** WFA/MC/refdist chain after 4uu passes.
+3. **cn4 (P2, trader-gated):** Telegram token rotation.
+   Consider closing **hlw** (P2) — data acquired (44/44), roll pinned (D-2026-07-21-A), cost model done, §4 now PASSES; only a trader/VM sign-off call remains.
+
+**Blockers/notes:** quota reset (was ~18:20 Toronto 2026-07-21) has passed — clear. AUDIT_LOG.md shows exactly ONE modified rolling row (f8a's own mint) — by design, do NOT "fix" it, it lands in the next flush. Orchestrator disarmed at close.
+
 ## Resume card — 2026-07-22 (session 21) — 8zd + pb9 shipped; 1u6 tz-conversion FAILED audit (silent seam data loss), parked; quota-interrupted
 
 **HEAD:** `03281e6` on top of `c571c74`/`bacd63c` · Block 2 (Backtesting). **44/44 raw NT8 exports landed** (coworker completed the pull). Open beads incl. **1u6** (P2, parked w/ full fix spec), **cn4** (P2), plus P3s (9qx, 2vu, 518). Origin: pushing this wrap.
