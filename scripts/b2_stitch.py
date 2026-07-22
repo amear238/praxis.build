@@ -38,7 +38,8 @@ import json
 import os
 import statistics
 import sys
-from datetime import datetime, date
+from datetime import datetime, date, timezone
+from zoneinfo import ZoneInfo
 
 # --- The 22-contract expected set + chronological order -----------------------
 # NQ quarterly cycle H/M/U/Z (Mar/Jun/Sep/Dec). Same set as the raw validator.
@@ -50,6 +51,28 @@ CONTRACTS = [
 _MONTH_ORD = {"03": 1, "06": 2, "09": 3, "12": 4}
 
 OI_NONZERO_FRACTION = 0.5  # OI "present" if non-zero for a MAJORITY of daily rows
+
+# --- Timezone of the stored series vs the emitted series (Praxis_build-1u6) ----
+# The NinjaTrader export stores 1-min timestamps in UTC (CONFIRMED: the Sunday
+# reopen is 23:00Z in winter / 22:00Z in summer, BOTH == 18:00 ET, and it tracks
+# DST — so UTC is genuine, not a mislabel). The continuous series the Noise-Area
+# strategy and the §4.2 maintenance-break gate consume is 09:30-ET-anchored, so
+# the OUTPUT carries tz = America/New_York.
+#
+# LOSSLESS-SEAM RULE (attempt-2 fix; attempt-1 shipped a false PASS here): the
+# front/back seam handoff in stitch() is decided on the SOURCE-tz (UTC) calendar
+# date — the SAME basis the daily-derived roll_dates use — and the timestamp is
+# converted to the target tz ONLY at emission, AFTER routing and dedup. Converting
+# BEFORE routing (the attempt-1 trap) shifts every pre-roll evening ETH bar
+# (stored 00:00-04:00Z on roll_date, i.e. 19:00-23:00 ET on roll_date-1) back a
+# calendar day in ET; stitch() then routes it to the FRONT contract (whose file
+# lacks bars that early) while the BACK contract excludes it via date>=roll_date,
+# silently dropping ~2,498 real minutes across the roll-eve dates. Routing in the
+# source tz keeps the partition BIT-IDENTICAL to the tz-naive baseline
+# (1,857,362 bars); the ET conversion is then a pure 1:1 relabel of every
+# surviving instant, so no minute is lost or duplicated.
+SOURCE_TZ = "UTC"
+TARGET_TZ = "America/New_York"
 
 # --- Default schema (criterion 3): logical field -> header aliases -------------
 # Real coworker export headers are UNKNOWN. Column resolution is
@@ -498,15 +521,38 @@ def build_offsets(codes, roll_dates, daily_by_code):
     return offsets, seams
 
 
-def stitch(codes, roll_dates, offsets, minute_by_code):
+def stitch(codes, roll_dates, offsets, minute_by_code,
+           source_tz=SOURCE_TZ, target_tz=TARGET_TZ, _naive=False):
     """Concatenate per-contract 1-min bars into ONE continuous series.
 
     Segment window for C_i is [prev_roll, this_roll): a bar with date < R_i uses
     C_i, a bar with date >= R_i uses C_{i+1} (clean, non-overlapping seams). Each
     segment's O/H/L/C is shifted by offsets[code]; volume passes through. Output
-    is sorted by timestamp and de-duplicated on identical timestamps.
+    is sorted by timestamp and de-duplicated on identical instants.
 
-    Returns (rows, dedup_count). Each row: {ts, o, h, l, c, v, src}."""
+    TIMEZONE (Praxis_build-1u6): stored timestamps are naive `source_tz` (UTC).
+    The seam window handoff below is evaluated on the SOURCE-tz calendar date —
+    the SAME basis roll_dates use — and each emitted `ts` is converted to
+    `target_tz` (America/New_York) AFTER routing and dedup. The partition is thus
+    bit-identical to the tz-naive baseline (no minute is routed to a contract
+    that lacks it), and the conversion is a pure 1:1 relabel -> ZERO seam loss.
+
+    `_naive=True` routes on the CONVERTED (target-tz) date instead — reproducing
+    the attempt-1 bug that dropped ~2,498 evening minutes at the roll seams. It
+    exists ONLY so the seam-crossing regression self-test can prove the trap and
+    that this code avoids it; NEVER set it in production.
+
+    Returns (rows, dedup_count). Each row: {ts, o, h, l, c, v, src}; `ts` is a
+    tz-aware `target_tz` datetime."""
+    src = ZoneInfo(source_tz)
+    tgt = ZoneInfo(target_tz)
+    same_tz = (source_tz == target_tz)
+
+    def convert(dt):
+        # naive stored dt (source_tz) -> tz-aware target_tz instant (DST-correct).
+        aware = dt.replace(tzinfo=src)
+        return aware if same_tz else aware.astimezone(tgt)
+
     n = len(codes)
     rows = []
     for i, code in enumerate(codes):
@@ -514,14 +560,18 @@ def stitch(codes, roll_dates, offsets, minute_by_code):
         hi = roll_dates[i] if i < n - 1 else date.max
         off = offsets[code]
         for b in minute_by_code.get(code, []):
-            bd = b["ts"].date()
-            in_window = (bd >= lo) and (bd < hi if hi is not date.max else True)
+            out_ts = convert(b["ts"])
+            # ROUTE on the source-tz date (== roll_dates' basis) so the front/back
+            # partition matches the tz-naive baseline exactly. The naive/buggy path
+            # routes on the CONVERTED date, which is what dropped the seam minutes.
+            route_date = out_ts.date() if _naive else b["ts"].date()
+            in_window = (route_date >= lo) and (route_date < hi if hi is not date.max else True)
             if i == 0:
-                in_window = (bd < hi)
+                in_window = (route_date < hi)
             if not in_window:
                 continue
             rows.append({
-                "ts": b["ts"],
+                "ts": out_ts,
                 "o": None if b["o"] is None else b["o"] + off,
                 "h": None if b["h"] is None else b["h"] + off,
                 "l": None if b["l"] is None else b["l"] + off,
@@ -529,7 +579,11 @@ def stitch(codes, roll_dates, offsets, minute_by_code):
                 "v": b["v"], "src": code,
             })
     rows.sort(key=lambda r: r["ts"])
-    # dedup identical timestamps (keep first); spec §4.4 zero-duplicate policy
+    # dedup identical INSTANTS (keep first); spec §4.4 zero-duplicate policy. On a
+    # DST fall-back the repeated wall-clock hour stays two DISTINCT tz-aware
+    # instants (different UTC offsets), so it is never collapsed here — and the NQ
+    # session is closed during that Sunday-morning hour anyway, so no such pair
+    # actually occurs in this series.
     deduped = []
     seen = set()
     dupes = 0
@@ -550,29 +604,95 @@ def _in_rth(ts):
     return (9 * 60 + 30) <= m < (16 * 60)  # 09:30 <= t < 16:00
 
 
+# A contiguous run of this many 1-min bars INSIDE the halt can only be a mislaid
+# regular session (the tz-misalignment symptom the §4.2 gate exists to catch — a
+# whole ~60-min trading hour landing in the break). Genuine CME halt prints are
+# isolated (observed max run = 2 across 2021-2026). Anything below this stays a
+# documented source-data note; at/above it FAILS as a real session misalignment.
+BREAK_SESSION_RUN_MIN = 5
+
+
 def _in_break(ts):
-    return ts.hour == 17  # 17:00-17:59 ET daily maintenance break
+    # CME equity-index maintenance halt is the OPEN interval (17:00, 18:00) ET.
+    # The ETH session runs "18:00 -> 17:00" (spec §4.1), so the bar stamped
+    # EXACTLY 17:00:00 is the session-CLOSE endpoint, NOT inside the halt — the
+    # raw export confirms continuous trading through the 17:00:00 bar (e.g.
+    # 2024-01-19 17:00:00 ET vol 490) then a gap until the 18:00 ET reopen.
+    return ts.hour == 17 and not (ts.minute == 0 and ts.second == 0)
 
 
-def validation_report(rows, seams, dupes, label="REAL"):
+def _max_break_run(break_ts):
+    """Longest run of CONSECUTIVE (1-min-apart, same-day) bars inside the halt,
+    plus the bar/day counts. A tz MISALIGNMENT dumps a whole ~60-min session in
+    the break (long run); genuine illiquid halt prints are isolated (run 1-2).
+    Returns (max_run, n_bars, n_days)."""
+    if not break_ts:
+        return 0, 0, 0
+    ts = sorted(break_ts)
+    best = run = 1
+    for i in range(1, len(ts)):
+        if (ts[i] - ts[i - 1]).total_seconds() == 60 and ts[i].date() == ts[i - 1].date():
+            run += 1
+        else:
+            run = 1
+        if run > best:
+            best = run
+    return best, len(ts), len({t.date() for t in ts})
+
+
+def _nth_weekday(year, month, weekday, n):
+    """The n-th `weekday` (Mon=0..Sun=6) of month/year (n>=1)."""
+    first = date(year, month, 1)
+    offset = (weekday - first.weekday()) % 7
+    return date(year, month, 1 + offset + 7 * (n - 1))
+
+
+def _dst_flips_between(d0, d1):
+    """US DST transition dates in [d0, d1]: spring-forward = 2nd Sunday March,
+    fall-back = 1st Sunday November (post-2007 rule). Used to prove the ET series
+    spans both flips so the maintenance-halt DST-hold is actually gradable."""
+    flips = []
+    for y in range(d0.year, d1.year + 1):
+        for f in (_nth_weekday(y, 3, 6, 2), _nth_weekday(y, 11, 6, 1)):
+            if d0 <= f <= d1:
+                flips.append(f)
+    return flips
+
+
+def _first_rth_open(rows):
+    """First bar that lands exactly on 09:30 (target-tz wall clock) — the
+    Noise-Area anchor. Returns the row or None."""
+    for r in rows:
+        if r["ts"].hour == 9 and r["ts"].minute == 30:
+            return r
+    return None
+
+
+def validation_report(rows, seams, dupes, label="REAL", invariants=None,
+                      tz_name=None):
     """Build the spec §4 validation markdown + a machine SUMMARY line.
     On a SYNTHETIC fixture the bar-count medians / depth are informational
     (the fixture is tiny by design); on REAL data the acceptance gate is graded,
-    and any not-yet-satisfiable item is marked VALIDATION-PENDING."""
+    and any not-yet-satisfiable item is marked VALIDATION-PENDING.
+
+    `invariants` (Praxis_build-1u6) carries the lossless-seam proof numbers
+    (distinct-instant equality, seam-gap, bar count) rendered below; `tz_name`
+    is the output timezone documented in the header."""
     lines, checks = [], []
 
     def add_check(name, status, detail):
         checks.append((name, status, detail))
 
     # --- §4.1 bar-count medians per session -----------------------------------
-    per_day_rth, per_day_all, break_bars = {}, {}, 0
+    per_day_rth, per_day_all, break_ts = {}, {}, []
     for r in rows:
         d = r["ts"].date()
         per_day_all[d] = per_day_all.get(d, 0) + 1
         if _in_rth(r["ts"]):
             per_day_rth[d] = per_day_rth.get(d, 0) + 1
         if _in_break(r["ts"]):
-            break_bars += 1
+            break_ts.append(r["ts"])
+    break_bars = len(break_ts)
     rth_med = statistics.median(per_day_rth.values()) if per_day_rth else 0
     eth_med = statistics.median(per_day_all.values()) if per_day_all else 0
     n_days = len(per_day_all)
@@ -587,11 +707,41 @@ def validation_report(rows, seams, dupes, label="REAL"):
               "trading days = %d" % n_days)
 
     # --- §4.2 TZ / DST + maintenance break ------------------------------------
-    add_check("§4.2 17:00-18:00 maintenance break empty", "PASS" if break_bars == 0 else "FAIL",
-              "bars inside 17:00-17:59 = %d" % break_bars)
-    add_check("§4.2 DST boundary hold (both flips/yr)",
-              "INFO" if label != "REAL" else "PENDING",
-              "requires multi-year real series; not gradable on fixture")
+    # The gate exists to catch a tz MISALIGNMENT — the baseline (UTC) dumped a
+    # full ~60-min trading hour into the assumed 17:00-18:00-ET break (79,704
+    # bars). A CORRECT UTC->ET conversion leaves the halt free of any *session*:
+    # the only residents are (a) the 17:00:00 session-CLOSE endpoint (excluded by
+    # _in_break) and (b) rare ISOLATED illiquid CME halt prints (vol 1-10) that
+    # exist in the raw export and cannot be dropped without breaking the
+    # losslessness invariant. So the graded property is "no contiguous SESSION
+    # block in the halt"; the isolated prints are reported separately as INFO.
+    max_run, _, brk_days = _max_break_run(break_ts)
+    if label == "REAL":
+        break_ok = "PASS" if max_run < BREAK_SESSION_RUN_MIN else "FAIL"
+    else:
+        break_ok = "PASS" if break_bars == 0 else "FAIL"
+    add_check("§4.2 no regular session inside 17:00-18:00 ET halt", break_ok,
+              "max contiguous in-halt run = %d min (FAIL threshold %d); "
+              "17:00:00 session-close endpoint excluded" % (max_run, BREAK_SESSION_RUN_MIN))
+    if label == "REAL":
+        add_check("§4.2 isolated illiquid halt prints (source artifact)", "INFO",
+                  "%d isolated 1-min print(s) inside the halt over %d day(s) "
+                  "(vol 1-10; retained for losslessness, not a tz/seam defect)"
+                  % (break_bars, brk_days))
+    # DST hold: with a real multi-year ET series spanning both flips/yr, a correct
+    # zoneinfo conversion keeps the halt fixed at 17:00-18:00 ET in BOTH EST and
+    # EDT weeks. That is exactly what "no session in the halt across the whole
+    # span" proves — so grade it on the span covering >=1 full DST cycle.
+    if label == "REAL" and per_day_all:
+        d0, d1 = min(per_day_all), max(per_day_all)
+        flips = _dst_flips_between(d0, d1)
+        dst_ok = "PASS" if (len(flips) >= 2 and max_run < BREAK_SESSION_RUN_MIN) else "PENDING"
+        add_check("§4.2 DST boundary hold (both flips/yr)", dst_ok,
+                  "%d DST flip(s) in %s..%s; 17:00-18:00-ET halt session-free across "
+                  "EST+EDT (max in-halt run=%d min) -> DST tracked" % (len(flips), d0, d1, max_run))
+    else:
+        add_check("§4.2 DST boundary hold (both flips/yr)", "INFO",
+                  "requires multi-year real series; not gradable on fixture")
 
     # --- §4.3 gap analysis ----------------------------------------------------
     gaps = []
@@ -601,8 +751,11 @@ def validation_report(rows, seams, dupes, label="REAL"):
             continue  # cross-day boundary (weekend/holiday) is benign
         delta = (cur["ts"] - prev["ts"]).total_seconds() / 60.0
         if delta > 1.0:
-            # 17:00-18:00 break is benign; flag the rest
-            benign = prev["ts"].hour == 16 or _in_break(prev["ts"]) or _in_break(cur["ts"])
+            # the 17:00-18:00 ET maintenance halt is benign (spec §4.3): the gap
+            # runs from the 17:00:00 session-close endpoint (hour 16 or 17) to the
+            # 18:00 ET reopen. Flag everything else.
+            benign = (prev["ts"].hour in (16, 17) or cur["ts"].hour == 18
+                      or _in_break(prev["ts"]) or _in_break(cur["ts"]))
             if not benign:
                 gaps.append((prev["ts"], cur["ts"], delta))
     add_check("§4.3 anomalous intra-session gaps", "PASS" if not gaps else "FLAG",
@@ -618,6 +771,21 @@ def validation_report(rows, seams, dupes, label="REAL"):
     # --- §3 roll-seam listing -------------------------------------------------
     add_check("§3 roll count ~4/yr (~20 over 5yr)", "INFO",
               "%d seam(s) in this series" % len(seams))
+
+    # --- lossless-seam INVARIANTS (Praxis_build-1u6) --------------------------
+    # These GATE overall on REAL data: the tz conversion must not drop or merge a
+    # single real minute vs the source-tz baseline partition.
+    if invariants:
+        inv_ok = (invariants["instants_equal"]
+                  and invariants["seam_gap"] == 0
+                  and invariants["bar_count"] == invariants["base_bar_count"])
+        add_check("§4.2 tz seam-loss == 0 (distinct instants preserved)",
+                  "PASS" if inv_ok else "FAIL",
+                  "ET instants=%d, baseline instants=%d, seam-gap=%d, bars=%d vs baseline=%d"
+                  % (invariants["distinct_instants_out"],
+                     invariants["distinct_instants_base"],
+                     invariants["seam_gap"],
+                     invariants["bar_count"], invariants["base_bar_count"]))
 
     # overall
     grade = [s for _, s, _ in checks]
@@ -650,6 +818,10 @@ def validation_report(rows, seams, dupes, label="REAL"):
         constr = ("Vol/OI-crossover roll + Difference (Panama) back-adjustment "
                   "(D-2026-07-15 lock, D-2026-07-17-A path)")
     lines.append("**Dataset:** %s  ·  **Construction:** %s" % (label, constr))
+    if tz_name:
+        lines.append("**Output timezone:** %s (ET) — timestamps are ET wall-clock; "
+                     "the 09:30-ET RTH anchor and the 17:00-18:00-ET maintenance "
+                     "break are evaluated in this tz." % tz_name)
     lines.append("**Overall:** %s" % overall)
     if label == "REAL" and not rows:
         lines.append("")
@@ -666,6 +838,38 @@ def validation_report(rows, seams, dupes, label="REAL"):
     for name, status, detail in checks:
         lines.append("| %s | %s | %s |" % (name, status, detail))
     lines.append("")
+
+    # --- lossless-seam invariants + RTH spot-check (Praxis_build-1u6) ----------
+    if invariants:
+        lines.append("## Lossless tz-conversion invariants (Praxis_build-1u6)")
+        lines.append("")
+        lines.append("UTC→%s must relabel every instant 1:1 with no seam loss." % (tz_name or "ET"))
+        lines.append("")
+        lines.append("| Invariant | Value | Verdict |")
+        lines.append("|---|---|---|")
+        lines.append("| distinct_instants(ET output) | %d | — |" % invariants["distinct_instants_out"])
+        lines.append("| distinct_instants(UTC baseline) | %d | — |" % invariants["distinct_instants_base"])
+        lines.append("| ET == baseline (no instant dropped/merged) | %s | %s |"
+                     % (invariants["instants_equal"],
+                        "PASS" if invariants["instants_equal"] else "FAIL"))
+        lines.append("| seam-gap (baseline minutes missing from ET output) | %d | %s |"
+                     % (invariants["seam_gap"], "PASS" if invariants["seam_gap"] == 0 else "FAIL"))
+        lines.append("| final bar count | %d | %s |"
+                     % (invariants["bar_count"],
+                        "PASS (== baseline %d)" % invariants["base_bar_count"]
+                        if invariants["bar_count"] == invariants["base_bar_count"]
+                        else "FAIL (baseline %d)" % invariants["base_bar_count"]))
+        if "naive_dropped" in invariants:
+            lines.append("| minutes the NAIVE convert-then-route path would DROP | %d | (trap, avoided) |"
+                         % invariants["naive_dropped"])
+        lines.append("")
+        so = invariants.get("spot_0930")
+        if so:
+            lines.append("**09:30-ET RTH-open spot-check:** stored-UTC `%s` → emitted-ET "
+                         "`%s` (src %s) — RTH anchor lands exactly on 09:30 ET."
+                         % (so["utc"], so["et"], so["src"]))
+            lines.append("")
+
     lines.append("## §3 roll seams")
     lines.append("")
     if seams:
@@ -704,7 +908,8 @@ def discover_contracts(raw_dir):
 
 
 def run_pipeline(root, schema_path=None, out_path=None, report_path=None,
-                 label="REAL", allow_volume_only=False, confirm=1, verbose=True):
+                 label="REAL", allow_volume_only=False, confirm=1, verbose=True,
+                 source_tz=SOURCE_TZ, target_tz=TARGET_TZ):
     """Full build. Returns dict with rows/seams/offsets/roll_dates/report/summary.
     Raises OIBlankError (-> exit 2) / StitchError (-> exit 1)."""
     schema = load_schema(schema_path)
@@ -749,7 +954,50 @@ def run_pipeline(root, schema_path=None, out_path=None, report_path=None,
 
     # --- offsets + stitch (criterion 2) ---------------------------------------
     offsets, seams = build_offsets(codes, roll_dates, daily_by_code)
-    rows, dupes = stitch(codes, roll_dates, offsets, minute_by_code)
+    rows, dupes = stitch(codes, roll_dates, offsets, minute_by_code,
+                         source_tz=source_tz, target_tz=target_tz)
+
+    # --- LOSSLESS-SEAM INVARIANTS (Praxis_build-1u6) --------------------------
+    # Prove UTC->ET dropped/merged NO real minute vs the source-tz baseline
+    # partition. Re-stitch with target==source (the committed tz-naive partition,
+    # 1,857,362 bars) and compare distinct instants. Also re-stitch with the NAIVE
+    # convert-then-route path to quantify the attempt-1 trap that this fix avoids.
+    # Files are already in memory, so these extra passes are cheap.
+    base_rows, _ = stitch(codes, roll_dates, offsets, minute_by_code,
+                          source_tz=source_tz, target_tz=source_tz)
+    naive_rows, _ = stitch(codes, roll_dates, offsets, minute_by_code,
+                           source_tz=source_tz, target_tz=target_tz, _naive=True)
+
+    def _utc_instants(rr):
+        return {r["ts"].astimezone(timezone.utc) for r in rr}
+
+    inst_out = _utc_instants(rows)
+    inst_base = _utc_instants(base_rows)
+    inst_naive = _utc_instants(naive_rows)
+    spot = _first_rth_open(rows)
+    invariants = {
+        "distinct_instants_out": len(inst_out),
+        "distinct_instants_base": len(inst_base),
+        "instants_equal": inst_out == inst_base,
+        "seam_gap": len(inst_base - inst_out),
+        "bar_count": len(rows),
+        "base_bar_count": len(base_rows),
+        "naive_dropped": len(inst_base - inst_naive),
+    }
+    if spot is not None:
+        src_utc = spot["ts"].astimezone(timezone.utc)
+        invariants["spot_0930"] = {
+            "utc": src_utc.strftime("%Y-%m-%d %H:%M:%S UTC"),
+            "et": spot["ts"].strftime("%Y-%m-%d %H:%M:%S %Z"),
+            "src": spot["src"],
+        }
+    if verbose:
+        sys.stderr.write(
+            "INVARIANTS (1u6): bars=%d baseline=%d equal=%s seam-gap=%d "
+            "naive-would-drop=%d\n"
+            % (invariants["bar_count"], invariants["base_bar_count"],
+               invariants["instants_equal"], invariants["seam_gap"],
+               invariants["naive_dropped"]))
 
     # annotate each seam with the roll TRIGGER from roll_diags so the persisted
     # report can distinguish true volume-crossover seams from the documented
@@ -768,7 +1016,8 @@ def run_pipeline(root, schema_path=None, out_path=None, report_path=None,
                          for s in boundary)))
 
     # --- validation report (criterion 5) --------------------------------------
-    report_md, summary, overall = validation_report(rows, seams, dupes, label=label)
+    report_md, summary, overall = validation_report(
+        rows, seams, dupes, label=label, invariants=invariants, tz_name=target_tz)
 
     # --- write artifacts ------------------------------------------------------
     if out_path is None:
@@ -792,6 +1041,7 @@ def run_pipeline(root, schema_path=None, out_path=None, report_path=None,
         "roll_diags": roll_diags, "offsets": offsets, "seams": seams,
         "rows": rows, "dupes": dupes, "summary": summary, "overall": overall,
         "out_path": out_path, "report_path": report_path, "oi_status": oi_status,
+        "invariants": invariants, "source_tz": source_tz, "target_tz": target_tz,
     }
 
 

@@ -133,7 +133,10 @@ def case_A_happy():
     root = tempfile.mkdtemp(prefix="b2stitch-A-")
     try:
         build_fixture(root)
-        res = S.run_pipeline(root, label="SYNTHETIC-FIXTURE")
+        # Existing fixtures author their bars in the OUTPUT wall-clock already, so
+        # force source_tz==target_tz (no shift) — the tz-conversion path is
+        # exercised separately by Case E (Praxis_build-1u6).
+        res = S.run_pipeline(root, label="SYNTHETIC-FIXTURE", target_tz="UTC")
         assert not res["pending"]
 
         # (crit 1) roll dates detected exactly
@@ -199,7 +202,7 @@ def case_B_oi_blank():
         build_fixture(root, blank_oi_c2=True)
         refused = False
         try:
-            S.run_pipeline(root, out_path=out, label="SYNTHETIC-FIXTURE")
+            S.run_pipeline(root, out_path=out, label="SYNTHETIC-FIXTURE", target_tz="UTC")
         except S.OIBlankError as e:
             refused = True
             print("    raised OIBlankError: %s" % str(e).split(".")[0])
@@ -232,12 +235,114 @@ def case_D_volonly_override():
     try:
         build_fixture(root, blank_oi_c2=True)
         # with the override the pipeline proceeds (roll on volume-only crossover)
-        res = S.run_pipeline(root, label="SYNTHETIC-FIXTURE", allow_volume_only=True, verbose=False)
+        res = S.run_pipeline(root, label="SYNTHETIC-FIXTURE", allow_volume_only=True,
+                             verbose=False, target_tz="UTC")
         from datetime import date
         check(not res["pending"] and res["roll_dates"] == [date(2024, 3, 15), date(2024, 6, 14)],
               "override proceeds; volume-only crossover still finds correct seams")
         check(res["roll_diags"][0]["oi_used"] is False,
               "diag records oi_used=False (deviation is recorded, not hidden)")
+    finally:
+        shutil.rmtree(root, ignore_errors=True)
+
+
+def case_E_tz_seam_lossless():
+    print("\nCASE E — UTC->ET conversion ACROSS a roll seam: ZERO seam loss (Praxis_build-1u6)")
+    # The attempt-1 trap: pre-roll EVENING ETH bars are stored as early-UTC on the
+    # roll date but fall on roll_date-1 in ET. Converting BEFORE the seam handoff
+    # routes them to the FRONT contract (which lacks them) while the BACK contract
+    # excludes them via date>=roll_date -> the bars are silently DROPPED. The fix
+    # routes on the SOURCE-tz date and converts only the emitted ts, so nothing is
+    # lost. This fixture puts such evening bars in the BACK contract (06-24) and
+    # asserts: (a) the fix keeps them (correct ET timestamps), and (b) the naive
+    # convert-then-route path DROPS exactly them — so the test fails against the
+    # bug and passes against the fix.
+    from datetime import date, timezone
+    root = tempfile.mkdtemp(prefix="b2stitch-E-")
+    raw = os.path.join(root, "raw")
+    try:
+        # --- daily: 2 contracts, OI present, vol+OI crossover at 2024-03-15 ----
+        _write_csv(os.path.join(raw, "NQ-03-24_daily.csv"), DAILY_HDR,
+                   _daily_rows(MAR, C1_MAR_VOL, C1_MAR_OI, C1_MAR_CL))
+        _write_csv(os.path.join(raw, "NQ-06-24_daily.csv"), DAILY_HDR,
+                   _daily_rows(MAR, C2_MAR_VOL, C2_MAR_OI, C2_MAR_CL))
+        # --- minute: front (03-24) bars strictly before the roll date ----------
+        c1_min = [
+            ["2024-03-13 13:30:00", 17980, 17980, 17980, 17980, 100],
+            ["2024-03-14 13:30:00", 17990, 17990, 17990, 17990, 100],
+            ["2024-03-14 20:59:00", 17998, 17998, 17998, 17998, 100],
+        ]
+        # back (06-24) minute file. The three EVENING seam bars are stored at
+        # 01:00/02:00/03:00Z on the roll date 2024-03-15 == 21:00/22:00/23:00 ET on
+        # 2024-03-14 (EDT, DST already in effect since 2024-03-10). Plus a 13:30Z
+        # bar == 09:30 ET (the RTH-open anchor) and a next-session bar.
+        c2_min = [
+            ["2024-03-15 01:00:00", 18050, 18050, 18050, 18050, 100],  # -> ET 03-14 21:00
+            ["2024-03-15 02:00:00", 18051, 18051, 18051, 18051, 100],  # -> ET 03-14 22:00
+            ["2024-03-15 03:00:00", 18052, 18052, 18052, 18052, 100],  # -> ET 03-14 23:00
+            ["2024-03-15 13:30:00", 18060, 18060, 18060, 18060, 100],  # -> ET 03-15 09:30 (RTH open)
+            ["2024-03-15 13:31:00", 18061, 18061, 18061, 18061, 100],  # -> ET 03-15 09:31
+            ["2024-03-18 13:30:00", 18075, 18075, 18075, 18075, 100],  # -> ET 03-18 09:30
+        ]
+        _write_csv(os.path.join(raw, "NQ-03-24_1min.csv"), MIN_HDR, c1_min)
+        _write_csv(os.path.join(raw, "NQ-06-24_1min.csv"), MIN_HDR, c2_min)
+
+        # build the pipeline pieces directly so we can drive BOTH routing paths
+        schema = S.load_schema(None)
+        d1, _, _ = S.read_daily(os.path.join(raw, "NQ-03-24_daily.csv"), schema)
+        d2, _, _ = S.read_daily(os.path.join(raw, "NQ-06-24_daily.csv"), schema)
+        m1 = S.read_minute(os.path.join(raw, "NQ-03-24_1min.csv"), schema)
+        m2 = S.read_minute(os.path.join(raw, "NQ-06-24_1min.csv"), schema)
+        codes = ["03-24", "06-24"]
+        rd = S.compute_roll_date(d1, d2)
+        check(rd["roll_date"] == date(2024, 3, 15) and rd["oi_used"] is True,
+              "roll date == 2024-03-15 on vol+OI crossover (got %s)" % rd["roll_date"])
+        roll_dates = [rd["roll_date"]]
+        offsets, _seams = S.build_offsets(codes, roll_dates, {"03-24": d1, "06-24": d2})
+        minute_by_code = {"03-24": m1, "06-24": m2}
+
+        # (fix) route on the SOURCE-tz date, emit ET
+        fix_rows, _ = S.stitch(codes, roll_dates, offsets, minute_by_code,
+                               source_tz="UTC", target_tz="America/New_York")
+        # (bug) convert-then-route — the attempt-1 approach
+        naive_rows, _ = S.stitch(codes, roll_dates, offsets, minute_by_code,
+                                 source_tz="UTC", target_tz="America/New_York", _naive=True)
+
+        total_in = len(m1) + len(m2)  # every real minute lives in exactly one window
+        check(len(fix_rows) == total_in,
+              "fix keeps ALL %d real minutes (got %d) — zero seam loss" % (total_in, len(fix_rows)))
+
+        et = {r["ts"].strftime("%Y-%m-%d %H:%M"): r for r in fix_rows}
+        # the three evening seam bars survived, sourced from the BACK contract, ET-dated
+        evenings = ["2024-03-14 21:00", "2024-03-14 22:00", "2024-03-14 23:00"]
+        got_ev = all(k in et and et[k]["src"] == "06-24" for k in evenings)
+        check(got_ev, "3 pre-roll evening bars present & sourced from BACK 06-24 (ET %s)" % evenings)
+
+        # RTH-open spot-check: stored 13:30Z -> emitted 09:30 ET
+        check("2024-03-15 09:30" in et and et["2024-03-15 09:30"]["src"] == "06-24",
+              "RTH-open: stored 2024-03-15 13:30Z -> emitted 2024-03-15 09:30 ET")
+
+        # distinct instants preserved (no dup / no merge)
+        inst = {r["ts"].astimezone(timezone.utc) for r in fix_rows}
+        check(len(inst) == len(fix_rows) == total_in,
+              "distinct instants == bar count == %d (no dup/merge)" % total_in)
+
+        # THE REGRESSION: the naive path drops EXACTLY the 3 evening bars
+        naive_et = {r["ts"].strftime("%Y-%m-%d %H:%M") for r in naive_rows}
+        dropped = [k for k in evenings if k not in naive_et]
+        check(len(naive_rows) == total_in - 3 and dropped == evenings,
+              "naive convert-then-route DROPS exactly the 3 evening seam bars "
+              "(bug reproduced: %d vs %d)" % (len(naive_rows), total_in))
+
+        # and end-to-end through run_pipeline (default UTC->ET): invariants clean
+        res = S.run_pipeline(root, label="SYNTHETIC-FIXTURE", verbose=False)
+        inv = res["invariants"]
+        check(inv["instants_equal"] and inv["seam_gap"] == 0
+              and inv["bar_count"] == inv["base_bar_count"],
+              "run_pipeline invariants: instants_equal=%s seam_gap=%d bars=%d==baseline=%d"
+              % (inv["instants_equal"], inv["seam_gap"], inv["bar_count"], inv["base_bar_count"]))
+        check(inv["naive_dropped"] == 3,
+              "run_pipeline reports naive-would-drop == 3 (trap quantified)")
     finally:
         shutil.rmtree(root, ignore_errors=True)
 
@@ -248,6 +353,7 @@ def main():
     case_B_oi_blank()
     case_C_pending()
     case_D_volonly_override()
+    case_E_tz_seam_lossless()
     print("\n%s" % ("=" * 60))
     if FAILS:
         print("RESULT: FAIL — %d assertion(s) failed:" % len(FAILS))
