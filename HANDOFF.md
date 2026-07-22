@@ -2,6 +2,23 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-22 (session 21) — 8zd + pb9 shipped; 1u6 tz-conversion FAILED audit (silent seam data loss), parked; quota-interrupted
+
+**HEAD:** `03281e6` on top of `c571c74`/`bacd63c` · Block 2 (Backtesting). **44/44 raw NT8 exports landed** (coworker completed the pull). Open beads incl. **1u6** (P2, parked w/ full fix spec), **cn4** (P2), plus P3s (9qx, 2vu, 518). Origin: pushing this wrap.
+
+**Shipped this session (2 audited commits):**
+- `c571c74` **8zd CLOSED** — `b2_stitch.py` now parses REAL NT8 exports (semicolon, headerless; daily `YYYYMMDD;O;H;L;C;V` + minute combined `YYYYMMDD HHMMSS`). Full-44 volume-only stitch emits continuous series (1,857,362 bars, 21 seams) + §4 report; caught+fixed a latent OI-alias substring bug; 5 no-overlap boundary-fallback seams flagged in the report. Self-test 4/4. Auditor PASS (token 3e82fca6).
+- `03281e6` **pb9 CLOSED** — b2data-watch OI-absent demoted from hard STOP to informational (D-2026-07-21-A); completeness+sanity gates intact (real failures still ready=NO); self-test all scenarios pass. Auditor PASS.
+
+**⚠️ 1u6 (P2, PARKED — resume here first):** the stitch series is timestamped **UTC, not ET** (confirmed via DST-crossing test); the strategy is 09:30-ET anchored, so it MUST be converted to America/New_York. Attempt-1 did the zoneinfo conversion but it interacts fatally with `stitch()`'s date-window handoff → **silent data loss of ~2,498 pre-roll evening ETH minutes at all 16 roll-eve dates** (net 1,857,362→1,855,411), invisible to §4 (false overall=PASS). **Auditor caught it, FAILed, NOT committed; reverted to committed-good.** Full root cause + fix spec (lossless seam re-alignment + hard instant-count invariant + a seam-crossing tz self-test) is in **bead 1u6 notes** — read it before re-dispatching.
+
+**Next 3 dispatches (P0→P2):**
+1. **1u6 (P0):** re-dispatch attempt-2 per the bead's fix spec once the account session-limit resets. Auditor must re-verify the instant-count invariant + seam-gap==0.
+2. **4uu (P1, VM):** once the ET continuous series exists + is re-imported to NT8 — compile PraxisNoiseAreaBreakout.cs + Strategy-Analyzer reconcile.
+3. **zi1 → ajj → xdr** WFA/MC/refdist chain after 4uu.
+
+**Blockers/notes:** 1u6 blocked on **account session-limit reset (~18:20 America/Toronto, hit mid-fix 2026-07-21)** — do NOT retry the quota-dead subagent in that window. AUDIT_LOG.md stranded rows (8zd×audits + pb9) left for the flush protocol — do NOT fold into a feature commit. Orchestrator disarmed at close.
+
 ## Resume card — 2026-07-21 (session 19) — 6bw stitch pre-built + AUDIT_LOG flushed; 🛑 OI_BLANK stop hit, trader decision pending
 
 **HEAD:** wrap on top of `39d2301` · Block 2 (Backtesting). Open beads: 8 (top 3: **6hu** P1 OI-decision, **cn4** P2 telegram, **9qx** P3 reconciled-verb).
