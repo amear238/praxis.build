@@ -2,6 +2,31 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-23 (session 23) — 4uu FILE blocker DISSOLVED: hash "mismatch" was CRLF, independently audited PASS; NON-BUILD session
+
+**HEAD:** unchanged from session 22 (`9608843`) + this doc-wrap commit on top · Block 2 (Backtesting). Open beads: **4uu** (P2, VM half-open — file sub-blocker now cleared), **hlw** (P2, VM half-open), **cn4** (P2, trader-gated), P3s (9qx, 2vu, 518). **0 code commits this session; 1 audit bead (4uu.1) closed PASS.**
+
+**What happened (the whole session in one line):** the VM coworker returned flagging the deployed `PraxisNoiseAreaBreakout.cs` as a hash MISMATCH and correctly halted before F5 — I proved Mac-side it's a benign **LF→CRLF line-ending artifact**, not stale code, had an **independent auditor confirm it**, closed the share-sync gap, and delivered a corrected all-clear brief. **No code changed.**
+
+**The proof (reproducible):**
+- Repo `ninjascript/PraxisNoiseAreaBreakout.cs` @ commit `719ab11`, unchanged: **LF** sha256 `35393823e9bc146e95dcb1d9f6fe5785a3c72ee3a3fb71287f33fe2242752265`, 14,318 B, 312 lines.
+- Same file **LF→CRLF**: sha256 `c22f38fa148e2175058286199821e679289b7f3779e402e9734a77f2523caa65`, 14,630 B (= 14,318 + 312, one +\r/line). **This equals the VM's reported raw hash** → the VM's 7/17 copy is 719ab11 in Windows CRLF form, byte-for-byte. Safe to F5 as-is.
+- **Independent orchestrator-auditor (bead `Praxis_build-4uu.1`, CLOSED PASS)** re-derived all four: no-tamper (git diff HEAD clean, traces to 719ab11), LF hash, CRLF-equiv==VM hash, share parity. Verification-only → no commit/token minted (correct).
+
+**Artifacts placed / recorded this session:**
+- Closed the "ninjascript/ never synced to the share" gap → verified LF copy + `PROVENANCE.txt` (both hashes + a strip-CR verify snippet) at `~/praxis-signals/b2-data/ninjascript/`. A raw sha256 of that share copy = the repo LF hash → passes the original gate cleanly.
+- `bd remember vm-cs-crlf-hash-gate` — the recurring CRLF false-mismatch diagnosis (size-delta==line-count ⇒ CRLF, strip-CR to confirm).
+- Corrected all-clear brief for the coworker: clipboard + shown in chat + covers both proceed paths (keep existing copy / recopy the clean share file) + checklist §B + the 09:30 bar-stamp watch-item.
+
+**Next 3 dispatches (P0→P2) — still trader-VM-gated; the FILE blocker is gone:**
+1. **4uu (P1, TRADER/VM):** F5-compile the proven-current `.cs` → import `NQ-continuous-1min.csv` (custom 1-min series) → Strategy Analyzer (RTH 09:30–16:00 ET, ExitMode=BandOrVWAP, Contracts=1, ≥3 mo) → reconcile vs TV alerts per `b2-data/4uu-reconcile-checklist.md` §B. **Top risk: 09:30 bar-stamp convention** (NT8 may read a minute stamp as bar-close → one-bar shift; check vs native NQ, re-stamp ±1 min Mac-side if off, no fudging in NT8).
+2. **hlw** closeable (44/44 data, roll pinned, §4 PASS — trader/VM sign-off), then **zi1 (WFA) → ajj (MC) → xdr (refdist)**.
+3. **cn4 (P2, trader-gated):** Telegram token rotation.
+
+**Re-engagement / watch:** the /loop standing-auditor watch (Monitor `b2tkqy2oj` on `b2-data/inbound`) was set up, ran idle ~hours (VM silent overnight), heartbeat stopped at trader request, Monitor torn down at close. **The watch does NOT persist across session close.** Next session: when compile/Analyzer output lands (share `inbound/` or pasted), dispatch the read-only orchestrator-auditor on it; re-run `/loop` to re-arm the standing watch if wanted.
+
+**Blockers/notes:** AUDIT_LOG.md shows exactly ONE modified rolling row (from session 22's f8a mint) — by design, do NOT "fix" it, it lands in the next flush; untouched this session. Orchestrator disarmed at close. This session's only git change is the STATUS/HANDOFF wrap commit.
+
 ## Resume card — 2026-07-22 (session 22) — 1u6 tz-conversion SHIPPED (attempt-2 lossless); AUDIT_LOG flushed; critical path now 100% trader-VM-gated
 
 **HEAD:** `9608843` on top of `f23b648` · Block 2 (Backtesting). Open beads: **4uu** (P2, VM half-open), **hlw** (P2, VM half-open), **cn4** (P2, trader-gated), P3s (9qx, 2vu, 518). Origin: pushing this wrap.
