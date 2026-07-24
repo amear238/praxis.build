@@ -1,0 +1,227 @@
+﻿NinjaTrader 8 Layout Reference — Discovery Notes
+Captured: 2026-07-24 (session start ~8:14 AM ET restart, captures through ~8:44 AM ET)
+Output folder: C:\Mac\Home\praxis-signals\b2-data\inbound\nt8-layout-2026-07-24\
+
+============================================================
+VERSION
+============================================================
+NinjaTrader 8.1.7.2 (64-bit)
+Machine ID: 077EF45C126711A89343DA3F0E442333
+User: Amear238
+(Source: Help > About — see 02-help-about.png)
+
+============================================================
+RENDER FAULT STATUS
+============================================================
+Known issue going in: active UCEERR_RENDERTHREADFAILURE render fault since ~7/21,
+causing dialogs to silently drop clicks / error boxes not paint.
+Action taken: fully closed and relaunched NinjaTrader before any capture.
+Result: Control Center > Log tab showed a clean log (only 3 entries) immediately
+after restart, with no UCEERR entries. No render-fault symptoms were observed
+during the rest of the session — all dialogs opened, painted, and accepted
+clicks normally. See 01-control-center-log.png.
+
+============================================================
+MENU BAR LAYOUT (Control Center, top to bottom / left to right)
+============================================================
+Top menu bar (left to right): NINJATRADER (logo) | New | Tools | Workspaces |
+Connections | Help | Chat  ... [right side: Live indicator, Minimize, Maximize/Restore, Close]
+
+Control Center tab strip (left to right): Orders | Executions | Strategies |
+Positions | Accounts | Log | Messages | [+ add tab]
+
+Tools menu (top to bottom, as expanded):
+  Instruments
+  Instrument Lists
+  Database Management
+  Hot Keys
+  Historical Data
+  Commissions
+  Risk
+  Trading Hours
+  Import
+  Export
+  Remove NinjaScript Assembly...
+  Global Simulation Mode  (grayed/license-gated: "Please upgrade to a Lease or
+                            Lifetime license to unlock this feature.")
+  Client Dashboard
+  Settings
+
+Connections menu (top to bottom, as expanded):
+  Kinetick – End Of Day (Free)
+  Playback
+  Simulated Data Feed   [green dot = currently connected]   -> "disconnect" link
+  Simulation                                                 -> "configure" link
+(Did not click disconnect or configure — layout capture only, per task constraints.)
+
+New menu (full expansion, roughly top-to-bottom as listed):
+  Basic Entry, FX Pro, Option Chain, Order Ticket, SuperDOM Dynamic, SuperDOM
+  Static, Alerts Log, Calendar, Chart, Depth Chart, FX Board, FX Correlation,
+  Hot List Analyzer, Level II, Market Analyzer, Market Watch, News, Pulse,
+  Strategy Analyzer, T&S, Account Data, Trade Performance, NinjaScript Editor,
+  NinjaScript Output, Strategy Builder
+
+============================================================
+SCREENSHOT INDEX (click-path + notes)
+============================================================
+
+01-control-center-log.png
+  Path: (Control Center opens on relaunch) > Log tab
+  Notes: Post-restart clean log, 3 entries only, no UCEERR. Confirms render
+  fault cleared for this session.
+
+02-help-about.png
+  Path: Help > About
+  Notes: Version 8.1.7.2 64-bit. Machine ID and User (Amear238) visible.
+
+03-cc-orders.png
+  Path: Control Center > Orders tab
+  Notes: Empty (no working orders).
+
+04-cc-executions.png
+  Path: Control Center > Executions tab
+  Notes: Empty (no executions this session).
+
+05-cc-strategies.png
+  Path: Control Center > Strategies tab
+  Notes: Empty — no strategies currently enabled/running. (This is the CC
+  "Strategies" grid, distinct from the per-chart Strategies dialog in
+  14-chart-strategies-dialog.png.)
+
+06-cc-positions.png
+  Path: Control Center > Positions tab
+  Notes: Empty (flat).
+
+07-cc-accounts.png
+  Path: Control Center > Accounts tab
+  Notes: Sim101 account, Simulated Data Feed, $99,995 cash value. Confirms
+  sim-only context for the whole session.
+
+08-cc-messages.png
+  Path: Control Center > Messages tab
+  Notes: Default/empty message log.
+
+09-new-menu.png
+  Path: Control Center > New (menu expanded, not clicked into)
+  Notes: Full list of "New" window types — see Menu Bar Layout section above.
+
+10-ninjascript-editor.png
+  Path: Control Center > New > NinjaScript Editor
+  Notes: Opened via New menu. Shows NinjaScript Explorer tree (left) and
+  toolbar: Print, Print Preview, NinjaScript Output, Find, Compile (F5 is the
+  compile shortcut), Open in Visual Studio. Tooltip on this feature says
+  "Please upgrade to a Lease or Lifetime license to unlock this feature" but
+  it opened and functioned normally regardless — license gating appears to be
+  advisory/tooltip-only in this install, not enforced. Did NOT compile or
+  edit any script.
+
+11-strategy-analyzer.png
+  Path: Control Center > New > Strategy Analyzer
+  Notes: Left config panel only — Run NOT clicked. Pre-existing custom
+  strategy "PraxisNoiseAreaBreakout" visible, grouped under a custom category
+  "02. Praxis (tunable)". Instrument field left unset ("Select"). Same
+  license-upgrade tooltip as NinjaScript Editor; window opened normally.
+
+12-chart-mnq-sep26.png
+  Path: Control Center > New > Chart > (instrument: MNQ SEP26, Daily)
+  Notes: Clean chart view, no drawings/indicators added. Window snapped to
+  left half of screen to keep clear of the AI chat panel overlay.
+
+13-chart-data-series-dialog.png
+  Path: Chart (MNQ SEP26) > right-click on chart canvas > Data Series...
+  Notes: Instrument field unset ("Select"); Applied section shows MNQ SEP26
+  (Daily) as the chart's current series. Closed via Cancel — no changes made.
+
+14-chart-strategies-dialog.png
+  Path: Chart (MNQ SEP26) > right-click on chart canvas > Strategies...
+  Notes: Available list: PraxisNoiseAreaBreakout, PraxisSignalConsumer, Sample
+  ATM strategy, Sample MA crossover, Sample multi-instrument, Sample
+  multi-timeframe. Configured/active panel empty — nothing attached to this
+  chart. Confirms the user's own "Praxis" strategies (PraxisNoiseAreaBreakout,
+  PraxisSignalConsumer) are already present in this install. Closed via
+  Cancel — no changes made.
+
+15-historical-data-loaded.png
+  Path: Control Center > Tools > Historical Data  (default view, "Loaded"
+  section expanded)
+  Notes: This version's Historical Data window uses a top-to-bottom
+  accordion layout (Loaded / Download / Import / Export / Get Market Replay
+  data) rather than a horizontal tab strip. "Loaded" section shows Historical
+  and Market Replay tree nodes, both empty (no data loaded for any
+  instrument yet).
+
+16-historical-data-import.png
+  Path: Same window > Import section expanded
+  Notes: Fields: Format (NinjaTrader end-of-bar timestamps), Data Type
+  (Last), Time Zone of Imported Data (UTC), plus checkboxes to generate
+  Minute/Day bars from imported tick data, and an Import button. Import
+  button visible but NOT clicked — no data was imported.
+
+17-historical-data-download.png
+  Path: Same window > Download section expanded (Import stayed expanded
+  below it)
+  Notes: Fields: Instrument (unset — "Select"), Start Date/End Date (defaulted
+  to a 1-week range ending today), Intervals (Tick/Minute/Day checkboxes,
+  Minute pre-checked), Data Type (Ask/Bid/Last checkboxes, Last pre-checked),
+  and a Download button. Download button visible but NOT clicked.
+
+18-instruments-manager.png
+  Path: Control Center > Tools > Instruments
+  Notes: Full instrument search/browse grid (Name / Type / Description),
+  "All" filter, search box, and add/edit/remove actions at the bottom. Opened
+  read-only — no instrument was added, edited, or removed.
+
+19-instrument-lists.png
+  Path: Control Center > Tools > Instrument Lists
+  Notes: Shows the built-in instrument list manager: Lists panel
+  (Cryptocurrency, DAX 30, DOW 30, FOREX, Futures, Indexes, Micros, NASDAQ
+  100, SP 500) and the Instruments panel for the selected list (Cryptocurrency
+  shown, populated with Gdax BTC/ETH/LTC/BCH pairs). Closed via the window's
+  Close (X) button — no changes made/saved (did not click OK).
+
+20-connections-menu.png
+  Path: Control Center > Connections (menu expanded, not clicked into)
+  Notes: Kinetick – End Of Day (Free), Playback, Simulated Data Feed (green
+  dot = currently connected, with a "disconnect" link), Simulation (with a
+  "configure" link). Per task constraints, did NOT click disconnect or
+  configure, and did NOT connect/disconnect anything. Menu dismissed with
+  Escape.
+
+============================================================
+OTHER LAYOUT/VERSION NOTES
+============================================================
+- License-gated features (NinjaScript Editor, NinjaScript Output, Strategy
+  Builder, Strategy Analyzer, Global Simulation Mode) all display a tooltip
+  "Please upgrade to a Lease or Lifetime license to unlock this feature," but
+  every one of these that was opened (Editor, Analyzer) opened and behaved
+  normally — the tooltip did not block access in this install.
+- Pre-existing custom strategies found in this install: PraxisNoiseAreaBreakout
+  (grouped under a custom category "02. Praxis (tunable)" in Strategy
+  Analyzer) and PraxisSignalConsumer (visible in the Chart Strategies dialog).
+  Both are the user's own Praxis trading system components — not stock
+  NinjaTrader samples.
+- Sim101 account confirmed active on Simulated Data Feed with $99,995 cash
+  value — the whole session stayed sim-only, per task constraints.
+- The Historical Data window's Import/Export layout is accordion-style
+  (vertically stacked, expand/collapse sections) rather than a horizontal
+  tab strip in this NT8 version — see notes on screenshots 15-17. The
+  Export and "Get Market Replay data" sections were not individually
+  expanded/captured (time-boxed); their fields were not inspected beyond
+  confirming they exist as collapsed accordion headers alongside
+  Download/Import.
+
+============================================================
+CONSTRAINTS OBSERVED
+============================================================
+- No NinjaScript import or compile was performed.
+- Strategy Analyzer's Run button was never clicked (left config panel only).
+- No order was placed or simulated. One accidental exposure occurred mid-
+  session: a Chart Trader panel (with live Buy Mkt/Sell Mkt/etc. buttons)
+  was inadvertently opened via an ambiguous UI-automation click; it was
+  closed immediately via a direct window-handle close (Win32 PostMessage
+  WM_CLOSE) without any further clicks near the order buttons, and no order
+  button was ever clicked.
+- Auto-trade / Global Simulation Mode was never enabled.
+- Connections menu was viewed but no connect/disconnect/configure action was
+  taken.
+- Nothing in this session touched a live or funded account — Sim101 only.
