@@ -2,6 +2,30 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-25 (session 30) — CROSS-BLOCK AUDIT intake: 4uu backtest FROZEN behind 5 gates, root cause = Phase-3 spec never imported (r8j). PIN: `bd recall cross-block-audit-2026-07-25`
+
+**HEAD:** `a42038e` · Block 2 (Backtesting) — now GATED. **3 commits this session; 0 beads closed; 8 beads filed (6 collision + 2 gate).**
+
+**What happened:** the Claude.ai master/scoping agent delivered a cross-block architecture audit (8 findings / 7 questions). Build-side forensic grounding CONFIRMED every collision and found the ROOT CAUSE: **the Phase 3 Build Specification was never imported into this repo** — the nine numbered breakers + order-path placement, the Block-4 acceptance gate, and a binding Block-2 pass-gate set do not exist here (only research prose + a non-binding checklist). That absence is why the Dev A–F collisions were invisible. Nothing was resolved by the build agent (resolution = plan/trader domain); every collision is now a tracked, dependency-linked bead.
+
+**Shipped:** `52d6bb6` (4uu fill+MFFU gate) · `a42038e` (cross-block intake row) · [session-29 `6c91230` already pushed]. All pushed; local == origin/main.
+
+**Tracker state — `4uu` (backtest) FROZEN behind 5 open gates:**
+- `2nh` (P1, Q1) live-signal-emission topology — what emits the live anchor signal; if NT8-internal the n8n breakers are bypassed.
+- `yra` (P1, Q3) Dev-C reverse-reenter vs breakers #2/#3 + Block-4 live-vs-backtest reconciliation.
+- `zyd` (P1, Q4) fill-resolution — High/1-tick spec vs 1-min data.
+- `qtk` (P2, Q5) Dev-D WFE gate-set partition (replication vs optimization arm).
+- `fx4` (P1, Q7) MFFU automation-compliance.
+- **`r8j` (P1) = ROOT CAUSE** (import Phase-3 spec) blocks `2nh/ax4/yra/qtk`. Highest-leverage unblock.
+- Also open: `ax4` (P1, Q2 Dev-B 16:00 flat vs 11:30/Vyvanse breakers), `zd4` (P1, Q6 praxispush never provisioned). `bd dep cycles` = none.
+
+**Next 3 dispatches (P0→P2):**
+1. **`r8j`** — import the Phase 3 Build Spec (unblocks 2nh/ax4/yra/qtk; lets the collisions be resolved against real spec text, not prose). Likely needs the trader to supply the spec from the plan agent's side.
+2. **Two TRADER actions** (build-agent has offered to prep both): `fx4` send the MFFU automation-permission email (plan docs CONTRADICT — Round-3 compass artifact says permitted vs unconfirmed); `zd4` provision praxispush + relocate drop dir OR log the removal decision.
+3. Resolve the 4uu gates in dependency order once r8j lands. Do NOT run/close the backtest before all five clear.
+
+**Blockers/carried:** `hlw` (P2) VM-gated half-open (unchanged). `AUDIT_LOG.md` by-design rolling row — do NOT fix. Single-session rule bit twice this session (pids 82699, 40532 — both stale/second sessions; Amear closed them; commits proceeded). Orchestrator disarmed at close. **PIN:** `bd recall cross-block-audit-2026-07-25` carries the whole audit for next session.
+
 ## Resume card — 2026-07-25 (session 29) — wx7 report SHIPPED, 852 vm-agent leg PROVEN + CLOSED, MFFU gap filed (fx4)
 
 **HEAD:** `27766ad` · Block 2 (Backtesting) active. **2 code/ledger commits this session; 2 beads closed (wx7, 852); 1 new bead filed (fx4).**
