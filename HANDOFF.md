@@ -2,6 +2,27 @@
 
 Resume cards go here, newest on top.
 
+## Resume card — 2026-07-25 (session 29) — wx7 report SHIPPED, 852 vm-agent leg PROVEN + CLOSED, MFFU gap filed (fx4)
+
+**HEAD:** `27766ad` · Block 2 (Backtesting) active. **2 code/ledger commits this session; 2 beads closed (wx7, 852); 1 new bead filed (fx4).**
+
+**Shipped this session:**
+1. `497088b` — **wx7** self-contained build-progress report for the Claude.ai scoping agent (`docs/reports/2026-07-25-wx7-build-progress-for-scoping-agent.md`), auditor PASS. Reports what-was-built only; deviations A–G each Amear-approved w/ DECISIONS citation.
+2. `27766ad` — **852** VM-agent delegation workspace **live-executor leg PROVEN & CLOSED**: VM Claude-Code ran acceptance assignment `0000-sample-roundtrip` end-to-end; orchestrator-auditor independently re-hashed `ASSIGNMENT.md` Mac-side (`e7744e0b…67183f`, pure LF, exact match), all 4 criteria PASS. Archived to `~/praxis-signals/vm-agent/archive/0000-sample-roundtrip-DONE/` w/ GRADE.txt. **Delegation channel proven end-to-end.**
+
+**Scoping-agent audit (IN PROGRESS — resumes next chat):** Amear is relaying between this build side and the Claude.ai scoping agent that planned the project. Evidence bundle delivered to `~/Desktop/praxis-scoping-bundle-2026-07-25/` (report + STATUS/DECISIONS/MANIFEST spine + `git log --oneline[-stat]`). Q1–Q4 answered, grounded (subagent-verified, cited):
+- **Q1** NT8 host = Parallels Win11 ARM VM on Mac Studio, DECIDED (D-2026-07-09-B); native x64 live host specified-not-built (pre-Block-5).
+- **Q2** `praxispush` user does **NOT exist** (`id praxispush` → no such user); drop dir currently under primary/trader account via the Parallels share; least-priv isolation designed (D-2026-07-09-C) not provisioned.
+- **Q3** all **nine circuit breakers SPECIFIED-ONLY** — zero implemented, zero tested (Block 3 not started). The only kill artifact is the manual 10i Telegram pause, not an automated breaker.
+- **Q4** **MFFU automation-compliance OPEN/UNCONFIRMED** — no written confirmation anywhere; **now tracked as `fx4` (P1)**. Until confirmed, all toward-live decisions are provisional.
+
+**Next 3 dispatches (next chat = "go over the audit"):**
+1. **Block-gate ordering check (scoping agent's point 4):** verify from git-log SHA ordering whether Block-1 T1–T4 acceptance criteria commits PREDATE the implementation commits — the phase-gate-integrity proof the scoping agent actually asked for. (Not yet run.)
+2. Address whatever the scoping agent returns from the delivered spine + Q1–Q4.
+3. **fx4 (P1)** MFFU compliance — trader-gated (requires contacting MFFU); + `bev` praxis-tutor dry-run still open.
+
+**Blockers/carried:** `4uu` + `hlw` (P2) remain VM/trader-gated half-open (unchanged — await real VM Strategy-Analyzer output in `inbound/`). `AUDIT_LOG.md` has the one by-design modified rolling row — do NOT "fix", lands in next flush. Single-session rule bit once this session (pid 82699, a stale Jul-24 session); Amear closed it; commits proceeded. Orchestrator disarmed at close.
+
 ## Resume card — 2026-07-23 (session 23) — 4uu FILE blocker DISSOLVED: hash "mismatch" was CRLF, independently audited PASS; NON-BUILD session
 
 **HEAD:** unchanged from session 22 (`9608843`) + this doc-wrap commit on top · Block 2 (Backtesting). Open beads: **4uu** (P2, VM half-open — file sub-blocker now cleared), **hlw** (P2, VM half-open), **cn4** (P2, trader-gated), P3s (9qx, 2vu, 518). **0 code commits this session; 1 audit bead (4uu.1) closed PASS.**
