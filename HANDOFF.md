@@ -1,3 +1,28 @@
+## Resume card — 2026-07-26 (session-31 close)
+
+**HEAD:** `7d9be8e` — nothing committed this session. 18 paths STAGED, awaiting Amear's approval (DECISION_LOG 2026-07-26T00:10Z).
+
+**Landed (staged, not committed):** agent-stack v1 — 3 agents (`praxis-master/manager/auditor`), 5 hook scripts, `specs/SPEC_RUBRIC.md` (byte-identical, shasum verified), settings merge with zero key collisions. All 5 trip tests + depth-2 nesting PASS with pasted live output → `docs/reports/2026-07-25-agent-stack-install.md` (999 lines, `Result: PASS`). The `agent` key is deliberately NOT installed.
+
+**Three v1 defects found and fixed in-session:** shipped settings wired only 2 of 5 scripts; the 3 unwired guards had no agent scoping (would have blocked Edit/Write for every agent in the repo); `no-commit-guard.sh` discriminator rewritten from captured live payloads. Two more defects Amear identified that this session did NOT find: missing worker agent type, and the manager's unrestricted `Agent` tool — together they let the grader be conscripted as a producer.
+
+**Open:** ISSUE_REGISTER 5 open · beads 12 ready (top 3: `zd4` P1 praxispush security requirement dropped · `r8j` P1 Block-3/4 spec import · `zyd` P1 b2 backtest fill-resolution pin). Agent-stack beads: `lnb` (no worker type), `nj1` (dead write-guard arms) — both are fixed by v2.
+
+**NEXT SESSION P0 — agent-stack v2.** Drop is NOT yet in the repo root (`PATCH_NOTES.md` and `agents/` absent as of this close — confirm they landed before starting). Read `PATCH_NOTES.md` first; it names 7 v1 defects. Invoke `orchestrator-mine`; dispatch, do not implement.
+- Install NEW `agents/praxis-worker.md`; `praxis-manager.md` tools becomes `Agent(praxis-worker)` not bare `Agent`; `praxis-master.md` gains `Write` (makes the guard's Write arm live).
+- `settings.json`: BOTH env vars restored. `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=2` is load-bearing on 2.1.220 — the instruction to strip them was wrong.
+- KEEP this session's rewritten `no-commit-guard.sh`. It is deliberately not in the v2 drop.
+- SPEC_RUBRIC.md shasum before and after — byte-identical or STOP.
+- Guards must FAIL SAFE: exit 0 when invoked outside their intended agent. Implement against the identifying field the captured payloads actually contain (`agent_type` present + `agent_id` presence separates main-thread from spawned), not a field named in a brief.
+- P1: re-run T1–T5 plus T6 (manager spawning praxis-auditor → allowlist refuses) · T7 (nesting DISPATCH_LOG row must read `praxis-worker`, not `praxis-auditor` — depth 2 alone is not a pass) · T8 (worker attempts to spawn → disallowedTools refuses) · T9 (unrelated repo runs normally — guards did not leak). Real pasted output, no summaries.
+- P2: STOP. The `agent` key is NOT the orchestrator's to install. Report evidence, hold the key, wait for Amear.
+
+**Standing evidence rule:** any claim about a version, default, payload shape, or hook behavior must be observed in-session or marked UNVERIFIED. Both wrong conclusions in this project (nesting default, stale binary) came from well-cited static reads. Refutation by live experiment is the standard.
+
+**Known gap carried forward:** `dispatch-log-writeahead.sh` has no SubagentStop counterpart, so every session leaves orphan `STATE: dispatched` stubs that must be drained by hand at close.
+
+---
+
 # HANDOFF — PRAXIS
 
 Resume cards go here, newest on top.
