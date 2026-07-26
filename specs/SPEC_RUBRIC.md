@@ -115,6 +115,7 @@ without them, or both — and how the Block 4 gate is satisfiable if they differ
 | S9 | Any config field a guarantee depends on is positive-controlled: confirm a visible script fires at that field, then confirm an invented key at the same position produces byte-identical silence. A field that parses is not a field that is honoured. |
 | S10 | `Agent(<type>)` allowlist narrowing is not a scoping mechanism. Honoured on a main thread, discarded on child spawn, where the subagent inherits the spawning parent's roster. Confirmed by control experiment 2026-07-26. Any separation guarantee must be enforced by a registered hook, never by frontmatter or by an allowlist line. **But the inherited roster is load-bearing for reachability** — see the amendment below; the allowlist is dead as a *restriction*, not as a *grant*. |
 | S11 | Nesting is depth-capped. Spawned one level deeper, `praxis-manager` receives no `Agent` tool at all; the manager role is unexecutable there. The topology is fixed at master → manager → worker. Do not design for deeper nesting. |
+| S12 | A ledger **writer** ships with its **closing or flushing counterpart in the same change**. Anything that appends rows lands together with the mechanism that carries those rows to a terminal state, or into the repo. A writer without its counterpart yields a ledger that only ever grows, whose backlog is then cleared by hand — and hand-clearing is not a mechanism, it is an unfunded obligation on whoever notices. Two existing violations are named below; neither is repaired. |
 
 **S6 is the one that failed.** Six deviations were each approved in isolation
 and four downstream components broke without anyone noticing. Every future
@@ -163,21 +164,101 @@ by mechanism Y"* gets the same treatment — toggle Y, hold everything else
 constant, and show the behaviour changes. If it does not change, Y was never the
 mechanism.
 
-The cost of not doing this is session 33's **three-assumption chain**, where each
-link was accepted on the strength of the one before it and none was controlled:
+The cost of not doing this is session 33's **three unobserved assertions**. The
+orchestrator stated all three about `scripts/agent-spawn-guard.sh` — the one
+component the whole producer/grader guarantee rests on — without having observed
+any of them. Each was falsified the moment someone looked. *Source: 2026-07-26
+human ruling.*
 
-1. *"`praxis-worker` cannot spawn, because its `tools:` line omits `Agent`."* —
-   **false.** Killed by S10: the child inherits the parent's roster, so omitting
-   a type from the child's own line restricts nothing.
-2. *"That is fine, because `disallowedTools: Agent` is the worker's own
-   control."* — **untested.** Asserted in `scripts/agent-spawn-guard.sh:32-33`
-   and never run. It is the same class of field as the one that just failed in
-   (1).
-3. *"So the guard's omitted-`subagent_type` bypass is a defence-in-depth gap,
-   not a hole."* — **rests entirely on (2).** If (2) is inert on a spawned
-   child, the terminal-layer rule has no enforcement at all.
+1. *"The guard is registered globally."* — **false. It is project-scoped.** It is
+   registered in exactly one place, `.claude/settings.json`; no user-level,
+   local, or managed settings file carries a `hooks` key at all. The guard cannot
+   fire in any other repo. `docs/agent-spawn-guard.md` §1, behaviourally
+   confirmed at T9.
+2. *"The guard fails safe — it denies when unsure."* — **false. It fails OPEN.**
+   Every branch it cannot positively identify as a forbidden spawn exits 0:
+   absent `agent_type`, empty `agent_type`, absent `subagent_type`, malformed
+   JSON, empty stdin, non-`Agent` tool. "Fail safe" in its own header means *does
+   not break unrelated work* — the opposite reading of the word from the one
+   asserted. `docs/agent-spawn-guard.md` §4.
+3. *"T6 and T7 both depend on the guard."* — **false. T6 depends on it solely;
+   T7 does not depend on it at all.** T7 was fixed by adding `praxis-worker` to
+   `praxis-master`'s allowlist (S10 amendment above); the guard's only obligation
+   to T7 is not to interfere. `docs/agent-spawn-guard.md` §6.
 
-Recorded in `docs/agent-spawn-guard.md` (header block and §3.1) and tracked as
-`Praxis_build-1ys` (P0, open). The general lesson is the chain, not the
-particular field: **a mechanism named in a comment is a claim, and a claim is
-graded by experiment, not by inspection.**
+Note what these three have in common with the config-key failures: **nothing was
+broken.** The guard was correctly written and correctly registered. What was
+wrong was every statement made *about* it — its scope, its failure direction, and
+what depended on it. A component can be sound while the entire account of it is
+false, and only the account reaches the next reader.
+
+The general lesson: **a mechanism named in a comment, a brief, or a report is a
+claim, and a claim is graded by experiment, not by inspection.** The live
+instance of this is `disallowedTools: Agent`, named in
+`scripts/agent-spawn-guard.sh:32-33` as the control covering the
+omitted-`subagent_type` bypass and never once tested — recorded in
+`docs/agent-spawn-guard.md` (header block and §3.1) with the toggle experiment
+that would settle it, and tracked as `Praxis_build-1ys` (P0, open).
+
+**S12 — the two existing violations, 2026-07-26 human ruling. Neither is
+repaired; both are named so the criterion is not read as hypothetical.**
+
+**Violation 1 — `scripts/dispatch-log-writeahead.sh`.** Registered on
+`SubagentStart`, it appends one `DISPATCH_LOG.md` row per spawn, every row
+reading `HOW: awaiting terminal state | STATE: dispatched`. **Nothing ever
+resolves that wait.** The only `SubagentStop` registration in
+`.claude/settings.json` is `scripts/gate-manager-output.sh`, matcher
+`^praxis-manager$` — an output gate, not a log closer. The writer shipped; the
+closer was never written.
+
+As of this change, 29 rows stand at `STATE: dispatched`. The 16 rows that *do*
+carry a terminal state were closed by a **manual reconciliation sweep at
+session-31 close** — they read `HOW: reconciled at session-31 close`, which is
+the evidence for S12 rather than a counterexample to it. A ledger whose rows
+reach a terminal state only when a human happens to sweep it is a ledger that
+records dispatch and nothing else.
+
+**Violation 2 — `AUDIT_LOG.md` mint rows.** `audit-approve.sh` appends the PASS
+row *after* the staged diff is hashed, so **a change can never contain its own
+audit row** — the row is stranded in the working tree by construction. No flush
+counterpart shipped with the writer. `Praxis_build-30h` (CLOSED) adopted option
+(a), a dedicated flush-mode commit, and that is the sanctioned path — but it is a
+*procedure someone must remember*, not a mechanism. Rows have stranded at every
+session close since. `Praxis_build-3fe` carries the current flush.
+
+**What S12 asks of the next writer.** Not that flushing be automatic — that a
+writer is not accepted as complete until the change that adds it also states, in
+committed text, exactly how its rows terminate and who or what performs that
+step. Both violations above pass every other criterion in this table. They fail
+only this one, and only because the question was never asked at the time.
+
+## Process rulings — binding on the orchestrator
+
+**Park rule — amended to ABSOLUTE, 2026-07-26 human ruling. Supersedes
+orchestrator-mine v3's "park it blocked, move on."**
+
+On the **second** audit FAIL for the same bead, with no exceptions and no
+orchestrator judgment applied:
+
+1. Commit the work to a branch `parked/<bead-id>`. It does not reach `main`.
+2. Fire `.claude/hooks/notify.sh audit-fail-x2 "<bead-id>"`.
+3. **End the session.**
+
+**A human resumes it. The orchestrator does not.** There is no third dispatch,
+no "the defect was mechanical," no "the fix is two characters." The rule is
+absolute precisely because those judgments are the ones an orchestrator is worst
+placed to make about its own work — it has already been wrong twice about the
+same change by the time the rule fires.
+
+The deviation this amendment responds to is the `DECISION_LOG.md` **17:55Z row**
+(2026-07-26, `Praxis_build-fun`), where the orchestrator fired the notification
+and then re-dispatched anyway, reasoning that both failures were mechanical and
+that parking would strand a human ruling. The auditor concurred. **Both were
+wrong, and the ruling overrides both.** That row stands unedited as the record of
+the deviation — it is not retro-justified here, and it is not to be softened.
+
+*Note for whoever installs this:* the global skill file
+`~/.claude/skills/orchestrator-mine/SKILL.md` still carries the weaker "park it
+blocked, move on" wording. It is outside this repository and affects other
+projects, so it is **not** edited from here. This section is the binding text for
+PRAXIS work.

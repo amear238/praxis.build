@@ -55,3 +55,4 @@ Append-only. Every Agent dispatch + outcome. Row schema:
 - [2026-07-26T15:57:53Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session b8008e4 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
 - [2026-07-26T16:25:31Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 712a997 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
 - [2026-07-26T16:28:10Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 712a997 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T16:29:53Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 712a997 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
