@@ -262,3 +262,75 @@ the deviation — it is not retro-justified here, and it is not to be softened.
 blocked, move on" wording. It is outside this repository and affects other
 projects, so it is **not** edited from here. This section is the binding text for
 PRAXIS work.
+
+**Absolutes are amended between sessions only — 2026-07-26 human ruling.**
+
+A rule declared absolute is **never amended inside the session that hits it.**
+The sequence when one fires is fixed: **hit the absolute → park → amend cold, by
+a human, in a session that is not blocked on the work the rule stopped.**
+
+The reasoning is not new to this project; it is the Strategy Health Monitor's
+pre-commitment principle applied to process instead of to thresholds.
+`docs/specs/STRATEGY_HEALTH_MONITOR_SPEC.md` §2:
+
+> All thresholds are written and locked **before** live deployment […] No
+> threshold is adjusted while the strategy is in drawdown. Adjustments are
+> permitted only: 1. While the strategy is at or above its rolling performance
+> baseline, AND 2. Via an append-only entry in DECISIONS.md, AND 3. With a
+> mandatory 5-trading-day cooling period between the proposed change and its
+> activation.
+>
+> **Rationale (behavioral):** the decision "is the edge dead or am I scared" is
+> never made live.
+
+An agent amending a rule that has just blocked it is in exactly that position.
+The judgment "this rule is too strict" and the judgment "this rule is stopping
+me right now" are indistinguishable from inside the blocked session, which is
+why the SHM never lets the trader make the analogous call mid-drawdown. The cold
+session is the cooling period. The park branch is the demotion to paper.
+
+**This applies retrospectively to the park rule itself, which is named here
+rather than exempted.** The absolute park rule was written into this file at
+`e785ca4` — *in the same session that hit the audit-fail-x2 condition and
+deviated from it.* Under the rule above, that amendment should have waited for a
+cold session. It was human-issued and it stands, but it is an instance of the
+pattern this rule now forbids, and the next such amendment does not get the same
+latitude.
+
+**Flush-commit subject lines — `Praxis_build-t83`, approved as convention
+2026-07-26.**
+
+A flush commit's subject line names **every bead id whose `AUDIT_LOG` row it
+carries**, plus its own bead. Flush mode's prescribed check is that each staged
+row maps to a real prior audited change, tested by grepping the log for the
+row's bead id — and at `e785ca4` that grep returned nothing for the
+`lnb+nj1` row, because the only commit naming those beads was where they were
+*filed*, not where the audited work landed. The auditor mapped it by timestamp
+window instead. Sound, but by inference, and inference is the thing flush mode
+exists to remove.
+
+**`DECISION_LOG` row schema — `PROPOSED BY:` / `APPROVED BY:`, effective
+2026-07-26 forward.**
+
+`WHO:` conflated two different roles and is split. Rulings originating with
+**Praxis (the claude.ai scoping agent)** record Praxis as `PROPOSED BY:` and
+**Amear** as `APPROVED BY:`. Rows written before this date are **not**
+retro-edited — the ledger is append-only, and a schema change is not a licence
+to rewrite history. Where proposal and approval fall on different dates, both
+are recorded.
+
+**What this fix is, and what it is not — read this before relying on it.** It is
+a **legibility** fix. It is **not verification, and it is not authentication.**
+Nothing prevents an orchestrator from authoring both fields; an agent-written
+`APPROVED BY: Amear` is indistinguishable in the file from a real one. The
+auditor said as much when it graded `e785ca4` — it could confirm the ruling was
+*recorded*, not that it was *given*, since every artifact asserting it was
+orchestrator-authored.
+
+**The threat model is drift, not forgery.** The failure this guards against is
+the ordinary one: a proposal restated across a few sessions until nobody can say
+whether Amear ever approved it or whether it simply survived long enough to look
+settled. Splitting the field makes that question answerable by reading. It does
+not make the answer trustworthy — for that, the authorisation chain in S4 and
+S5 (the ledger append *is* the authorisation) remains the only control, and it
+too is a record rather than a proof.
