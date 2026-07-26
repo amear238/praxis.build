@@ -112,7 +112,72 @@ without them, or both — and how the Block 4 gate is satisfiable if they differ
 | S6 | Cross-block check: every approved deviation is tested against the specs of every other block it touches, not only its own. |
 | S7 | Nothing is committed while any audit box is unchecked. |
 | S8 | No question that belongs to Amear is answered on his behalf. |
+| S9 | Any config field a guarantee depends on is positive-controlled: confirm a visible script fires at that field, then confirm an invented key at the same position produces byte-identical silence. A field that parses is not a field that is honoured. |
+| S10 | `Agent(<type>)` allowlist narrowing is not a scoping mechanism. Honoured on a main thread, discarded on child spawn, where the subagent inherits the spawning parent's roster. Confirmed by control experiment 2026-07-26. Any separation guarantee must be enforced by a registered hook, never by frontmatter or by an allowlist line. **But the inherited roster is load-bearing for reachability** — see the amendment below; the allowlist is dead as a *restriction*, not as a *grant*. |
+| S11 | Nesting is depth-capped. Spawned one level deeper, `praxis-manager` receives no `Agent` tool at all; the manager role is unexecutable there. The topology is fixed at master → manager → worker. Do not design for deeper nesting. |
 
 **S6 is the one that failed.** Six deviations were each approved in isolation
 and four downstream components broke without anyone noticing. Every future
 deviation gets graded against S6 explicitly, by name, in the report.
+
+**S9 was referenced before it was written.** The 2026-07-26 brief carried
+"S9 applies to everything in this brief" as a standing rule, but no S9 existed
+in this file — the table stopped at S8. The wording above is transcribed from
+that brief's own standing rule 5 and is **pending Amear's ratification**; the
+criterion was applied in full this session (see `docs/agent-spawn-guard.md` §5).
+Reword or renumber it if the intent was different.
+
+**S10 and S11 are permanent constraints, not open issues.** They are recorded
+here rather than in `ISSUE_REGISTER.md` because there is nothing to resolve. The
+underlying drop defect and its evidence are in `PATCH_NOTES.md` (PN-001).
+
+**S10 amendment — ruling R2, 2026-07-26.** The first reading of S10 was too
+broad. The allowlist is discarded as a **restriction on the child**: a spawned
+agent's own `Agent(<type>)` line grants it nothing and forbids it nothing, so no
+separation guarantee may rest on it. But the **spawning parent's roster is
+inherited, and that inheritance is load-bearing for reachability**: an agent type
+that appears in **no ancestor's** allowlist is absent from every inherited roster
+and is unspawnable outright (`Agent type '<name>' not found.`). The allowlist is
+therefore dead as a *restriction* and live as a *grant*.
+
+Two standing consequences:
+
+1. **Do not remove `praxis-worker` from `praxis-master`'s allowlist.** The line
+   `tools: Agent(praxis-manager, praxis-auditor, praxis-worker)` in
+   `.claude/agents/praxis-master.md` is what makes `manager → worker` spawnable
+   at all — the manager inherits it. This is the T7 repair
+   (`PATCH_NOTES.md` PN-001, trip-tests T7). Deleting the entry as "dead
+   frontmatter per S10" would silently re-break worker dispatch.
+2. Conversely, `praxis-manager.md`'s own `tools: Agent(praxis-worker)` line
+   **is** inert, and is deliberately left in place — see PN-001, "Not silently
+   fixed."
+
+Read S10 as: *frontmatter cannot take a capability away from a child; it can
+still be the only thing that puts one within reach.*
+
+**S9 note — ruling R3, 2026-07-26. Positive control extends to claims about
+mechanism, not only to config keys.** S9 as written tests a *field*: make the
+script fire at it, then show an invented key at the same position produces
+byte-identical silence. That is not enough. A claim of the form *"X is covered
+by mechanism Y"* gets the same treatment — toggle Y, hold everything else
+constant, and show the behaviour changes. If it does not change, Y was never the
+mechanism.
+
+The cost of not doing this is session 33's **three-assumption chain**, where each
+link was accepted on the strength of the one before it and none was controlled:
+
+1. *"`praxis-worker` cannot spawn, because its `tools:` line omits `Agent`."* —
+   **false.** Killed by S10: the child inherits the parent's roster, so omitting
+   a type from the child's own line restricts nothing.
+2. *"That is fine, because `disallowedTools: Agent` is the worker's own
+   control."* — **untested.** Asserted in `scripts/agent-spawn-guard.sh:32-33`
+   and never run. It is the same class of field as the one that just failed in
+   (1).
+3. *"So the guard's omitted-`subagent_type` bypass is a defence-in-depth gap,
+   not a hole."* — **rests entirely on (2).** If (2) is inert on a spawned
+   child, the terminal-layer rule has no enforcement at all.
+
+Recorded in `docs/agent-spawn-guard.md` (header block and §3.1) and tracked as
+`Praxis_build-1ys` (P0, open). The general lesson is the chain, not the
+particular field: **a mechanism named in a comment is a claim, and a claim is
+graded by experiment, not by inspection.**

@@ -438,3 +438,20 @@ None. All eight guard cases returned their expected exit codes on the first
 run, no guard script was edited, and both protected files verified unchanged.
 
 Result: PASS
+
+---
+
+## Correction — appended 2026-07-26 (session 33, ruling R4)
+
+**Nothing above this line has been edited.** One claim in this report went stale
+later in the same session:
+
+- The "Files touched" list states that `.claude/settings.json` and
+  `specs/SPEC_RUBRIC.md` "are not in the staged set because neither was
+  modified." **Both were modified afterwards.** `.claude/settings.json` gained
+  the `PreToolUse` registration for `scripts/agent-spawn-guard.sh` in commit
+  `712a997` (blob `e83e561 → 4521f90`, +10 lines); `specs/SPEC_RUBRIC.md` gained
+  criteria S9–S11.
+
+Full correction, with the original sentence reproduced verbatim and the
+evidence: **`PATCH_NOTES.md` PN-002**. Filed as `Praxis_build-9j4`.
