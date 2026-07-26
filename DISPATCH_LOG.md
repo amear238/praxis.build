@@ -57,3 +57,10 @@ Append-only. Every Agent dispatch + outcome. Row schema:
 - [2026-07-26T16:28:10Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 712a997 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
 - [2026-07-26T16:29:53Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 712a997 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
 - [2026-07-26T16:40:38Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session 63d7523 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T16:49:57Z] WHO: orchestrator-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session e785ca4 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T17:11:41Z] WHO: claude-code-guide | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T17:54:31Z] WHO: praxis-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T18:11:37Z] WHO: praxis-manager | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T18:13:22Z] WHO: praxis-worker | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T18:13:44Z] WHO: praxis-worker | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched
+- [2026-07-26T18:26:15Z] WHO: praxis-auditor | WHAT: subagent spawned | WHY: hook-recorded at SubagentStart | WHERE: session c1dec30 | WHEN: spawn | HOW: awaiting terminal state | STATE: dispatched

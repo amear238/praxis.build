@@ -1,3 +1,36 @@
+## Resume card — 2026-07-26 (session-34 close) — 🅿️ PARKED under the absolute park rule. `Praxis_build-37h` audit-FAILed twice. NOTHING reached `main`.
+
+**HEAD:** `main` unmoved at `c1dec30`. Repo is left **on branch `parked/Praxis_build-37h`** with work **STAGED BUT UNCOMMITTED**. Read the two ⚠️ items below before running any git command.
+
+**⚠️ FIRST ACTION, BEFORE ANYTHING ELSE — the parked work is fragile.** `DECISION_LOG.md`, `DISPATCH_LOG.md`, `MANIFEST.md`, `specs/SPEC_RUBRIC.md` are staged on the park branch and will be destroyed by a careless `git checkout` / `git reset`. **Amear commits it by hand in his own terminal** — `gate-commit.sh` is a Claude Code PreToolUse hook and does NOT bind a human shell:
+```
+git branch --show-current      # expect parked/Praxis_build-37h
+git commit -m "park(Praxis_build-37h): audit-fail-x2, session ended per absolute park rule"
+git checkout main              # main stays at c1dec30
+```
+**⚠️ NEVER stage `.claude/settings.json`.** It carries Amear's hand-installed `"agent": "praxis-master"` key — local, machine-specific, deliberately uncommitted. `jq '.agent'` → `"praxis-master"` is the expected state.
+
+**Why it parked.** Two audit FAILs on `Praxis_build-37h`, so `specs/SPEC_RUBRIC.md:253-267` fired: park to a branch, fire notify, **end the session, a human resumes**. `notify.sh audit-fail-x2` fired (exit 0). No third dispatch was issued and the "defect was mechanical" exemption was refused in writing, because :263-267 forecloses it by name.
+- **FAIL 1 (S7, S4)** — the brief's single-commit flush shape is refused by `scripts/audit-log-flush-verify.sh` (`must be EXACTLY AUDIT_LOG.md`, exit 1). Collateral finding: **the `t83` convention derives from `e785ca4` and `c1dec30`, and BOTH staged five files** — neither could have passed this gate, neither logged a deviation. Amear ruled: split P0 into two commits.
+- **FAIL 2 (S1, S2) — the orchestrator asserted work it had not done.** The 18:10:37Z `DECISION_LOG` row claims bead `37h`'s body "is corrected in place". It is not. `bd show Praxis_build-37h` still returns "four DECISION_LOG rows" and still describes the abandoned single-commit shape on five points. An **out-of-diff completion claim** — the project's named failure mode, caught by the auditor via `bd show --json` (`created_at` == `updated_at`), not by reading the ledger's account of itself.
+
+**Bead `37h` is deliberately LEFT UNCORRECTED** so whoever resumes sees the exact divergence the auditor found. Do not quietly resync it and move on.
+
+**Four rulings needed from Amear, all cold (none may be decided by the blocked session):**
+1. **`Praxis_build-8sw` (P1, NEW) — the park rule is unexecutable.** Step 1 says commit to `parked/<bead>`; `gate-commit.sh` denies every commit without an audit token; twice-failed work can never have one. Direct conflict. Fix is either a `^parked/` exemption in the gate or a rewrite of park step 1. **Highest leverage — every future park hits this.**
+2. **`Praxis_build-37h`** — resync the bead description and re-run P0, or abandon and re-scope.
+3. **`Praxis_build-1tz` (P3)** — S13 says the grant "omits all three" of WebSearch/WebFetch/`Task`. `Task` is **not a tool name in this repo** (`grep -rn "Task" .claude/agents/` returns two prose hits, neither a `tools:` line); the spawn tool is `Agent`, which praxis-master **holds**. Grant enumerates **9** entries, not the 10 the provenance section matched. S13's substance is intact — `WebFetch`/`WebSearch` genuinely absent. Build side may not edit the rubric (`:3`).
+4. **`Praxis_build-86t` (P2)** — `master-write-guard.sh` denies praxis-master its OWN `.claude/agent-memory/praxis-master/` dir (auditor and manager write theirs freely) and `AUDIT_LOG.md`. Two session-34 lessons could not be saved.
+
+**Session-34 agenda that NEVER RAN — carry forward verbatim:**
+- **P1 `Praxis_build-1ys` (P0)** — the `disallowedTools: Agent` toggle experiment, A/B already specified in `docs/agent-spawn-guard.md`'s header. Run as written, do not redesign. Spawn a worker at depth 2 with the line present, read its schema; remove only that line, respawn, read again. Absent-then-present ⇒ honoured, downgrade to P2. Absent both times ⇒ **inert, and `1ys` is a live unguarded bypass** that must be repaired before further stack use.
+- **P2 timestamp ruling (Amear's, already given)** — annotate the 18:30Z and 19:15Z `DECISION_LOG` rows inline as `(ESTIMATED)` by append, never edit the times; add a rubric line requiring observed clock only.
+- **P4 `Praxis_build-zyd` / F3 — the return to the build.** Draft `docs/specs/fill-resolution-assumption.md`: what 1-min bars can/cannot resolve for a band-touch entry; magnitude of the optimism with method stated (or explicit "unquantified, and why"); 2–3 candidate assumptions with costs/distortions; what the backtest report must state as a limitation; what removes the assumption entirely and its cost. **Present options, do not choose — Amear rules.** Needs no VM, no NT8, no compile.
+
+**Untracked and NOT yet in git — gather these or lose them (R4 precedent):** `docs/reports/2026-07-26-session34-p0-flush-audit.md` (carries BOTH audit verdicts, round-1 FAIL intact above round-2), `docs/reports/2026-07-26-session34-manifest-amendment.md`, `.claude/agent-memory/`. `AUDIT_LOG.md` still holds the stranded `o3d` row (S12 violation 2, perpetual by design). Flush bead `Praxis_build-67b` was filed but never dispatched.
+
+**FROZEN, unchanged:** F1 topology · F2 session-flat vs breakers #4/#5 · F3 fill resolution (P4 above is its unblocking artifact) · F4 MFFU — email sent 2026-07-26, **reply not received, still FROZEN**; a relayed "they said yes" does not clear it.
+
 ## Resume card — 2026-07-26 (session-31 close)
 
 **HEAD:** `7d9be8e` — nothing committed this session. 18 paths STAGED, awaiting Amear's approval (DECISION_LOG 2026-07-26T00:10Z).

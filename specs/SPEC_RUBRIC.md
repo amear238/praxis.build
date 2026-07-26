@@ -116,6 +116,22 @@ without them, or both — and how the Block 4 gate is satisfiable if they differ
 | S10 | `Agent(<type>)` allowlist narrowing is not a scoping mechanism. Honoured on a main thread, discarded on child spawn, where the subagent inherits the spawning parent's roster. Confirmed by control experiment 2026-07-26. Any separation guarantee must be enforced by a registered hook, never by frontmatter or by an allowlist line. **But the inherited roster is load-bearing for reachability** — see the amendment below; the allowlist is dead as a *restriction*, not as a *grant*. |
 | S11 | Nesting is depth-capped. Spawned one level deeper, `praxis-manager` receives no `Agent` tool at all; the manager role is unexecutable there. The topology is fixed at master → manager → worker. Do not design for deeper nesting. |
 | S12 | A ledger **writer** ships with its **closing or flushing counterpart in the same change**. Anything that appends rows lands together with the mechanism that carries those rows to a terminal state, or into the repo. A writer without its counterpart yields a ledger that only ever grows, whose backlog is then cleared by hand — and hand-clearing is not a mechanism, it is an unfunded obligation on whoever notices. Two existing violations are named below; neither is repaired. |
+| S13 | **No `WebSearch`, `WebFetch`, or `Task` in this repo.** The main thread is bound to `praxis-master` by the top-level `"agent"` key in `.claude/settings.json`, and that definition's grant omits all three. This is a **standing constraint, not a defect** — the capability was removed deliberately. Do not "repair" it by widening the grant or pulling the key. Work needing web research is dispatched to a subagent whose own definition grants the tool, or handed to Amear. |
+
+**S13 — provenance and the evidence for it, 2026-07-26.** Amear installed the
+`agent` key by hand in session 34, local and uncommitted, machine-specific by
+intent. He ran the S9 positive control on it and it passes on all three points:
+no key = 29 tools with `WebFetch` and `WebSearch` present; key installed = 10
+tools with both absent, matching praxis-master's grant; key renamed to `agentX`
+= 29 tools and both return. The third point is the invented-key arm S9 requires,
+and it is what makes the key name **load-bearing rather than incidental**.
+
+One correction rides with it. `docs/reports/2026-07-25-agent-stack-install-filelayer.md:39`
+records the key as deliberately not installed because "adding it now would lock
+the session out." **That is false, and it was the stated reason for deferring
+the key.** The key takes effect at session start only; installed mid-session it
+locked nothing out. The line is corrected by append, not edited — see
+`DECISION_LOG.md` 2026-07-26T17:33Z and the P3 bead.
 
 **S6 is the one that failed.** Six deviations were each approved in isolation
 and four downstream components broke without anyone noticing. Every future
