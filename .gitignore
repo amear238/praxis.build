@@ -16,3 +16,11 @@ signals/*.json
 # ...except the version-controlled canonical schema template (bead 6h7)
 !signals/signal-template.json
 .claude/state/
+
+# Agent memory — LOCAL ONLY, deliberately never committed (human ruling
+# 2026-07-28, Praxis_build-cbf). Auto-loaded into the context of each agent type.
+# Held out of the repo because this repo is PUBLIC and these notes carry working
+# guard-evasion detail. Consequence, accepted knowingly: any report citing a path
+# under here cites a DECLARED LOCAL-ONLY artifact — it will not resolve for
+# anyone who clones this repo, by design, not by accident.
+.claude/agent-memory/
