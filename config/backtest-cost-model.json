@@ -1,8 +1,9 @@
 {
-  "$schema_note": "PRAXIS Block-2 backtest cost + instrument model. Single source of truth consumed by BOTH the NT8 Strategy Analyzer (VM) backtest config and the Python (Mac) Monte Carlo layer. Encodes trader-locked decision D-2026-07-15-B (Q5). Do NOT hand-edit numbers without a corresponding DECISIONS.md entry.",
-  "version": "1.0.0",
+  "$schema_note": "PRAXIS Block-2 backtest cost + instrument model. Single source of truth consumed by BOTH the NT8 Strategy Analyzer (VM) backtest config and the Python (Mac) Monte Carlo layer. Encodes trader-locked decision D-2026-07-15-B (Q5). Do NOT hand-edit numbers without a corresponding DECISIONS.md entry. v1.1.0 number changes are authorised by DECISIONS.md D-2026-10-30-A.",
+  "version": "1.1.0",
   "created": "2026-07-15",
-  "decision_ref": "DECISIONS.md D-2026-07-15-B (Q5)",
+  "amended": "2026-10-30",
+  "decision_ref": "DECISIONS.md D-2026-07-15-B (Q5); amended by D-2026-10-30-A (slippage + fill resolution)",
   "bead": "Praxis_build-hlw",
   "instrument": {
     "symbol": "NQ",
@@ -18,15 +19,15 @@
     "commission_round_turn_usd": 2.96,
     "commission_basis": "round_turn",
     "commission_note": "Applied once per completed round-turn (entry+exit) per contract. If the backtest engine expresses commission per-side, use 1.48 USD/side.",
-    "slippage_ticks_per_side": 1,
-    "slippage_usd_per_side": 5.0,
-    "slippage_round_turn_ticks": 2,
-    "slippage_round_turn_usd": 10.0,
-    "fill_resolution": "High",
-    "fill_resolution_note": "NT8 Strategy Analyzer 'Order fill resolution' = High (intrabar sub-bar granularity for stop/target/entry fills; reduces optimistic same-bar fill artifacts). Python MC assumes fills already reflect this via the exported NT8 trade list.",
-    "total_cost_per_round_turn_usd": 12.96,
-    "total_cost_per_round_turn_ticks": 2.592,
-    "total_cost_breakdown_note": "12.96 = 2.96 commission + 10.00 slippage (2 ticks x 5.00). In ticks: 0.592 commission-equivalent + 2.0 slippage = 2.592 ticks round-turn."
+    "slippage_ticks_per_side": 2,
+    "slippage_usd_per_side": 10.0,
+    "slippage_round_turn_ticks": 4,
+    "slippage_round_turn_usd": 20.0,
+    "fill_resolution": "Standard",
+    "fill_resolution_note": "NT8 Strategy Analyzer 'Order fill resolution' = Standard on 1-minute bars (no secondary series). Every strategy order is a managed Enter*/Exit* call with no price argument, evaluated OnBarClose at HH:00/HH:30 checkpoints or on any bar with minute-of-day >= 16:00 for FlatEOD, plus the platform session-close exit (IsExitOnSessionCloseStrategy, clock-triggered, INFERRED) (no Set*/Submit*/limit/stop call — OBSERVED in code). That NT8 realises these calls as market orders, so intrabar High/Low ordering does not decide, at a checkpoint with a given position state, whether an order is sent, is INFERRED; 3gm D4 hypothesis 5 (INFERRED) holds that fill resolution could still change how same-bar exit+reverse pairs and the 16:00 orders resolve; via position state (3gm D4 hypothesis 2, INFERRED) that could change which later entries fire. Fill assumed at the next bar's open (INFERRED). CONDITIONAL under the void clause of DECISION_LOG 2026-08-29T00:10:00Z. Proposed limitation wording for backtest reports: 'Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.' Python MC assumes fills already reflect this via the exported NT8 trade list. See DECISIONS.md D-2026-10-30-A.",
+    "total_cost_per_round_turn_usd": 22.96,
+    "total_cost_per_round_turn_ticks": 4.592,
+    "total_cost_breakdown_note": "22.96 = 2.96 commission + 20.00 slippage (4 ticks x 5.00). In ticks: 0.592 commission-equivalent + 4.0 slippage = 4.592 ticks round-turn."
   },
   "applies_to": [
     "All P&L distributions (NT8 WFA fills + Python Monte Carlo)",
