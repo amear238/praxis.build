@@ -179,3 +179,7 @@
 | /docs/reports/2026-10-31-a9d-walkthrough-future-row.md | Report | 2 | 2026-10-31 | Praxis_build-a9d pre-registered walkthrough for Amear at the Fusion VM (inventory, non-destructive import under `NQCONT 09-25`, gated alternatives, baseline 0-S readback, save-as-default). Not a backtest report |
 | /docs/reports/2026-10-31-a9d-adversarial.md | Report | 2 | 2026-10-31 | Praxis_build-a9d ADVERSARIAL sub-report (worker 3) on the research and walkthrough. NOT authoritative |
 | /docs/reports/2026-10-31-a9d-future-row-plan.md | Report | 2 | 2026-10-31 | Manager report for Praxis_build-a9d; ungraded at time of row |
+| /docs/reports/2026-11-01-three-strategy-results.md | Report | 2 | 2026-11-01 | Three-strategy results readback (OppBand, Flat1559, LastHalfHourMomentum vs the BandOrVWAP baseline) from Amear's Desktop CSVs and screenshots; facts and open questions only; ungraded at time of row |
+| /docs/reports/2026-11-01-three-strategy-results-manager.md | Report | 2 | 2026-11-01 | Manager report for unit 2026-11-01-three-strategy-results; ungraded at time of row |
+| /docs/reports/2026-11-01-voice-handoff-commission-fix.md | Report | 2 | 2026-11-01 | voice-agent brief for the commission readback/fix and 0-S re-run on NQCONTROW (2026-11-01) |
+| /docs/reports/2026-10-31-voice-session-notes-2.md | Report | 2 | 2026-10-31 | Claude-written voice-session notes 2 (2026-10-31 a9d walkthrough execution; section 3 the 2026-11-01 commission fix, re-run and three-strategy readback summary). NOTE: untracked in git at the time of this row |
