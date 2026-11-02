@@ -183,3 +183,6 @@
 | /docs/reports/2026-11-01-three-strategy-results-manager.md | Report | 2 | 2026-11-01 | Manager report for unit 2026-11-01-three-strategy-results; ungraded at time of row |
 | /docs/reports/2026-11-01-voice-handoff-commission-fix.md | Report | 2 | 2026-11-01 | voice-agent brief for the commission readback/fix and 0-S re-run on NQCONTROW (2026-11-01) |
 | /docs/reports/2026-10-31-voice-session-notes-2.md | Report | 2 | 2026-10-31 | Claude-written voice-session notes 2 (2026-10-31 a9d walkthrough execution; section 3 the 2026-11-01 commission fix, re-run and three-strategy readback summary). NOTE: untracked in git at the time of this row |
+| /docs/reports/2026-11-01-voice-handoff-results-and-next-build.md | Report | 2 | 2026-11-01 | voice-agent handoff: three-strategy results, backtest options, build backlog (2026-11-01); praxis-master |
+| /docs/reports/2026-11-01-csv-analyses.md | Report | 2 | 2026-11-01 | CSV-only analyses of the four 2026-11-01 runs (P&L by year, top 5/10 winners removed, long vs short by year, drawdown profile, slippage arithmetic model at 3/4 ticks/side); facts and open questions only; ungraded at time of row |
+| /docs/reports/2026-11-01-csv-analyses-manager.md | Report | 2 | 2026-11-01 | Manager report for unit 2026-11-01-csv-analyses; ungraded at time of row |
