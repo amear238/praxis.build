@@ -362,3 +362,183 @@ Q1 was closed session 14 (re-implement in NT8, D 21:10Z). The remaining Block-2 
 - **R-7zq-5 — 15:59 exit of the third file, DECISION_LOG `2026-10-31T11:45:29Z` (WHO: amear):** *"Yes — same ruling"* — R-7zq-2 extends to `PraxisLastHalfHourMomentum`.
 - **Still open (NEEDS AMEAR):** 3gm Q1 sizing (b) vs (c) (item 2 above); 3gm Q2, what OppBand means for the base (item 1 above); early-close handling (item 3 above); adoption of the 15:59 decision into the base as the replication's realisation of the 16:00 flat (3gm C3, item 4 above; R-7zq-2 rules the backtest fill of the variant, not this); Step 0, the values for High's extra fields and what counts as "identical" (`docs/reports/2026-10-31-7zq-m1-variants.md:148`; `docs/reports/2026-10-31-7zq-handtest-checklist.md:293`); and, for the third file (M2 addendum §(e), left open by DECISION_LOG `2026-10-31T11:45:29Z` (WHO: amear)): r = 0 → short; the previous-close rule; the missing-15:30 fallback; the 15:30 reference price; the η(r_ONFH, r_ROD) variant; the roll convention. Addendum §(e) item 9 (the first session of the series has no prior close; the design skips it) is not in that row's list and has not been ruled either.
 - **Note:** DECISION_LOG line numbers quoted above were taken at draft time and have shifted; row stamps are the stable key. (This entry cites DECISION_LOG by row stamp; its `:NNN` citations point into other files and are left as drafted.)
+
+---
+
+## 2026-11-02 — D-2026-11-02-A: R-VN3-1 — `PraxisLastHalfHourMomentum` RETIRED from the active candidate set (retire, not delete)
+
+**Date:** 2026-11-02
+**Status:** RULED by Amear — R-VN3-1. Ledger authorisation (S5): DECISION_LOG row `2026-11-02T21:23:45Z` (WHO: amear). Appended 2026-11-02 by praxis-manager, unit `2026-11-02-r-vn3-1-filing`.
+**Bead:** Praxis_build-afe (P2). `Praxis_build-7zq`, under which the strategy was built (D-2026-10-31-A, R-7zq-3), is not closed by this entry; whether it closes is Amear's call.
+
+**Ruling (Amear's words, `docs/reports/2026-11-01-voice-session-notes-3.md`):**
+- Voice, ~13:17Z (notes-3 line 10): *"So first things first, the strategies that performed the worst. Uh, which was the uh, last half hour. We're gonna scrap that."*
+- Chat, ~13:20Z (notes-3 line 11): *"the scrapping of the last half hour ... is going to be added to the repo."*
+
+**Confirmation (ledger paraphrase, not a quote):** notes-3 line 12 recorded the retire-not-delete reading as not yet confirmed. DECISION_LOG `2026-11-02T21:23:45Z` (WHO: amear) records it as confirmed by Amear in his "21:2xZ filing brief": retire, don't delete — the `.cs` file, its trade list and the 11-01 reports stay as the record; the strategy leaves the active candidate set.
+
+**Context:** the 2026-11-01 hand-test run of `PraxisLastHalfHourMomentum`: 1,304 trades, net −$76,009.84, PF 0.84, max DD −$99,806.96 (`docs/reports/2026-11-01-three-strategy-results.md:405`, figures read from Amear's Desktop CSV).
+
+**Decision:**
+- `PraxisLastHalfHourMomentum` (Baltussen, Da, Lammers & Martens 2021; third file of D-2026-10-31-A) is **removed from the active candidate set**. What that excludes beyond the removal is not ruled here (see NEEDS AMEAR 3).
+- **Retire, not delete.** Nothing is deleted, moved or edited. The record stays:
+  - `ninjascript/PraxisLastHalfHourMomentum.cs` (unchanged);
+  - the 11-01 reports — every file matching `docs/reports/2026-11-01-*`; those carrying the LHM results are `docs/reports/2026-11-01-three-strategy-results.md`, `docs/reports/2026-11-01-three-strategy-results-manager.md`, `docs/reports/2026-11-01-csv-analyses.md`, `docs/reports/2026-11-01-csv-analyses-manager.md` and `docs/reports/2026-11-01-voice-handoff-results-and-next-build.md`;
+  - also kept (filer's addition — the ruling does not name them; nothing is deleted under it either way): the 7zq M2 reports, the nine files matching `docs/reports/2026-10-31-7zq-m2-*`;
+  - the trade list `~/Desktop/NinjaTrader Grid 2026-11-01 08-00 AM.csv` — **outside the repo**; not copied. Whether it is archived is open (handoff §5 item 8).
+- Filer's reading, not a ruling: notes-3 line 10 names only "the last half hour", so the two Noise-Area variants (OppBand, Flat1559) and the baseline are outside this entry.
+
+**S6 cross-block — no block's spec changes:**
+- **F1 — Signal-path topology** (`specs/SPEC_RUBRIC.md:17-28`): untouched. FROZEN.
+- **F2 — Session-flat time vs breakers #4 and #5** (`specs/SPEC_RUBRIC.md:30-43`): untouched. FROZEN.
+- **F3 — Backtest fill resolution** (`specs/SPEC_RUBRIC.md:45-57`): untouched. The void clause of D-2026-10-30-A stands.
+- **F4 — MFFU automation compliance** (`specs/SPEC_RUBRIC.md:59-70`): untouched. FROZEN.
+- No code, template or config changed.
+
+**NEEDS AMEAR (questions only):**
+1. Does `Praxis_build-7zq` close now that its third file is retired?
+2. Is the Desktop trade list archived into the repo, and where (handoff §5 item 8)?
+3. Is `PraxisLastHalfHourMomentum` also out of the R-VN3-2 High fill-resolution preparation, or does it stay in that comparison as a record run?
+
+---
+
+## 2026-11-02 — D-2026-11-02-B: R-VN3-2 — praxis-tickprep source intake into tools/tickprep/ (source only; not run; .exe absent)
+
+**Date:** 2026-11-02
+**Status:** RECORDS AN INTAKE. This entry is NOT a ruling by Amear and authorises nothing. The intake was asked for in Amear's filing brief, recorded by the master at DECISION_LOG `2026-11-02T21:23:45Z` (WHO: praxis-master, "FILING BRIEF (four items)", item 3) and dispatched at DECISION_LOG `2026-11-02T21:38:24Z` (WHO: praxis-master); R-VN3-2 itself is DECISION_LOG `2026-11-02T21:23:45Z` (WHO: amear). None of these rows authorises a purchase, an NT8 import, a run, or adding the `.exe` files. Appended 2026-11-02 by praxis-manager, unit `2026-11-02-tickprep-intake`.
+**Ruling it serves:** R-VN3-2 (`docs/reports/2026-11-01-voice-session-notes-3.md` line 16): *"It does not authorize a purchase, an import or a run."*
+
+**Evidence grades used below:** OBSERVED (seen by this unit on this Mac, 2026-11-02) / INFERRED (reasoned, not checked) / REPORTED BY AMEAR / REPORTED BY the VM agent (the agent that wrote the tool on the Windows VM) / UNVERIFIED (not checked by anyone on record).
+
+**a. Provenance chain:**
+1. Windows VM, where an agent wrote the tool — REPORTED BY the VM agent (README line 5: *"Belongs in the Praxis.build repo; copied here 2026-11-02 because the repo wasn't reachable from the VM."*) and REPORTED BY AMEAR.
+2. Google Drive folder id `1YaM4I3BKt_nNKWdUnOkj4kJzCeBEwLe_`, uploaded by an agent on Amear's side — REPORTED BY AMEAR. Not opened by this unit.
+3. Downloaded to `~/Downloads/drive-download-20261102T213740Z-1-001/` — by Amear, REPORTED BY AMEAR (DECISION_LOG `2026-11-02T21:38:24Z`: *"it int he downloads"*). OBSERVED: the folder exists and holds exactly four files, `MakeSynth.cs` (3,732 bytes), `README.md` (2,219), `TickPrep.cs` (18,785), `nt-implied-offsets.csv` (645).
+4. Copied by this unit (`cp -p`) to `tools/tickprep/` — OBSERVED: `cmp` of each download file against its repo copy printed nothing, exit 0, for all four.
+
+**b. Hashes (sha256, OBSERVED, hashed in the repo 2026-11-02; each equals the download-side hash):**
+- `tools/tickprep/MakeSynth.cs` — `398868cfdfb10b0774606af7481066b3faf3ecdf7c984c644d19173b357a1507`
+- `tools/tickprep/README.md` — `81534da86c2ecec38506a3a78ac2f1d283a7fa1ab15648b2f74930a10e95aeb5`
+- `tools/tickprep/TickPrep.cs` — `104dc9d9135d3e27cab2d35019606ca8f112d7586cdcbe98a32ee0e4d13e6545`
+- `tools/tickprep/nt-implied-offsets.csv` — `69e1a00975cf84c22d3918600b0912d1fc042a0d8f291e614d446fd8ee8220d9`
+- `tools/tickprep/SHA256SUMS` (generated in the repo by this unit from the four lines above, relative names; `shasum -a 256 -c SHA256SUMS` passes) — `5aca84487edd132089914674e6713699aa8184646d854a84b15d5fc9b7542b5f`
+- Zip `~/Downloads/drive-download-20261102T213740Z-1-001.zip` — `78e386891faa7f32ddec3c2f330f24978ed394fed95a99fb6acffa6166fa09f2` (OBSERVED, re-hashed by this unit). The zip was not extracted to disk. Its member list (`unzip -l`: the same four names and sizes) and the sha256 of each member read to stdout (`unzip -p <zip> <member> | shasum -a 256`) equal the folder's four hashes above (OBSERVED, re-run by the manager 2026-11-02).
+
+**c. VM-side originals — UNVERIFIED.** No VM-side hash of any of the four files is on record. The master's dispatch brief states they were never hashed on the VM; DECISION_LOG `2026-11-02T21:36:22Z` says the VM-side sha256 of the `.exe`s and of the original CSV *"are not obtainable here"*. Neither statement is verified by this unit. That the Mac copies equal the VM files cannot be shown from this side. The hashes of `TickPrep.exe` and `MakeSynth.exe` are unknown.
+
+**d. Line endings of `nt-implied-offsets.csv`:**
+- REPORTED BY AMEAR: the `.cs` sizes equal the VM copies; `nt-implied-offsets.csv` is *"24 bytes smaller than the Desktop copy because of line endings; the contents are the same"*.
+- OBSERVED (repo copy): `file` prints `CSV text` (no CRLF terminators reported); `wc -l` prints 24; `wc -c` prints 645; the file contains 0 CR bytes (`tr -cd '\r' | wc -c` → 0).
+- INFERRED (arithmetic only, the Desktop copy was not checked): 24 lines × 1 CR byte = 24 bytes, CONSISTENT with a CRLF→LF conversion somewhere between the VM Desktop and this Mac.
+- Consequence: by Amear's own report the repo csv is NOT byte-identical to the VM Desktop copy. Its hash in (b) identifies the LF copy only.
+
+**e. `.exe` status:** `TickPrep.exe` and `MakeSynth.exe` are ABSENT — OBSERVED (not in the download folder, not in the repo). Not uploaded — REPORTED BY AMEAR: retyping ~39,000 encoded characters by hand was judged unsafe. README line 8 and line 9 list both `.exe` files as part of the tool. README line 32 (verbatim, `sed -n 32p`):
+`` `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /optimize+ /out:TickPrep.exe TickPrep.cs` ``
+That is the only rebuild command in the README; it builds `TickPrep.exe` only. No command for `MakeSynth.exe` is given (OBSERVED from the README, 32 lines). Nothing was compiled by this unit.
+
+**f. What the tool is for** — the author's description, REPORTED BY the VM agent; the summary of what the code does is INFERRED from a source read. NOT tested, not compiled, not run.
+- README line 3: *"This tool prepares Portara per-contract NQ tick files for `NQCONTROW 09-25` (High fill resolution, option C)."*
+- README line 4: *"It doesn't touch NinjaTrader. It reads the tick files and the 1-min file and writes only to the output paths you give it."*
+- `TickPrep.cs` lines 1–2: *"TickPrep: match per-contract NQ tick files to a back-adjusted 1-minute file, then / write one adjusted tick file that reproduces those minute bars exactly."*
+- `TickPrep.cs` lines 5, 9, 13 name three commands: `measure <minuteFile> <contracts.csv> <outDir> [--tz-in Eastern|UTC]`, `build   <minuteFile> <contracts.csv> <outDir> <outTickFile> [--tz-in ...]`, `verify  <minuteFile> <tickFile>`. Lines 6–8: measure *"finds each contract's additive / offset, and assigns every minute of <minuteFile> to the contract + offset that / reproduces it."* Lines 10–12: build is *"Strict: ticks in minutes that are / missing from <minuteFile> are NOT written (holes/gaps stay as they are)."* Line 14: verify *"Rebuilds 1-min bars from <tickFile> and compares them with <minuteFile>."*
+- `TickPrep.cs` line 20: *"Read-only on inputs; writes only into <outDir> and <outTickFile>."*
+- `MakeSynth.cs` line 1: *"Test helper: make fake per-contract tick files from a back-adjusted minute file."*
+
+**g. NT-touch / write-path grading (greps run on the repo copies, OBSERVED):**
+- `/usr/bin/grep -n -i "ninjatrader\|sqlite\|Documents\|AppData\|Registry\|Process\.\|Environment\.\|WebClient\|Http\|Socket\|Delete(\|Move(" TickPrep.cs MakeSynth.cs` → exactly two hits, `TickPrep.cs:17` and `TickPrep.cs:18`, both comments naming the NinjaTrader text format (*"Minute file: NinjaTrader minute format, ..."*, *"Tick files:  NinjaTrader tick format: ..."*).
+- `/usr/bin/grep -n "File\.\(Create\|Write\|Open\|AppendAll\|Copy\)\|new StreamWriter\|new FileStream\|Directory\.\|Path\.Combine" TickPrep.cs MakeSynth.cs` → TickPrep: `:177` `Directory.CreateDirectory(outDir)`; `:276`, `:277`, `:280` `File.WriteAllText(Path.Combine(outDir, ...))` for report.txt, segments.csv, offsets.csv; `:281` `File.Create(Path.Combine(outDir, "assign.bin"))`; `:297` `File.OpenRead(... "assign.bin")` (a read); `:316` `new StreamWriter(outTickFile, false, ...)`. MakeSynth: `:35` `string path = Path.Combine(a[1], c.Item1 + ".Last.txt");` and `:36` `using (var w = new StreamWriter(path, false, new UTF8Encoding(false)))`; `:59` `File.WriteAllText(Path.Combine(a[1], "contracts.csv"), ...)`. Writes go only under `outDir` / `outTickFile` (TickPrep) and `a[1]` (MakeSynth).
+- `TickPrep.cs:309`: *"if (File.Exists(outTickFile)) throw new IOException("output exists, refusing to overwrite: " + outTickFile);"* — the overwrite refusal covers `outTickFile` only. OBSERVED in source: the measure outputs in `outDir` (`:276`–`:281`) and MakeSynth's outputs (`:36`, `:59`) have no such guard.
+- Grade of the README line-4 claim (*"It doesn't touch NinjaTrader ... writes only to the output paths you give it"*): consistent with the source read — INFERRED, not tested. The greps match listed patterns only; they do not prove that no other I/O API is used.
+- README line 10: the offsets came from *"NinjaTrader's NQ rollover table (copy of `NinjaTrader.sqlite`, read 2026-10-31)"* — REPORTED BY the VM agent. A read of a copy, not an import. Not verifiable from here.
+
+**h. R-VN3-2 limits — status:**
+- README line 3: *"This tool prepares Portara per-contract NQ tick files for `NQCONTROW 09-25` (High fill resolution, option C)."*
+- README line 13: *"## Use (after Amear approves and buys the data)"*
+- README line 23: *"Any import into NinjaTrader is a separate step, and it needs Amear's OK."*
+- README lines 25–29: *"## Self-test result (2026-11-02)"* / *"- Test data: fake H21/M21/U21 contracts, 2021-03-07 to 2021-06-21. The window spans the DST change and the cut-short 2021-06-10 roll."* / *"- Offsets recovered exactly: 3400 / 3390.25 / 3380.5."* / *"- All 99,705 rebuilt bars matched the file, with none missing or extra."* / *"- UTC-stamped input gave the same result as Eastern."*
+- `TickPrep.cs` header (lines 1–20) does not mention Portara, buying data or importing into NT8 (OBSERVED).
+- Status (OBSERVED from the four files): nothing in the folder records a purchase — README line 13 presupposes one *"after Amear approves and buys the data"*. Nothing records an NT8 import — README line 23 says that is a separate step needing Amear's OK. Nothing records a run on purchased Portara tick data. The one run the folder records is the VM-side self-test (next bullet), and its 1-min input file is not identified.
+- The self-test (README lines 25–29) is a VM-side run — REPORTED BY the VM agent; not reproduced here. Per README line 26 the *contracts* (the per-contract tick files) were fake. Per README line 9 and `MakeSynth.cs` line 26 (`foreach (var line in File.ReadLines(a[0]))`, the minute file given on the command line) they were generated from "the 1-min file". Whether that minute file was real market data is UNVERIFIED (README line 11 ties the offsets to NinjaTrader's back-adjusted `NQ ##-##`). The offsets it reports (3400 / 3390.25 / 3380.5) match the constants hard-coded in `MakeSynth.cs` lines 21–23 (`3400.00m`, `3390.25m`, `3380.50m`; OBSERVED in source). That shows consistency, not that the run happened. The README does not say which 1-min file the self-test used (OBSERVED).
+- R-VN3-2's text (notes-3 line 16): *"It does not authorize a purchase, an import or a run."* Whether the VM self-test counts as a "run" under that line is NOT for this entry to decide (NEEDS AMEAR 3).
+
+**S6 cross-block — no block's spec changes:**
+- **F1 — Signal-path topology** (`specs/SPEC_RUBRIC.md:17-28`): untouched. FROZEN.
+- **F2 — Session-flat time vs breakers #4 and #5** (`specs/SPEC_RUBRIC.md:30-43`): untouched. FROZEN.
+- **F3 — Backtest fill resolution** (`specs/SPEC_RUBRIC.md:45-57`): untouched. The void clause of D-2026-10-30-A stands.
+- **F4 — MFFU automation compliance** (`specs/SPEC_RUBRIC.md:59-70`): untouched. FROZEN.
+- No code, template or config changed; `tools/tickprep/` is new source, not built, not wired to anything.
+
+**NEEDS AMEAR (questions only):**
+1. `.exe` ruling: source only with the rebuild steps, or the binaries too? If binaries: how do they reach this repo (the hand-retyping route was judged unsafe), and who hashes them on the VM so the repo copy can be checked against the original?
+2. Is the Portara data purchase that README line 13 presupposes authorised? (R-VN3-2 does not authorise a purchase.)
+3. The VM-side self-test (README lines 25–29) ran the tool on synthetic tick files built from an unidentified 1-min file. Does it count as a "run" under R-VN3-2, and is its result accepted as reported or to be re-run under approval?
+4. Should the VM-side originals (the four files and both `.exe`) be hashed on the VM to close the UNVERIFIED link in the provenance chain?
+5. `nt-implied-offsets.csv`: is the LF repo copy the canonical one, given Amear reports that the Desktop/VM copy differs by line endings?
+6. `--offsets` FORCES offsets. `TickPrep.cs` lines 45–55 parse it before the command switch (line 45: *"int fo = a.IndexOf("--offsets");   // optional CSV contract,offset_points to force offsets"*; line 52: *"forced[p[0].Trim()] = (long)(decimal.Parse(p[1], Inv) * 4m);"*). In measure, line 212: *"if (forced.ContainsKey(contracts[k].Key)) { chosen = forced[contracts[k].Key]; why = "FORCED by --offsets"; }"* — for every contract whose `contracts.csv` name equals a CSV `contract` value exactly (both sides `Trim()`med, lines 52 and 169; the `forced` dictionary at line 34 uses the default, case-sensitive comparer), the measured longest-run offset is replaced by the CSV value. A contract with no exact match keeps its measured offset; that is not an error, and its report.txt line shows `[longest run]` instead of `[FORCED by --offsets]` (INFERRED from the source read). That value is then used to assign minutes (line 236), written to `offsets.csv` (lines 278–280) and `assign.bin` (lines 281–286), which build reads (lines 297–305). README line 15 passes `[--offsets nt-implied-offsets.csv]` to `measure`; README line 17 says *"Check that the offsets match `nt-implied-offsets.csv`"*. With `--offsets`, the offsets written for listed contracts equal the CSV by construction (INFERRED from the source read); report.txt prints the exact-minute count and longest run for the chosen offset, i.e. the forced one when forcing applies; the measured winner then appears only as the "next best" entry, and only when more than one offset was measured — with one, "next best" prints `none` and the measured winner does not appear (lines 214–218). `--offsets` is not in the header's command list (lines 5, 9). Should `measure` be run with or without forced offsets when the time comes?
+7. README line 3 says *"`NQCONTROW 09-25` (High fill resolution, option C)"*. Which option list is "option C" from? A case-insensitive search (`/usr/bin/grep -rn -i "option C" docs/reports/*.md`) finds three candidate meanings, none confirmed as the README's: `docs/reports/2026-08-07-f3-fill-resolution-research-UNGRADED.md:175` *"Option C (measured haircut from a tick sample)"* (a fill-resolution option, in an UNGRADED report); `docs/reports/2026-07-15-b2-q1-strategy-exportability.md:42` *"Phase 3 spec Block 2 Option C"* (a data-sourcing option); and the Kinetick connection option C in `docs/reports/2026-10-20-a20-kinetick-research.md` (line 127, *"C. Connect at startup"*). The VM agent's R-VN3-2 plan file is absent from this Mac (DECISION_LOG `2026-11-02T21:38:24Z`). The label is unresolved here.
+8. Which 1-min file is the input to `measure` / `build` / `verify`? README line 11 is conditional (*"If the 1-min file is NinjaTrader's back-adjusted `NQ ##-##`, the offsets the tool measures should equal these."*). And which 1-min file did the VM self-test use?
+9. `verify` exits 0 when no price differs and no extra bars exist. Minute-file bars with no ticks are printed (`TickPrep.cs` line 355) but do not change the exit code (line 357: `return priceDiff == 0 && extra == 0 ? 0 : 3;`) — INFERRED from the source read; not compiled or run. How many unmatched or missing minutes are acceptable before the output is used?
+10. Is `tools/tickprep/` the path Amear wants? The brief asked for a proposed path; this unit proposed it and copied the files there.
+
+---
+
+## 2026-11-02 — D-2026-11-02-C: R-VN3-3 to R-VN3-6 — data used as is; Flat1559 exit accepted; backtest with breakers on once built (O4, agent's reading confirmed in voice only); judge the version closest to live (O1)
+
+**Date:** 2026-11-02
+**Status:** RULED by Amear — R-VN3-3..6, ledger authorisation DECISION_LOG `2026-11-02T21:54:14Z` (WHO: amear). Appended 2026-11-02 by praxis-manager, unit `2026-11-02-r-vn3-3-6-filing`. R-VN3-1 is filed in D-2026-11-02-A. R-VN3-2 is entered at DECISION_LOG `2026-11-02T21:23:45Z` (WHO: amear); D-2026-11-02-B records the tickprep intake that serves it and is not itself a ruling. Neither is refiled here.
+**Beads:** Praxis_build-y07 (R-VN3-3), Praxis_build-99k (R-VN3-4), Praxis_build-1r7 (R-VN3-5), Praxis_build-48p (R-VN3-6), all P2. `Praxis_build-r8j` (Phase 3 spec import) raised P1 → P0 by this unit under R-VN3-5 and R-VN3-6. Amear's brief, as the master recorded it at DECISION_LOG `2026-11-02T22:12:53Z` (WHO: praxis-master), says only *"R-VN3-5 and R-VN3-6 raise the priority of r8j"*; it names no level. The level P0 is the master's choice in that dispatch row (*"the `r8j` priority raise P1 → P0 that R-VN3-5/6 call for"*), not Amear's (see NEEDS AMEAR 13).
+**Source:** `docs/reports/2026-11-01-voice-session-notes-3.md` (47 lines, written by the chat/voice agent; untracked in git at the time of this entry). Each quoted string below is labelled with its author where it appears: Amear's words (as notes-3 records them), the voice agent's words, the rubric, or a ledger row. Anything from notes-3 not marked as Amear's words is the voice agent's record or the agent's reading.
+
+**Times (notes-3 line 18, the voice agent's words, verbatim):** *"voice session 2026-11-02, between 21:21Z and 21:52Z. Exact times were not captured."*
+
+**R-VN3-3 — data holes and gaps (handoff §5.2).**
+- Amear's words (notes-3 line 21): *"I would just proceed as it is."*
+- Voice agent's record (notes-3 line 20): proceed with the data as it is; the two 17-day holes and the three wider gaps are carried as a stated limitation, and nothing is re-sourced for them.
+- The holes and gaps named, as recorded in `docs/reports/2026-11-01-three-strategy-results.md` (OBSERVED there by `grep -n`): holes 2021-09-09 → 2021-09-27 and 2025-12-14 → 2026-01-01 (lines 55, 413); gaps 2024-07-19 09:58–10:07 (line 59), 2024-08-02 11:55–12:02 (line 60), 2026-07-17 10:59–12:06 (line 61); *"**Three known gaps are wider than recorded**"* (line 414, verbatim). The known-gap day 2023-04-05 (line 62) is not one of the three and is not named by the ruling.
+- **Settles:** the 1-minute data (date range 2021-03-08 → 2026-07-17, results report line 88) is used as it is; no re-sourcing or re-import of the holes or gaps; future backtest reports on this data carry them as a stated limitation.
+- **Leaves open:** see NEEDS AMEAR 7 and 8.
+
+**R-VN3-4 — Flat1559 exit (handoff §5.3).**
+- Amear's first answer (notes-3 line 24): *"No."*
+- Voice agent's record (notes-3 line 24): after it was explained that the trade closes at the 15:59 price and that the 4:00 PM label comes from NT8 stamping each bar with its end time, he answered (line 25): *"Uh, yeah."*
+- Voice agent's record (notes-3 line 23): the fill at the 15:59:00 price, printed as 4:00 PM in the grid, is accepted. Flat1559 is unchanged.
+- **Settles:** handoff §5 item 3 (filer's mapping: that item asks whether a fill at the 15:59:00 price meets his "flat at 15:59" intent) — accepted; `ninjascript/PraxisNoiseAreaBreakout_Flat1559.cs` is unchanged.
+- **Leaves open:** F2 (session-flat time vs breakers #4 and #5) is not touched by this ruling and stays FROZEN; the early-close stamp question (handoff §5 item 1) is separate and not ruled.
+
+**R-VN3-5 — O4, backtest vs breakers.**
+- Amear's words (notes-3 line 28): *"If they're not live, then they're not live."* … *"Yeah, once uh, once it goes through."* Between the two quotes the voice agent recorded, in brackets, what Amear was told: *"[told breakers will be live, built in Block 3, required before paper and live]"* — the agent's words, not Amear's.
+- Agent's reading, confirmed by Amear in voice only (notes-3 line 29): the backtest runs **with the breakers on, once they are built**. That raises the priority of `r8j`, the Phase 3 spec import, because the breaker definitions live there.
+- **O4 criterion** (`specs/SPEC_RUBRIC.md:94-99`, verbatim): *"Deviation C permits reverse-and-re-enter. Breakers #2 and #3 cap trades and end the session after two consecutive losers. Block 4's gate compares live to backtest within ±15% win rate and ±25% average trade P&L. **Required:** a written statement of whether the Block 2 backtest runs with breakers applied, without them, or both — and how the Block 4 gate is satisfiable if they differ."*
+- **Settles (against O4):** in the agent's reading, confirmed by Amear in voice only and entered at the ledger row above: the backtest runs **with the breakers on, once they are built** (notes-3 line 29). Filer's mapping, not part of the ruling: O4 asks this of the Block 2 backtest. The ruling says nothing about any other run (see Leaves open).
+- **Leaves open (against O4):** whether a without-breakers run is also kept (the "or both" option); how the Block 4 gate is satisfiable if the backtest and live configurations differ — the ruling does not address it; the breakers are not defined in the repo (`Praxis_build-r8j`, description: the nine breakers are *"TBD — needs PHASE 3 BUILD SPECIFICATION import"*) and are not built. This entry does not mark O4 cleared; that is the auditor's grade.
+
+**R-VN3-6 — O1, which version is judged (go/no-go).**
+- Amear's words (notes-3 line 32): *"one that is closest to live execution."*
+- Agent's reading, given to Amear in voice and not contradicted (notes-3 line 33): judge whichever version will actually trade live, tested as close to real conditions as possible, meaning High fill resolution and breakers on.
+- Voice agent's record (notes-3 line 34, verbatim, bold markers as in the file): `` **Still open under O1:** the ruling does not say which of the six pass gates apply, or whether walk-forward efficiency ≥ 0.50 applies to an untuned version. That needs the Phase 3 spec (`r8j`). ``
+- **O1 criterion** (`specs/SPEC_RUBRIC.md:74-79`, verbatim): *"Walk-forward efficiency ≥ 0.50 is one of six non-negotiable Block 2 pass gates and is undefined without an in-sample optimisation step. Deviation D removed optimisation from the first pass. **Required:** a written statement of which gate set applies to the replication arm and whether GO/HOLD/REJECT sits on the replication arm or the later optimisation arm."*
+- **Settles (against O1), in Amear's words only:** the go/no-go judges the version *"closest to live execution"*. That this means High fill resolution and breakers on is the agent's reading, which Amear did not contradict. Not contradicting a reading is not ruling on it, so this entry records it as the agent's reading and not as Amear's ruling (see NEEDS AMEAR 14).
+- **Leaves open (against O1):** which gate set applies; whether WFE ≥ 0.50 applies to an untuned version; whether GO/HOLD/REJECT sits on the replication arm or the later optimisation arm. O1's **Required** statement is not supplied by this ruling. This entry does not mark O1 cleared.
+
+**S6 cross-block — no block's spec changes:**
+- **F1 — Signal-path topology** (`specs/SPEC_RUBRIC.md:17-28`): untouched. FROZEN.
+- **F2 — Session-flat time vs breakers #4 and #5** (`specs/SPEC_RUBRIC.md:30-43`): untouched. FROZEN. R-VN3-4 concerns the Flat1559 strategy variant only.
+- **F3 — Backtest fill resolution** (`specs/SPEC_RUBRIC.md:45-57`): untouched. The void clause of D-2026-10-30-A stands. R-VN3-6's "High fill resolution" reading does not authorise a purchase, an import or a run (R-VN3-2, notes-3 line 16).
+- **F4 — MFFU automation compliance** (`specs/SPEC_RUBRIC.md:59-70`): untouched. FROZEN.
+- No code, template or config changed.
+
+**NEEDS AMEAR (questions only):**
+1. O1: which of the six Block 2 pass gates apply to the version judged under R-VN3-6?
+2. O1: does walk-forward efficiency ≥ 0.50 apply to an untuned (no-optimisation) version, and does GO/HOLD/REJECT sit on the replication arm or the later optimisation arm?
+3. O4: is a without-breakers backtest also kept alongside the with-breakers one, and how is the Block 4 ±15% / ±25% gate to be satisfied if the backtest and live configurations differ?
+4. Until the breakers are built, are backtest results without breakers (such as the 2026-11-01 runs) used for anything, or held as records only?
+5. With F1 FROZEN (Block 3 specifies the breakers as n8n workflow gates), how are the breakers to be applied inside a Strategy Analyzer backtest?
+6. Not ruled (notes-3 line 40): how does Amear rule on handoff §5 items 1 (early-close stamps, F2), 5 (settings not visible in the screenshots), 6 (baseline settings screenshot), 7 (VM hash-check of the three strategy files) and 8 (archiving the Desktop CSVs and screenshots)?
+7. R-VN3-3: does "proceed as it is" also cover the effect of each 17-day hole on the 14-day lookback the Noise-Area bands use for the sessions right after it (handoff §4 item 2, not analysed)?
+8. R-VN3-3: does it also apply to the tick data for the High fill-resolution preparation (R-VN3-2), or only to the 1-minute data?
+9. F4: the 2026-10-28 MFFU reply names the Tradovate API, not NinjaTrader/Rithmic. Does Amear send the follow-up himself (notes-3 line 44)?
+10. Not ruled (notes-3 line 45): how does Amear answer csv-analyses §7 questions 1–6 (`docs/reports/2026-11-01-csv-analyses.md:292-297`)?
+11. Does `Praxis_build-7zq` close?
+12. Is `PraxisLastHalfHourMomentum` in or out of the High fill-resolution comparison?
+13. `Praxis_build-r8j` was raised to P0, the level the master chose. Amear's brief asks for a raise without naming a level. Is P0 the level he wants?
+14. R-VN3-6: does "closest to live execution" mean High fill resolution and breakers on, as the agent read it to him?
