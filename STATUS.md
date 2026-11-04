@@ -1,5 +1,66 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-04 — status refresh: four 11-01 runs read back; Amear's rulings of 11-02, 11-03 and 11-04 on the ledger; no High run; `main` = `origin/main` = `f29f057`
+
+**Phase: Block 2 — Backtesting. F1, F2, F4 FROZEN. F3 FROZEN in the rubric: the conditional decision D-2026-10-30-A is committed (`4ec75ea`) and its void clause stands; no High-resolution run exists.** Sources: `specs/SPEC_RUBRIC.md` F1 :17-28, F2 :30-43, F3 :45-57, F4 :59-70 (no `PASSED@` or `WAIVED` on any); D-2026-10-30-A at `DECISIONS.md:247`, void clause `:264`; D-2026-11-03-A `DECISIONS.md:730`: "The plan is a plan; no High run exists."
+
+**Git (OBSERVED 17:39:09Z):** `main` = `origin/main` = `f29f057`. The brief for this unit named `a60edf7`. Amear then re-ran the commit command; `f29f057` is ledger-only (2 files, 4 lines) and was pushed (DECISION_LOG 17:28:12Z).
+
+**Commits since `0ced412`** (`git log --oneline 0ced412..f29f057`, 13 commits, all by Amear; author dates, local time). The first seven are 10-31 work already told in the section below.
+- `29c3e13` 10-31 — park(o78), PARKED at audit FAIL 2.
+- `bd6f421` 10-31 — park(a9d), PARKED at audit FAIL 2.
+- `d2ff631` 10-31 — merge(a9d) into `main`, ruling R-RESUME-1.
+- `a91a636` 10-31 — voice-session handoff brief and notes.
+- `2665523` 10-31 — ledger flush for the parks, R-RESUME-1..3 and the merges (4 files).
+- `6d1acb0` 10-31 — same message as `2665523`; DECISION_LOG only, 1 line.
+- `8bfa544` 10-31 — same message again; DECISION_LOG only, 1 line.
+- `8ca9861` 11-01 — three-strategy backtest readback (7 files).
+- `f747889` 11-02 — CSV-only analyses of the four 11-01 runs (6 files).
+- `cb1a9a5` 11-02 — same message as `f747889`; ledger-only re-run, 2 lines.
+- `b9ba134` 11-02 — rulings R-VN3-1..6 filed; `tools/tickprep/` source; VM handoff; `r8j` to P0 (14 files).
+- `a60edf7` 11-04 — VM High-res plan and VM notes filed unchanged; D-2026-11-03-A (8 files).
+- `f29f057` 11-04 — same message as `a60edf7`; ledger-only re-run, 4 lines.
+
+**The 11-01 readback** (`docs/reports/2026-11-01-three-strategy-results.md:400-405`; CSV figures; instrument `NQCONTROW SEP25` in all four CSVs per `:491`, `:513`, `:535`, `:558`; re-audit PASS, DECISION_LOG 2026-11-01T14:12:50Z). The file says it is not a ranking (`:398`).
+- Baseline (BandOrVWAP): 1190 trades, net $197327.60, PF 1.29, max DD -$45282.04. Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- OppBand: 810 trades, net $210182.40, PF 1.26, max DD -$50748.88. Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- Flat1559: 1190 trades, net $193017.60, PF 1.28, max DD -$40637.04. Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- LastHalfHourMomentum: 1304 trades, net -$76009.84, PF 0.84, max DD -$99806.96. Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- The CSV analyses (by year, top winners removed, long/short, drawdown, slippage model) are in `docs/reports/2026-11-01-csv-analyses.md` (final re-audit PASS, DECISION_LOG 2026-11-01T21:58:19Z). No figures from it are copied here.
+
+**Amear's rulings R-VN3-1..6**, his words as filed (`docs/reports/2026-11-01-voice-session-notes-3.md`; R-VN3-1 in D-2026-11-02-A, R-VN3-3..6 in D-2026-11-02-C, R-VN3-2 at DECISION_LOG 2026-11-02T21:23:45Z; WHO: amear rows 21:23:45Z and 21:54:14Z):
+- R-VN3-1: "We're gonna scrap that." (the last-half-hour strategy). Retired, not deleted.
+- R-VN3-2: "run the highest quality back test with those high fill resolution um, tests." The notes add, in the voice agent's words: "It does not authorize a purchase, an import or a run."
+- R-VN3-3: "I would just proceed as it is." Data used as is; holes and gaps carried as a limitation.
+- R-VN3-4: "No.", then "Uh, yeah." Flat1559's exit at the 15:59 price is accepted; the file is unchanged.
+- R-VN3-5: "If they're not live, then they're not live." … "Yeah, once uh, once it goes through." Agent's reading, confirmed in voice only: backtest with breakers on, once they are built.
+- R-VN3-6: "one that is closest to live execution." As filed, "High fill resolution and breakers on" was the voice agent's reading, not his ruling (D-2026-11-02-C NEEDS AMEAR 14). See R-1104-3 below.
+
+**Amear's 2026-11-03 rulings** (DECISION_LOG rows stamped 18:40:00Z, 18:45:00Z, 18:50:00Z; the master's 18:56:22Z row says those stamps are estimates, the order is right):
+- Portara at $695: "no, not paying that. i dont know what 8 questions." No purchase.
+- Read-only readback of the per-contract NQ minute folders on the VM: "yes".
+- The two `.exe` files: "commit to repo". Not yet transferred; `tools/tickprep/` holds five files, no `.exe` (OBSERVED `ls`).
+- High measurement-run timing: "when the time comes ask agaian." Deferred.
+- "Should the VM agent look for a cheaper or free [tick] source, or does High resolution wait?": "yes". The master read this as "look"; that reading and the research-only scope are the master's, not Amear's.
+- STATUS refresh: "yes" (this section). Old uncommitted changes: "as is".
+
+**Amear's 2026-11-04 rulings R-1104-1..3** (DECISION_LOG 17:27:42Z, a row not yet committed; REPORTED BY AMEAR in his typed brief; the quotes are his, the framing is the brief's; written while this unit ran; not yet in DECISIONS.md):
+- R-1104-1: "I'm giving the agent permission to commit." The old staged set, root file `F` and other old uncommitted changes stay out.
+- R-1104-2: "state MD and all that kind of stuff can be handled by the code agent ... I don't know why this stuff keeps on coming up to me."
+- R-1104-3: "Yeah". The brief frames this as High fill resolution with breakers on; the row says this closes D-2026-11-02-C NEEDS AMEAR 14. Condition: "if the high fill resolution costs $700 for the data, I'm not going to pay that right now until there's proof of concept."
+
+**Tools and VM plan.** `tools/tickprep/` is source only (D-2026-11-02-B records an intake; it is not a ruling). The VM plan and notes are filed unchanged at `docs/reports/2026-11-02-vm-high-res-plan.md` and `docs/reports/2026-11-02-vm-notes.md` (D-2026-11-03-A, a filing, not a ruling). No tick-data purchase, no tick-data import into NT8 and no High run is on the ledger. The VM agent reports a tool self-test on synthetic files; whether that counts as a run is open (D-2026-11-02-B NEEDS AMEAR 3). VM state is not observed from the Mac.
+
+**Beads (OBSERVED `bd show`):** `Praxis_build-r8j` P0, OPEN — import the Phase 3 spec (nine breakers, the Block-4 gate, the binding Block-2 pass gates). P0 is the master's choice (D-2026-11-02-C NEEDS AMEAR 13). `Praxis_build-afe` CLOSED — LHM retired.
+
+**Next** (the do-now list in DECISION_LOG 17:27:42Z, in its order; the hold is from 17:27:03Z; item 4 is the open bead, not on that list):
+1. STATUS.md and HANDOFF.md current to today, commit+push (the row's item (2); its item (1), the `a60edf7` commit+push, is marked done there). This unit does STATUS.md only; HANDOFF.md is outside its scope.
+2. VM handoff: per-contract read-only readback, research-only tick-source search, `.exe` upload via Drive. Held until this unit's stop gate clears.
+3. Keep on Amear's list: C6 save Analyzer settings as default, C7 NQCONTROW readback, Log-tab "ignored" messages. Ask once whether `r8j` at P0 is what he wants. Then a short return handoff for the Claude.ai Praxis chat.
+4. Open bead `r8j` (P0): the Phase 3 spec import, needed for the breakers and the pass gates.
+
+**Open questions for Amear — pointers only; not answered, not ranked:** D-2026-11-02-A NEEDS AMEAR (`DECISIONS.md:398-401`, 3 items); D-2026-11-02-B (`:471-481`, 10); D-2026-11-02-C (`:530-544`, 14); D-2026-11-03-A §e (`:653-717`, 45). Later ledger rows speak to some of them, for example B-1 (2026-11-03T18:45:00Z) and C-14 (2026-11-04T17:27:42Z); D-2026-11-03-A `:659` marks which rows speak to which items. The lists themselves are not edited.
+
 ## 2026-10-31 — three backtest strategies committed (`0ced412`); F3 artifact committed (`4ec75ea`); `o78` PARKED at audit FAIL 2; the run-3/4 dollars may be on a $1/point instrument
 
 **Phase: Block 2 — Backtesting. F1, F2, F4 FROZEN. F3: the assumption is committed, the backtest report carrying it is not yet written.** `main` = `origin/main` = `0ced412`. Four commits today, all typed by Amear: F3 unit, ledger flush, 7zq, and the o78 park commit pending.

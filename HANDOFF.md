@@ -1,3 +1,48 @@
+## Resume card — 2026-11-04 (Code session; R-1104 rulings filed) — commit permission granted; next is the VM handoff
+
+Grades: OBSERVED = read on this Mac on 2026-11-04. Other grades are marked. Amear's quotes are in DECISION_LOG.
+**1. Git and F status**
+- As of this card: `main` = `origin/main` = `f29f057` (OBSERVED: `git status -sb` → `## main...origin/main`; `git ls-remote --heads origin main` → `f29f057ca201…`).
+- R-1104-1: *"I'm giving the agent permission to commit."* (REPORTED BY AMEAR). Brief's framing: the master stages, commits and pushes its own audited units; audit and park rules still apply (DECISION_LOG 2026-11-04T17:27:42Z).
+- Out of every commit: the old 12-path staged set, root file `F`, other old uncommitted changes (Amear "as is", DECISION_LOG 2026-11-03T18:50:00Z), and the 4 old uncommitted lines in this file (the 10-31 card's 18:21Z and 17:05Z paragraphs, below this card).
+- F1, F2, F4 FROZEN. F3 FROZEN; the D-2026-10-30-A void clause stands (DECISIONS.md:264). Nothing here advances any F.
+**2. Instrument and baseline**
+- Future row `NQCONTROW` is Amear's own row (R-A9D-1, DECISION_LOG 2026-10-31T18:21:00Z; REPORTED BY AMEAR).
+- Rollover 2021-03-01, Do not merge: REPORTED (DECISION_LOG 2026-10-31T18:19:03Z). UNVERIFIED until C7 (D-2026-11-03-A item 29, DECISIONS.md:699).
+- 0-S baseline on it: 1,190 trades, PF 1.29, net $197,327.60 (`docs/reports/2026-11-01-three-strategy-results.md:402` and :67). Commission-applied re-run (R-A9D-3). Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+**3. Three strategies run 2026-11-01** (same file :403-405; "This is not a ranking (R-1101-5)", :398). Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- OppBand: 810 trades, net $210,182.40, PF 1.26.
+- Flat1559: 1,190 trades, net $193,017.60, PF 1.28.
+- LastHalfHourMomentum: 1,304 trades, net -$76,009.84, PF 0.84.
+- LHM is retired (R-VN3-1, D-2026-11-02-A, DECISIONS.md:368). Bead `Praxis_build-afe` CLOSED (OBSERVED, `bd show`). Its files are kept as record.
+**4. Rulings (pointers; read the source for the words).** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- R-VN3-1: LHM retired. D-2026-11-02-A, DECISIONS.md:368.
+- R-VN3-2: tickprep source intake. DECISION_LOG 2026-11-02T21:23:45Z; D-2026-11-02-B, DECISIONS.md:405.
+- R-VN3-3..6: data as is; Flat1559 exit accepted; breakers on once built (O4, agent's reading confirmed in voice only); judge closest-to-live. D-2026-11-02-C, DECISIONS.md:485.
+- DECISION_LOG 2026-11-03T18:40:00Z: no Portara purchase at $695; VM read-only per-contract readback approved.
+- DECISION_LOG 2026-11-03T18:45:00Z: the `.exe` files go into the repo; High-vs-r8j DEFERRED (*"when the time comes ask agaian."*; master must re-ask before any High run is planned).
+- DECISION_LOG 2026-11-03T18:50:00Z: (1) "yes", master's READING = look for a cheaper/free tick source; the research-only scope is also the master's. (2) STATUS refresh "yes". (3) old changes "as is".
+- R-1104-1..3: commit permission; housekeeping is Code's; *"Yeah"* to High + breakers, no $700 data before proof of concept. DECISION_LOG 2026-11-04T17:27:42Z; D-2026-11-04-A (DECISIONS.md:736). REPORTED BY AMEAR (quotes); the rest is his brief's framing.
+**5. tickprep and VM files.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- Source at `tools/tickprep/`: MakeSynth.cs, README.md, SHA256SUMS, TickPrep.cs, nt-implied-offsets.csv. No `.exe` (OBSERVED, `ls`).
+- The `.exe` files are filed only after the VM uploads them and the Mac hash-matches the VM-reported sums (DECISION_LOG 2026-11-03T18:45:00Z).
+- VM High-res plan filed (D-2026-11-03-A, DECISIONS.md:548). Nothing was bought, imported or run on the Mac in that unit (§f, DECISIONS.md:719-723).
+- VM files land on the Mac in `~/Library/CloudStorage/GoogleDrive-bani.amear@gmail.com/My Drive/praxis-tickprep/` (synced Drive; the 11-02 plan and notes were found there, DECISIONS.md:569), not ~/Downloads (an earlier Drive download landed in ~/Downloads/drive-download-20261102T213740Z-1-001/, DECISIONS.md:416). OBSERVED `ls`: 7 files, no `.exe` yet.
+**6. Next, in order.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+1. VM handoff: per-contract NQ minute folder read-only readback; research-only cheaper/free tick-source search (no purchase, no paid sign-up, no import, no run); `.exe` upload via Drive for hash-matched filing.
+2. Amear's screen tasks for his next VM session, kept on his list: C6 save the Strategy Analyzer settings as default (`docs/reports/2026-11-01-voice-handoff-commission-fix.md:105`); C7 NQCONTROW instrument readback (same file :113); Log-tab "ignored" messages. All three: D-2026-11-03-A items 27–29, DECISIONS.md:696-699.
+3. `Praxis_build-r8j` (P0 OPEN, OBSERVED `bd show`). P0 is the master's choice, unconfirmed by Amear (D-2026-11-02-C NEEDS AMEAR 13, DECISIONS.md:543).
+4. Short return handoff for the Claude.ai Praxis chat (DECISION_LOG 2026-11-04T17:27:42Z, do-now list).
+**7. Master hook gotchas.** The observations cited below span Claude Code 2.1.226 to 2.1.304 (DECISION_LOG 2026-08-08T00:05:00Z, 2026-08-08T00:06:00Z, 2026-10-20T12:16:07Z). The 08-29 `2>/dev/null` block was on 2.1.251 (DECISION_LOG 2026-08-29T00:00:00Z). The 2026-08-29T18:20:00Z heredoc block and the 10-28 stop-gate race record no binary. This Mac now runs 2.1.317 (OBSERVED `claude --version`), so all are UNVERIFIED on it (rule: DECISION_LOG 2026-08-08T00:06:00Z).
+- master-bash-guard (`scripts/master-bash-guard.sh:12`, STATIC READ recorded in DECISION_LOG 2026-08-29T18:20:00Z) has three trigger arms: a `>` or `>>` whose next character is not `&` (a space counts, so `> &` also triggers); `sed|tee|patch|dd … -i`; `cat <<` heredocs. Observed there: `cat <<'EOF' | pbcopy` for a VM brief was BLOCKED; the master wrote the brief with the Write tool into `docs/reports/` instead.
+- Observed BLOCKED: `2>/dev/null` (2026-08-08T00:05:00Z; again on 2.1.251, HANDOFF.md:294); `awk 'NR>=1…' STATUS.md` (2026-08-08T00:40:00Z); a bare `>` inside a quoted `git log --format` string (HANDOFF.md:294).
+- Observed ALLOWED: `2>&1` (2026-08-08T00:05:00Z); `awk 'NR>=1…' DECISION_LOG.md` (2026-08-08T00:40:00Z). STATIC READ of `:14`: any command whose text names an exempt path is exempted; STATUS.md is not on that list.
+- master-write-guard (`scripts/master-write-guard.sh:13-15`, STATIC READ) allows only DISPATCH_LOG, DECISION_LOG, ISSUE_REGISTER, HANDOFF, STATUS, `specs/`, `docs/reports/`. MANIFEST, DECISIONS and code go via praxis-manager.
+- SubagentStop gate (`scripts/gate-manager-output.sh:6`, STATIC READ) grades the newest `docs/reports/*.md` by mtime; it twice graded a file other than the stopping manager's (observed, `docs/reports/2026-10-28-f4-davi-reply-filing.md:104-109`). Do not write a report while a manager is stopping.
+**8. Open questions for Amear (pointers only; not answered, not ranked)**
+- D-2026-11-02-A (DECISIONS.md:398); D-2026-11-02-B (:471); D-2026-11-02-C (:530-544); D-2026-11-03-A §e (:653); D-2026-11-04-A (:769-771).
+- Already closed by a ledger row: 02-B item 1 (DECISION_LOG 2026-11-03T18:45:00Z); 02-C item 14 (R-1104-3, per that row's framing).
+
 ## Resume card — 2026-10-31 third session (opened 16:20Z) — ▶ **BOTH PARKS RESUMED BY AMEAR'S RULING (DECISION_LOG 16:50:30Z): `o78` on `main` at `29c3e13` (FF), `a9d` merged at `d2ff631`, voice files at `a91a636`; all typed by Amear; nothing re-dispatched.** Walkthrough now lives on `main`: `docs/reports/2026-10-31-a9d-walkthrough-future-row.md`. **Gotcha proven by experiment (16:53:26Z row): a non-FF `git merge` is refused on this checkout while the 12 old paths are staged — use `merge-tree --write-tree` → `commit-tree` → `merge --ff-only`.** Next: four-ledger commit + push (Amear types), `bd close o78` on his word, then the walkthrough from step 0.1 with the master narrating one step at a time; GATE 1 needs Amear's written Format / Data Type / Time Zone for the original `NQCONT` import. The card below is the state this session inherited.
 
 ## Resume card — 2026-10-31 second close (16:14Z) — 🛑 **TWO BEADS PARKED TODAY: `o78` (`parked/Praxis_build-o78` = `29c3e13`) and `a9d` (`parked/Praxis_build-a9d` = `bd6f421`, the Future-row loading plan + walkthrough + 6 MANIFEST rows), both pushed; `main` = `0ced412` = origin, ancestor of both.** Amear's rulings after the voice session (DECISION_LOG 14:59:37Z, 15:03:07Z): **Future row only; load it first, then 0-S on it as the new baseline; save-as-default after; no backtests meanwhile; D-2026-10-30-A stands, Stock-row runs retired.** On screen (REPORTED): Fusion has both `NQCONT` rows; runs 3/4/0-S ran on the Stock row ($1/pt, 0.01 tick); `NQCONT ##-##` threw an "unknown instrument"-family error.

@@ -730,3 +730,42 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 - **F3 — Backtest fill resolution** (`specs/SPEC_RUBRIC.md:45-57`): untouched. The void clause of D-2026-10-30-A stands. The plan is a plan; no High run exists.
 - **F4 — MFFU automation compliance** (`specs/SPEC_RUBRIC.md:59-70`): untouched. FROZEN.
 - No code, template or config changed.
+
+---
+
+## 2026-11-04 — D-2026-11-04-A: R-1104-1..3 — commit permission; housekeeping is Code's; R-1104-3 "Yeah" (brief's framing: High fill resolution + breakers on as the judged version); tick-data purchase condition (proof of concept)
+
+**Date:** 2026-11-04
+**Status:** RULED by Amear — R-1104-1..3, graded REPORTED BY AMEAR. They were relayed in his typed brief "BRIEF FROM AMEAR — 2026-11-04 (Claude.ai voice call)". The quotes are his; the framing is the brief's. Ledger authorisation (S5): DECISION_LOG `2026-11-04T17:27:42Z` (WHO: amear). Unit row: DECISION_LOG `2026-11-04T17:41:34Z` (WHO: praxis-master). Appended 2026-11-04 by praxis-manager, unit `2026-11-04-handoff-r1104-filing`.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades:** REPORTED BY AMEAR = his words in italics, as the 17:27:42Z row records them, except where another DECISION_LOG row is cited beside the quote (those are his words typed in session, verbatim in that row). Brief's framing = the other text of the 17:27:42Z row; it is not Amear's words. OBSERVED = seen by this unit on this Mac, 2026-11-04.
+
+**R-1104-1 — commit permission (the word "standing" is the brief's framing).**
+- Amear's words: *"I'm giving the agent permission to commit."*
+- Brief's framing: the master may stage, commit and push its own audited units without asking. Exceptions unchanged: the old 12-path staged set, root file `F`, and other old uncommitted changes stay untouched and out of every commit (Amear, DECISION_LOG `2026-11-03T18:50:00Z` item (3), *"as is"*). Audit and park rules still apply.
+
+**R-1104-2 — housekeeping is Code's.**
+- Amear's words: *"state MD and all that kind of stuff can be handled by the code agent ... I don't know why this stuff keeps on coming up to me."*
+- Brief's framing: STATUS.md, HANDOFF.md, MANIFEST rows, ledger flushes and commit composition are done by Code without escalation. Escalate only real decisions: strategy, money, live risk, F1–F4.
+
+**R-1104-3 — judged go/no-go version; tick-data purchase condition.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- Amear's words: *"Yeah"*. Brief's framing: *"Yeah"* = High fill resolution with circuit breakers on as the judged go/no-go version, confirming R-VN3-6. The row does not record the question he answered.
+- Closes D-2026-11-02-C NEEDS AMEAR 14 (DECISIONS.md:544). That closure label is in the ledger row's framing. Amear's own word is "Yeah".
+- Condition, Amear's words: *"if the high fill resolution costs $700 for the data, I'm not going to pay that right now until there's proof of concept."*
+- Brief's framing: no tick-data purchase until Standard-resolution results show proof of concept. This entry does not define "proof of concept" (this entry's NEEDS AMEAR 1).
+- Does not clear O1. The gate set is still open (D-2026-11-02-C NEEDS AMEAR 1–2, DECISIONS.md:531-532).
+
+**Interactions — recorded, not decided.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- (i) F3 (`specs/SPEC_RUBRIC.md:45-57`) and D-2026-10-30-A's void clause (DECISIONS.md:264): F3 stays FROZEN. The void clause stands, not triggered and not retired. Filer's reading, not a ruling: R-1104-3 authorises no purchase, import or run.
+- (ii) R-VN3-5 (DECISIONS.md:508-513): the breakers are not built and not defined in the repo; they wait for `Praxis_build-r8j`. Amear, DECISION_LOG `2026-11-03T18:45:00Z` item (4): *"when the time comes ask agaian."* = DEFERRED. The master must re-ask before any High run is planned.
+- (iii) 2026-11-03 rulings: no Portara purchase at $695 (DECISION_LOG `2026-11-03T18:40:00Z` item (1)). Cheaper or free tick-source search is research only (`2026-11-03T18:50:00Z` item (1); that scope was set by the master). Amear said "$700"; the declined Portara price was $695. Whether the two refer to the same offer is not decided here.
+
+**S6 cross-block — no block's spec changes:**
+- **F1** (`specs/SPEC_RUBRIC.md:17-28`), **F2** (`:30-43`), **F4** (`:59-70`): untouched. FROZEN.
+- **F3** (`specs/SPEC_RUBRIC.md:45-57`): untouched. FROZEN. The void clause of D-2026-10-30-A stands.
+- No code, template or config changed. Nothing here claims any F advanced.
+
+**NEEDS AMEAR (questions only, not answered):** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+1. What counts as "proof of concept"? (His words name no test; the brief's framing ties it to Standard-resolution results.)
+2. `Praxis_build-r8j` is at P0, the master's choice (D-2026-11-02-C, DECISIONS.md:489; NEEDS AMEAR 13). Is P0 the level he wants?
