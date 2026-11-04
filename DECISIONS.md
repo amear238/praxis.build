@@ -542,3 +542,191 @@ That is the only rebuild command in the README; it builds `TickPrep.exe` only. N
 12. Is `PraxisLastHalfHourMomentum` in or out of the High fill-resolution comparison?
 13. `Praxis_build-r8j` was raised to P0, the level the master chose. Amear's brief asks for a raise without naming a level. Is P0 the level he wants?
 14. R-VN3-6: does "closest to live execution" mean High fill resolution and breakers on, as the agent read it to him?
+
+---
+
+## 2026-11-03 — D-2026-11-03-A: R-VN3-2 — VM agent's High fill-resolution plan and VM notes filed to docs/reports/ unchanged; VM-side hash chain as reported; R-VN3-2 limits check; open questions listed, not answered
+
+**Date:** 2026-11-03
+**Status:** RECORDS A FILING. This entry is NOT a ruling by Amear and authorises nothing. Amear's brief item 2 (2026-11-02) asked for it: copy the VM agent's plan into `docs/reports/`, add MANIFEST rows, check the plan against R-VN3-2's limits, list its open questions, and not answer them. Ledger row for this unit (S4/S5): DECISION_LOG `2026-11-03T18:32:27Z` (WHO: praxis-master, "UNIT `2026-11-03-vm-plan-filing` DISPATCHED (brief item 2 of pasted 012a, 2026-11-02)"). R-VN3-2 itself is DECISION_LOG `2026-11-02T21:23:45Z` (WHO: amear). None of these rows authorises a purchase, an NT8 import or a run. Appended 2026-11-03 by praxis-manager, unit `2026-11-03-vm-plan-filing`.
+**Ruling it serves:** R-VN3-2 (`docs/reports/2026-11-01-voice-session-notes-3.md` line 16): *"It does not authorize a purchase, an import or a run."* The limits, as the master's brief for this unit quotes Amear's brief: no purchases, no NT8 imports, no runs without Amear's approval.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades used below:** OBSERVED (seen by this unit on this Mac, 2026-11-03) / INFERRED (reasoned, not checked) / REPORTED BY AMEAR / REPORTED BY the VM agent (the Claude Code agent on the Windows VM that wrote the plan and notes) / REPORTED (vendor or forum, as cited by the VM agent) / UNVERIFIED. The VM agent's own grade words (its "OBSERVED", "VERIFIED", "REPORTED BY AMEAR") mean seen on the VM, or said to it. On this Mac, everything the VM agent says it saw or heard is REPORTED BY the VM agent.
+
+**Files filed (copied with `cp`, names unchanged, contents NOT edited — findings are recorded here, not fixed in the files):**
+- `docs/reports/2026-11-02-vm-high-res-plan.md` — 11,834 B, sha256 `99e23a0512546d328e48d1f0f6fcc920f53a80905968f19c97d75f0944dcdf40`, 138 lines.
+- `docs/reports/2026-11-02-vm-notes.md` — 4,829 B, sha256 `304f5795a353bedfe38c741f0f78f09487ab5b0d1fd19afed2ecfece0e29aee3`, 65 lines.
+- `docs/reports/SHA256SUMS-vm-handoff.txt` — 186 B, sha256 `00ce26cd39a21a3b0d72b6e66ff9f97dc0a6ca2a39a8f953f1cffa2fb583e787`; two lines, the VM-side sums of the two files above.
+Plan line numbers below are `cat -n` line numbers of the filed copy. Notes line numbers likewise.
+
+### a. Provenance chain and the VM-side hash block
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+1. **Windows VM.** The VM agent wrote the plan and the notes there and hashed the tickprep originals in `C:\Users\amear\Desktop\praxis-tickprep\` with `Get-FileHash -Algorithm SHA256`, "run 2026-11-02" (notes lines 12–14). REPORTED BY the VM agent.
+2. **Google Drive.** Uploaded to Amear's Drive, "same Drive folder as `praxis-tickprep`" (notes line 7). REPORTED BY the VM agent. Notes line 43 quotes Amear asking for the upload (*"upload it to my google drive and give mew the ling"*, quoted as the notes give it) — REPORTED BY the VM agent, quoting Amear. Whether this is the same Drive folder id `1YaM4I3BKt_nNKWdUnOkj4kJzCeBEwLe_` that D-2026-11-02-B names: UNVERIFIED (not checked).
+3. **Mac synced folder** `~/Library/CloudStorage/GoogleDrive-bani.amear@gmail.com/My Drive/praxis-tickprep/` — OBSERVED: it holds seven files: the plan (11,834 B), the notes (4,829 B), `SHA256SUMS-vm-handoff.txt` (186 B), and `MakeSynth.cs` (3,732), `README.md` (2,219), `TickPrep.cs` (18,785), `nt-implied-offsets.csv` (645). No `.exe` file is in it (OBSERVED). The plan and the notes hash to the two values in `SHA256SUMS-vm-handoff.txt` (OBSERVED). The four tickprep files hash equal to `tools/tickprep/SHA256SUMS` (OBSERVED).
+4. **`docs/reports/`** — copied by this unit with `cp`. OBSERVED: source and destination sha256 equal for all three files; `cmp` exit 0 for all three; `cd docs/reports && shasum -a 256 -c SHA256SUMS-vm-handoff.txt` prints `OK` for both files, exit 0.
+- What this shows and what it does not: the Mac OBSERVED that the copies equal the hashes the VM agent wrote into `SHA256SUMS-vm-handoff.txt`. That those hashes were computed on the VM is REPORTED BY the VM agent. `SHA256SUMS-vm-handoff.txt` itself carries no VM-side hash; under handoff §0 (line 11) it stays UNVERIFIED as a VM original.
+
+**VM-side hash block (notes lines 17–22, verbatim; REPORTED BY the VM agent — the Mac cannot run `Get-FileHash` on the VM):**
+```
+398868cfdfb10b0774606af7481066b3faf3ecdf7c984c644d19173b357a1507     3732 B  MakeSynth.cs
+3d81495ffe060ffffd71ca4f5993e9f8c312df8d76a1d34818d6c9062a7763a0     7168 B  MakeSynth.exe
+199a66a73cdf6c1af032a2807d4d3b9e0bceff8a655f80408d3d6e2f7df491a3      669 B  nt-implied-offsets.csv
+81534da86c2ecec38506a3a78ac2f1d283a7fa1ab15648b2f74930a10e95aeb5     2219 B  README.md
+104dc9d9135d3e27cab2d35019606ca8f112d7586cdcbe98a32ee0e4d13e6545    18785 B  TickPrep.cs
+72f237468758f8c053a93a9d8ed4ad3805a5b8353afa0eb640d6a1ef9f2cce88    22016 B  TickPrep.exe
+```
+- **Compiler banner** (notes line 28, REPORTED BY the VM agent): `Microsoft (R) Visual C# Compiler version 4.8.9221.0` (`C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe`).
+- **`.cs` and `.md` files.** The three reported hashes for `MakeSynth.cs`, `README.md` and `TickPrep.cs` equal the Mac copies in `tools/tickprep/SHA256SUMS` (string equality OBSERVED). The VM agent's grade "Transfer: VERIFIED" (notes line 25) is its own word. On this Mac the link is: reported VM hash = observed Mac hash.
+- **`nt-implied-offsets.csv`.** Reported VM file: 669 B, 24 CRLF lines (notes line 26). OBSERVED on this Mac: converting the Mac copy (645 B, LF) to CRLF line endings (`awk '{printf "%s\r\n", $0}'`, piped to stdout, no file written) gives 669 bytes and sha256 `199a66a73cdf6c1af032a2807d4d3b9e0bceff8a655f80408d3d6e2f7df491a3`, which equals the reported VM hash. The Mac copy plus CRLF reproduces the reported VM bytes. That the VM file has that hash is REPORTED BY the VM agent.
+- **`.exe` files.** The hashes are REPORTED BY the VM agent: `TickPrep.exe` 22,016 B `72f23746…ce88`, `MakeSynth.exe` 7,168 B `3d81495f…63a0`. The binaries have **not** been transferred (OBSERVED: absent from the synced Drive folder and from `tools/tickprep/`). Nothing here has been compiled.
+
+**What this changes in D-2026-11-02-B's grades (B-4 and every other NEEDS AMEAR item stay open):**
+- B §c ("VM-side originals — UNVERIFIED"; "The hashes of `TickPrep.exe` and `MakeSynth.exe` are unknown"): the VM-side hashes now exist on record as REPORTED BY the VM agent. For the three `.cs`/`.md` files the reported hashes equal the Mac copies (OBSERVED equality). For the CSV, the reported hash equals the Mac copy converted to CRLF (OBSERVED computation). The `.exe` hashes are known as reported values only. No byte of a VM file was observed from the Mac.
+- B §d (CRLF arithmetic, "INFERRED ... the Desktop copy was not checked"): the VM agent now reports 669 B with 24 CR bytes, and the Mac's CRLF conversion reproduces the reported hash (OBSERVED). B §d's INFERRED reading is consistent with this. The VM Desktop copy has still not been seen from the Mac.
+- B §a.2 (folder id `1YaM4I3BKt_nNKWdUnOkj4kJzCeBEwLe_`, "Not opened by this unit"): not closed. A Drive folder named `praxis-tickprep` is now OBSERVED through the Mac's sync, and its four tickprep files equal `tools/tickprep/SHA256SUMS`. Whether it is the folder with that id stays UNVERIFIED (step 2 above).
+- D-2026-11-02-B's NEEDS AMEAR items, as this entry finds them (it closes none itself): B-1 (`.exe`) — DECISION_LOG `2026-11-03T18:45:00Z` (WHO: amear) records *"**"commit to repo"** = BINARIES TOO (closes D-2026-11-02-B NEEDS AMEAR 1)"*; B-2 (purchase) — DECISION_LOG `2026-11-03T18:40:00Z` (WHO: amear) records *"**"no, not paying that. i dont know what 8 questions."** = NO Portara purchase at $695"*. That row answers a $695 question; it does not name B-2, which asks about the purchase with no price. Linking the row to B-2 is the filer's cross-reference. B-2 stays open apart from the $695 purchase (both rows are the authorisation, S5; see the note at the head of e). Still open: B-2 (apart from the $695 purchase), B-3 (self-test as a "run"), B-4 (whether the VM originals should be hashed — the hashing is REPORTED BY the VM agent as done, at handoff §3.2's request; whether that disposes of B-4 is Amear's), B-5 (which CSV copy is canonical), B-6 (`--offsets`), B-7 ("option C" — see (e) item 31), B-8, B-9, B-10.
+
+### b. R-VN3-2 limits check of the plan
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Does the plan itself buy, import or run anything?** No such act is recorded. Plan line 3: *"**Plan only.** Nothing was bought, imported, run or changed in NinjaTrader to write it."* Notes line 3: *"Nothing was bought, imported, run, compiled, edited or deleted for this. The only actions were reads, hashes, and writing these two files."* Both are REPORTED BY the VM agent; nothing on the Mac can check what happened on the VM. Reads of NT8 data the VM agent reports making: `db\tick` file count (plan line 25, notes line 34), the `db\minute` folder names (notes line 35: *"Only the folder names were read, not the contents or date ranges."*), the 0-S snapshot in `strategyanalyzerlogs` (plan line 17). These are reads, as reported, not imports or runs.
+
+**Steps the plan proposes that would need Amear's approval, and whether the plan labels each as his decision:**
+
+| Step | Plan line(s) | Labelled as Amear's decision? |
+|---|---|---|
+| Purchase of Portara ticks, $695 | 53, 130 | Yes. Line 53: *"**Question for Amear (purchase):** buy Portara ENQ trades-only ticks ... for **$695**?"*; line 130 (Q1). |
+| P0: TickPrep measure/build/verify on a March 2021 sample, "no import" | 96 | **No separate question.** Line 57's §3 heading gates the build chain *"after purchase and Amear's OK"*; P0 uses a sample asked for free (line 127), so whether line 57 covers it is not stated. Line 133 (Q4) presupposes P0 (*"once the sample passes"*). Relates to B-3. |
+| P1: one-month import (March 2021), plus *"one High run on the month to time it, measure memory, and see whether slippage is applied"* | 97, 133, 86 | **Partly.** Line 133 (Q4): *"Approve P1 (one-month import) once the sample passes?"* — names the import; the Standard run (*"0-S on that month unchanged"*) and the High run inside P1 (line 97) are not named in the question. Line 86: *"Import dialog (when approved)"*. |
+| Safeguard: copy `db\minute\NQCONTROW 09-25` and hash it before any import | 82 | Not labelled separately; placed inside the import step (line 81 *"Safeguards in the plan"*). |
+| Full-range tick import (all 23 contracts), which R0 presupposes | 98 (*"after full import"*) | **No question.** Line 133 (Q4) covers the one-month import only. |
+| R0: 0-S full range after full import | 85, 98 | **No question.** |
+| R1: 0-H (High, Tick 1, slippage 2) | 99 | **No question of its own.** The nearest is line 138 (Q9): *"Should the High measurement runs wait for `r8j` (breakers), or go ahead as measurement-only?"* |
+| R2: High with slippage 1 | 100, 134 | Yes, line 134 (Q5). |
+| R3–R4: OppBand, Flat1559 at High | 101 | **No question.** |
+| `--offsets` forcing | 65, 132 | Yes. Line 65: *"Rerunning with `--offsets` to force NT's values is a choice for him, not a default."*; line 132 (Q3). |
+| Central-time code change | 73 | Yes in text: *"Central would need a code change, a question for Amear first"*. Not in the §6 list. |
+| TickPrep `measure` → `build` → `verify` on purchased real data | 57, 63–67 | Yes. Line 57: *"Build chain (after purchase and Amear's OK; not run on real data)"*. |
+| Memory fallbacks: year-by-year runs, or a 1-second fill series | 105, 136 | Yes. Line 105: *"a 1-second fill series (a departure from the spec). Both are Amear's call."*; line 136 (Q7). |
+| Reading NT's per-contract NQ minute folders | notes 35, notes 61 | Yes (notes). Notes line 35: *"That's a question for Amear, not done."* Not in the plan. |
+| Analyzer dropdown look (whether Tick 1 can be picked), "with no run" | 29 | **Not labelled.** Line 29: *"Checking that Tick 1 can be picked is a 2-minute look at the dropdown, with no run."* Whether it needs approval is Amear's. |
+
+**Things the plan presents as settled that the ledger records as open or as Amear's (recorded, not decided):**
+1. Line 32: *"R-VN3-5/6: the judged version is High resolution **with the circuit breakers on**."* The plan grades this line *"REPORTED (Mac handoff)"* and calls every High run in it *"a **measurement run** ... not the go/no-go run"*. The handoff (§2 line 36) told the VM agent: *"Treat that reading as the working target, not as his ruling."* The sentence as written states the reading as settled; High fill resolution under R-VN3-6 is the voice agent's reading, not Amear's ruling (D-2026-11-02-C, NEEDS AMEAR 14).
+2. Line 103: *"Last-Half-Hour Momentum is **not included** (R-VN3-1)."* Whether it is in or out of the High comparison is open (D-2026-11-02-A NEEDS AMEAR 3; D-2026-11-02-C NEEDS AMEAR 12). The handoff told the VM agent not to include it unless Amear says so (handoff §2 line 31), so the plan follows the handoff's default. Its citation of R-VN3-1 as the reason goes further than the ledger does.
+3. Lines 66 and 71 apply R-VN3-3 to the tick build (*"Strict: minutes missing from the 1-min file get no ticks (R-VN3-3)"*; the holes *"stay empty (R-VN3-3)"*). Whether R-VN3-3 covers the tick data is open (D-2026-11-02-C NEEDS AMEAR 8). The handoff's line 33 told the VM agent to keep `TickPrep build` strict.
+4. Line 28 and line 99 call a slippage drop under High *"the F3 void-clause trigger"* / *"stop: F3 void clause, back to Amear."* This is the VM agent's reading of the void clause (see d).
+5. Line 45: *"Flat is cheaper."* (the $695 flat price against $750 by the year) and line 48 *"**Ask for US Eastern**"* are recommendations inside a purchase that is posed as a question (line 53). Recorded, not adopted.
+6. Line 64 step 1(b) sets an acceptance for unmatched minutes (*"every one listed and explained"*). The threshold is open (D-2026-11-02-B NEEDS AMEAR 9).
+7. Line 85 (R0 must reproduce *"1,190 trades and $197,327.60 exactly"*) and line 98 (*"total slippage 1190"*): these are pass bars the plan sets. The figures themselves are on record on the Mac: 1190 trades and net $197327.60 (`docs/reports/2026-11-01-three-strategy-results.md` lines 67 and 73, CSV OBSERVED there and REPORTED BY AMEAR from his C4 Summary), and "Total slippage" shown 1190, equal to the trade count, NOT DERIVABLE from the CSV (same file, line 227). Whether these are the R0 and R1 pass bars is Amear's.
+
+### c. Evidence-grade issues (recorded, not fixed — the filed files are unedited)
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+1. **"REPORTED BY AMEAR" in the VM files.** Plan line 38 (*"REPORTED BY AMEAR (button answers in this VM session)"*), plan line 22 (*"REPORTED BY AMEAR (C4 screenshot readback)"*) and notes §3 (line 37 heading *"Amear's words in this VM session: REPORTED BY AMEAR"*, quotes at lines 40–43). On this Mac all of these are REPORTED BY the VM agent: this unit has only the VM agent's account; notes line 45 places the exact text *"in the VM session transcript"*, which this unit has not seen. Notes line 45 is marked *"Paraphrased"* under the same heading; a paraphrase is the VM agent's words.
+2. **Plan line 71**: *"REPORTED BY AMEAR ("I would just proceed as it is")"*. That quote reached the VM through the Mac handoff (handoff line 33). On the Mac its source is notes-3 line 21 (the voice agent's record of Amear's words). For the VM agent, the plan's own grade for this would be "REPORTED (Mac handoff)".
+3. **The VM agent's "OBSERVED" and "VERIFIED".** Plan line 7 defines OBSERVED as *"run or read on this VM"*. Notes lines 25–26 use "VERIFIED", which is not one of the handoff's grades (handoff line 13: OBSERVED / INFERRED / REPORTED BY AMEAR / UNVERIFIED). On the Mac all of these are REPORTED BY the VM agent unless re-checked here. Re-checked here, OBSERVED: `nt-implied-offsets.csv` has 23 data rows (24 lines with the header), `NQ 06-21,3342.75,2021-03-11` (line 3) and `NQ 09-26,0,2026-06-12` (line 24), matching plan lines 43 and 64. The three Noise-Area strategy files in `ninjascript/` contain 0 occurrences of `AddDataSeries` (`/usr/bin/grep -c`), consistent with plan line 26's single-series claim for the repo copies. Whether the VM-installed copies are the same files is open (handoff §3.3; (e) item 26).
+4. **NT8 behaviour resting on forum posts or docs** stays REPORTED/UNVERIFIED, as the plan itself grades it: slippage under High (line 28, *"REPORTED (forum); UNVERIFIED on 8.1.8.4"*); Tick-1 availability on a 1-min primary (line 29, *"REPORTED (forum); UNVERIFIED"*); server tick retention and "Unknown instrument" (line 27, *"REPORTED (NT forum / help guide); the server limit is UNVERIFIED here"*); High not usable with `AddDataSeries` or Tick Replay (line 26, *"/ docs"*). The import writing only to `db\tick` (line 80) is graded *"Import behaviour: INFERRED"* by the plan. On the Mac it is INFERRED by the VM agent, not tested. Handoff line 13: a claim about NT8 behaviour is graded by running it.
+5. **Portara facts are REPORTED (vendor).** Product, price ($695 flat; $125/yr, $500 minimum, $750 to reach March 2021), the 56.8 GB size, timestamps (plan lines 42, 45, 46, 48) are graded REPORTED (Portara pages, read 2026-11-02, by the VM agent). The ~10–25 GB window estimate is INFERRED from *"an assumed 200k–500k trades/day (no published figure)"* (line 46). The licence (line 49) and delivery (line 50) are UNVERIFIED. Notes line 48 corrects an earlier VM figure of ~$625 to $695.
+6. **Spec-line claim vs `specs/SPEC_RUBRIC.md` F3.** F3's "Why frozen" text (rubric lines 49–50, verbatim): *"The Block 2 spec requires Order Fill Resolution = High with a 1-tick resolution series, 1-tick slippage, $2.96 round-trip."* Plan table lines 17–21, column *"High value (spec F3 line)"*: High; Tick; 1; slippage *"**1** per the spec line"*; commission *"$2.96 round trip ... unchanged"*. The four values match the rubric text. Two notes, not findings against the plan: (i) the line the plan quotes is F3's "Why frozen" description of the Block 2 spec, not F3's **Criterion** (rubric lines 46–48: *"The fill resolution the Strategy Analyzer will actually run at, and the slippage assumption applied at the band edge, stated in writing before the backtest runs."*); (ii) the rubric says "1-tick slippage" with no "/side"; the plan's column is "ticks/side" (line 20). The rubric's F3 text in the working tree equals `HEAD` (OBSERVED, `diff` of lines 45–57 empty).
+7. **Handoff §3.1 six-section check.** The plan's six headings are §1 line 11 *"What High resolution needs"*, §2 line 36 *"Data"*, §3 line 57 *"Build chain"*, §4 line 77 *"The instrument and how a tick import would sit"*, §5 line 90 *"The 0-H control"*, §6 line 110 *"Risks and open questions for Amear"*. They follow handoff items 1–6 in order. Against the item contents: item 2's licence and delivery are present as "Ask" (lines 49–50); item 3's 2021-06-10 roll, DST and time zone are present (lines 70, 72, 73); item 4 is "plan only, no import" (line 77); item 5 is "design only" (line 90); item 6 is numbered. Handoff line 43 asks for *"every number graded"*: the §5 table (lines 94–101), including the R0 bars, has no grade column, and line 106 states no runtime basis.
+8. **File span conflict.** Handoff item 2 (line 45) and handoff §4 (line 61) give the 1-min file as 2021-03-08 → 2026-07-17. Plan line 44 and notes line 51 give the file as 2021-03-07 → 2026-07-20 and the test window as 2021-03-08 → 2026-07-17 (REPORTED BY the VM agent; the plan grades it OBSERVED). OBSERVED on the Mac copy `/Users/admin/praxis-signals/b2-data/NQCONTROW 09-25.Last.txt` (the bar file `docs/reports/2026-11-01-three-strategy-results.md` line 38 names): first line `20210307 180100;16120.5;16167;16120.5;16154.75;17`, last line `20260720 112700;29005.5;29020.75;29003.5;29016;308`. The Mac copy's span agrees with plan line 44, not with handoff lines 45 and 61. Whether the Mac copy is byte-identical to the VM's file is UNVERIFIED (no hash comparison on record).
+9. **VM host name.** Notes line 32 (REPORTED BY the VM agent): *"Host: **VMware** ... An earlier VM note called it Parallels; that was wrong."* `DECISIONS.md` D-2026-07-09-B (line 96) titles the execution host *"Parallels Windows 11 ARM VM"*. This entry does not amend D-2026-07-09-B. Recorded only.
+10. **Self-test.** Plan line 59 restates the self-test as *"OBSERVED on the VM 2026-11-02; on the Mac it is REPORTED."* That matches D-2026-11-02-B §h's grade. Not reproduced here.
+
+### d. F3 interaction — the plan's "void-clause trigger" against D-2026-10-30-A as written
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+- **The plan** (line 28, verbatim): *"**Slippage under High: risk.** An NT staff forum post says slippage applies only under Standard. If that's true, a High run silently drops 2 ticks/side. That is the **F3 void-clause trigger**: if it is seen, F3 goes back to Amear. REPORTED (forum); UNVERIFIED on 8.1.8.4."* Line 99 (R1 stop check): *"Total slippage must still read 1190. If not, stop: F3 void clause, back to Amear."* Line 113 (risk 1): *"Slippage may be ignored under High, which would trigger F3."*
+- **D-2026-10-30-A's void clause** (`DECISIONS.md` line 264, VERBATIM there from DECISION_LOG `2026-08-29T00:10:00Z`): *"We accept Standard resolution on 1-minute bars. Band-edge slippage widened to [N]. Fills are optimistic and the report states so. If the VM measurement shows NT8 errors or demands a secondary series rather than falling back silently, this row is void and the assumption is re-decided cold."* Same line: *"The clause's trigger is "the VM measurement"; the ledger records only that no run has set High (REPORTED BY AMEAR, 2026-10-30T21:36:30Z). Whether a High run is the trigger is Amear's."*
+- **D-2026-10-30-A NEEDS AMEAR 5, as ruled** (`DECISIONS.md` line 300): *"Identical → (c) is OBSERVED and F3 moves to PASSED by Amear's edit of `specs/SPEC_RUBRIC.md`; different → the `2026-08-29T00:10:00Z` void clause fires and (c) is re-decided cold."* The comparison there is of trade lists, Standard vs High, *"every other field held"*.
+- **Recorded, not decided:** the clause's text names NT8 *erroring* or *demanding a secondary series* "rather than falling back silently". A silent slippage drop under High is not named in the clause's text. The plan's line 28 links the two; that link is the VM agent's reading. Line 300's ruling names a second outcome (the trade lists differ). The plan's R1 stop check (line 99) tests the total-slippage figure. Its R1-vs-R0 report (line 103, *"trade count, number of trades whose entry or exit price changed, net, PF, max DD, and per-exit-type differences (XS / XL / session close)"*) compares the two runs' trades. The plan does not tie line 103 to the void clause or to line 300. The plan's R1 changes Order fill resolution to High and the fill-resolution type from Minute to Tick (lines 17–18, 99) and holds slippage at 2 (line 99, *"**Slippage stays 2.**"*). Whether that set of changes is the control ruled at line 300 is open: D-2026-10-31-A (line 363) lists as still open *"Step 0, the values for High's extra fields and what counts as "identical""*. Whether a slippage drop under High voids D-2026-10-30-A, and which check decides it, are Amear's (line 264). The plan's line 28 says *"F3 goes back to Amear"*; it does not decide the outcome either.
+- F3 is not advanced by this entry. No High run exists. The void clause stands, NOT triggered and NOT retired.
+
+### e. Consolidated NEEDS AMEAR list (questions only — listed, not answered, not recommended, not ranked)
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+Numbering follows the order of the sources (plan §6, then notes §6, then notes §5, then items found elsewhere in the two files). It is not a priority order. "Same as" means the item is already open in an earlier entry and is listed here once with the cross-reference; "relates to" means it overlaps without being the same question. B-n, C-n and A-n are the NEEDS AMEAR items of D-2026-11-02-B, -C and -A.
+
+**Ledger rows written while this unit ran.** DECISION_LOG now carries three rows WHO: amear, stamped `2026-11-03T18:40:00Z`, `2026-11-03T18:45:00Z` and `2026-11-03T18:50:00Z` (each with an approximate `WHEN: ~` time). Under S5 those ledger rows are the authorisation; they govern wherever they rule on an item below, whether or not a DECISIONS entry has filed them yet. The 18:40Z and 18:45Z rows each say *"to be filed in DECISIONS after the running unit returns"*; this entry does not file them or interpret them. It marks, at items 14, 21, 22, 23, 24 and 25 (and at B-1 and B-2 in section a), which row speaks to the item, quoting the row; where a row records its outcome as unresolved or deferred, that is quoted too. The 18:50Z row also records rulings outside this list (on the STATUS.md refresh and on old uncommitted changes; and, on whether to look for a cheaper or free tick source, a bare *"yes"* that the row records under *"master reading: LOOK"*, with the scope *"set by master"*). The list otherwise records the plan's and the notes' questions as written.
+
+*Plan §6, Risks (lines 112–117) — the plan lists these under "Risks and open questions for Amear"; recorded as written:*
+1. Line 113: *"Slippage may be ignored under High, which would trigger F3. REPORTED (forum)."* Relates to D-2026-10-30-A line 264 (whether a High run is the trigger is Amear's) and to (d).
+2. Line 114: *"The measured offsets might not equal NT's (the 1-min file's source isn't proven)."* Relates to B-6 and B-8, and to items 15 and 16.
+3. Line 115: *"Importing ticks could change how NT builds the 1-min primary. R0 catches this."* New.
+4. Line 116: *"A full-range High run could run out of memory."* Relates to item 20.
+5. Line 117: *"The Portara licence is unknown."* Same as item 11.
+
+*Plan §6, Questions to send Portara (lines 119–127; line 119: "Amear sends them"):*
+6. Line 120: *"What roll dates and back-adjustment method does the continuous ENQ file use?"*
+7. Line 121: *"Do individual contract files cover the whole contract life or only the front-month window?"*
+8. Line 122: *"Are Eastern stamps DST-aware and at trade time?"*
+9. Line 123: *"What is the delivered size for ENQ 2014 → now, zipped and unzipped?"*
+10. Line 124: *"Are ticks filtered or cleaned?"*
+11. Line 125: *"Does the licence allow personal backtesting?"*
+12. Line 126: *"How is the data delivered, and how long does it take?"*
+13. Line 127: *"Can we have a free March 2021 sample?"* Relates to item 34 (P0).
+(Whether these eight are sent is notes §6 item 1, item 23 below.)
+
+*Plan §6, Open questions for Amear (lines 129–138):*
+14. Line 130: *"Buy Portara ENQ ticks for $695 (after the answers above)?"* Relates to B-2 (B-2 names no price); restated by notes line 60 (item 23). Ledger: DECISION_LOG `2026-11-03T18:40:00Z` (1), *"= NO Portara purchase at $695."*
+15. Line 131: *"Where did the 1-min file come from? If it's NinjaTrader's `NQ ##-##` back-adjusted series, the offsets in `nt-implied-offsets.csv` are the expected answer."* Relates to B-8 (first half) and to item 24.
+16. Line 132: *"If any measured offset differs from NT's, stop there, or force NT's values with `--offsets`?"* Same as B-6.
+17. Line 133: *"Approve P1 (one-month import) once the sample passes?"* New. P1 (line 97) also contains a 0-S run on that month and one High run on the month; this question's text names neither.
+18. Line 134: *"R2: add the 1-tick-slippage spec run after the 0-H control?"* New. R2 changes slippage from R1 (line 100, *"R1 plus slippage = 1"*). Relates to D-2026-10-30-A line 300 and to D-2026-10-31-A line 363 (High's extra fields; what counts as "identical"); see item 36.
+19. Line 135: *"Is "Baseline-H" a separate run from 0-H, or the same?"* New. The term "Baseline-H" occurs in no other `docs/reports/*.md` file (OBSERVED, `/usr/bin/grep -rln`).
+20. Line 136: *"Memory fallback: year-by-year runs or a 1-second fill series?"* New. Line 105 calls the 1-second series *"a departure from the spec"*.
+21. Line 137: *"Should the `.exe` files go into the repo, or source only with the rebuild command?"* Same as B-1; restated by notes line 62 (item 25). Ledger: DECISION_LOG `2026-11-03T18:40:00Z` (3) *"**"keep them for reference"** — master reading UNRESOLVED"*, then `2026-11-03T18:45:00Z` (3) *"**"commit to repo"** = BINARIES TOO"*.
+22. Line 138: *"Should the High measurement runs wait for `r8j` (breakers), or go ahead as measurement-only?"* Relates to C-4 and C-5 and to R-VN3-5 (D-2026-11-02-C). Relates to items 17, 36 and 37. Ledger: DECISION_LOG `2026-11-03T18:40:00Z` (4) *"**"yes"** — master reading UNRESOLVED"*, then `2026-11-03T18:45:00Z` (4) *"**"when the time comes ask agaian."** = DEFERRED"*.
+
+*Notes §6 (lines 58–63; line 59: "The ones that block the next step"):*
+23. Line 60: *"Send Portara the eight questions (plan §6), then decide whether to buy for $695."* Same as item 14 for the purchase; relates to B-2. Sending the questions is new. Ledger: DECISION_LOG `2026-11-03T18:40:00Z` (1), Amear's words *"no, not paying that. i dont know what 8 questions."*
+24. Line 61: *"Should the per-contract NQ minute folders already on the VM be read (read-only) to confirm the 1-min file's source before buying?"* New. Relates to items 15 and B-8. Notes line 35: the folders seen are *"NQ 03-20 through NQ 12-26"*; *"Only the folder names were read"*. Ledger: DECISION_LOG `2026-11-03T18:40:00Z` (2) *"**"yes"** = read-only readback APPROVED for the VM agent."*
+25. Line 62: *"`.exe` files: into the repo or not? If yes, they go up as the files themselves via Drive, with the hashes above."* Same as B-1 / item 21. Ledger: see item 21.
+26. Line 63: *"§3.3 items (strategy-file hash check, template early-close readback): do them or not?"* Same as C-6 (11-01 handoff §5 items 7 and 1). The 11-02 handoff §3.3 (lines 56–58) puts them under "Only if Amear rules it".
+
+*Notes §5, still owed from the screen (lines 53–56) — listed as owed, not as rulings:*
+27. Line 54: *"Strategy Analyzer Log tab "ignored" messages"*.
+28. Line 55: *"C6: save settings as default"* — step C6 of `docs/reports/2026-11-01-voice-handoff-commission-fix.md` (line 105).
+29. Line 56: *"C7: NQCONTROW instrument readback."* — step C7 of the same file (line 113). Plan line 79 depends on it: the rollover 2021-03-01 / Do not merge state is *"REPORTED (Mac handoff)"* and *"UNVERIFIED"* until C7.
+
+*Found elsewhere in the plan or notes, not in plan §6 (filer's extraction; listed, not answered):*
+30. Plan line 73: tick files delivered in Central time *"would need a code change, a question for Amear first"*. New.
+31. "Option C" label. Plan line 36 (*"Data (option C: Portara per-contract ticks)"*) and notes line 41 (*"Adjust per-contract myself" (option C, TickPrep)*) give the VM-side use of the label. REPORTED BY the VM agent. Relates to B-7. This entry does not mark B-7 closed.
+32. Plan line 64 step 1(b): unmatched minutes *"every one listed and explained"*. Same as B-9.
+33. CSV canonical copy: the VM copy is reported CRLF 669 B (notes line 26); the repo copy is LF 645 B. Same as B-5.
+34. Plan line 96, P0 (TickPrep on the March 2021 sample): no approval question is posed for it. Relates to B-3 (whether the VM self-test counts as a "run" under R-VN3-2) and to item 13.
+35. Plan lines 85 and 98, R0 (0-S full range after the import): no approval question is posed for it, nor for the full-range tick import it presupposes (line 98, *"after full import"*). Line 133 (Q4) covers the one-month import only.
+36. Plan line 99, R1 (0-H): no approval question is posed for it apart from item 22. Relates to the Standard-vs-High control ruled at D-2026-10-30-A line 300 (NEEDS AMEAR 5: *"Commit conditional + R3 control tomorrow."*) and to D-2026-10-31-A line 363 (High's extra fields and what counts as "identical", still open). The plan does not say whether R1 is that control.
+37. Plan line 101, R3–R4 (OppBand and Flat1559 at High): no approval question is posed for them.
+38. Plan line 29, the Analyzer dropdown look ("with no run"): whether it needs approval is not posed.
+39. Plan line 103, LHM *"not included (R-VN3-1)"*. Same as A-3 / C-12.
+40. Plan lines 66 and 71, R-VN3-3 applied to the tick build. Same as C-8.
+41. Plan line 32, the judged version as High + breakers on. Same as C-14.
+42. Plan lines 85 and 98: whether "1,190 trades", "$197,327.60" and "total slippage 1190" are the R0/R1 pass bars (see b, item 7). New.
+43. D-2026-11-02-B items not listed above: B-10 (`tools/tickprep/` path), not raised by the plan or notes; B-4 (whether the VM originals should be hashed), whose hashing the notes report done (section a). Both still open. B-3 is at item 34.
+44. Plan line 82, the safeguard *"Copy `db\minute\NQCONTROW 09-25` and record SHA-256 for every file before any import"*: not posed as a question of its own; placed inside the import step (section b).
+45. Plan lines 45 and 48: the price route (*"Flat is cheaper"*: $695 flat against $750 by the year) and the time zone to ask Portara for (*"**Ask for US Eastern**"*) are recommendations inside the purchase question (section b, item 5). Listed, not adopted.
+
+### f. What this unit did and did not do on the Mac
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+- Nothing was bought, imported, run, compiled or deleted on the Mac in this unit. No NT8 action. No tickprep command. Nothing was executed from the Drive folder.
+- Acts: `cp` of the three files into `docs/reports/`; reads and hashes (`ls`, `cat`, `sed`, `shasum`, `cmp`, `wc`, `file`, `/usr/bin/grep`, `find`); one `awk` CRLF conversion of `tools/tickprep/nt-implied-offsets.csv` to stdout piped to `shasum` and `wc` (no file written); appends to `DECISIONS.md` (this entry) and `MANIFEST.md` (four rows); the manager report `docs/reports/2026-11-03-vm-plan-filing-manager.md`.
+- Nothing staged by this unit. The filed copies are unedited.
+
+**S6 cross-block — no block's spec changes:**
+- **F1 — Signal-path topology** (`specs/SPEC_RUBRIC.md:17-28`): untouched. FROZEN.
+- **F2 — Session-flat time vs breakers #4 and #5** (`specs/SPEC_RUBRIC.md:30-43`): untouched. FROZEN.
+- **F3 — Backtest fill resolution** (`specs/SPEC_RUBRIC.md:45-57`): untouched. The void clause of D-2026-10-30-A stands. The plan is a plan; no High run exists.
+- **F4 — MFFU automation compliance** (`specs/SPEC_RUBRIC.md:59-70`): untouched. FROZEN.
+- No code, template or config changed.
