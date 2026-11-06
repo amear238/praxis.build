@@ -29,3 +29,9 @@ Caution (VMware): never open one file from both sides at once; a write can corru
 ## Sources (2026-11-05; quotes and curl output pasted in docs/reports/2026-11-05-fusion-shared-folders-walkthrough-manager.md)
 - techdocs.broadcom.com …/fusion-pro/<ver>/…/sharing-files-between-windows-and-your-mac/ pages (26H1: overview, guest-OS, add; 13-0: guest-OS, remove, enable), OBSERVED; Tools 13.0.5 release notes (OBSERVED)
 - docs/reports/2026-10-19-windows-vm-state-update-2-from-migration.md rows 2-3 (REPORTED)
+
+## Addendum 2026-11-06 (ruling 5 / item 1; appended, nothing above edited)
+- **Questions 0–3: closed.** SMB was chosen and set up by Amear's hand (REPORTED BY amear, D-2026-11-06-A item 3: Mac File Sharing on, `Praxis.build` shared, the VM maps it as `Z:`). Closure is the master's settlement under R-1104-2 after ruling 5 delegated the item (D-2026-11-06-B; DECISION_LOG 2026-11-06T20:08:28Z, WHO: amear).
+- [ ] **Go-live checklist, his words:** "unmap Z: and turn the share off before real money" (D-2026-11-06-A item 3).
+- **The Steps above are moot:** Fusion shows no Sharing pane (D-2026-11-06-A item 3, "no Sharing pane, as flagged", REPORTED BY amear).
+- Source: D-2026-11-06-B, ruling 5 settlements table, item 1 and item 10.
