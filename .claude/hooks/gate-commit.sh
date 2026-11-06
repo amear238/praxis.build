@@ -61,8 +61,16 @@
 #      from="<agent_id>">` ... `</agent-message>` frame of a user hand-back record
 #      (background Agent call — observed shape in this repo's session
 #      transcripts, where the tool_result is only the "Async agent launched"
-#      stub). Defeats a forged meta.json reusing a genuine earlier toolUseId (A8)
-#      unless the forger also edits the live parent transcript.
+#      stub) or (W-TN 2026-11-06, ruling 3b) inside the `<result>` span of the
+#      FIRST block of a user record with origin.kind=="task-notification" whose
+#      content BEGINS with `<task-notification>`, whose first `<task-id>` is
+#      <agent_id> and whose status is completed (async hand-back; captured
+#      2026-11-06 from this repo's main transcript, agents a9d35d34f3b18e943 and
+#      a66e2698ac35ce15f). Its first `<status>` and first `<summary>` lines
+#      decide, and the summary must be exactly `<summary>Agent "<description>"
+#      finished</summary>` with the description read from the harness-written
+#      tool_use <toolUseId> and free of newline/CR/</>/"/&. Defeats a forged meta.json reusing a genuine earlier
+#      toolUseId (A8) unless the forger also edits the live parent transcript.
 #   E. at ALLOW the gate writes .claude/state/last-allowed (tree, index, hash,
 #      head_before, ts, cmd_sha256); scripts/commit-tree-verify.sh (PostToolUse)
 #      compares the landed HEAD^{tree} with it. Detection only (A1/A3: a git
@@ -393,9 +401,25 @@ git_idx() {
 #      that frame line (hand-back arriving while the main thread is mid-turn;
 #      no type:"user" record is written — observed 2026-11-04 in this repo's
 #      main transcript for agents a68b1edece72d2bf9 and a1c957a9dde5a9900).
-# Both shapes were captured from this repo's real session transcripts on
-# 2026-11-04 (sync: a praxis-manager subagent's transcript; background: the
-# main-thread transcript). Pre-filter with /usr/bin/grep -F, then jq.
+#      W-TN (2026-11-06, ruling 3b): OR inside the `<result>` span of the
+#      FIRST block of a `type=="user"` record (not isMeta) with
+#      .origin.kind=="task-notification" whose content BEGINS with
+#      "<task-notification>\n": only that block's FIRST `<task-id>` line counts
+#      (must be <id>), its `<status>` must be `completed`, and the hash line must
+#      lie between `<result>` and the line that ends in `</result>` (the harness
+#      puts `</result>` on the hash line itself). Result lines are NOT indented,
+#      so any later or nested block (forgeable by whoever controls another
+#      agent's report) is never read. The `<summary>` line repeats the
+#      master-chosen description, so the description is bound from the
+#      harness-written assistant tool_use with id <toolUseId> (one non-empty
+#      string, no newline/CR/</>/"/&), the block's first `<summary>` must equal
+#      `<summary>Agent "<description>" finished</summary>` exactly (partial-result
+#      and "waiting" notifications fail), and a second `<status>` or `<summary>`
+#      ends the scan. Captured 2026-11-06 from this repo's main
+#      transcript (agents a9d35d34f3b18e943, a66e2698ac35ce15f).
+# The sync and agent-message shapes were captured from this repo's real session
+# transcripts on 2026-11-04 (sync: a praxis-manager subagent's transcript;
+# background: the main-thread transcript). Pre-filter with /usr/bin/grep -F, then jq.
 handback_check() {
   local aid="${1:-}" at="${2:-}" pt="${3:-}" hash="${4:-}" at_rp meta tuid line trs v
   [[ "$aid" =~ ^[A-Za-z0-9_-]{1,64}$ ]] || { echo "agent_id malformed"; return 1; }
@@ -450,6 +474,69 @@ handback_check() {
           else . end)
       | select(.hit) | "HIT"' 2>/dev/null | head -n 1)
   [ "$v" = "HIT" ] && return 0
+  # W-TN 2026-11-06 (ruling 3b) BEGIN
+  # Async hand-back as a task-notification: a type=="user" record, origin.kind
+  # "task-notification", content (a string) BEGINS "<task-notification>\n";
+  # header lines <task-id>/<tool-use-id>/<output-file>/<status>/<summary>/<note>,
+  # then "<result>" + the report's first line, report lines at COLUMN 0, and
+  # "</result>" on the same line as the last report line (the hash line). Only
+  # the FIRST block and its FIRST <task-id> line count; status must be
+  # completed; the hash must sit inside that block's <result> span.
+  # The <summary> line repeats the master-chosen Agent description, so the
+  # description is read from the harness-written assistant tool_use whose id is
+  # <toolUseId> (never meta.json) and must be one non-empty string free of
+  # newline/CR/</>/"/&. The FIRST <status> and FIRST <summary> lines decide (a
+  # second of either ends the scan), and that summary must equal
+  # `<summary>Agent "<description>" finished</summary>` exactly.
+  local dsc desc
+  dsc=$(/usr/bin/grep -F -- "$tuid" "$pt" 2>/dev/null | jq -R -s -r --arg id "$tuid" '
+      [ split("\n")[] | fromjson? | select(type == "object" and .type == "assistant")
+        | .message.content? | select(type == "array") | .[]
+        | select(type == "object" and .type == "tool_use" and .id == $id)
+        | .input.description? ] as $d
+      | if ($d | length) == 0 then "NONE"
+        elif ($d | all(.[]; type == "string" and length > 0 and (test("[\\n\\r<>\"&]") | not)))
+             and ($d | unique | length) == 1 then "OK " + $d[0]
+        else "BAD" end' 2>/dev/null)
+  case "$dsc" in
+    "OK "*) desc=${dsc#OK } ;;
+    *) echo "no hand-back carries the line '$line', and the task-notification check cannot run: the Agent call $tuid has no single plain description (missing, or contains newline/CR/</>/\"/&)"; return 1 ;;
+  esac
+  v=$(/usr/bin/grep -F -- "<task-id>$aid</task-id>" "$pt" 2>/dev/null | jq -R -r --arg aid "$aid" --arg line "$line" --arg sum "<summary>Agent \"$desc\" finished</summary>" '
+      fromjson? | select(type == "object" and .type == "user"
+                         and (.origin? | type == "object" and .kind == "task-notification")
+                         and (.isMeta? != true))
+      | (.message.content?
+         | if type == "string" then .
+           elif type == "array" then ([.[] | select(type == "object" and .type == "text") | .text | strings] | join("\n"))
+           else empty end)
+      | select(startswith("<task-notification>\n"))
+      | reduce (split("\n")[]) as $l ({st: "open", id: false, seen: false, done: false, sseen: false, sm: false, mseen: false, hit: false};
+          if .st == "open" then .st = (if $l == "<task-notification>" then "head" else "end" end)
+          elif .st == "head" then
+            (if $l == "</task-notification>" then .st = "end"
+             elif ($l | startswith("<task-id>")) then
+               (if .seen then .st = "end"
+                else .seen = true | .id = (($l | gsub("^\\s+|\\s+$"; "")) == ("<task-id>" + $aid + "</task-id>")) end)
+             elif ($l | startswith("<status>")) then
+               (if .sseen then .st = "end"
+                else .sseen = true | .done = (($l | gsub("^\\s+|\\s+$"; "")) == "<status>completed</status>") end)
+             elif ($l | startswith("<summary>")) then
+               (if .mseen then .st = "end" else .mseen = true | .sm = ($l == $sum) end)
+             elif ($l | startswith("<result>")) then
+               (if (.id and .done and .sm) then
+                  ($l | ltrimstr("<result>")) as $b
+                  | (if ($b | endswith("</result>")) then .st = "end" else .st = "result" end)
+                  | (if (($b | rtrimstr("</result>") | gsub("^\\s+|\\s+$"; "")) == $line) then .hit = true else . end)
+                else .st = "end" end)
+             else . end)
+          elif .st == "result" then
+            (if (($l | rtrimstr("</result>") | gsub("^\\s+|\\s+$"; "")) == $line) then .hit = true else . end)
+            | (if ($l | endswith("</result>")) then .st = "end" else . end)
+          else . end)
+      | select(.hit) | "HIT"' 2>/dev/null | head -n 1)
+  [ "$v" = "HIT" ] && return 0
+  # W-TN 2026-11-06 (ruling 3b) END
   echo "neither the tool_result for $tuid nor a hand-back frame from $aid carries the line '$line'"
   return 1
 }
