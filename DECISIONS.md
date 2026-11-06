@@ -769,3 +769,112 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 **NEEDS AMEAR (questions only, not answered):** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
 1. What counts as "proof of concept"? (His words name no test; the brief's framing ties it to Standard-resolution results.)
 2. `Praxis_build-r8j` is at P0, the master's choice (D-2026-11-02-C, DECISIONS.md:489; NEEDS AMEAR 13). Is P0 the level he wants?
+
+## 2026-11-04 — D-2026-11-04-B: R-1104-1 — commit gate accepts a praxis-auditor PASS (SubagentStop minter, provenance-checked) and a `GIT_INDEX_FILE=<abs path>` temp-index commit
+
+**Date:** 2026-11-04 (written 2026-11-04T20:31Z, BEFORE any hook edit, per S4)
+**Status:** DESIGN — specified, not yet implemented or tested at the time of writing. Filed by praxis-manager, unit `2026-11-04-gate-r1104-1`.
+**Authorisation chain (S4/S5):**
+- Amear, R-1104-1: *"I'm giving the agent permission to commit."* (D-2026-11-04-A; DECISION_LOG `2026-11-04T17:27:42Z`).
+- Amear, DECISION_LOG `2026-11-04T20:25:10Z` (WHO: amear, AskUserQuestion button): *"Yes, change the gate"* = change the commit gate so Code can commit its own audited work after praxis-auditor passes it.
+- Dispatch: DECISION_LOG `2026-11-04T20:25:33Z` (WHO: praxis-master) — this unit.
+- Constraint carried: the old 12-path staged set in the real index stays "as is" (DECISION_LOG `2026-11-03T18:50:00Z` item (3)); hence temp-index commits.
+
+**Problem (from the brief, re-read by the filer):** `.claude/hooks/gate-commit.sh:152-179` honours only a token minted by `audit-approve.sh`, which only `orchestrator-auditor` runs; that agent is not spawnable from the praxis-master roster, so no master commit can pass. The gate also hashes the REAL index only (line 152), so a temp-index commit would be checked against the wrong diff.
+
+**Design.**
+1. **Auditor output contract** (`.claude/agents/praxis-auditor.md`): when asked to authorise a commit, the auditor computes the hash itself and ends its final message with three bare lines: `VERDICT: PASS`, `COMMIT-INDEX: REAL` or `COMMIT-INDEX: <absolute index path>`, `COMMIT-DIFF-SHA256: <64 hex>` (sha256 of the cached diff under that index).
+2. **Minter** `.claude/hooks/auditor-mint.sh`, registered on `SubagentStop` with matcher `^praxis-auditor$`. It re-checks `agent_type == praxis-auditor` itself, parses `last_assistant_message` (exactly one VERDICT line and it is PASS; exactly one of each COMMIT- line), recomputes the hash of the named index vs HEAD and mints only on an exact match of a non-empty diff. Token `.claude/state/audit-pass-<hash>` carries `tree=`, `index=`, `minter=praxis-auditor`, `agent_id=`, `agent_transcript=`, `parent_transcript=`; AUDIT_LOG row `<ts> praxis-auditor:<agent_id> <hash> PASS index=<..>`. Always exits 0 (never blocks a stop).
+3. **Provenance check** (shared lib `.claude/hooks/audit-provenance.sh`, used at mint AND at commit): the agent transcript must be `$HOME/.claude/projects/<slug>/<session>/subagents/agent-<agent_id>.jsonl`; its sibling `.meta.json` must say `agentType` praxis-auditor, `spawnDepth` 1; its `toolUseId` must appear in the parent session transcript `<slug>/<session>.jsonl` as an `Agent` tool_use with `subagent_type` praxis-auditor; the agent transcript must contain the `COMMIT-DIFF-SHA256: <hash>` line. So a mint needs a harness-written auditor transcript spawned from the main thread (depth 1), not by a producer (depth 2).
+4. **Gate** `.claude/hooks/gate-commit.sh`: accepts `GIT_INDEX_FILE=<absolute unquoted path>` followed directly by the commit invocation as the whole command (any other appearance of `INDEX_FILE`, or the variable set in the hook's own env, denies fail-closed); hashes and write-trees THAT index; the token's `index=` must equal the commit's index (legacy tokens = REAL). praxis-auditor tokens are re-verified (provenance, and parent transcript == the committing payload's `transcript_path`). A main-thread `praxis-master` caller is accepted ONLY with a provenance-verified praxis-auditor token — a legacy `audit-approve.sh` token is refused for it, so running audit-approve.sh by hand does not let the master commit. Legacy route unchanged for every other caller (orchestrator-auditor route preserved). Pathspec, `-a`/`--all`/`--amend`, one-commit-per-call, single-session and tree binding unchanged. Token stays single-use (deleted at allow).
+5. **Tripwire** `scripts/mint-guard.sh` (PreToolUse `Bash|Write|Edit|NotebookEdit`): any `praxis-*` caller is denied a Bash command naming `audit-approve`, `auditor-mint`, `audit-provenance` or `audit-pass-`, a Bash write form on `AUDIT_LOG`, or a Write/Edit to `AUDIT_LOG.md` or `.claude/state/audit-pass-*`. A tripwire, not a wall: string obfuscation evades it.
+
+**What this does NOT prevent (stated up front):** every actor runs as the same uid with Bash. A producer or the master that fabricates a meta file, a subagent transcript AND a matching tool_use line in the live session transcript can still forge a mint; this design turns that into a multi-file forgery of harness-owned files instead of one `audit-approve.sh` call. Hooks also run from the working tree, so a producer that edits the minter or gate changes enforcement live, before any audit.
+
+**Out of scope, interactions noted only:** `Praxis_build-hwk` (quoted-subcommand evasion still evades the gate), `-nvn`, `-22q`.
+
+**D-2026-11-04-B addendum — deviations from the design above (appended 2026-11-04T21:34:49Z, AFTER the fix work; S4 timing NOT met for these items, stated rather than hidden).** Same authorisation chain as above (R-1104-1; DECISION_LOG `2026-11-04T20:25:10Z`, `20:25:33Z`). Each item closes a break that an adversarial worker in this unit demonstrated against scratch copies (report `docs/reports/2026-11-04-gate-r1104-1-manager.md`):
+- Canonical hash command everywhere (lib, gate, `audit-approve.sh`, auditor def) is `git diff --cached --no-ext-diff --no-textconv --no-color --text --ignore-submodules=none --no-relative`. A plain cached diff could be hidden by diff.external, textconv, binary attributes, ignoreSubmodules or diff.relative. `audit-approve.sh` changed accordingly; the legacy route still works.
+- Minter: the three lines must be the last three lines; exactly one line anywhere containing VERDICT / COMMIT-INDEX / COMMIT-DIFF-SHA256; refuse if the words FAIL*, UNVERIFIABLE or BLOCKED appear anywhere. The transcript-text check is skipped at mint time (flush order unverified) and enforced at commit time. Refuse if the git toplevel is not ROOT.
+- Gate, stack master only: the whole command must be `[GIT_INDEX_FILE=<abs path> ]git commit` followed only by `-m <msg>` pairs. Unquoted characters are allowlisted. The payload `cwd` and the git toplevel must equal ROOT. The effective git hooks dir must match HEAD (it lives at `.beads/hooks` in this repo). At commit time, the parent transcript must hold the harness's Agent tool_result stub (column-0 `agentId: <aid>`) for the meta toolUseId, plus the hash line in that result or in the `<agent-message from="<aid>">` hand-back (a `user` record or a `queued_command` attachment).
+- New `scripts/commit-tree-verify.sh` (PostToolUse Bash). It compares the new HEAD tree with the tree the gate allowed. This is detection only: it cannot undo a commit.
+- mint-guard now also covers `orchestrator-active`, `last-allowed`, `mint-log`, `.beads/hooks/` and `shell-snapshots`, with paths normalised.
+
+## 2026-11-05 — D-2026-11-05-A: Walk-forward design rulings (Amear, voice 2026-11-05)
+
+**Date:** 2026-11-05
+**Status:** RULED by Amear — items 1–5, graded REPORTED BY the voice agent. The text is the voice agent's record of his rulings, pasted by Amear with "file as WHO: amear". Ledger authorisation (S5): DECISION_LOG `2026-11-05T23:40:21Z` (WHO: amear). Appended 2026-11-05 by praxis-manager, unit `2026-11-05-addendum-filing`.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades:** REPORTED BY the voice agent = the five quoted items below, copied character for character from the `23:40:21Z` row. They are the voice agent's record, not a transcript of Amear's speech. Master's reading = the row's text marked "flagged not decided"; it is not Amear's words. The pointers below are the filer's, to existing repo text; they rule nothing.
+
+**The five items, verbatim from the row (REPORTED BY the voice agent, pasted by Amear with "file as WHO: amear"):**
+- *"1. Walk-forward runs BOTH ways: (a) paper's fixed rules, nothing optimised; (b) four parameters tuned per window — lookback, noise multiplier, stop-ATR multiplier, exit policy. A stop is added to the strategy for (b) on its own branch; baseline file unchanged."*
+- *"2. Windows per spec: 252-day in-sample / 63-day out-of-sample / 63-day step."*
+- *"3. Max-DD gate base: the lower of 4% of the MFFU account size and MFFU's trailing drawdown limit. Revisit if a personal account is used."*
+- *"4. Every window also reports worst drawdown at 1 MNQ and 1 NQ against each MFFU tier's limit."*
+- *"5. Account tier: no decision until backtest + paper results exist."*
+
+**Interactions — stated, not resolved.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- (i) O1 (`specs/SPEC_RUBRIC.md:74-79`) and D-2026-11-02-C NEEDS AMEAR 1–2 (DECISIONS.md:531-532): the gate set, and whether walk-forward efficiency ≥ 0.50 applies. Per the master's reading, items (1a)/(1b) speak to these: "(a) has no optimisation step, (b) does". The row does not say which gates apply to which arm. O1 stays OPEN.
+- (ii) Report C (`docs/reports/2026-11-04-proof-of-concept-standard.md:248`) NEEDS AMEAR 2, the equity base for "max DD ≤ 4% of equity". The master's reading says item 3 answers it, and summary v2 item 5, in part, and that "the MFFU account size itself is still not on the ledger". Report C:248 mentions "the MFFU $1,500 EOD trailing DD"; this entry does not adopt that figure as the limit.
+- (iii) Report C §3 (`:144`): tick data becomes a prerequisite once a resting stop or target exists (`:170`). Report C grades this INFERRED: `:170` sits under the heading at `:165`, "Answer (INFERRED from the code, the vendor document and the reproduction; untested in NinjaTrader because no High run exists)", and summary item 5 (`:17`) reads "INFERRED; untested in NinjaTrader". Item 1(b) adds a stop; the master's reading calls it a resting order. Per the master's reading, this interaction "is put back to Amear, not resolved" (see also C NEEDS AMEAR 11, `:257`).
+- (iv) Bead `Praxis_build-r8j` is P0, the master's choice, not confirmed by Amear (D-2026-11-04-A NEEDS AMEAR 2). `bd show` on 2026-11-05 reads "P0 · OPEN". Per the master's reading, walk-forward still waits on it, and on the data-quality items that C NEEDS AMEAR 7 (`:253`) leaves to Amear: 33 missing sessions and the 12:15 template.
+- (v) Per the master's reading, item 1(b) authorises a stop in the strategy on its own branch in principle, but no build is dispatched. This entry dispatches no build and creates no branch. The master's reading also states: "Nothing here authorises a purchase, an import or a run."
+
+**S6 cross-block — no block's spec changes:**
+- **F1** (`specs/SPEC_RUBRIC.md:17`), **F2** (`:30`), **F3** (`:45`), **F4** (`:59`): untouched. No code, template or config changed. Nothing here claims any F advanced.
+
+**NEEDS AMEAR (questions only, not answered):**
+1. Which MFFU account size and which tier limits are to be used for items 3 and 4, given that item 5 defers the account-tier decision until backtest and paper results exist?
+2. Does arm (b) run on minute data, given its stop (report C NEEDS AMEAR 11)?
+3. What is the candidate set for the exit-policy parameter in item 1(b)?
+4. Is R-1104-3's judged version arm (a), arm (b) or both?
+
+## 2026-11-05 — D-2026-11-04-B addendum 2 (R-VN4-10, R-VN4-9)
+
+**D-2026-11-04-B addendum 2 — R-VN4-10 (minter PASS signal) and R-VN4-9 (same-uid residual) (appended 2026-11-05T23:55Z, BEFORE the minter edit, per S4; correction unit `2026-11-04-gate-r1104-1` correction 1).**
+**Authorisation chain (S4/S5):**
+- Amear, R-VN4-10, DECISION_LOG `2026-11-05T23:51:21Z` (WHO: amear; REPORTED BY the voice agent, from `docs/reports/2026-11-04-voice-session-notes-4.md`): *"Use common sense and just give it the label that would make the least amount of mistakes … we need a system that has very specific description … We're not here to fuck around."* The voice agent's reading: cite rule ID and exact wording; the PASS signal is one fixed structured verdict line, not a word search.
+- **The change below is the master's reading, flagged as a reading and not Amear's words** (same row): *"drop the minter's FAIL-word filter and rely on the exact `VERDICT: PASS` + COMMIT-INDEX + COMMIT-DIFF-SHA256 lines; quoting a criterion's text must not block a mint"*.
+- Dispatch: DECISION_LOG `2026-11-05T23:51:21Z` (WHO: praxis-master) item (2).
+- Amear, R-VN4-9, same row: *"Yeah, I do."* (accepts the same-uid residual for now).
+
+**Change (minter `.claude/hooks/auditor-mint.sh` only):** rule (c) is removed. That rule refused when FAIL as a word start, UNVERIFIABLE or BLOCKED appeared anywhere in the message. Every other check is kept unchanged:
+- (a) exactly one line anywhere (any case) contains VERDICT, one contains COMMIT-INDEX, and one contains COMMIT-DIFF-SHA256;
+- (b) the last three lines are exactly `VERDICT: PASS` / `COMMIT-INDEX: <REAL|/abs/path>` / `COMMIT-DIFF-SHA256: <64 hex>`;
+- the NUL refusal, the toplevel check, the hash recompute on a non-empty diff, and provenance.
+
+Gate, provenance library, tripwire and verifier are not changed.
+
+**Consequences, stated before the work:**
+1. A PASS message that quotes a criterion containing "fail"/"failure" (e.g. S2's text) now mints.
+2. **Attacks A6a/A6b (W10, 2026-11-04) are re-opened by design.** A FAIL written in prose without the word VERDICT ("FAIL R2", "Result: FAIL"), followed by the contract block, mints again. Under R-VN4-10 the structured verdict line is the PASS signal. An auditor that writes FAIL in prose and then emits `VERDICT: PASS` is an auditor-honesty fault, the same class as the already-residual W14 F1. The minter does not judge it.
+3. A7 (`VERDICT: FAIL` plus a quoted PASS block) stays closed by rule (a). `VERDICT: FAIL` as the verdict line stays refused by rule (b).
+4. Rule (a) still refuses a message where the word VERDICT appears on any second line, including a quotation. The auditor contract note says so.
+5. Regression rows are added to the scratch matrix (PASS with "failure" in its body mints; last three lines not the contract → none; `VERDICT: FAIL` → none), and the A6a/A6b rows flip to the expected `minted`.
+
+**R-VN4-9:** the same-uid forgery residual (report `docs/reports/2026-11-04-gate-r1104-1-manager.md` §Residual risks, first item) is accepted by Amear for now. No code change. The residual stays documented, as accepted rather than closed.
+
+## 2026-11-06 — D-2026-11-04-B addendum 3 (look-alike verdict lines, W18 B1/B3)
+
+**D-2026-11-04-B addendum 3: look-alike VERDICT lines (appended 2026-11-06T00:18Z, BEFORE the minter edit, per S4; correction unit `2026-11-04-gate-r1104-1`, correction 1b).**
+**Authorisation chain (S4/S5):**
+- Amear, R-VN4-10, DECISION_LOG `2026-11-05T23:51:21Z` (WHO: amear; REPORTED BY the voice agent): *"we need a system that has very specific description"*.
+- Finding: W18 B1, OBSERVED (`docs/reports/2026-11-04-gate-r1104-1-manager.md` §Correction 1). A `VERDICT: FAIL` line spelled with a look-alike, zero-width or fullwidth letter, followed by the real three-line block, mints (`[M15-cyrillic-E-FAIL] … MINTED`). This falsifies addendum 2, consequence 3 ("A7 … stays closed by rule (a)") for any non-ASCII spelling. **This entry corrects that sentence.** Addendum 2 is not edited.
+- Dispatch: the master's correction-1b brief to praxis-manager, 2026-11-06. Items (1) to (3) below are that brief's, which is the master's reading and not Amear's words.
+
+**Change (minter `.claude/hooks/auditor-mint.sh` only):**
+1. **Final three lines must be pure printable ASCII.** Take the raw `last_assistant_message`, split it on LF, and drop trailing lines that are empty or contain only spaces. Each of the last three lines must then consist only of bytes 0x20–0x7E. Any byte ≥ 0x80, and any control character (including CR, TAB, VT and FF), is refused. Also, `LC_ALL=C` is exported at the top of the script. The existing trailing-whitespace strip therefore no longer depends on locale (closes W18 B3: NBSP minted under UTF-8 and was refused under C).
+2. **One verdict line in total, and it is the PASS line.** Each line of the message is folded as follows: delete Unicode format characters (U+200B–U+200F, U+2060–U+2064 and U+FEFF, as the brief lists, plus every other general-category Cf character and U+00AD); apply NFKC; delete combining marks (category Mn/Me). In the folded line, any non-ASCII **letter** (category L*) counts as a stand-in for any letter of VERDICT, and `1`, `l` and `|` count as stand-ins for `I`. A line is a **verdict line** if the folded text contains V-E-R-D-I-C-T (case-insensitive, those stand-ins allowed) **anywhere** in the line. The minter refuses unless exactly one line is a verdict line and that line is the raw third-from-last line `VERDICT: PASS`.
+3. Everything else is kept unchanged, including rule (a) (the ASCII count) and rule (b) (the exact last three lines).
+
+**Definition chosen, and a conflict flagged to the master.** The brief documents the verdict line as `^\s*VERDICT\s*:` after folding, which is an anchored pattern. It also states rule (2) as "/verdict/i" (unanchored), and it keeps rule (a) (unanchored). The anchored form alone would let `**VERDICT: FAIL**` through after folding (attack A7-bold). The minter therefore uses the **unanchored** form, which fails closed. Consequence: a PASS message that quotes prose containing "verdict" is still refused (false deny 2 is retained; rule (a) already refused it). **Master: confirm or overrule.**
+
+**Consequences, stated before the work:**
+1. Fullwidth, zero-width-split and Cyrillic/Greek look-alike `VERDICT: FAIL` lines, followed by the real block, are refused.
+2. A `<SPOKEN>` block after the contract is still refused, by design: the three lines must be last. Auditors are briefed to omit the SPOKEN block in authorising audits; a SPOKEN block placed before the contract still mints.
+3. New false-deny class: a line that contains seven consecutive non-ASCII letters (e.g. a Cyrillic or CJK word). Auditor reports are English, so this is accepted.
+4. Residual, not closed: an ASCII spelling with separators (`V E R D I C T`, `V.E.R.D.I.C.T`) or other ASCII look-alikes beyond I→1/l/|. Same auditor-honesty class as W14 F1 and A6.
+5. The gate, the provenance library, the tripwire and the verifier are not changed.
+
