@@ -1,3 +1,40 @@
+## Resume card — 2026-11-06 (overnight loop under R-1104-1/2) — nothing committed; gate unit PARKED at FAIL 2 (`uqb`); audited batch waits in `commit-idx-batch` for Amear
+
+**Update 14:43Z, unit 2026-11-06-post-commit-refresh (OBSERVED unless marked):** `main` = `origin/main` = `221ef59` (`git log --oneline -3`; `git ls-remote --heads origin main` = `221ef590…`; `git status -sb` = `## main...origin/main`). Two commits are on top of `87d506f`, both with author `Amear Bani-Ahmad`. That he typed them is REPORTED BY master (DECISION_LOG 2026-11-06T13:28:18Z, 14:38:27Z). `84b1a58` is the batch: 24 files / 5287+ / 8−. `221ef59` is r8j: 5 files / 898+. Both are pushed. Bead `Praxis_build-r8j` is CLOSED. The gate unit is still PARKED at FAIL 2 (bead `Praxis_build-uqb` OPEN, `bd show`), with its content landed in `84b1a58`. Whether to ratify addendum 1's timing or leave it parked is Amear's. The real index is unchanged at `12 files / 5726+ / 2−`. r8j landed before the flush, not after it as item 4.2 below planned; why is in DECISION_LOG 13:30:00Z. Next, in order: (1) The flush commit (PLANNED). The master builds a temp index from HEAD `221ef59` and it is audited (REPORTED BY master, 14:41:05Z). That Amear then types it, as he did for r8j while the gate is parked (14:38:27Z), is the master's plan in its brief to this unit; no ledger row records it yet. The route holds only while the gate stays parked, and that is Amear's decision. The flush carries the ledgers, D-2026-11-05-B with note 1, the remaining MANIFEST rows, the STATUS and HANDOFF 2026-11-06 text, and the 2026-11-06 reports; the path list is the master's. (2) Amear's open decisions are as listed under "Decisions that are yours" in `docs/reports/2026-11-06-return-handoff-claude-ai.md`, minus two items now done: the commit route for the batch (option 1, typed) and the r8j commit (see that file's Correction 2). Still open: the gate park, which is ratify addendum 1's timing or leave it parked (commit-route options 2–3); line 34's hook change, which is one possible remedy, untested, Amear's call (Correction 1 items 1 and 8); items 4–9; Correction 1 items 6–7; and the open items under "Decisions that are Amear's — pointers only" in the STATUS.md 2026-11-06 section (e.g. D-2026-11-05-A NEEDS AMEAR). (3) Step c still waits on the rulings in item 4.3 below. Every statement in the header above and in the card below that predates 13:28Z describes the state when the card was written (unit 2026-11-06-status-handoff-refresh, returned DECISION_LOG 2026-11-06T01:07:39Z; the loop ended at 01:20:45Z). That includes item 1's `87d506f` and "No commit" lines, item 3's batch in `commit-idx-batch`, items 4.1–4.2's waits, and item 5's r8j bullet and open-bead count (now 46, `bd list --status open`). They are left as written. Pointers: DECISION_LOG 2026-11-06T13:28:18Z, 13:28:47Z, 14:38:27Z, 14:41:05Z. Commands are pasted in `docs/reports/2026-11-06-post-commit-refresh-manager.md`. Revised after two adversarial passes; the final evidence is the report's last capture.
+
+Grades: OBSERVED = read on this Mac by unit `2026-11-06-status-handoff-refresh`; the commands are pasted in `docs/reports/2026-11-06-status-handoff-refresh-manager.md`. Other claims are REPORTED BY master and cite the DECISION_LOG row stamp. Full detail is in the STATUS.md 2026-11-06 section.
+**1. Git.** `main` = `origin/main` = `87d506f` (OBSERVED). No commit on any ref since 2026-11-05T12:00Z (OBSERVED `git log --all --since`). Real index = the old 12-path set, `12 files / 5726+ / 2−` (OBSERVED). Root `F` untracked. Both stay out of every commit (DECISION_LOG 2026-11-05T23:50:09Z, WHO: amear).
+**2. Parked.** Gate unit `2026-11-04-gate-r1104-1` hit FAIL 2 on S4 (2026-11-06T00:54:04Z). Bead `Praxis_build-uqb` P0 (OBSERVED `bd show`). Before that, a PASS minted the first token (mint-log line 17, 00:49:17Z, OBSERVED Read). The master's commit with it was denied by the hand-back check (00:50:30Z).
+**3. Where the work is.** Temp index `commit-idx-batch` in the session scratchpad holds the audited batch: `24 files / 5287+ / 8−` (OBSERVED); canonical `2e085187…` (REPORTED BY master, 00:39:42Z). Outside the batch, audited PASS but uncommitted: the r8j specs, D-2026-11-05-C and their MANIFEST rows (00:52:01Z). Also uncommitted: the ledgers DECISION_LOG and DISPATCH_LOG, meant for a separate flush (00:35:03Z).
+**4. Next, in order — each waits on Amear where marked.**
+1. Gate: Amear picks (a), (b) or (c) from the 00:54:04Z row. (a) is to type the batch commit from `commit-idx-batch`; (b) is to ratify the addendum-1 timing; (c) is to leave it.
+2. Waits on Amear's choice in item 1. If the batch lands, the planned order is a ledger-flush commit, then r8j's own commit (00:35:03Z, 00:52:01Z). Under (a), Amear types the commit himself. The hand-back defect is listed as his (00:54:04Z), and no master commit through the gate has succeeded.
+3. Step c (walk-forward build) waits on the spec's NEEDS AMEAR 1–6 and the harness choice (00:54:04Z).
+4. Return handoff for the Claude.ai chat: written at `docs/reports/2026-11-06-return-handoff-claude-ai.md` and re-audited PASS after Correction 1 (01:02:24Z). Item 8 was appended after that PASS. It goes to Amear; it is uncommitted.
+**5. Beads (OBSERVED):** 47 open.
+- `r8j` P0: Amear confirmed P0 in R-VN4-4.
+- `uqb` P0: the gate park.
+- `22q` P0 [bug]: the commit-gate contradiction.
+- `9lj` P2 [bug]: the stop gate grades the newest report. It recurred overnight (23:59:40Z, 00:04:41Z).
+**6. Amear's decisions — pointers only.** STATUS.md 2026-11-06 section, last paragraph. They are:
+- gate options and the hand-back defect (00:54:04Z);
+- the cost model (23:59:40Z; fee report NEEDS AMEAR 1–3);
+- Fusion Question 0 (00:18:51Z);
+- the `f258a5d` parked-branch leak (00:48:37Z);
+- the walk-forward spec's NEEDS AMEAR (00:36:30Z, 00:54:04Z);
+- D-2026-11-05-A NEEDS AMEAR 1–4 (2026-11-05T23:51:21Z);
+- the R-VN4 not-ruled items (2026-11-05T23:51:21Z);
+- the master's flagged reading of R-VN4-10 (2026-11-05T23:51:21Z, 00:32:23Z).
+
+D-2026-08-06-A (carry it to main?) is open "to the master" (00:36:30Z).
+**7. Hook gotchas for the next session.**
+- master-bash-guard blocks any `>` in a master command. The trailer was written with parentheses (00:49:49Z).
+- master-bash-guard's `(sed|tee|patch|dd)\s+.*-i` arm matched `sed -n …` followed by `git update-index` in one command. Split them (00:36:30Z).
+- mint-guard blocks Bash that names a minting script or a token file; use the Read tool. OBSERVED this unit for praxis-manager: `ls .claude/state/audit-pass-2e085187*` → `[command hook 6]: BLOCKED: mint-guard: praxis-manager (Bash) command names a token-minting script or token file …`.
+- The SubagentStop report gate grades the newest `docs/reports/*.md`, not the stopping manager's (bead `9lj`; 23:59:40Z, 00:04:41Z).
+- The re-dispatched "foreground" auditor was launched asynchronously and returned via a task-notification frame (OBSERVED by the master, 00:52:01Z). The row generalises this to every Agent call in the session. That generalisation, and the "hand-back-frame defect" name in 00:54:04Z, rest on the inferred cause below. The gate denied the master's commit. Its message says it searched both "the tool_result … nor a hand-back frame from a0cd0e903edf251a4" for the sha line (00:50:30Z). The master's view is that the async frame is not matched. That cause is INFERRED: no second commit attempt has tested it (00:52:01Z, 01:00:27Z).
+- An S9 control that renames `command` to `commandX` invalidates the hooks block and drops every hook (23:56:03Z–23:56:44Z, 00:15:24Z). Use `command: "true"` plus `commandX`.
+
 ## Resume card — 2026-11-04 (Code session; R-1104 rulings filed) — commit permission granted; next is the VM handoff
 
 Grades: OBSERVED = read on this Mac on 2026-11-04. Other grades are marked. Amear's quotes are in DECISION_LOG.

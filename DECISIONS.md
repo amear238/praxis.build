@@ -920,3 +920,70 @@ Gate, provenance library, tripwire and verifier are not changed.
 **NEEDS AMEAR:** see `docs/specs/2026-11-05-walk-forward-spec.md`, section `## NEEDS AMEAR`, items 1–29 (questions only; none answered here).
 
 **Open for the master (not decided here):** whether `D-2026-08-06-A` is carried from `f258a5d` to `DECISIONS.md` on main.
+
+## 2026-11-05 — D-2026-11-05-B: R-VN4-1..14 — voice session 2026-11-04 (filed 2026-11-06)
+
+**Date:** 2026-11-06 (UTC; rulings spoken 2026-11-04 evening ET)
+**Status:** RULED by Amear — R-VN4-1..14, graded REPORTED BY the voice agent. The notes (`docs/reports/2026-11-04-voice-session-notes-4.md:3`) say *"Rulings are Amear's, quoted or closely paraphrased; Claude's readings are labelled."* Ledger authorisation (S5): DECISION_LOG `2026-11-05T23:51:21Z` (WHO: amear). Appended by praxis-manager, unit `2026-11-06-rvn4-filing`, under R-1104-2 (housekeeping).
+**Filing delay, stated plainly:** this entry was queued at `2026-11-05T23:51:21Z` (WHO: praxis-master, item 3: "DECISIONS entry D-2026-11-05-B queued after the gate correction") and was not dispatched until `2026-11-06T01:07:39Z`. The omission was the master's; the status-refresh producer caught it (DECISION_LOG `2026-11-06T01:07:39Z`, item 2: "Master's omission").
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades:** *Amear's words* = the quoted text of each item below, copied character for character from the `23:51:21Z` row (extracted by script, not retyped). They are the voice agent's record, not a transcript of his speech. *Reading* = column 4 ("Ruling as read by Claude") of the notes-4 table, copied as written; it is the voice agent's reading, not Amear's words. *Master's reading, flagged* = text the master added in the row; it is not Amear's words. Where the row and notes-4 differ (joiners, emphasis, one added parenthetical), the row is the filed source; the differences are listed after the items.
+
+**The 14 rulings (Amear's words verbatim from the `23:51:21Z` row):**
+- **R-VN4-1** — GitHub login, future use: "Only within this directory."
+  - reading (voice agent, notes-4): Agents may use his `gh` login only against the Praxis.build repo itself. Never for research reads of other people's repos. Past use (item 24): not ruled on further; no action requested.
+- **R-VN4-2** — breakers as resting stops?: "Until the account is live … resting stops." Asked which: "The latter."
+  - reading (voice agent, notes-4): Bar-close checks (market-order flatten) in the backtest; resting stop orders once live. Claude noted the gap: the backtest then does not test live stop fills; paper trading (Block 4) covers it.
+  - master's reading, flagged (row text, labelled there as the voice agent's reading): *"voice agent's reading: bar-close market flatten in the backtest, resting stops once live; confirmed by Amear's typed ruling 1 at 23:50:09Z"*. The clause "confirmed by Amear's typed ruling 1 at 23:50:09Z" is the master's link; the voice agent's notes predate that ruling.
+- **R-VN4-3** — walk-forward on minute data: "Yes."
+  - reading (voice agent, notes-4): Walk-forward runs on the existing 1-minute data. The spec's High/1-tick requirement is deferred, not deleted.
+- **R-VN4-4** — r8j at P0: "Yes."
+  - reading (voice agent, notes-4): **r8j confirmed P0 by Amear.**
+- **R-VN4-5** — data gaps: "As long as the data that I generated came back similar to … what is found online, I'm happy to move on."
+  - reading (voice agent, notes-4): 33 missing sessions and the 12:15 early-close exits are accepted as is. No fix before results are judged. Basis: baseline shape matches the published NQ replication (lower win rate, bigger winners), weaker.
+- **R-VN4-6** — commission: "Put together whatever fees would make reasonable sense. Even if it's a range, as long as it's a tight range." / "Apply the best figure you can find to the data."
+  - reading (voice agent, notes-4): Apply **$5.76 round trip all-in** ($2.88/side) in place of $2.96. Range $5.00–$5.80. Source: Tradeify's published NQ all-in and FundedNext's example (both REPORTED from web search in-call; MFFU's own fee page NOT read). **Code confirms against MFFU's fee page before the cost model changes; D-2026-10-30-A's cost model v1.1.0 is amended by a new DECISIONS entry, not edited.** Amear's expectation: prop sim accounts still deduct exchange/NFA/clearing fees from the sim balance (Claude: Topstep documents this; MFFU unverified). Effect on the baseline ≈ −$3,300 on 1,190 trades (Claude's arithmetic).
+- **R-VN4-7** — proof of concept: "Proof of concept is having the full trading pipeline existing and having it run in real live markets on a sim account." / "We're just gonna proceed without that [historical tick data]."
+  - reading (voice agent, notes-4): **R-1104-3 defined:** PoC = full pipeline (TradingView → n8n → NT8 → Rithmic → MFFU sim) running on sim in live markets = Block 4. **No historical tick-data purchase; proceed without it.** The PROPOSED 12-item checklist from report C is not adopted; items 1–7, 10, 13–20 of v2 §5 are moot or deferred by this ruling.
+- **R-VN4-8** — D-071: "Yes."
+  - reading (voice agent, notes-4): **The MFFU Rithmic connection is approved to be opened when Block 4 starts.** D-071 (Simulated Data Feed only) stands until then.
+- **R-VN4-9** — forgeable harness files: "Yeah, I do."
+  - reading (voice agent, notes-4): Accepts the risk that anything running as his user can forge the gate's files, for now. Full closure (separate user/machine) deferred.
+- **R-VN4-10** — rubric citation and PASS signal: "Use common sense and just give it the label that would make the least amount of mistakes … we need a system that has very specific description … We're not here to fuck around."
+  - reading (voice agent, notes-4): Choose the format with the least room for error. Claude's reading, to be confirmed by the gate's producer: auditor cites **rule ID and exact wording**; PASS signal is **one fixed structured verdict line** (e.g. `Result: PASS`), not a word search.
+  - master's reading, flagged (row text): *"drop the minter's FAIL-word filter and rely on the exact `VERDICT: PASS` + COMMIT-INDEX + COMMIT-DIFF-SHA256 lines; quoting a criterion's text must not block a mint"*. Not confirmed by Amear (NEEDS AMEAR 1).
+- **R-VN4-11** — repo licences: "Yes to all."
+  - reading (voice agent, notes-4): Code may borrow or re-implement from the researched repos **within each licence**. MIT: yes. No licence (e.g. skizzunni/money): read-only reference.
+- **R-VN4-12** — borrowed code: "Can it just be put in there as a branch so there could be a distinction between the pre and post?"
+  - reading (voice agent, notes-4): **Borrowed code lands on its own branch**, never straight onto `main`.
+- **R-VN4-13** — NT8 add-ons: "Yeah, just do the snapshot."
+  - reading (voice agent, notes-4): Add-ons may go on the Fusion install **after a VMware snapshot** of the VM; roll back if anything breaks.
+- **R-VN4-14** — Mac↔VM sharing: "I want there to be file sharing between the Mac and the VM … I don't need them to be isolated right now as there's no live money being traded."
+  - reading (voice agent, notes-4): **Now:** enable VMware Fusion shared folders (Praxis.build visible to the VM) to replace the Drive round trip. **Go-live checklist item (Block 5):** isolate the VM — remove the shared folder, no access to the main directory — before real money.
+
+**Row vs notes-4, Amear's-words column:** identical for R-VN4-1, R-VN4-2, R-VN4-3, R-VN4-4, R-VN4-5, R-VN4-8, R-VN4-9, R-VN4-11, R-VN4-12, R-VN4-13, R-VN4-14; different for R-VN4-6, R-VN4-7, R-VN4-10. The differences are joiners and emphasis only (row ` / ` where notes-4 has `Then: ` or a space; notes-4 bolds the last sentence of R-VN4-10 and adds "(Amear asked to be quoted.)"). The text inside the quote marks is identical in both once notes-4's `**` bold markers are removed (script check).
+
+**Interactions — stated, not resolved.** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+- (i) R-VN4-2 and Amear's typed ruling 1 (DECISION_LOG `2026-11-05T23:50:09Z`, WHO: amear): *"Arm (b) stop: evaluated on bar close, exit by market order next bar — same rule as the breakers (R-VN4-2). Not a resting stop in the backtest. Minute data is sufficient for arm (b). No tick purchase. R-VN4-7 stands."* It names R-VN4-2 and covers the backtest (bar-close check, market exit next bar). Per the reading, resting stops once live rest on R-VN4-2 alone; ruling 1 does not address live trading.
+- (ii) R-VN4-3 and R-VN4-5 with D-2026-11-05-A (DECISIONS.md:803) and D-2026-11-05-C (DECISIONS.md:881): walk-forward on the existing minute data; the data is used as is (33 missing sessions, 12:15 early-close exits). This entry changes neither.
+- (iii) R-VN4-6 with the fee report (`docs/reports/2026-11-05-mffu-fee-check.md:7-10`): MFFU's own page gives NQ $4.68 round trip (MNQ $1.90), not $5.76; $5.76 on that page is YM. The cost model stays $2.96 (D-2026-10-30-A unchanged) pending Amear (DECISION_LOG `2026-11-05T23:59:40Z`, `2026-11-06T00:06:48Z`; fee report NEEDS AMEAR at `:131`).
+- (iv) R-VN4-7 with R-1104-3 (D-2026-11-04-A, DECISIONS.md:752): per the reading, proof of concept is Block 4 on sim; no tick-data purchase. Report C's PROPOSED checklist is not adopted. Ruling 1 (above) also says "R-VN4-7 stands."
+- (v) R-VN4-8 with D-071: per the reading, the MFFU Rithmic connection is approved only when Block 4 starts; D-071 stands until then. DECISIONS.md has no D-071 entry heading (`grep -c '^#.*D-071'` = 0); its in-repo pointer is DECISION_LOG `2026-10-20T15:55:42Z` (line 424).
+- (vi) R-VN4-9 and R-VN4-10 with D-2026-11-04-B addendum 2 (DECISIONS.md:834) and addendum 3 (DECISIONS.md:859): both were applied in the gate correction unit, which is now PARKED at FAIL 2 (DECISION_LOG `2026-11-06T00:54:04Z`). This entry neither re-opens nor ratifies that unit.
+- (vii) R-VN4-11 and R-VN4-12 with the comparable-builds report (`docs/reports/2026-11-04-comparable-builds.md`): per the readings, borrowing is within each licence (e.g. eman007/cli-nt-bridge MIT, `:65`; skizzunni/money, `:47`, no LICENSE file, `:64`, read-only) and borrowed code goes on its own branch, never straight onto `main`. Amear's R-VN4-12 words are a question; the branch rule is the reading. No code is borrowed and no branch is made by this entry.
+- (viii) R-VN4-13: add-ons only after a VMware snapshot of the VM. No snapshot is taken and no add-on is installed by this entry.
+- (ix) R-VN4-14 with the Fusion walkthrough (`docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md:5`, `:8`): VMware says Shared Folder is unsupported for Windows 11 ARM guests on Apple Silicon. Question 0 in that walkthrough is open.
+
+**Not ruled (stay open, from notes-4 `## Not ruled on`):** past use of the GitHub login (item 24; no remedy requested); second Rithmic read-only connection (item 23); CME Atlassian wiki as a source (item 19); equity base for the 4% DD gate (item 5) and Sharpe definition (item 4); O1 gate set / WFE with no optimisation (item 6).
+
+**S6 cross-block — no block's spec changes:**
+- **F1** (`specs/SPEC_RUBRIC.md:17`), **F2** (`:30`), **F3** (`:45`), **F4** (`:59`): untouched by this filing. No code, template, hook or config changed. Nothing here claims any F advanced.
+
+**NEEDS AMEAR (pointers and questions only, not answered):**
+1. R-VN4-10: is the master's reading (drop the FAIL-word filter; rely on the exact `VERDICT: PASS` + COMMIT-INDEX + COMMIT-DIFF-SHA256 lines) what you meant, or should it be corrected?
+2. R-VN4-6: which fee figure applies — see `docs/reports/2026-11-05-mffu-fee-check.md:131` (NEEDS AMEAR 1–3 there).
+3. R-VN4-14: Question 0 in `docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md:8`.
+4. The five "Not ruled" items above.
+
+**D-2026-11-05-B note 1 (2026-11-06, after audit):** (iv) "Report C's PROPOSED checklist is not adopted" is the voice agent's reading of R-VN4-7, not Amear's words. (v) "approved only when Block 4 starts" — the word "only" is the filer's; the reading in notes-4 is "approved to be opened when Block 4 starts". The standing-limitation sentence in the Interactions heading is carried by convention and decides nothing.
