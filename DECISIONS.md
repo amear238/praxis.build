@@ -878,3 +878,45 @@ Gate, provenance library, tripwire and verifier are not changed.
 4. Residual, not closed: an ASCII spelling with separators (`V E R D I C T`, `V.E.R.D.I.C.T`) or other ASCII look-alikes beyond I→1/l/|. Same auditor-honesty class as W14 F1 and A6.
 5. The gate, the provenance library, the tripwire and the verifier are not changed.
 
+## 2026-11-05 — D-2026-11-05-C: Phase 3 spec import (r8j) and walk-forward spec
+
+**Date:** 2026-11-05
+**Status:** FILED by praxis-manager, unit `2026-11-05-r8j-phase3-import-and-wf-spec` (bead `Praxis_build-r8j`, P0). Not audited when this entry was written; the master-spawned auditor grades it. Neither file below has been ruled on as a whole by Amear.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Authorisation chain (S4/S5):**
+- Amear, DECISION_LOG `2026-11-05T23:50:09Z` (WHO: amear, typed), item b: *"b. r8j (P0): import the Phase 3 spec into the repo; derive the walk-forward spec from the 2026-11-05 addendum (both arms, 252/63/63, DD gate = lower of 4% of MFFU account or MFFU trailing limit, per-window DD at 1 MNQ and 1 NQ vs every MFFU tier). Audit, commit."*
+- Amear, R-VN4-4 (r8j at P0): *"Yes."* (DECISION_LOG `2026-11-05T23:51:21Z`, WHO: amear; REPORTED BY the voice agent).
+- Dispatch: DECISION_LOG `2026-11-05T23:55:05Z` (WHO: praxis-master).
+
+**Files (new; untracked and unstaged at time of entry):**
+1. `docs/specs/2026-11-05-phase3-build-specification.md`: 188 lines / 3,360 words, sha256 `cd02d34ae635626e674f4316bdfd9ac14d96f819aaf28d39b7d651607be69b83`. This is an import of the gitignored source `Redemtion/Intitialization-April 2026/Phase 3 build specification.rtf`, read on 2026-11-05 as `textutil` plaintext: 111 lines / 2,350 words, sha256 `d149bc8e11b18cd9db075dd4ad19c9ecea53b1f8e3c5460fcf583b83bc888de5`. Its body is identical to the parked conversion: `diff` against `git show f258a5d:docs/specs/2026-08-06-phase3-build-specification.md` exits 0. Normalised per-item diffs against the source exit 0 for all nine breakers, the Block-2 pass gates and the Block-4 gate text. Breaker #5 was compared only from its em dash on. The nine breakers are SPECIFIED ONLY, with zero implemented. That basis and its scope are stated in the file's STATUS note.
+2. `docs/specs/2026-11-05-walk-forward-spec.md`: 224 lines / 5,544 words, sha256 `b4341724134b0af1c2b268c7c38952f7f75cc801d84c72c61aad5ec0020d8645`. Status: DERIVED. It covers:
+   - arms (a) and (b), the 252/63/63 windows (day-count convention INFERRED) and the existing 1-minute data as is;
+   - the DD-gate base, as a per-tier table from MFFU's own pages fetched 2026-11-05 (REPORTED BY MFFU's pages, no tier chosen);
+   - the per-window 1 MNQ / 1 NQ drawdown reporting and the six Block-2 gates, verbatim.
+   Its section `## NEEDS AMEAR` holds questions 1–29.
+3. `docs/reports/2026-11-05-r8j-phase3-import-and-wf-spec-manager.md`: the unit's manager report and evidence.
+
+**Parked history:**
+- `r8j` was parked on 2026-08-07 at audit FAIL ×2 (`parked/Praxis_build-r8j`, `f258a5d`). The blocking finding was an arithmetic error in a byte-offset locator table in that unit's report; the auditor confirmed the spec conversion byte-correct.
+- This unit used new paths only and contains no byte-offset table. It left these untouched: the parked branch, `docs/reports/2026-08-06-session42-r8j-phase3-import.md` and the `docs/reports/2026-08-07-session44-r8j-*` files.
+- The de-identification rule for breaker #5 is kept. Its ruling, DECISION_LOG `2026-08-06T20:18:56Z` (WHO: amear), is on main. The entry that recorded it, `D-2026-08-06-A`, exists only at `f258a5d`, not in this file on main.
+
+**Rulings the files cite (no new ruling made here):**
+- Ruling 1 (`2026-11-05T23:50:09Z`, typed): *"Arm (b) stop: evaluated on bar close, exit by market order next bar — same rule as the breakers (R-VN4-2). Not a resting stop in the backtest."*
+- From `2026-11-05T23:51:21Z` (REPORTED BY the voice agent): R-VN4-2, R-VN4-3, R-VN4-5 and R-VN4-7.
+- D-2026-11-05-A items 1–5.
+- D-2026-11-02-C: R-VN3-3 (data as is) and R-VN3-6. R-VN3-5 (breakers on once built) is graded there as the agent's reading, confirmed by Amear in voice only.
+- D-2026-10-30-A, Status CONDITIONAL.
+
+**Deviations from the plan:** none made by this unit. The import's header notes are labelled additions. The import changes no design text, and the walk-forward spec adopts no unruled choice.
+
+**S6 cross-block:**
+- F1, F2, F3 and F4 are neither discharged nor changed. No code, hook or config was edited by this unit: `git diff --quiet HEAD -- ninjascript/` exits 0.
+- O1 and O4 stay OPEN.
+- The walk-forward spec touches Block 2 (gates, windows, configuration), Block 3 (how breakers are modelled in a backtest, quoted from ruling 1 only) and Block 4 (the O4 parity gate, left open). It touches the account tier only as a table, under item 5.
+
+**NEEDS AMEAR:** see `docs/specs/2026-11-05-walk-forward-spec.md`, section `## NEEDS AMEAR`, items 1–29 (questions only; none answered here).
+
+**Open for the master (not decided here):** whether `D-2026-08-06-A` is carried from `f258a5d` to `DECISIONS.md` on main.
