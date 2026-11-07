@@ -10,7 +10,7 @@ Source: `Z:\vm\2026-11-06-vm-handoff.md`, step 4. The full text, settings table 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
 
 ## Gate
-Start only if `Z:\vm\replies\` holds your `<ts>-cli-setup.md` reply and a `<ts>-CODE-go-2a.md` reply that names who sets the Strategy Analyzer tab and who reads the tab and the PRAXIS template back, and which strategy copy is meant, and Amear's step-0 words name the sim account (handoff section 2, item 5). Otherwise stop. If this skill and the handoff's step 4 disagree, STOP and reply; do not choose.
+Start only if `Z:\vm\replies\` holds your `<ts>-cli-setup.md` reply and a `<ts>-CODE-go-2a.md` reply that names who sets the Strategy Analyzer tab and who reads the tab and the PRAXIS template back, and quotes the sim account from Amear's step-0 words; and Amear's step-0 words name the sim account (handoff section 2, item 5). Otherwise stop. If this skill and the handoff's step 4 disagree, STOP and reply; do not choose.
 
 ## Limits (all apply)
 - Sim101 or the sim account Amear names. No live account. No orders. Nothing here runs until his words name the account (item 5).
@@ -22,11 +22,11 @@ Start only if `Z:\vm\replies\` holds your `<ts>-cli-setup.md` reply and a `<ts>-
 - Write a `<ts>-STATUS.md` with `STARTED` first and `FINISHED` last.
 
 ## Procedure
-1. Hash, and compare with the Mac hash `35393823e9bc146e95dcb1d9f6fe5785a3c72ee3a3fb71287f33fe2242752265` (ignore case and spaces):
+1. Hash, and compare with the HEAD hash `35393823e9bc146e95dcb1d9f6fe5785a3c72ee3a3fb71287f33fe2242752265` (`git show HEAD:ninjascript/PraxisNoiseAreaBreakout.cs | shasum -a 256`; ignore case and spaces). Amear: "the VM's installed copy must hash-match HEAD, or STOP" (his words, D-2026-11-07-A ruling 7(7), DECISIONS.md:1231).
    - `$D = [Environment]::GetFolderPath('MyDocuments')`
-   - `certutil -hashfile "$D\NinjaTrader 8\bin\Custom\Strategies\PraxisNoiseAreaBreakout.cs" SHA256`
-   - `certutil -hashfile Z:\ninjascript\PraxisNoiseAreaBreakout.cs SHA256`
-   - Either copy differs → STOP and reply. NT8 copy missing → search `"$D\NinjaTrader 8\bin\Custom"` for it, report every path found, and STOP.
+   - `certutil -hashfile "$D\NinjaTrader 8\bin\Custom\Strategies\PraxisNoiseAreaBreakout.cs" SHA256` (the installed copy his words name)
+   - `certutil -hashfile Z:\ninjascript\PraxisNoiseAreaBreakout.cs SHA256` (the handoff's extra check; Z: is the Mac working tree, not HEAD — INFERRED, handoff §0)
+   - Either copy differs → also report each copy's byte size and whether it holds a CR (handoff 4.2's read-only PowerShell, untried); then STOP: reply, `FINISHED`, and nothing further in the VM session, not only in NT8, until a new Code reply. Fix nothing. That scope is INFERRED — the master's reading ("a hard STOP condition for the VM session", `docs/reports/2026-11-07-amear-rulings-morning.md`:42; DECISIONS.md:1268), not Amear's word; changeable by him; handoff 4.2. NT8 copy missing → search `"$D\NinjaTrader 8\bin\Custom"` for it, report every path found, and STOP.
 2. The person go-2a names reads the PRAXIS commission template without changing it. It must show Per unit 1.48 on the Future row and the `NQCONTROW SEP25` row (the run's own $2.96 per trade, not the amended $4.68). Otherwise STOP and reply.
 3. The person go-2a names reads back every one of the 21 settings in the handoff's step 4.3 table from the open Strategy Analyzer tab; record what is read, and by whom. Any mismatch → STOP and reply; do not run.
 4. `C:\praxis\2a-config.json` as in the handoff's step 4.4.
@@ -34,7 +34,7 @@ Start only if `Z:\vm\replies\` holds your `<ts>-cli-setup.md` reply and a `<ts>-
    - `python -m nt8bridge ntstatus`
    - `python -m nt8bridge backtest --config C:\praxis\2a-config.json --timeout 1800`
    - On a timeout or error: reply. Do not retry with other flags.
-6. PASS only if `metrics.totalTrades` = `1190` AND `metrics.netProfit` = `197327.60` exactly. Any other number, an error or a timeout is FAIL. This is the numbers check only: whether 2a passes also waits on Amear's word on bridge NEEDS AMEAR 10 (handoff 4.6).
+6. PASS only if `metrics.totalTrades` = `1190` AND `metrics.netProfit` = `197327.60` exactly. Any other number, an error or a timeout is FAIL. This is the numbers check only. On a hand-set tab a numbers PASS is logged by Code and praxis-auditor as a partial pass of the in-VM automation lift: "bridge reproduces the baseline" (his words, D-2026-11-07-A ruling 6, DECISIONS.md:1230), not "driven from the terminal" (his words, D-2026-11-07-A ruling 6, DECISIONS.md:1230) (handoff 4.6).
 
 ## Reply
 File `Z:\vm\replies\<ts>-2a-result.md`, in the handoff's section 7 format, with `RESULT: DONE` and a line `2a-NUMBERS: totalTrades=<n> netProfit=<x>`. Paste: both hash outputs, the template rows, the 21 settings as read, the `ntstatus` output (including `ntVersion`), and the result JSON (`id`, `status`, `strategy`, `metrics`, and the first and last three `trades`). Code and praxis-auditor judge 2a; you do not.
