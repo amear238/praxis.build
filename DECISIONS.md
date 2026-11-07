@@ -1476,3 +1476,57 @@ Unit `2026-11-07-vm-handoff-amendment` (praxis-manager), on the master's dispatc
 **S4.** The authorising rows precede the work: D-2026-11-07-A (:1272, "these are APPLIED to `vm/2026-11-06-vm-handoff.md` by a later unit") and the DECISION_LOG `2026-11-07T15:19:00Z` dispatch. This addendum records the work.
 
 **S6.** F1–F4 (`specs/SPEC_RUBRIC.md`) untouched. D-071 untouched: ruling 5 does not mention it (DECISIONS.md:1263).
+
+## 2026-11-07 — D-2026-11-07-B addendum 1: early-close checkpoint and session numbering (master's decisions under delegation)
+
+Unit `2026-11-07-arm-b-spec-addendum` (praxis-manager), on the master's dispatch DECISION_LOG `2026-11-07T16:45:00Z` (WHO: praxis-master). The two spec readings were raised by the arm (b) code unit, `docs/reports/2026-11-07-arm-b-code-manager.md` "Still the master's" items 1–2 (:652–:653) and "Does NOT cover" items 5, 13, 14 and 15 (:613, :624–:626). The quotes below are copied from that row by script, byte for byte.
+
+**Both are the master's decisions under delegation (R-1104-2, DECISIONS.md:748), not Amear's word, changeable by him.** The row's own label, quoted: "TWO SPEC READINGS RAISED TO ME — both decided here as **master's decisions under delegation (R-1104-2), not Amear's word, changeable by him**:"
+
+- **Decision (1), early-close checkpoint.** Master's decision under R-1104-2; not Amear's word; changeable by him. Quoted: "(1) EARLY-CLOSE CHECKPOINT: on an early-close last bar that is also a checkpoint (12:00 on 2025-01-20 and 2025-06-19), ArmB KEEPS the base's behaviour (checkpoint exits/entries still run; only the stop decision is suppressed on a session-last bar). Reason: strictest reasonable = zero divergence from the committed, observed base on the m = 0 path (T1–T3 exactness is the test that parked 867's predecessor); skipping step (3) only when m > 0 would put order calls inside a `StopAtrMult` branch, which T6(i) forbids; spec §4's precedence sentence is therefore CORRECTED to say step (1) pre-empts step (2) only, and the checkpoint step on an early-close last bar follows the base. Alternative (changeable): skip step (3) on that bar for all m, re-baselining T1–T3."
+  - Alternative (named in the row): "Alternative (changeable): skip step (3) on that bar for all m, re-baselining T1–T3."
+- **Decision (2), session numbering.** Master's decision under R-1104-2; not Amear's word; changeable by him. Quoted: "(2) SESSION NUMBERING: the spec's band-first-exists sessions are one early (s12/s16/s20 for Lookback 10/14/18, not s11/s15/s19) because s1 is never committed; §5 :85 and T11 :200 CORRECTED; T11(i) is testable only at Lookback 10 in s12–s15; the T6(ii)/T11 oracle must model the s1 drop; the ATR "from s16" claim stands."
+  - Alternative: the row names none for (2). Reading, INFERRED, mine, not the master's word: (2) corrects an arithmetic consequence of the committed base (R19, `docs/reports/2026-10-30-3gm-worker3-adversarial-d1.md:89`), so there is no choice to name an alternative for. The warm-up rule itself keeps its version 2 alternative (spec §5).
+- **Oracle inputs carried into the spec** (the same row, quoted): "Also carried into the spec as oracle inputs (no code change): weekend-dated bars in the data file (141 dates; RTH template drop INFERRED), early-close cut where NT8 cuts (12:00/12:15/14:03 vs the file's 13:15/13:00), enum numeric order {BandOrVWAP 0, OppBand 1, Flat1559 2} vs the base's — bridge must send by name."
+
+**Spec lines changed** (`docs/specs/2026-11-06-walk-forward-values.md`, version 2 → version 2.1, in place; line numbers in the v2.1 file): :1 title and :3 status (version 2.1); :5 changelog line (new); :77 §4 Precedence (decision (1) appended as a "Version 2.1 correction"); :86 §5 Warm-up (s19 → s20 at Lookback 18, with the s1-drop reason and grades); :195 T8 (step (3) "skipped on a bar where (1) or (2) fired" → skipped where (2) fired; on F, (1) suppresses (2) only); :201 T11 (band from s12 / s16 / s20; T11(i) testable only at Lookback 10, in s12–s15; "or from Lookback 14 at k = 0.8" withdrawn); :228–:235 new subsection "Oracle inputs from the code unit (2026-11-07)", items (a)–(e). No other line changed (full `git diff` pasted in `docs/reports/2026-11-07-arm-b-spec-addendum-manager.md`). **Residuals not edited** (outside this dispatch's line scope; for the master): spec :270, the list (B) summary row 11, still reads "s19 (lookback 18)"; spec :219, the coverage table, still reads "[the wrong band admits an entry in s16–s18]", which under decision (2) would be s16–s19.
+
+**Grades.** Decision (1) is SETTLED (master). Decision (2): s16 = 2021-03-29 and N = 1352 are OBSERVED by the code unit's data-file trace (code report :523–:539, E6); the s12 / s20 arithmetic is INFERRED. Nothing here is compiled, run or tested. The code file's behaviour under (1) (code report :652) is WRITTEN level only (code report :14).
+
+**S4.** Written before the arm (b) code commit. The file `ninjascript/PraxisNoiseAreaBreakoutArmB.cs` exists untracked (`git status --porcelain`: `?? ninjascript/PraxisNoiseAreaBreakoutArmB.cs`); the branch `arm-b/wf-tunables` does not exist yet (`git branch --list 'arm-b*' | wc -l` → `0`). Stated, not hidden: the code was written before this entry and already keeps the base's behaviour that decision (1) chooses (code report :652). This entry precedes the commit, not the writing.
+
+**S6.** F1–F4 (`specs/SPEC_RUBRIC.md`:17, :30, :45, :59) untouched. F2 × Flat1559 is still open (DECISIONS.md:1452); neither decision resolves it.
+
+**S13.** No backtest or P&L figure is stated in this entry, so the standing sentence is not required here.
+
+**NEEDS AMEAR.** None new. Both decisions are his to change; neither is asked of him here.
+
+**Correction 1 to this addendum (DECISION_LOG 2026-11-07T16:50:00Z, after audit FAIL 1 on S4(ii)).** Written by correction unit `2026-11-07-arm-b-main-set-correction-2` on DECISION_LOG `[2026-11-07T17:00:00Z] WHO: praxis-master`. Two sentences of the "Spec lines changed" paragraph above (DECISIONS.md:1492) were true when written and stopped being true when Correction 1 edited the spec. Quoted verbatim from :1492:
+
+> No other line changed (full `git diff` pasted in `docs/reports/2026-11-07-arm-b-spec-addendum-manager.md`).
+>
+> **Residuals not edited** (outside this dispatch's line scope; for the master): spec :270, the list (B) summary row 11, still reads "s19 (lookback 18)"; spec :219, the coverage table, still reads "[the wrong band admits an entry in s16–s18]", which under decision (2) would be s16–s19.
+
+Both sentences are RETRACTED. Correction 1 made three in-place line edits to `docs/specs/2026-11-06-walk-forward-values.md`, on the authority of DECISION_LOG `[2026-11-07T16:50:00Z] WHO: praxis-master`; until this paragraph no DECISIONS.md line recorded them:
+
+- :197 T9: a "Version 2.1 note" added at the end of the line. On an early-close last bar that is also a checkpoint, the checkpoint step still runs as in the base; whether NT8 fills an entry decided there, and in which session, is UNVERIFIED. It implements decision (1). Correction 2 (DECISION_LOG 2026-11-07T17:00:00Z) appended the label below to the note itself.
+- :219 coverage table, Lookback row: `s16–s18` → `s16–s19`. It implements decision (2).
+- :270 list (B) summary row 11: `s19 (lookback 18)` → `s20 (lookback 18)`. It implements decision (2).
+
+Label: all three are the master's decisions under delegation (R-1104-2, DECISIONS.md:748), not Amear's word, changeable by him. They carry decisions (1) and (2) above into lines this addendum had left out, and add no new choice. The other spec line numbers given at :1492 stand, because the three edits are in place (spec `git diff --numstat HEAD` was `16 6` at the 16:50:00Z row and is `19 9` after Correction 1). The copy of the coverage table in D-2026-11-07-B above (DECISIONS.md:1429–1435, "copied by script from spec lines 216–222") still reads `s16–s18`. That copy is committed history and is not edited; the spec is the corrected text. This paragraph does not address the S4 timing finding of the same audit (the S4 paragraph above, :1496). That finding is open — Amear's.
+
+## 2026-11-07 — D-2026-11-07-B addendum 2: ratification (WHO: amear) of addendum 1's timing
+
+**Status:** RATIFIED by Amear — DECISION_LOG `2026-11-07T17:08:00Z` (**WHO: amear**; working tree, not yet in a commit). Appended by praxis-manager, unit `2026-11-07-arm-b-ratification-filing` (dispatch DECISION_LOG `2026-11-07T17:09:00Z`, WHO: praxis-master). Both quotes below are copied from the 17:08:00Z row by script, byte for byte.
+
+- **The finding.** The auditor's S4(i) finding: addendum 1 (DECISIONS.md:1479–1516) was written after `ninjascript/PraxisNoiseAreaBreakoutArmB.cs` was written, before any commit, and the file keeps the committed base's early-close checkpoint behaviour where spec v2 said the step is skipped.
+- **The question put to him** (AskUserQuestion, the row's question text): "Arm (b) code audit FAIL 1 on S4 timing. The written strategy file keeps the committed base's behaviour on an early-close last bar (12:00 on 2025-01-20 and 2025-06-19): the checkpoint exits/entries still run there and only the stop is suppressed. Spec v2 said that checkpoint step is skipped on such a bar. I decided (under R-1104-2) to keep the base's behaviour and filed D-2026-11-07-B addendum 1 — but the file was written before that entry (both are uncommitted). The auditor: an after-the-fact entry needs your ratification, as with uqb addendum 6. Which do you rule?"
+- **His answer, verbatim as returned by the tool:** "Ratify the timing"
+- **Reading — the master's, not his words.** Addendum 1 stands as written; its timing is ratified by him; the base's early-close behaviour is kept; T1–T3 stay identical to the committed runs.
+- **What he did NOT rule.** He was asked one question only. The R-1104-2-scope question raised by the spec-addendum unit stays open for the return handoff.
+- **Precedent.** D-2026-11-04-B addendum 6 (DECISIONS.md:1192), the uqb ratification of addendum 5's timing.
+- **Chain.** DECISION_LOG `2026-11-07T17:08:00Z` (WHO: amear) → this addendum → the commits.
+
+**S6.** F1–F4 (`specs/SPEC_RUBRIC.md`) untouched. Nothing was compiled, run or tested.
+
+**S13.** No backtest or P&L figure is stated in this entry, so the standing sentence is not required here.
