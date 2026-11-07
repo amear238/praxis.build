@@ -1288,3 +1288,175 @@ Then loop: finish 867, build arm (a) and (b) Mac-side, and tell me when the VM s
 - D-2026-11-06-A item 2's "Direction: the walk-forward runs in NT8 through the bridge, not in a Mac-side Python copy." (DECISIONS.md:1003) and ruling 4 Q7 point the same way (INFERRED: Q7 adds that window selection and PBO run on the Mac from NT8's trade lists).
 
 **Correction 1 (before commit, after audit FAIL 1 on S1/S13/check f; appended by unit 2026-11-07-rulings-filing-correction-1, DECISION_LOG 2026-11-07T13:36:00Z).** Retracted, as written in the S4 timing paragraph above (:1282): "the walkthrough line was appended at 13:08:15Z (that file's mtime, `stat`, unchanged since), BEFORE this entry was first spliced into this file." No output was pasted for it, and "unchanged since" is false. OBSERVED by this unit before any edit: `TZ=UTC stat -f '%Sm' -t '%Y-%m-%dT%H:%M:%SZ' docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md` → `2026-11-07T13:25:12Z`. The 13:08:15Z first-append time, and so whether that first append preceded this entry's first write at 13:08:18Z (:1282), is UNVERIFIED: the mtime has moved since. The walkthrough :38 line's current text dates from the W4 fix round of the filing unit (REPORTED BY `docs/reports/2026-11-07-rulings-filing-manager.md`:27 and :230), i.e. after this entry's first write. S4, restated: the line is written by the same unit as this entry (as :1282 says); its CONTENT was set by the `12:55:00Z` (WHO: amear) and `13:00:54Z` rows, both before any edit; its text was last edited after this entry's first write. Also corrected (:1262, :1280): "the last block of this file" means the last block of the WORKING-TREE file; the blob the master's gated commit is to carry ends at the line before the D-2026-11-06-D heading and does not contain the draft (INFERRED: the `13:36:00Z` row assigns the rebuild of `commit-idx-u1` to the master; that blob is not built by this unit). Also corrected (:1244): "The file is carried unedited" now holds for its body (lines 1–56) only; "unedited" is the master's dispatch word (`13:00:54Z`), not Amear's (REPORTED BY the `13:36:00Z` row). Master's decision under R-1104-2 (DECISION_LOG `2026-11-07T13:36:00Z`, WHO: praxis-master; not Amear's word; changeable by him): a `---` separator and one marked S13 addendum line are appended to the end of that file and of `docs/reports/2026-11-07-amear-rulings-morning.md`; their bodies stay byte-identical (sha256 `7999c034…cb48`, lines 1–56; `975f9c48…1c78`, lines 1–44). Void clause, from that row: if Amear wants the notes file byte-identical as a whole, the line comes off and S13 is waived for that file by his word.
+
+## 2026-11-07 — D-2026-11-07-B: walk-forward values — RULED (D-2026-11-07-A) and SETTLED (R-1104-2); arm (b) code design and acceptance tests T1–T13
+
+**Date:** 2026-11-07
+**Status:** RULED / SETTLED by source. RULED = Amear's words, quoted from D-2026-11-07-A (and the older rulings named below). SETTLED = a settlement under R-1104-2 (DECISIONS.md:748), delegated by Q10: the stop values and the `StopAtrMult = 0` input rule are the master's own decision in D-2026-11-07-A (:1262); every other settlement is made by this unit on the master's dispatch (DECISION_LOG `2026-11-07T14:06:00Z`); each is changeable by him. Not Amear's word. This entry supersedes the never-committed draft D-2026-11-06-D, parked FAIL 2 at DECISION_LOG `2026-11-07T00:00:00Z`. That draft's text is preserved verbatim in `docs/reports/2026-11-07-wf-values-fresh-manager.md` Appendix B (sha256 `9a83e55d1e56942f80273d9b52721ea6852cf7e5b58cac67d12b876395693683`). Governing spec: `docs/specs/2026-11-06-walk-forward-values.md` version 2. Appended by praxis-manager, unit `2026-11-07-wf-values-fresh`. Dispatch: DECISION_LOG `2026-11-07T14:06:00Z` (WHO: praxis-master). First written 2026-11-07T14:40:44Z (`date -u`).
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Authorisation.**
+- D-2026-11-07-A ruling 4, his words, copied by script from DECISIONS.md lines 1220–1228 (the fenced block, `sed -n 1220,1228p`), not retyped:
+
+```text
+   Q2 yes, lookback {10,14,18} x multiplier {0.8,1.0,1.2} is the small grid.
+   Q3 Off is NOT a stop value — I ruled "add the stop, tune all four". Three finite stop-ATR multipliers; you propose them, inside 1.5–3.0 ATR.
+   Q4 yes, OppBand = the paper's opposite band, as in _OppBand.cs.
+   Q5 yes, Flat1559 = BandOrVWAP exits, flatten on the 15:59 bar, as in _Flat1559.cs.
+   Q6 ATR(14) = 14 completed RTH sessions (daily ATR).
+   Q7 NT8 full-span runs per configuration through the bridge, window selection and PBO on the Mac from NT8's trade lists. That keeps one copy of the strategy (NT8); only the selection maths runs on the Mac.
+   Q8 both arms are judged against all six Phase 3 gates; arm (b) must also pass PBO < 0.05.
+   Q9 no tier chosen. Report the per-tier table; I pick after paper results.
+   Q10 and every remaining PROPOSED value in the file: settle under R-1104-2, strictest reasonable choice. Add the missing ExitPolicy/Contracts test that parked 867, re-audit, commit.
+```
+
+  Q1 got no answer of its own. D-2026-11-07-A's filer reads it as falling under Q10 (DECISIONS.md:1256, INFERRED).
+- Reach of Q10 — INFERRED (the master's reading, DECISION_LOG `2026-11-07T14:06:00Z`). The dispatch settles "for every value that was PROPOSED and for Q10's open items — EXCEPT the items ruling 9 keeps open". Version 1's NEEDS AMEAR question 10 was `**The WF spec's 29 items, mapped.**` (version 1 :146, in the unit report's Appendix A). So Q10 is read as also handing over the WF spec's 29 items, except ruling 9's items and the tier pick (Q9). Not Amear's word.
+- D-2026-11-06-B ruling 4 (DECISION_LOG `2026-11-06T20:08:28Z`, WHO: amear; paste at DECISIONS.md:1063), as spec §0 quotes it: "4. Walk-forward arm (b) and spec NEEDS AMEAR, under "We're not here to fuck around" — strictest reasonable defaults: small grid around the paper's published values (no wide search); ATR 14; exit policies BandOrVWAP / OppBand / Flat1559; in-sample objective = risk-adjusted return with a minimum trade count, never net profit; partial last window dropped; judged arm = (a) fixed rules; arm (b) counts only if it also passes PBO < 0.05. Report the exact values chosen back to me."
+- Ruling 1 of 2026-11-05 on the bar-close stop (DECISION_LOG `2026-11-05T23:50:09Z`, WHO: amear), as spec §0 quotes it: "Arm (b) stop: evaluated on bar close, exit by market order next bar — same rule as the breakers (R-VN4-2). Not a resting stop in the backtest. Minute data is sufficient for arm (b)."
+- D-2026-11-05-A items 1–5 (DECISIONS.md:812–816; the voice agent's record, filed as WHO: amear), copied by script:
+  - *"1. Walk-forward runs BOTH ways: (a) paper's fixed rules, nothing optimised; (b) four parameters tuned per window — lookback, noise multiplier, stop-ATR multiplier, exit policy. A stop is added to the strategy for (b) on its own branch; baseline file unchanged."*
+  - *"2. Windows per spec: 252-day in-sample / 63-day out-of-sample / 63-day step."*
+  - *"3. Max-DD gate base: the lower of 4% of the MFFU account size and MFFU's trailing drawdown limit. Revisit if a personal account is used."*
+  - *"4. Every window also reports worst drawdown at 1 MNQ and 1 NQ against each MFFU tier's limit."*
+  - *"5. Account tier: no decision until backtest + paper results exist."*
+- D-2026-11-06-A item 2 (DECISIONS.md:1003): "Direction: the walk-forward runs in NT8 through the bridge, not in a Mac-side Python copy."
+- D-2026-11-07-A, the master's Q3 settlement (DECISIONS.md:1262; DECISION_LOG `2026-11-07T13:00:54Z`, WHO: praxis-master). Not Amear's word.
+
+**Values.** Every value in spec §2–§9. "(B) n" is the row of the spec's list (B). Each SETTLED value is changeable by him.
+
+| Value | Setting | Grade | Spec |
+|---|---|---|---|
+| Arm (a) code | `ninjascript/PraxisNoiseAreaBreakout.cs` unchanged: Lookback 14, k 1.0, BandOrVWAP, Contracts 1 | The four values OBSERVED (code, spec §2); nothing optimised and the file unchanged: RULED (D-2026-11-05-A item 1, "nothing optimised", "baseline file unchanged") | §2 |
+| Arm (a) stop | None | INFERRED (spec §2: item 1 adds the stop "for (b)") | §2 |
+| Judged arm | (a) | RULED as his statement (ruling 4 of 2026-11-06, "judged arm = (a) fixed rules"); as an O1 item OPEN (ruling 9) | §2, §8 |
+| Arm (a) windows | Full-span run, reported on the 17 OOS windows plus the full-span total | SETTLED; alternative: also window 1's first 252 sessions ((B) 1) | §2 |
+| Status of this walk-forward | Provisional result, labelled so; not by itself the go/no-go judgement | SETTLED; alternative: treat it as the judged version ((B) 35) | §2 |
+| Breakers | Run without breakers, labelled provisional; repeated with breakers once built; both kept. A reporting convention only | SETTLED for walk-forward use only; the Block 4 question is not decided here (breaker build; O4); alternative: wait for the breakers ((B) 36) | §2 |
+| Lookback grid | {10, 14, 18} | RULED (Q2) | §3 |
+| Noise multiplier grid | {0.8, 1.0, 1.2} | RULED (Q2) | §3 |
+| Stop axis constraint | Off is not a stop value; three finite multipliers inside 1.5–3.0 ATR | RULED (Q3) | §3 |
+| Stop-ATR multipliers | {1.5, 2.25, 3.0} × ATR(14) | SETTLED (the master, D-2026-11-07-A :1262); alternative: {1.5, 2.0, 2.5} or {2.0, 2.5, 3.0} ((B) 2) | §3 |
+| `StopAtrMult = 0` | Input value for T1–T3 only; not a grid value; at 0 no level and no stop exit | SETTLED (the master, :1262); alternative: no zero input, a separate test build ((B) 3) | §3, §4 |
+| Exit policies | BandOrVWAP / OppBand / Flat1559 | RULED (ruling 4 of 2026-11-06) | §3 |
+| OppBand definition | The paper's opposite band, as in `_OppBand.cs` | RULED (Q4) | §3 |
+| Flat1559 definition | BandOrVWAP exits, flatten on the 15:59 bar, as in `_Flat1559.cs` | RULED (Q5) | §3 |
+| Grid size | 3 × 3 × 3 × 3 = 81, all stop-on | INFERRED (arithmetic from the RULED counts) | §3 |
+| Stop rule | Evaluated on bar close, market exit next bar, no resting stop | RULED (ruling 1 of 2026-11-05) | §4 |
+| ATR period | 14, fixed, not tuned | RULED (ruling 4 of 2026-11-06, "ATR 14") | §3, §9 |
+| ATR period held as a constant | `AtrPeriod = 14` a constant, not an input | SETTLED (a code-design choice, not his word); alternative: an input fixed at 14 in every run ((B) 42) | §9 |
+| ATR series | 14 completed RTH sessions (daily ATR) | RULED (Q6) | §4 |
+| ATR computation | Simple mean of the last 14 completed RTH sessions' true ranges, from the 1-minute bars, in the strategy | SETTLED; alternative: a second, daily series with NT8's `ATR(14)` ((B) 4) | §4 |
+| Stop level | Entry fill ∓ m × ATR(14), ATR at the entry bar, fixed | SETTLED; alternative: from the signal bar's close, or trailing ((B) 5) | §4 |
+| Stop evaluation | Close of every 1-minute bar in a position | SETTLED; alternative: checkpoints only ((B) 6) | §4 |
+| ATR warm-up | No entry until ATR(14) exists (15 completed sessions) | SETTLED; alternative: entries with no stop until ATR exists ((B) 7) | §4 |
+| Stop bar | No entry on a stop exit's bar | SETTLED; alternative: allow a reversal ((B) 8) | §4 |
+| Precedence | Session flat, then stop, then checkpoint exits and entries | SETTLED; alternative: stop before the session flat ((B) 9) | §4 |
+| Windows | 252 / 63 / 63 sessions | RULED (D-2026-11-05-A item 2) | §5 |
+| Partial last window | Dropped | RULED (ruling 4 of 2026-11-06) | §5 |
+| Day-count convention | Mon–Fri file dates with a 09:31–16:00 bar; weekend-dated bars excluded | SETTLED; alternative: an exchange calendar ((B) 10) | §5 |
+| Window warm-up | Prior bars feed band and ATR | SETTLED; alternative: each window's own first sessions ((B) 11) | §5 |
+| IS → OOS | Pick on window k's IS, apply unchanged to its OOS; join the 17 OOS segments | SETTLED; alternative: anchored in-sample ((B) 12) | §5 |
+| Data | Used as is; each window reports its hole dates and early-close sessions | SETTLED; alternative: no per-window count ((B) 37) | §5 |
+| Objective class | Risk-adjusted return with a minimum trade count, never net profit | RULED (ruling 4 of 2026-11-06) | §6 |
+| In-sample statistic | Annualised Sharpe of daily net P&L; selection only, not the gate's definition | SETTLED; alternative: per-trade Sharpe, Sortino or MAR ((B) 13) | §6 |
+| Minimum trades | 100 per 252-session in-sample window | SETTLED; alternative: 150 ((B) 14) | §6 |
+| Undefined statistic | Zero-sd configuration ineligible | SETTLED; alternative: score 0 ((B) 15) | §6 |
+| No eligible configuration | Arm (b) flat in that OOS window; not profitable | SETTLED; alternative: carry the previous pick ((B) 16) | §6 |
+| Tie-break | Anchor distance, then ascending lookback, k, m, policy | SETTLED; alternative: stop distance from 2.25, descending m ((B) 17) | §6 |
+| PBO method | CSCV | SETTLED; alternative: block bootstrap ((B) 18) | §7 |
+| CSCV rows | s12 … s1323 (1,312 = 16 × 82) | SETTLED; alternative: trim the newest 11 ((B) 19) | §7 |
+| CSCV partitions | S = 16 blocks of 82; 12,870 splits | SETTLED; alternative: S = 8 ((B) 20) | §7 |
+| Pick on a training set | §6's rule, minimum trades pro rata | SETTLED; alternative: no minimum ((B) 21) | §7 |
+| Ranking | Ascending test Sharpe, average ranks; PBO = share λ ≤ 0 | SETTLED; alternative: ties by the §6 order ((B) 22) | §7 |
+| No eligible configuration (CSCV) | Split counts as λ ≤ 0 | SETTLED; alternative: drop the split ((B) 23) | §7 |
+| PBO threshold | Arm (b) counts only if PBO < 0.05 | RULED (ruling 4 of 2026-11-06; Q8) | §7, §8 |
+| Where it runs | NT8 full-span runs per configuration through the bridge; selection and PBO on the Mac | RULED (Q7; D-2026-11-06-A item 2) | §7 |
+| Inputs per run | All five inputs in every run's `params` | SETTLED; alternative: changed values only, template read back ((B) 24) | §7 |
+| Truncated trade list | Exactly 5,000 trades → rerun or split by date | SETTLED; alternative: stop the batch ((B) 25) | §7 |
+| Gross P&L | If gross, subtract $4.68 per round turn on the Mac | SETTLED; alternative: template commission 0, subtract always ((B) 26) | §7 |
+| Walk-forward commission | $4.68 NQ round turn | RULED (ruling 2 of 2026-11-06) | §7 |
+| Acceptance-run commission | $2.96 | SETTLED; alternative: $4.68 against recomputed figures ((B) 27) | §7 |
+| Slippage and fill resolution | 2 ticks/side, Standard resolution | REPORTED BY D-2026-10-30-A (DECISIONS.md:247, :250); unchanged | §7 |
+| Gates | All six Phase 3 gates for both arms; PBO < 0.05 also for arm (b) | RULED as his statement (Q8); as an O1 item OPEN (ruling 9) | §8 |
+| Gate Sharpe definition and equity base (notes-4 source, DECISIONS.md:978: "equity base for the 4% DD gate (item 5) and Sharpe definition (item 4)") | Not decided | OPEN (ruling 9) | §6, §8 |
+| WFE for arm (a); WFE formula for arm (b) | Not decided | OPEN (ruling 9; the O1 gate set, REPORTED BY the return handoff :74) | §8 |
+| GO / HOLD / REJECT on arm (b) | Not decided | OPEN (ruling 9; the O1 gate set, REPORTED BY the return handoff :74) | §8 |
+| Arm (b) reporting | Always run and reported next to arm (a), with its PBO | SETTLED; alternative: only after arm (a) passes ((B) 28) | §8 |
+| Max-DD gate base | Lower of 4% of the MFFU account size and MFFU's trailing limit | RULED (D-2026-11-05-A item 3); it stands as written; whether it closes the notes-4 item "equity base for the 4% DD gate (item 5)" (DECISIONS.md:978) is NOT decided here (OPEN, ruling 9) | §8 |
+| Per-tier reporting | Every window, 1 MNQ and 1 NQ, against every row of the WF spec §6 table | RULED (D-2026-11-05-A items 4–5) | §8 |
+| Per-tier reporting rule | Static rows and the Builder 50K add-on row included; a contradiction shows both figures, the lower used | SETTLED; alternative: trailing-limit rows only, one figure per row ((B) 38) | §8 |
+| $1,500 figure | Not a gate figure; only the Builder 50K add-on row; no breaker limit set | SETTLED for walk-forward use only; the breaker #6 figure is not decided here (breaker build; O4); alternative: adopt $1,500 ((B) 39) | §8 |
+| Tier | None chosen; the pick is his after paper results | RULED (Q9); the pick OPEN | §8 |
+| MNQ cost | $1.90 round turn | RULED (ruling 2 of 2026-11-06) | §8 |
+| Worst drawdown per window | Closed-trade and end-of-day equity, each from the window start and carried across windows; the worst of the four judged | SETTLED; alternative: closed-trade only ((B) 40) | §8 |
+| 1 MNQ method and contract size | From the 1 NQ trade list: (NQ gross ÷ 10) − $1.90 per round turn (INFERRED equivalence); 1 NQ and 1 MNQ both reported | SETTLED; alternative: an own MNQ run ((B) 41) | §8 |
+| Branch | `arm-b/wf-tunables`, from main | SETTLED; alternative: `wf/arm-b` ((B) 29) | §9 |
+| File and class | `ninjascript/PraxisNoiseAreaBreakoutArmB.cs`, class `PraxisNoiseAreaBreakoutArmB` | SETTLED; alternative: `PraxisNoiseAreaBreakout_ArmB.cs` ((B) 30) | §9 |
+| Enum | `PraxisNoiseArmBExitPolicy { BandOrVWAP, OppBand, Flat1559 }` | SETTLED; alternative: base enum plus a `bool` ((B) 31) | §9 |
+| Inputs | Lookback 14, NoiseMult 1.0, StopAtrMult 0.0, ExitPolicy BandOrVWAP, Contracts 1, with the §9 types and ranges | SETTLED; alternative: no `[Range]` limits ((B) 32) | §9 |
+| Readback | Five input values printed once at `State.DataLoaded` | SETTLED; alternative: a file beside the trade export ((B) 33) | §9 |
+| Base file | Byte-identical on main and on the branch | RULED (D-2026-11-05-A item 1, "baseline file unchanged") | §9 |
+| Variant files | `_OppBand.cs` and `_Flat1559.cs` byte-identical on main and on the branch | SETTLED; alternative: retire them on the branch ((B) 34) | §9 |
+| Acceptance tests | T1–T13 as below | SETTLED; alternative: one Mac-side end-to-end re-simulation in place of the per-rule oracles (spec §9) | §9 |
+
+**Arm (b) code design.** No code is written here.
+- Branch `arm-b/wf-tunables`, cut from main.
+- New file `ninjascript/PraxisNoiseAreaBreakoutArmB.cs`, class `PraxisNoiseAreaBreakoutArmB`: the base logic plus the stop (spec §4) and the three policies (spec §3).
+- New enum `PraxisNoiseArmBExitPolicy { BandOrVWAP, OppBand, Flat1559 }`, declared in the new file.
+- `[NinjaScriptProperty]` inputs: `Lookback` 14, `NoiseMult` 1.0, `StopAtrMult` 0.0, `ExitPolicy` BandOrVWAP, `Contracts` 1.
+- `AtrPeriod = 14` is a constant, not an input: SETTLED ((B) 42; alternative: an input fixed at 14 in every run). The value 14, not tuned, is RULED (ruling 4 of 2026-11-06, "ATR 14").
+- Readback: at `State.DataLoaded` the strategy prints its five input values once.
+- `ninjascript/PraxisNoiseAreaBreakout.cs`, `ninjascript/PraxisNoiseAreaBreakout_OppBand.cs` and `ninjascript/PraxisNoiseAreaBreakout_Flat1559.cs` stay byte-identical on main and on the branch.
+
+**Acceptance tests T1–T13.** Full text: spec §9 (lines 159–225 of the spec). One line each:
+- T1 (spec :180): run T1 (14, 1.0, 0, BandOrVWAP). Pass: the base file's trade list row for row and its totals, 1,190 / $197,327.60.
+- T2 (spec :182): run T2 (14, 1.0, 0, OppBand). Pass: the `_OppBand.cs` run row for row, 810 / $210,182.40.
+- T3 (spec :184): run T3 (14, 1.0, 0, Flat1559). Pass: the `_Flat1559.cs` run row for row, 1,190 / $193,017.60.
+- T4 (spec :186): run T4 (14, 1.0, 1.5, BandOrVWAP). Pass: at least one `XStop`, each filling on the bar after the crossing close; no stop order. No `XStop` = not passed.
+- T5 (spec :188): runs T4, T5a–T5e in order. Pass: (i) every run prints the five inputs sent; (ii) T5a, T5b, T5d differ from T4 and T5e equals T4; (iii) T5c differs from T4 when its condition holds, else UNTESTED.
+- T6 (spec :190): (i) static reading of the code unit's diff, on the Mac; (ii) band oracle over every stop-on acceptance run. Pass: every listed use reads the property; printed σ and bands (at the 10:00 checkpoint of three named sessions only) and fill, ATR and level (at every entry) match the script to 1e-9; no stop order.
+- T7 (spec :192): before every batch. Pass: the tab's commission template, backtest type, fill resolution and slippage read back as set ($2.96 acceptance, $4.68 walk-forward).
+- T8 (spec :194): every stop-on acceptance run and the 81. Pass: checks (i)–(iv) against the stop oracle, after calibration, with power checks (a) and (b).
+- T9 (spec :196): every T8 run. Pass: no `XStop` decided on a session-flat bar; open trades exit by the session flat. Passed only if a first crossing falls on a session-flat bar, else UNTESTED.
+- T10 (spec :198): every T8 run. Pass: no entry fills on an `XStop` exit's fill bar. Passed only if its condition holds, else UNTESTED.
+- T11 (spec :200): every stop-on acceptance run and the 81. Pass: (i) no entry before s16, counted as passed in a run only if the first checkpoint where the band exists and the rule holds falls before s16 (possible at Lookback 10 or 14 only), else UNTESTED for that run; (ii) the first entry is at the first checkpoint where band and ATR(14) exist and the rule holds.
+- T12 (spec :202–:210): runs T12a, T12b, T12c (m = 1.5, the three policies); (iii)–(vi) also run over every other stop-on acceptance run and the 81. Pass: (i)–(vii): pairwise distinct trade lists, each policy's exit names, the policy-rule oracle, reversals, entry soundness, ties, power. Without an `XStop` in a run, (vii)'s "the stop runs with this policy" is UNTESTED for that run and reported, and (i)–(vi) still grade.
+- T13 (spec :212): runs T13a–T13c (`Contracts = 2`) against T4, T12b, T12c. Pass: the same rows, quantity 2 on every row including `XStop`, and exactly 2 × the twin's net. Without an `XStop` in T13a–c the `XStop` part of (ii) is UNTESTED. (iii) assumes the $2.96 template charges per contract (UNVERIFIED); if a row shows $2.96, (iii) is graded on gross only and the per-order charge is reported to the master.
+
+Per-input coverage table, copied by script from spec lines 216–222:
+
+| Input | Dead input caught by | Partly wired (stop-Off path only) caught by | Wrong rule caught by | NOT caught |
+|---|---|---|---|---|
+| Lookback | T5(ii) (T5a = T4); T6(i); T6(ii) on T5a, T6c, T6d [the build prints the σ it trades on]; T12(iii)/(v) on those runs [an exit or entry moves]. Not T5(i): it prints the property | T5(ii) (T5a and T4 are both stop-on, so T5a = T4); T6(i); T6(ii) on T5a, T6c, T6d [the build prints the σ it trades on]. T1–T3 cannot (they run m = 0 at 14). Other partial wirings: `cnt < 14` left at `:257` while the loop reads the property, caught by T6(i), by T6(ii) at T6d (Lookback 10 never forms a band, so the prints are missing) and by T11(ii) at Lookback 18 [the wrong band admits an entry in s16–s18] | T6(ii) (σ and bands at the three named 10:00 checkpoints only; at entries it prints fill, ATR and level, not σ or bands) [the fault reaches a named checkpoint]; T12(iii)/(v) on every stop-on run [the wrong band moves an exit or entry]; T1–T3 if the fault also holds at 14 on the m = 0 path | `HistoryCap` (`:79`) left at 29: no behaviour change at Lookback ≤ 29, so every grid value; T6(i) only. A band fault confined to sessions not named for T6(ii) (e.g. prevClose taken from `Close1600` (base `:168–169`) in place of `Close[1]` (`:155`), 0 after early-close days, so the `:156` fallback drops the gap adjustment): caught only by T12(iii)/(v) if an exit or entry moves, and by T1–T3 if on the shared m = 0 path. A fault that moves no printed value, exit or entry in any run checked. A fault that only drops entries after a run's first |
+| NoiseMult | T5(ii) (T5b = T4); T6(i); T6(ii) on T5b, T6c, T6d [as above]; T12(iii)/(v) [as above] | T5(ii) (T5b, T4 both stop-on); T6(i); T6(ii) on T5b, T6c, T6d [as above]. T1–T3 cannot. k on one bound only (`:263` property, `:264` constant): T6(i) line by line; T6(ii) LowerBound at k ≠ 1 | T6(ii) (the three named 10:00 checkpoints only, as above) [the fault reaches a named checkpoint]; T12(iii)/(v) [an exit or entry moves] | As Lookback (no printed value, exit or entry moves; a band fault confined to sessions not named for T6(ii); dropped later entries). k used inside the stop is a StopAtrMult fault (next row) |
+| StopAtrMult | T5(iii) [T4 holds an `XStop` whose close does not reach the 2.25 level]; T6(ii) (the level ≠ fill ∓ m × ATR) [the build prints the level it uses]; T8 (i)–(iv) [the fixed distance moves a predicted stop exit]; T6(i). An m that also switches the stop off: T4 (no `XStop`) and T8 power (a), but these cannot tell it from a correct stop that does not trip at these m | Not applicable as worded: m = 0 is the stop-Off path itself, checked by T1–T3. Stop applied only under some ExitPolicy values: T8 (iii)/(iv) on that policy's runs (T12a–c, T6c, T6d and the 27 of each policy in the 81) [the oracle predicts a crossing there]. m used only in some paths (e.g. longs only, or the stop check only at one m value): T8 only — power (a) (one long and one short `XStop` at each m) [stops occur], and (iii)/(iv) [the correct stop would trip there]. Not T6(ii) (it prints the level, not the check) and not T5(iii) (it fails only when m changes nothing) | T8's four named wrong stops (power-checked (b)): one-minute ATR, band half-width, k in place of m, checkpoint-only. T6(ii) (wrong printed level). T9, T10 [each UNTESTED unless its condition holds]. T11 (gate) [(i)'s condition] | **Any stop fault at an m where no run has an `XStop`.** Whether any `XStop` occurs at 1.5, 2.25 or 3.0 is UNVERIFIED (see T4); at 3.0 it may never occur. §3 then permits no input that tests the stop, and it is reported to the master. Also: a wrong rule outside T8's four that moves no exit in the runs checked, and T9/T10 when UNTESTED. A stop applied only under some ExitPolicy values, at some m or on one side, where no run of that policy, m or side gives the oracle a crossing: then UNTESTED (T12(vii) reports UNTESTED, not a fail). T6(i)'s exemption for "the stop's own level, check and `XStop` exit" lets a stop branch gated on m's magnitude through, so T6(i) does not catch it |
+| ExitPolicy | T5(ii) (T5d = T4, whatever the fixed policy); T12(i) unconditionally; T12(ii) (Flat1559's `FlatEOD` vs the 16:00 `Exit on session close`); T12(iii) on the runs whose policy differs from the fixed one [(vii)]. Not T5(i), not T6(ii) (no printed value depends on it) | T12(i) unconditionally (one path under the stop gives T12a = T12b = T12c); T12(ii); T5(ii) (T4 and T5d both run the one fixed path, so T5d = T4, whatever that path is); T6(i) (no `ExitPolicy` read inside a `StopAtrMult` branch). Honoured for exits but not for the 15:59 flatten under the stop: T12(ii). OppBand without its reversal under the stop: T12(iv) [an OppBand checkpoint exit occurs] | OppBand at the same-side band (`PraxisNoiseAreaBreakout.cs:209`, `:217`): T12(iii) on T12b, T6d and the 27 OppBand configurations [at any `XL`/`XS` where the two bands give different c*]; max/min swapped in BandOrVWAP: T12(iii) [an exit moves]; Flat1559 flatten on a later minute (e.g. 16:00): T12(ii) on T12c (trades open at the 15:59 close then exit by a 16:00 `Exit on session close`); on an earlier minute no T12(ii) clause fails, because no trade is open at a 15:59 close; at m = 0 T3 (row for row against `_Flat1559.cs`) catches either, where the fault is also on the m = 0 path | Names never separate BandOrVWAP from OppBand; only T12(iii) does. A policy fault that moves no exit or entry in any run checked; one seen only at ties (T12(vi)); dropped entries after a run's first. A Flat1559 flatten on a minute before 15:59 on the stop-on path only |
+| Contracts | T13(ii), every row, unconditionally [a run with a trade]; T6(i) | T13(ii), unconditionally; T6(i). `XStop` with a fixed quantity 1: T13(i)–(iii) [an `XStop` in T13a–c], otherwise T6(i) only. Fixed-1 `FlatEOD`: T13c (ii). Fixed-1 reversal entry: T13(ii) [a reversal row] | A wrong multiple (e.g. 2 × Contracts or Contracts²: 4 ≠ 2): T13(ii) | Faults at other Lookback, k or m (T13 runs (14, 1.0, 1.5) only); at values other than 1 and 2; on an exit kind absent from T13's runs; wired on the stop-on path but not at m = 0 (harmless to the grid). Per-contract commission is read, not tested (T13(iii)) |
+
+"Does NOT catch" lines of T6, T7, T12 and T13, copied by script from spec lines 191, 193, 211, 213 (fenced so the lines keep their bytes):
+
+```text
+    - **Does NOT catch:** (i) is a reading, not a run, so it misses a use that names the right property inside a wrong formula, and code the reviewer does not recognise as a use. (i)'s exemption for "the stop's own level, check and `XStop` exit" also lets a stop branch gated on m's magnitude through (e.g. the stop check only when `StopAtrMult < 2.0`); only T8 catches that (power (a); (iii)/(iv) where the correct stop would trip). (ii) misses a build that prints one value and trades on another (T8, T12); σ and band faults anywhere but the three named 10:00 checkpoints, because at entries (ii) prints the fill, ATR and level, not σ or the bands (e.g. prevClose taken from `Close1600`, 0 after early-close days, in sessions not named: caught only by T12(iii)/(v) if an exit or entry moves, and by T1–T3 if on the shared m = 0 path); ATR and level faults off the entry bars (T12's oracle covers exit checkpoints); and anything about `ExitPolicy` or `Contracts`, because no printed value depends on either. That is the hole that parked version 1. T12 and T13 close it, not T6.
+    - **Does NOT catch:** anything in the strategy; a tab setting outside the four read back (15 baseline settings have no bridge field, bridge report `:29`) unless the 2a skill reads it; a change between the readback and a later run in the same batch; whether the template charges commission per contract (T13 reads it).
+    - **Does NOT catch:** a missing entry after a run's first (no test checks that every checkpoint where the rule holds while flat has an entry); a policy fault that moves no exit or entry in any run checked; a fault seen only at the ties (vi) excludes; a stop disabled under one policy, when that policy's runs give the oracle no crossing (T8's (iii)/(iv) then predict nothing to miss, and (vii) reports UNTESTED, not a fail); fill-price faults on `XL`/`XS`/`FlatEOD` beyond T8's calibrated rules; a Flat1559 flatten on a minute before 15:59 on the stop-on path only ((ii) checks trades open at a 15:59 close, and there are none; T3 catches it only on the m = 0 path).
+    - **Does NOT catch:** a `Contracts` fault seen only at other Lookback, k or m values (T13 runs (14, 1.0, 1.5) only); a fault at Contracts values other than 1 and 2 (e.g. a cap at 2); a quantity fault on an exit kind that occurs in none of T13's runs; `Contracts` wired on the stop-on path but not at m = 0 (no T1–T3 run is at 2; harmless to the grid, which has no m = 0 run).
+```
+
+Reference figures at the committed $2.96 commission (`docs/reports/2026-11-01-three-strategy-results.md:402-404`, OBSERVED by `sed -n`): base 1,190 trades / $197,327.60; OppBand 810 / $210,182.40; Flat1559 1,190 / $193,017.60.
+
+Before test 2a passes, the code unit can reach WRITTEN only. T6(i) runs on the Mac. Everything else runs on the VM after 2a. No code is changed by this entry; the code unit is dispatched only after this entry is committed.
+
+**S6 cross-block.**
+- F1–F4 (`specs/SPEC_RUBRIC.md`:17, :30, :45, :59) are untouched.
+- F2 × Flat1559 is an interaction. A Flat1559 position runs past 11:30 (breaker #4), through 15:00 (breaker #5) and flattens before 16:00 (Deviation B). It is NOT resolved here.
+- F3: the fill and slippage terms are used as D-2026-10-30-A sets them: Standard resolution, 2 ticks/side.
+- O1 (`specs/SPEC_RUBRIC.md`:74): Q8 and "judged arm = (a)" are recorded as his statements. Whether they discharge O1 is left to the master and the auditor.
+- O4 (`specs/SPEC_RUBRIC.md`:94) is untouched.
+- The cost model is read, not changed. Walk-forward runs use $4.68 (`config/backtest-cost-model.json`:19, `"commission_round_turn_usd": 4.68`). Acceptance runs use $2.96, the committed reference runs' figure. $2.96 is not in the current cost model (`grep -n 2.96` finds no line, OBSERVED).
+
+**S4 timing.** This entry is written before the code unit it authorises.
+
+**NEEDS AMEAR.** Only these:
+1. The tier pick, after paper results (Q9).
+2. Ruling 9's open items ("Notes-4 unruled items stay open; none block anything."): a second Rithmic read-only connection; the CME wiki as a source; the equity base and the Sharpe definition, scoped in the notes-4 source (DECISIONS.md:978) as "equity base for the 4% DD gate (item 5) and Sharpe definition (item 4)" and read by the WF spec for the "OOS Sharpe ≥ 1.0" gate (D-2026-11-05-A item 3's DD-base ruling stands as written; whether it closes the notes-4 DD-gate item is NOT decided here); the O1 gate set (label REPORTED BY the return handoff :74), including WFE for arm (a) and the WFE formula for arm (b), and whether GO / HOLD / REJECT may rest on arm (b).
