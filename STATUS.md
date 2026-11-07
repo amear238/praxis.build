@@ -1,5 +1,52 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-07 evening — the build half of Amear's loop order landed: 7 gated commits today (6 on `main`, 1 on `arm-b/wf-tunables`; all by the master through the gate — REPORTED BY master); B1 (session start) is Amear's; `main` = `origin/main` = `b1f1a6a`
+
+Written by unit `2026-11-07-status-handoff-evening` (U5, the last unit of the loop; R-1104-2) (drafted from a `date -u` read of 2026-11-07T21:49:11Z). Grades: OBSERVED = read by this unit from git, bd or the file named; REPORTED BY = stated in the ledger row named, not re-checked here; UNVERIFIED = nobody has observed it. A bare time like `18:12:00Z` is a DECISION_LOG row of 2026-11-07. The sections below are unchanged.
+
+**Phase:** unchanged — Block 2 (Backtesting); F1/F2/F4 FROZEN; F3 FROZEN conditional. No row today records a phase change.
+
+**Git (OBSERVED, `git status -sb`, `git rev-parse HEAD origin/main`, `git rev-list --left-right --count origin/main...HEAD`):** `## main...origin/main`; HEAD = origin/main = `b1f1a6a`; `0 0`. Six commits on `main` sit on top of `3ef528c` (`git log --oneline 3ef528c..HEAD`), and one on the branch `arm-b/wf-tunables` (`c16f85f`; `git branch -r` lists `origin/arm-b/wf-tunables`). Git's author field is the repo's configured `user.name`, not a record of who typed. Who committed each one comes from the ledger:
+
+| sha | committed (-05:00) | stat (OBSERVED, `git show --shortstat`) | what | who committed (grade, pointer) |
+|---|---|---|---|---|
+| `98138cc` | 09:02:08 | 7 files / 859+ | D-2026-11-07-A: Amear's ten morning rulings; addendum 6; 10-28 notes with an S13 addendum | master through the gate, sixth time (REPORTED BY master, `14:02:08Z`) |
+| `43b34b1` | 10:16:50 | 5 / 1661+ | walk-forward values v2 (D-2026-11-07-B) | master, seventh (REPORTED BY master, `15:19:00Z`) |
+| `afea575` | 10:56:31 | 5 / 511+ / 38− | VM handoff amendment 1 | master, eighth (REPORTED BY master, `16:04:00Z`) |
+| `314b9d3` | 12:57:38 | 5 / 1251+ / 9− | arm (b) code report, spec v2.1, D-2026-11-07-B addenda 1–2 | master, ninth (REPORTED BY master, `18:05:00Z`) |
+| `c16f85f` | 13:02:02 | 1 / 462+ | arm (b) `.cs`, on `arm-b/wf-tunables` | master, tenth, first on a non-main branch (REPORTED BY master, `18:12:00Z`) |
+| `481108a` | 15:16:18 | 13 / 6671+ | `scripts/wf/` walk-forward Mac-side maths | master, eleventh (REPORTED BY master, `20:17:00Z`) |
+| `b1f1a6a` | 16:46:19 | 15 / 4121+ | `scripts/wf/oracle/` arm (b) oracles | master, twelfth (REPORTED BY master, `21:48:00Z`) |
+
+Row `18:12:00Z` says the master's stamps from 17:56 on run about 8 minutes ahead of the clock. The ordinals ("sixth" … "twelfth") count every gated commit since the gate fix, not today's only; all seven are dated 2026-11-07 in both -05:00 and UTC.
+
+**Built today, at the level each unit report states (REPORTED BY master in the rows named):**
+- Arm (a): the base `.cs` on `main`, unchanged. Nothing built (`21:48:00Z`).
+- Arm (b): `.cs` WRITTEN only — not compiled, not run; on `arm-b/wf-tunables` only (`18:12:00Z`). There is no C# compiler on the Mac (`16:04:00Z`).
+- WF Mac-side maths: WRITTEN + TESTED on synthetic fixtures and the real calendar (212 tests); UNVERIFIED against NT8 (`19:34:00Z`, `20:17:00Z`).
+- Oracles: WRITTEN + TESTED on synthetic fixtures (59 tests); values COMPUTED on the real file at both session starts; UNVERIFIED against NT8 arm (b); the fit to the 2026-11-01 base runs is OBSERVED for the m = 0 band/VWAP/policy part only (`21:42:00Z`, "Level accepted").
+- T1–T13: none has run. All wait for the VM.
+
+**Rulings and closes today:**
+- Amear's ten morning rulings: DECISION_LOG `12:55:00Z` (WHO: amear), filed as D-2026-11-07-A (DECISIONS.md:1203). His ratification of D-2026-11-07-B addendum 1's TIMING: `17:08:00Z` (WHO: amear), filed as addendum 2 (DECISIONS.md:1518).
+- `Praxis_build-uqb` and `Praxis_build-867` are CLOSED (OBSERVED `bd show`, both `✓`; both titles still describe their old park). `uqb` closed on a fresh audit PASS (REPORTED BY master, `14:07:44Z`).
+
+**Finding B1 (session start), open:** the oracle fits the three committed 2026-11-01 base runs only with sessions starting at the 08:31-stamped bar, not 09:31 (`docs/reports/2026-11-07-wf-oracles-manager.md` E5). The oracle refuses to run without `--session-start` (REPORTED BY auditor via master, `21:46:00Z`). The master routes it to Amear and to the VM's step 0 (`21:42:00Z` item (1)); its cause hypothesis is UNVERIFIED (item (2)).
+
+**VM session:** startable — its precondition, handoff amendment 1, is at `afea575` (REPORTED BY master, `16:04:00Z`). Not started: `ls vm/replies/` = `README.md` (OBSERVED 21:49Z). Settlement 9: no agent is dispatched while a `vm/replies/<ts>-STATUS.md` holds `STARTED` without a later `FINISHED` (`16:04:00Z`).
+
+**Parked / blocked (pointers):**
+- Parked today: nothing.
+- Blocked on Amear: the list in `docs/reports/2026-11-07-return-handoff-claude-ai-2.md` §4.
+- The as-is set stays out of every commit unless Amear rules otherwise (his hard limit, `2026-11-06T20:08:28Z`; the July rubric hunk is return handoff §4 item 4). The real index holds 12 paths (OBSERVED `git diff --cached --name-only | wc -l` = 12; `git diff --cached --stat` = 12 files / 5726+ / 2−).
+- Ledgers not yet in HEAD (OBSERVED `git diff --numstat HEAD`, 21:49Z, a snapshot): DECISION_LOG +42, DISPATCH_LOG +166, AUDIT_LOG +11. The master's plan is to flush them in the same index as this section (`21:48:00Z`).
+
+**Decisions that are Amear's — pointers only:** `docs/reports/2026-11-07-return-handoff-claude-ai-2.md` §4. None is answered here.
+
+**Beads:** 45 open (OBSERVED `bd list --status open | grep -c Praxis_build-`).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-06 evening — loop a–e under Amear's evening rulings: 8 commits today (5 typed by Amear, 3 by the master through the gate — REPORTED BY master); wf-values PARKED; addendum 5 / `uqb` blocked on Amear; `main` = `origin/main` = `e9f668c`
 
 Written by unit `2026-11-06-status-handoff-evening` (loop step e, R-1104-2) (drafted from a `date -u` read of 2026-11-07T00:02:54Z). Grades: OBSERVED = read by this unit from git, bd or the file named; REPORTED BY = stated in the ledger row named, not re-checked here; UNVERIFIED = nobody has observed it. The sections below are unchanged, including the 14:43Z update paragraph under the overnight-loop section.
@@ -162,7 +209,7 @@ The earlier lists are unchanged; see the 2026-11-04 section below.
 
 **Next session, in order:** Amear's park commit; the Fusion readbacks (instrument rows, RTH template hours, one trade's fill); then the 7zq hand test; then his ruling on o78's resume and, if the $1/pt reading holds, on the F3 void clause.
 
-**Evening update (16:56Z) — both parks resumed by Amear's ruling, no re-dispatch.** He accepted both parked artifacts as they stood (walkthrough safety and substance had passed every audit; the FAILs were report form) and typed the merges: `o78` fast-forwarded onto `main` at `29c3e13`; `a9d` merged at `d2ff631` via `merge-tree`/`commit-tree`/`--ff-only`, because a plain non-fast-forward merge is refused on this checkout by the 12 old staged paths (proven in a scratch clone first); the two voice-session files landed at `a91a636` alongside their MANIFEST rows. The 21-step Future-row walkthrough is now on `main` at `docs/reports/2026-10-31-a9d-walkthrough-future-row.md` and is executed next by Amear's hand, one step at a time, starting read-only at 0.1. `o78` closes on his word. Park branches kept as records.
+**Evening update (16:56Z) — both parks resumed by Amear's ruling, no re-dispatch.** He accepted both parked artifacts as they stood (walkthrough safety and substance had passed every audit; the FAILs were report form) and typed the merges: `o78` fast-forwarded onto `main` at `29c3e13`; `a9d` merged at `d2ff631` via `merge-tree`/`commit-tree`/`--ff-only`, because a plain non-fast-forward merge is refused on this checkout by the 12 old staged paths (proven in a scratch clone first); the two voice-session files landed at `a91a636` alongside their MANIFEST rows. The 21-step Future-row walkthrough is now on `main` at `docs/reports/2026-10-31-a9d-walkthrough-future-row.md` and is executed next by Amear's hand, one step at a time, starting read-only at 0.1. `o78` closed 17:02Z on his word. Park branches kept as records. At 17:05Z Amear took the walkthrough to the voice channel: brief at `docs/reports/2026-10-31-voice-handoff-future-row-walkthrough.md`, results due in `docs/reports/2026-10-31-voice-session-notes-2.md`.
 
 **Afternoon update (~16:00Z) — the human resumed after the park, and a second bead was parked.** Amear's voice session confirmed on screen that Fusion carries both `NQCONT` rows and that every run so far used the $1/point stock row. He ruled: Future row only, load it first, new baseline on it, save the Analyzer settings as default afterwards, no backtests until then; F3's assumption stands and the stock-row runs are retired. The resulting unit, `a9d`, produced a 21-step hand walkthrough — import a copy of the data file under the Future's contract-month name, verify it on a chart against two pre-registered bars, run the baseline on `NQCONT SEP25`, then save as default — whose safety and substance passed both audits. Its manager report failed twice on evidence form, the second time inside the correction itself, and the absolute park rule fired again. The walkthrough sits on `parked/Praxis_build-a9d` once Amear types the park commit. **Two beads are parked today, both on report form, both with substance intact; the pattern (corrections introducing new form defects) is recorded for whoever amends the rule between sessions.** The session ends here.
 
