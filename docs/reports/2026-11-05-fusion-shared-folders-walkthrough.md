@@ -35,3 +35,4 @@ Caution (VMware): never open one file from both sides at once; a write can corru
 - [ ] **Go-live checklist, his words:** "unmap Z: and turn the share off before real money" (D-2026-11-06-A item 3).
 - **The Steps above are moot:** Fusion shows no Sharing pane (D-2026-11-06-A item 3, "no Sharing pane, as flagged", REPORTED BY amear).
 - Source: D-2026-11-06-B, ruling 5 settlements table, item 1 and item 10.
+- [ ] **Go-live checklist addendum 2026-11-07, his words (ruling 10):** "remove the unauthenticated bridge request folders (or add auth) before real money" (verbatim at `docs/reports/2026-11-07-amear-rulings-morning.md`:29; ledger DECISION_LOG 2026-11-07T12:55:00Z, WHO: amear; D-2026-11-07-A). His second item, "unmap Z: and turn off the SMB share", is already covered at :35; not duplicated.
