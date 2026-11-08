@@ -1530,3 +1530,179 @@ Label: all three are the master's decisions under delegation (R-1104-2, DECISION
 **S6.** F1–F4 (`specs/SPEC_RUBRIC.md`) untouched. Nothing was compiled, run or tested.
 
 **S13.** No backtest or P&L figure is stated in this entry, so the standing sentence is not required here.
+
+## 2026-11-08 — D-2026-11-08-A: Amear's nine rulings R1–R9 (voice session, Claude.ai channel, 2026-11-08) — rulings WHO: amear; filed by praxis-manager
+
+**Date:** 2026-11-08
+**Status:** RECORDED — Amear's rulings, WHO: amear. The words are REPORTED BY the Claude.ai channel (its record of his voice session) and were pasted by Amear; the paste in `docs/reports/2026-11-08-amear-rulings-voice.md` is OBSERVED as received (REPORTED BY that file's line 3, written by praxis-master). S5 ledger authorisation: DECISION_LOG `2026-11-08T14:02:11Z` (**WHO: amear**; DECISION_LOG.md:718, working tree). Plan/dispatch: DECISION_LOG `2026-11-08T14:22:00Z` (WHO: praxis-master, :719). Correction 1: DECISION_LOG `2026-11-08T14:30:00Z` (WHO: praxis-master, :720) — the paste range is 12–79, not the 13–83 stated in :718, :719, DISPATCH_LOG `2026-11-08T14:24:00Z` (DISPATCH_LOG.md:2024) and the rulings file's line 9. Appended by praxis-manager, unit `2026-11-08-rulings-filing`.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades.** Three kinds, never mixed. (a) *Amear's words* = the fenced block below and nothing else, copied by script from the rulings file lines 12–79. (b) *Master's readings* = the rulings file's "Master's filing notes" 1–5 (`docs/reports/2026-11-08-amear-rulings-voice.md:86-90`), each labelled "master's reading (filing note N), changeable by Amear"; they are not rulings. A master's decision under R-1104-2 (DECISIONS.md:748) is labelled as such. The mapping of R1–R4 to return-handoff §4 items comes from his words ("answers §4 item 1", "§4 item 3" in the block); the mapping of R5–R9 to the strategy filter audit's §6 questions 1–4 is the master's (rulings file :3, "§6 of … (questions 1–4)"; DECISION_LOG :718) — his words say only "plus the strategy filter audit dated 2026-11-08"; each *Answers:* line for R5–R9 below is that master's mapping. (c) *The filer's readings* are labelled "INFERRED, the filer's, not his word". Line pointers are the filer's, each re-read with `sed -n` this session (OBSERVED) unless marked otherwise. S13: the standing sentence above is carried once in this entry; the pasted block carries no copy of it (`sed -n '12,79p' <rulings file> | grep -c` on its first three words = `0`, OBSERVED).
+
+**The paste, verbatim (WHO: amear).** Rulings file lines 12–79, inserted by script, not retyped.
+
+```text
+PRAXIS — RULINGS FROM AMEAR, VOICE SESSION 2026-11-08 (Claude.ai channel)
+WHO: amear. File each as a DECISIONS.md entry citing this session.
+These answer return handoff 2026-11-07-return-handoff-claude-ai-2.md §4
+items 1 and 3, plus the strategy filter audit dated 2026-11-08.
+
+RULINGS
+R1  RTH = 09:30–16:00 ET (answers §4 item 1, B1). Arms (a) and (b)
+    anchor at the 09:30 ET cash open. VM step 0 reads the live
+    "CME US Index Futures RTH" template hours (T7 readback). If the
+    live template starts 08:30 ET, the 2026-11-01 baselines are
+    suspect and are re-run at 09:30 ET before either arm counts.
+R2  GO requires arm (a) to pass. Arm (b) can only add confidence or
+    block a GO; it can never carry a GO on its own (§4 item 3).
+R3  Gate 6 (WFE) applies to arm (b) only (§4 item 3).
+R4  Scoring, hybrid (§4 item 3, gate 2):
+    - Win rate: no-trade days excluded; a break-even trade counts as
+      half a loss.
+    - Sharpe: daily returns, every trading day counted (no-trade
+      days = 0), equity base = the account size actually traded.
+    Check against the values-spec §6/§8 wording; flag any conflict
+    back to Amear, do not resolve it.
+R5  The fixed R:R shape filter (3:1 partial plus runner; 1.5:1) is
+    retired for all automated-strategy research, including the
+    higher-win-rate brief. A strategy qualifies if it is fully
+    rule-based, net positive after costs, and survives every MFFU
+    condition, including the EOD trailing drawdown and the
+    consistency rule.
+R6  Research and backtest, on the existing 1-minute data only,
+    nothing bought (R-1104-3 stands):
+    - Pre-Announcement Drift (Hu, Pan, Wang & Zhu 2022), evening-
+      entry variant, exit before the release.
+    - Macroeconomic Announcement-Day Premium (Savor–Wilson; Ai 2024).
+    Runs in parallel with the walk-forward, not queued behind it.
+    Before any build, read MFFU's current T1 news rule and confirm
+    whether an evening entry counts as the same trading day.
+R7  Parallel work runs in a separate git worktree on its own branch,
+    never in the same working directory (v6y). NT8 runs on the VM
+    take turns.
+R8  F2 unfreezes. Breaker values set for manual trading are redone
+    for the automated book: #2 max 2 trades/day, #3 two-and-done,
+    #4 flat at 11:30, #5 as a disable of the system's own trading
+    15:00–18:00, #8 inter-trade interval under 5 minutes.
+    KEEP: #1 daily loss limit; #5 as a lockout on Amear's own
+    interaction 15:00–18:00. New values come back to Amear as
+    PROPOSED.
+R9  FOMC-Cycle Even-Week stays parked while trading on MFFU
+    (multi-day hold breaks flat-by-close). Revisit only if own
+    capital is ever used.
+
+HOUSEKEEPING (Code's job, not Amear's)
+- The index holds 12 stale staged files from July–October (2026-08
+  reports, the F4 evidence PNG, the ledger-compaction spec). Unstage
+  or land them deliberately; never commit without a pathspec.
+- Stray untracked file "F" (2026-07-28, contents "# DISPATCH LOG"):
+  investigate, then remove or log.
+- Audit-ledger flush still owed: surgical, nine 2026-11-07 lines,
+  the three July/August as-is lines stay out.
+- MFFU flat time is 16:10 in one doc and 16:59 in another: read
+  MFFU's current terms and record which is right.
+- HANDOFF.md line 7 says the bd remember save failed, but
+  master-gate-route-2026-11-07 is in the beads store. Correct it
+  append-only.
+- Stale bead title on Praxis_build-867.
+
+STILL OPEN FOR AMEAR (next session)
+§4 items 2 and 4–12 of the 2026-11-07 return handoff, starting with
+item 4 (the July SPEC_RUBRIC hunk, R-A/R-B/R-C). Bring a plain-
+language summary of what those lines do.
+```
+
+**Copy check.** `sed -n '12,79p' docs/reports/2026-11-08-amear-rulings-voice.md | openssl dgst -sha256` = `73518316d7465c6abc8139d0b3b4192912047e352c43799124436b6c8a1da263` (OBSERVED; equals the value in the rulings file's Correction 1, :94). The block body's hash after insertion: `73518316d7465c6abc8139d0b3b4192912047e352c43799124436b6c8a1da263` (computed by the splice script from the assembled text; the post-insertion re-check is pasted in the unit report).
+
+**Per-ruling pointers.** His words are in the block above; they are not restated here. No ruling is read past its words.
+
+- **R1 — RTH session.** *Answers:* return handoff `docs/reports/2026-11-07-return-handoff-claude-ai-2.md` §4 item 1 (B1 session start, :61-65). *Bears on:* values spec `docs/specs/2026-11-06-walk-forward-values.md` T12(iii) "the session's typical-price VWAP from the 09:30 bar" (:206) and §4's ATR line "the last 14 completed RTH sessions" (:72) (both pointers REPORTED BY the return handoff :65; re-read here, OBSERVED); VM handoff step 0 (see R1 in the block above). Master's reading (filing note 2, :87), changeable by Amear: `docs/reports/2026-10-31-o78-worker4-report-adversarial.md:208-219` at commit `29c3e13` prints a RESCUED copy of `CME US Index Futures RTH.xml` as Monday–Friday `830`–`1600`, TimeZone `Eastern Standard Time` (REPORTED BY that worker). The live VM template is UNVERIFIED. Conditional, per bd memory `amear-conditional-commitment`: nothing here asserts what the live template holds. Master's reading (filing note 2, :87), changeable by Amear: "If the T7 readback shows 08:30, R1's re-run clause fires for the three 2026-11-01 runs." His own condition is "If the live template starts 08:30 ET" (block above); the rescued copy carries its own TimeZone field, so whether a readback is "08:30 ET" depends on that field too (INFERRED, the filer's, not his word). The readback has not been observed; it is the observation that decides (INFERRED, the filer's, not his word). *Does NOT settle:* the template's actual hours; no spec wording is changed; the VM handoff step-0 line is a later unit (U3).
+- **R2, R3 — which arm carries GO; gate 6.** *Answer:* return handoff §4 item 3 (:67) (his words: "(§4 item 3)" for each); R2 ↔ the part "whether GO / HOLD / REJECT may rest on arm (b)" and R3 ↔ "whether gate 6 applies to arm (a)" is the filer's assignment (INFERRED, the filer's, not his word). *Bear on:* values spec §8 :128 ("Judged arm = (a)" vs Q8 "both arms are judged against all six Phase 3 gates"), :132 (ii) and (iii), :133 ("The WFE formula for arm (b) … OPEN"); O1 (`specs/SPEC_RUBRIC.md:74-79`). Side by side, not reconciled here (INFERRED, the filer's, not his word): R3 "Gate 6 (WFE) applies to arm (b) only" and Q8 at values spec :121 "both arms are judged against all six Phase 3 gates"; raised to the master in the unit report. *Do NOT settle:* whether R2/R3 discharge O1 — the values spec :134 leaves "Whether Q8 discharges O1" to "the master and the auditor"; that the same holds for R2/R3 is INFERRED, the filer's, not his word, and Amear may rule on it; the WFE formula itself (:133) — R3's words do not give it; the values spec is not edited.
+- **R4 — scoring, hybrid.** *Answers:* §4 item 3's "the gate 2 Sharpe definition and its equity base" (his words: "(§4 item 3, gate 2)"; the sub-part is the filer's assignment (INFERRED, the filer's, not his word)). R4 instructs "flag any conflict back to Amear, do not resolve it". Master's reading (filing note 3, :88), changeable by Amear, names the same checks. The checks are NEEDS AMEAR FLAGS 1–5 below. *Does NOT settle:* any of FLAGS 1–5; the values spec is not edited.
+- **R5 — R:R shape filter.** *Answers:* strategy filter audit `docs/reports/2026-11-08-strategy-filter-audit.md` §6 Q1 (:211). *Bears on:* filter C3 (audit :88; §4.1 at :127). R5's words name "The fixed R:R shape filter (3:1 partial plus runner; 1.5:1)"; that this is the audit's C3 is INFERRED, the filer's, not his word — C3's cell at :88 also carries "avg win ÷ avg loss < 1.5 fails regardless of win rate", a clause R5's words do not name, so whether that clause is retired with it is not settled here. *Bears on:* the higher-win-rate brief requested in `docs/reports/2026-11-04-voice-session-notes-4.md:36` ("New work requested by Amear" item 1, heading :35) and audit :144. The audit is "recommendation only … **PROPOSED**" (:4), by the Claude.ai channel research agent (:3). *Does NOT settle:* the audit's other C filters and its §5 ranking are not adopted by this entry — R5's words rule on the fixed R:R shape filter only (INFERRED, the filer's, not his word).
+- **R6 — two announcement studies.** *Answers:* audit §6 Q2 (:212); candidates at §5 (:175). *Pre-conditions, his words:* see R6 in the block above (MFFU's current T1 news rule; whether an evening entry counts as the same trading day). Neither is done here; both are U2 in the `14:22:00Z` plan, and U5 starts only after U2's MFFU T1 read. R-1104-3 stands: D-2026-11-04-A (DECISIONS.md:736), R-1104-3 (:752), the "No historical tick-data purchase" reading (:948). Nothing is bought. "Runs in parallel" — see R7. *Does NOT settle:* no study is started.
+- **R7 — parallel work.** Names (v6y), identified (INFERRED, the filer's, not his word) as bead `Praxis_build-v6y` (CLOSED, "Gate/concurrency gap: audit token does not bind the staged tree; parallel sessions can inject files into a repo tip write"; OBSERVED `bd show`). Master's reading (filing note 4, :89), changeable by Amear: R7 does not change the serial-dispatch rules — "one praxis-manager at a time (bug `Praxis_build-9lj`)" and settlement 9. Bead `Praxis_build-9lj` is itself a bug about report grading (OPEN, "gate-manager-output.sh grades the newest docs/reports/*.md, so concurrent managers get each other's reports graded"); settlement 9 of D-2026-11-06-B ruling 5 (DECISIONS.md:1092; a master's decision under R-1104-2, not his word: "Code does not run agents while the VM session writes; handover goes through the VM handoff file"), operationalised as STARTED/FINISHED markers (`vm/replies/README.md:7`, `vm/2026-11-06-vm-handoff.md:37`). Note 4 also reads parallel = separate worktree and branch. R6's "Runs in parallel with the walk-forward, not queued behind it" and settlement 9's "Code does not run agents while the VM session writes" sit side by side on their face; how they combine is not settled here (INFERRED, the filer's, not his word). It is not listed under NEEDS AMEAR, because this unit's brief limits that list to the R4 flags and the R8/F2 question; it is raised to the master in the unit report, and the master operates on note 4 (master's reading (filing note 4), changeable by Amear). *Does NOT settle:* no worktree or branch is created here.
+- **R8 — F2 and the breakers.** *Answers:* audit §6 Q3 (:213). Master's reading (filing note 1, :86), changeable by Amear: only Amear edits `specs/SPEC_RUBRIC.md` (:3-4, "The build side does not edit this file. It proposes changes; Amear applies them."). F2's unblock condition (:41-42) is "A DECISIONS.md entry names the governing rule and the 15:00 disposition, and breaker specs #4 and #5 are amended to match." The master's note says that artifact does "not exist yet". The master treats R8 as unblocking a PROPOSAL unit on breakers #2, #3, #4, #5-system and #8, values returned PROPOSED, and NOT as unblocking Block 3 or Block 4 work (F2 "Blocks." :43). Master's reading (filing note 1), changeable by Amear: the F2 state line in the rubric changes by Amear's hand, and he may override the master's reading. *Does NOT settle:* this entry does not edit the rubric. The block carries R8's words on #4 and #5; whether those words name F2's governing rule or its 15:00 disposition is not decided here — FLAG 6. Audit §6 Q3 also asks "Do you want this audit filed as an input to F2?"; R8's words do not answer that yes/no, and R8 adds #8, which Q3 does not name (INFERRED, the filer's, not his word).
+- **R9 — FOMC-Cycle Even-Week.** *Answers:* audit §6 Q4 (:214). *Bears on* (INFERRED, the filer's, not his word): §4.4 "Overnight-hold parking" (:165). *Does NOT settle:* nothing beyond his words.
+
+**HOUSEKEEPING (rulings file lines 61–74; Code's, per his words).** Six items, listed in the block above: the 12 stale staged files; the stray untracked `F`; the surgical audit-ledger flush; the MFFU flat time (16:10 vs 16:59) against MFFU's current terms; HANDOFF.md line 7, append-only; the stale title on `Praxis_build-867`. None is acted on in this unit; they are U2 in the `14:22:00Z` plan.
+
+**STILL OPEN (rulings file lines 76–79; Amear's).** Return handoff §4 items 2 and 4–12, item 4 first (the July rubric hunk, R-A/R-B/R-C). None is answered here.
+
+**What this entry does NOT do.** No code. No run. No VM edit. No purchase. No spec or rubric edit. No ledger edit. No housekeeping item done. No FLAG resolved.
+
+**S4 timing.** This entry is written before any unit that depends on R1–R9 is dispatched. The dependents are U2–U5 in the DECISION_LOG `2026-11-08T14:22:00Z` plan: U2 housekeeping, including the read of MFFU's current terms; U3 VM handoff amendment 2 (the step-0 template-hours line and R1's re-run clause); U4 the F2 breaker-values PROPOSAL; U5 R6 research on branch `research/announcement-drift` in its own worktree, after U2's MFFU T1 read. Master's reading (filing note 5, :90), changeable by Amear, per bd memory `master-s4-entry-before-code`: the master verifies this entry on disk before dispatching them.
+
+**S6 cross-block (interactions only; nothing decided here).** F1–F4 (`specs/SPEC_RUBRIC.md`:17, :30, :45, :59; `grep -n '^### F'`, OBSERVED) are not modified by this unit; `git diff --numstat HEAD -- specs/SPEC_RUBRIC.md` = `10	0` (the pre-existing July hunk, OBSERVED). Interactions: R8↔F2 (FLAG 6); R2/R3↔O1 (:74); R4↔O4 (:94; FLAG 3); R1↔values spec :72 and :206.
+
+**NEEDS AMEAR.** Each flag sets two texts side by side. Not resolved here; no reading is picked.
+
+- **FLAG 1 — R4 vs the §6 selection statistic.** Values spec §6 :92: "**as the in-sample selection objective only**: annualised Sharpe of daily net P&L … d_i = sum of the net P&L … of trades exited in session i, 0 if none. S = mean(d) / sd(d) × √252, sd with n − 1, risk-free rate 0 … dollar P&L at 1 NQ needs no equity base." R4 (block above): "equity base = the account size actually traded". Whether R4 applies to the gate only, or also changes §6's selection statistic — his (the question is raised by master's reading (filing note 3, :88), changeable by Amear). Not resolved here.
+- **FLAG 2 — R4 vs the gate-2 open item.** Values spec :93: "This statistic does NOT define the gate "OOS Sharpe ≥ 1.0". The gate's Sharpe definition and its equity base stay OPEN under ruling 9"; §8 :132 (i) the same. R4 supplies daily returns, no-trade days = 0, equity base = the account size actually traded. Open within it (INFERRED, the filer's, not his word): "the account size actually traded" names no figure — "The tier pick is OPEN" (:137, Q9); whether the base is the MFFU account size, the 1 NQ / 1 MNQ figure (:139), or something else; and whether √252, n − 1, rf 0 and the net-of-costs basis ("after commission and slippage") from :92 carry over — R4's words name none of them. His. Not resolved here.
+- **FLAG 3 — R4's win-rate rule vs the gate list.** R4 heads itself "(§4 item 3, gate 2)" and includes a win-rate rule. The six gates (:121-127) carry no win-rate gate; gate 2 is "OOS Sharpe ≥ 1.0" (:123). A win-rate figure appears in O4's Block 4 gate, "within ±15% win rate" (`specs/SPEC_RUBRIC.md:96-97`). Where R4's win-rate rule applies — his. Also open (INFERRED, the filer's, not his word): whether R4's win rate is counted per trade or per day ("no-trade days excluded" names days; "a break-even trade" names trades), and whether it is the same quantity as O4's "±15% win rate". Not resolved here.
+- **FLAG 4 — the 4% DD equity base.** Values spec :93 and :132 cite DECISIONS.md:978: "equity base for the 4% DD gate (item 5) and Sharpe definition (item 4)". :135: "Max-DD gate base — RULED (D-2026-11-05-A item 3, DECISIONS.md:814 …)", with the notes-4 item kept OPEN. R4's words name Sharpe and win rate, not the drawdown gate (INFERRED, the filer's, not his word). Whether the 4% DD equity-base item stays open — his. Not resolved here.
+- **FLAG 5 — "trading day" vs "session".** R4: "every trading day counted (no-trade days = 0)". Values spec :92 counts per session i ("For the in-sample sessions i = 1…n") ("trades exited in session i"). R6 asks to "confirm whether an evening entry counts as the same trading day". Whether R4's "trading day" is the session i of :92 — his (INFERRED, the filer's, not his word). Not resolved here.
+- **FLAG 6 — R8 and F2's state.** Does R8 change F2's state in `specs/SPEC_RUBRIC.md` — do R8's words on #4 and #5 name F2's governing rule and 15:00 disposition — and is master's reading (filing note 1), changeable by Amear, right? The rubric is his to edit (:3-4). Not resolved here.
+
+## 2026-11-08 — D-2026-11-08-A Correction 1: FLAG 6 side-by-side, filing form labelled, three minor labels (after audit FAIL 1 and the Correction-1 adversary)
+
+**Date:** 2026-11-08
+**Status:** CORRECTION to D-2026-11-08-A. Lines :1534–1645 are NOT edited; a wrong line stays beside its correction. Authorisation (S5): DECISION_LOG `2026-11-08T14:57:00Z` (WHO: praxis-master, DECISION_LOG.md:725, working tree). Source of findings: the Correction-1 adversary block, `docs/reports/2026-11-08-rulings-filing-manager.md:965–1049` (`VERDICT: REFUTED`, :970). Appended by praxis-manager, unit `2026-11-08-rulings-filing-correction-2`.
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades.** Every quotation below was produced by script (`sed -n` / `grep -o`) from the file and line cited; none is retyped. Where a quote spans two or more source lines, the lines are joined by script with one space, and the leading label and indent are dropped; the quote's pointer gives the line range. Amear's words carry WHO: amear and a pointer. Other sentences carry one of three labels: "master's reading, changeable by Amear"; "master's decision under R-1104-2 (DECISIONS.md:748), changeable by Amear"; "INFERRED, the filer's, not his word". Line pointers were re-read this unit (OBSERVED).
+
+**Cure for finding 1 (FLAG 6, side by side).** Amear's words, R8 (WHO: amear; DECISIONS.md:1583–1589):
+
+```text
+R8  F2 unfreezes. Breaker values set for manual trading are redone
+    for the automated book: #2 max 2 trades/day, #3 two-and-done,
+    #4 flat at 11:30, #5 as a disable of the system's own trading
+    15:00–18:00, #8 inter-trade interval under 5 minutes.
+    KEEP: #1 daily loss limit; #5 as a lockout on Amear's own
+    interaction 15:00–18:00. New values come back to Amear as
+    PROPOSED.
+```
+
+Master's reading (filing note 1, rulings file :86), changeable by Amear: "Until it does, the master treats F2 as still blocking Block 3 and Block 4 work, and treats the proposal unit as unblocked."
+
+The master's row DECISION_LOG `2026-11-08T14:57:00Z` (:725) says his A6 "now answers it"; A6 opens "FLAG 6:" (OBSERVED). FLAG 6 also asks "do R8's words on #4 and #5 name F2's governing rule and 15:00 disposition" (:1645); A6's words do not name that part, and this entry does not read A6 as settling it or as leaving it open. A6 (**WHO: amear**; DECISION_LOG `2026-11-08T15:05:00Z`, DECISION_LOG.md:723 — a hand stamp, "about 19 minutes ahead; the order of events in this ledger is correct" per DECISION_LOG `2026-11-08T14:47:00Z`, :724; answers file `docs/reports/2026-11-08-amear-answers-flags.md`:38–39):
+
+```text
+A6  FLAG 6: R8 starts the breaker PROPOSAL unit. F2's state changes
+    when Amear approves the proposed values.
+```
+
+Master's reading, changeable by Amear: the F2 breaker-values PROPOSAL unit (U4 in the DECISION_LOG `2026-11-08T14:22:00Z` plan) is authorised. Master's reading, changeable by Amear: F2's state in `specs/SPEC_RUBRIC.md` changes only on his approval of the proposed values. FLAG 6's sentence "The rubric is his to edit (:3-4)." (DECISIONS.md:1645) is superseded by his A11 (master's reading, changeable by Amear). A11's first two sentences (**WHO: amear**; DECISION_LOG `2026-11-08T15:05:00Z`, :723; answers file :50–51, joined): "Amear no longer edits any repo file by hand, including specs/SPEC_RUBRIC.md. Amear decides; agents write." Master's reading, changeable by Amear: the rubric is now edited by agents. A11's third sentence (**WHO: amear**; answers file :51–53, joined): "Every rubric edit cites a logged Amear approval inline and passes the auditor before commit." A11's replacement of the rubric's :3-4 sentence is NOT done here. Nothing is resolved beyond his words.
+
+**Cure for finding 2 (filing form).** Amear's words (WHO: amear; DECISIONS.md:1546, inside the fenced block): "WHO: amear. File each as a DECISIONS.md entry citing this session." Master's decision under R-1104-2 (DECISIONS.md:748), changeable by Amear: the nine rulings are filed as ONE entry, D-2026-11-08-A, with a labelled section per ruling (eight bullets at DECISIONS.md:1619–1626; R2 and R3 share one, :1620). The decision is on the ledger at DECISION_LOG `2026-11-08T14:57:00Z` (WHO: praxis-master, DECISION_LOG.md:725): "Master's decision under R-1104-2, changeable by him: one entry per ruling-set with a labelled per-ruling section each". It follows the master's plan, DECISION_LOG `2026-11-08T14:22:00Z` (DECISION_LOG.md:719): "U1 FILING — D-2026-11-08-A in DECISIONS.md: R1–R9". The alternative the master named and did not take (:725, "alternative = nine separate entries"): nine separate entries, one per ruling. Precedent (OBSERVED, DECISIONS.md:1052): `## 2026-11-06 — D-2026-11-06-B: Amear's evening rulings 1–5 and loop a–e (voice, 2026-11-06)`. INFERRED, the filer's, not his word: his own answers heading "File as D-2026-11-08-B" (answers file :16, WHO: amear) covers eleven answers, A1–A11, in one entry. Whether one entry satisfies "File each" is his question; it is under NEEDS AMEAR, unanswered.
+
+**Cure for finding 3 (filing note 3's lean).** Filing note 3 (rulings file :88) also says: "R4 fills the gate definition." That sentence is the master's reading at the time of filing (filing note 3), changeable by Amear; D-2026-11-08-A did not carry it. That his A1 and A2 now rule on that subject is INFERRED, the filer's, not his word (their openings are "FLAG 1:" and "FLAG 2:"; the master's row :725 says "his A1/A2 now rule on it"). A1 and A2 (**WHO: amear**; DECISION_LOG `2026-11-08T15:05:00Z`, :723; answers file :18–23):
+
+```text
+A1  FLAG 1: R4 applies to gate 2 only. The values-spec §6 in-sample
+    selection statistic stays as written.
+A2  FLAG 2: Gate 2 "OOS Sharpe >= 1.0" = the §6 formula on
+    out-of-sample sessions: daily net P&L after commission and
+    slippage, 0 on no-trade sessions, sqrt(252), sd n-1, risk-free 0.
+    Fixed base, no compounding; tier pick not needed for this gate.
+```
+
+No reading of the filer's is added.
+
+**Cure for finding 4 (the brief's limit).** DECISIONS.md:1624 says "this unit's brief limits that list to the R4 flags and the R8/F2 question". REPORTED BY master (DECISION_LOG `2026-11-08T14:57:00Z`, :725): that limit rests on the master's dispatch MESSAGE to U1, "REPORTED BY master, not on disk". The same row quotes the brief: "NEEDS AMEAR: the R4 flags; the R8/F2 rubric-edit question; nothing else invented". Grade: REPORTED BY master, UNVERIFIED on disk.
+
+**Cure for finding 7 (unlabelled sentence in R8).** DECISIONS.md:1625 carries, without a label: "The master treats R8 as unblocking a PROPOSAL unit on breakers #2, #3, #4, #5-system and #8, values returned PROPOSED, and NOT as unblocking Block 3 or Block 4 work (F2 "Blocks." :43)." Label attached here: master's reading (filing note 1), changeable by Amear.
+
+**Findings 5, 6, 8, 9 — carried as wording, not cured** (DECISION_LOG :725: "(5)(6)(8)(9) — wording/labels, carried as noted, not individually cured"). Nothing is added for any of them.
+- Finding 5: "some identifications carry no label." Carried as wording.
+- Finding 6: "FLAG 4 (:1643) quotes only one side." Carried as wording.
+- Finding 8: "the evidence-grades line (:1540) says Amear's words are "the fenced block below and nothing else"." Carried as wording.
+- Finding 9: "R5 is listed as "Answers" audit Q1 (:1622)." Carried as wording.
+
+**S4.** This entry is written before D-2026-11-08-B is filed (`grep -c '^## .*D-2026-11-08-B' DECISIONS.md` = `0`, OBSERVED) and before U4 is dispatched (no 2026-11-08 U4 row in DISPATCH_LOG, OBSERVED). The decision to correct by append is DECISION_LOG `2026-11-08T14:57:00Z` (WHO: praxis-master), logged before this unit ran.
+**S5.** No approval is inferred. A1, A2, A6 and A11 are cited from the ledger row `2026-11-08T15:05:00Z` (**WHO: amear**, DECISION_LOG.md:723).
+**S6.** F1–F4 (`specs/SPEC_RUBRIC.md`:17, :30, :45, :59; `grep -n '^### F'`, OBSERVED) untouched. `git diff --numstat HEAD -- specs/SPEC_RUBRIC.md` = `10	0	specs/SPEC_RUBRIC.md` (the pre-existing July hunk, OBSERVED).
+**S13.** The standing sentence is carried once, in the header. No backtest or P&L figure is stated in this entry.
+
+**NEEDS AMEAR.** (i) Whether one entry satisfies "File each as a DECISIONS.md entry" (DECISIONS.md:1546). Nothing else.
