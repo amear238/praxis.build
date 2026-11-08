@@ -1,7 +1,9 @@
 # PRAXIS — SPEC RUBRIC
 
-Authority: the scoping agent (Claude.ai) via Amear. The build side does not
-edit this file. It proposes changes; Amear applies them.
+Authority: the scoping agent (Claude.ai) via Amear. Amear decides; agents write.
+Amear does not edit this file by hand. Every edit cites a logged Amear approval
+inline and passes the auditor before commit (D-2026-11-08-B A11; DECISION_LOG
+2026-11-08T15:05:00Z, WHO: amear).
 
 This file exists because context windows compact and reasoning held only in a
 session is reasoning that will be lost. Every criterion below is graded, not
@@ -72,6 +74,12 @@ closure states it has not been confirmed by direct inquiry.
 ## OPEN — gradeable now
 
 ### O1 — Walk-forward gate set for the replication arm
+**State:** PASSED@a2f1067. Amear's ruling A8, D-2026-11-08-B (DECISION_LOG
+2026-11-08T15:05:00Z, WHO: amear): "O1 is discharged by R2 + R3 + A7."
+R2 and R3 are in D-2026-11-08-A (DECISIONS.md:1556, :1558); the gate set per arm
+is A7; the gate-6 formula is A8 (annualisation method: D-2026-11-08-B NEEDS AMEAR
+(iii)). Marking O1 PASSED, and the sha as the commit that lands D-2026-11-08-B,
+are the master's reading (filing note 3), changeable by Amear.
 Walk-forward efficiency ≥ 0.50 is one of six non-negotiable Block 2 pass gates
 and is undefined without an in-sample optimisation step. Deviation D removed
 optimisation from the first pass. **Required:** a written statement of which
