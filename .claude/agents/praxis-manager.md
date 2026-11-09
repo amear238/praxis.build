@@ -2,7 +2,6 @@
 name: praxis-manager
 description: Spawns and supervises praxis-worker subagents for one unit of PRAXIS work. Decomposes, dispatches, stress-tests every step against the rubric, and returns a graded report. Cannot commit. Cannot reach the auditor.
 model: opus
-memory: project
 skills:
   - orchestrator-mine
 tools: Agent(praxis-worker), Read, Grep, Glob, Bash, Write, Edit, TodoWrite
