@@ -1,0 +1,1117 @@
+URL: https://help.myfundedfutures.com/en/articles/9558251-permitted-times-to-trade
+FETCHED_UTC: Mon Nov  9 09:06:22 UTC 2026
+HTTP: 200
+RAW_SHA256: ee716443cbfbf4e95339b58cc64b412b342a135dd63682e150f6b7ba1b6bdf26
+---
+PAGE_TITLE: Permitted Times to Trade | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+What are the permitted trading hours with MFFU?
+Trades may be placed beginning at 6:00 PM EST when the Globex session opens and can remain open until the New York session closes at 4:10 PM EST.
+What happens if I do not close my trade?
+At MyFundedFutures, any open positions will be automatically closed at 4:10 PM EST on regular (non-holiday) trading days. Holiday trading hours will be communicated to traders including closure of open positions.
+​
+As a result, you do not need to be concerned about unintentionally violating this rule due to an open position.
+Note: Make sure that you don’t force a trade multiple times on the market after 4:10 PM EST, as this will sometimes cause the order to go through and disqualify your trading account.
+Can I trade the Globex Opening at 6:00pm EST, will I get the fill?
+Yes, you can trade between the specified times. However, please note that even if you are at the sim funded or sim evaluation stages, we do not recommend trading when the markets are said to be illiquid. This can cause issues with the position.
+Illiquid hours are allowed to trade, but at the traders own discretion. This is also applicable for holiday trading hours as well.
+Holiday Hour Trading:
+During holiday trading hours, auto-liquidation will not occur at the half-time market close, and the trader is responsible for closing the positions.
+Please note the times that you’re allowed to trade.
+Failure to close the positions before the market closes will result in breaching of the account unless otherwise notified.
+Take the Challenge Today
+Related Articles
+Navigating Your Dashboard
+News Trading Policy
+Fair Play and Prohibited Trading Practices
+Trading 101 in Volumetrica
+Comprehensive FAQ - Live Accounts at MyFunded Futures
+
+URL: https://help.myfundedfutures.com/en/articles/12109396-comprehensive-faq-live-accounts-at-myfunded-futures
+FETCHED_UTC: Mon Nov  9 09:06:28 UTC 2026
+HTTP: 200
+RAW_SHA256: 875050cc61a6e116122151ac04811213825272500b345dd9c0ee1fea110233a7
+---
+PAGE_TITLE: Comprehensive FAQ - Live Accounts at MyFunded Futures | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+FAQ Document
+Microscalping Rule
+Q. Is Microscalping allowed on my live account?
+A: Yes, microscalping is permitted on the live accounts. The CME does not impose any restrictions on this trading style, so we have no problem with this strategy.
+What is Microscalping?
+Microscalping is a popular strategy used by many traders to capture small price movements, usually a few ticks. Traders compound small, consistent profits with minimum market exposure.
+However, this strategy relies on minimal slippage, instant execution, and ideal market conditions, but this may not always be attainable in live trading.
+We allow microscalping to all our live traders; however, please be aware that this approach carries significant risks.
+Take the Challenge to Get Funded
+Example of Micro Scalping:
+Here is a scenario to illustrate this strategy:
+Example 1: Short Duration
+Buy Price: 23.964.50
+Sell Price: 23.969.00
+Duration: 5 Seconds
+Profit: $90
+This trade lasted only 5 seconds. While quick profits can be tempting, any sudden market driver events during that time could result in damaging slippage and heightened risk.
+Dollar-Cost Averaging Trading Strategy (DCA)
+Q. Do you allow DCA on the live account?
+A: Yes, DCA is allowed on live accounts, but be careful, as it is a risky trading strategy.
+The DCA is one of the most used risk management strategies by traders, especially during market volatility. Instead of taking the whole position at once, they stage trades over a specified period. The method helps to reduce the emotional impact of market volatility.
+Adding to a losing position without a proper plan or strategy is heavily discouraged, as it may lead to liquidation.
+Example of DCA:
+Here is a scenario to illustrate this strategy:
+A live trader is going long on the NASDAQ (NQ). They first enter with 1contract, and as the price retraces, they scale in another contract. The price dips even further, then they scale in another contract, for a total of three contracts.
+Another live trader is going short on ES. Price moves aggressively up past their original position, but they add another contract to their short. The trader is in a major loss in the hopes of a reversal.
+Can I request a payout of same-day profits before EOD?
+Q. This is my first day on my live account. Am I able to request a payout today?
+A. Technically, yes, but beware that if this is your first day on the account, you will need to wait until the end of day to send a payout request. After the first day, you are free to request daily payouts on your live account.
+Q. Will I receive my payout the same day?
+A. Yes, but please note that payout requests must be sent before 11 AM EST for the request to be processed the same day.
+Q. I missed the deadline for daily payouts...
+A. Do not fear, we have received your payout request. It will most likely be processed the following business day.
+Q. Can I request multiple payouts in one day?
+A. Unfortunately, that is not possible as payouts are processed once a day by our partner FCM.
+Q. Can I continue trading after requesting a payout?
+A. No, once you request your profits to be withdrawn from your account, your available contracts will be set to 0 until the payout is approved and paid. This ensures traders do not lose the profits requested before the payout is processed, which can cause the payout request to be rejected.
+MyFunded Futures offers transparency, speed, and daily live payouts to all account types. Live traders must ensure that the minimum amount that they can withdraw is $250.
+All payout requests must be sent before 11 AM EST to ensure our FCM partner approves your transaction promptly. ﻿​﻿You will receive one Email stating that your payout has been approved, and then another email notifying you that your payout has been paid.
+Inactivity Rule
+Q. Is there an inactivity timer/rule on the live account?
+A. No, this is another benefit of the live account.
+Q. What about my data exchange fee? Am I still going to be charged for it?
+A. Yes, you will still be charged for it. Your exchange fee will be automatically deducted on the first trading day of the month.
+All our live accounts, no matter what account type you were originally on, have no inactivity timer/rule. You are welcome to leave your account sitting.
+This is a fantastic benefit. Let's say you are on vacation, need a break from trading, life events happen, etc. Your account will not be penalized for inactivity, as you are in charge of covering all ongoing fees.
+T1 News Policy
+Q. Can I trade news on my live account?
+A. Yes, you can trade news.
+News trading is allowed on our live accounts, but we heavily emphasize that you don't trade news. Trading during news comes with high volatility, which could lead to slippage, poor fills, and other risks associated. Please be aware that take profits, stop losses, or any other orders may not be honored.
+Available Trading Hours
+Q. I forgot to close my position at 3:10 pm CST or 4:10 pm EST. What happens now?
+A. We have systems in place to ensure that your trades are automatically closed before 4:10 pm EST.
+Q. Will I be breached if my trade wasn't closed EOD?
+A. No, we do not punish our live traders, as your trades are automatically closed by our systems.
+Luckily, we have systems in place for all our live accounts to ensure your trades are closed before 4:10 pm EST. We do not breach our live traders for this.
+In the case your live account is still in a trade past 4:10 pm EST, please contact the live support team right away. This is very unlikely to happen, but always a good precaution to keep.
+Hedging / Cross-Hedging Rules (same or different instruments)
+Q. Can I short E-Mini ES and short Micro ES?
+A. We do not allow our live traders to trade the same underlying asset in different directions at the same time.
+MyFunded Futures maintains a strict no-hedging policy. We do not allow any kind of hedging, whether you are a sim trader or live. It is important to adhere to this rule as traders who disobey may face punishments.
+Get Started with MFFU
+Account Risk Settings
+Q: Are there any limits to my position size or Daily Loss Limit?
+A: Yes, all Live accounts have different limits to both their position size and Daily Loss Limits (DLL).
+Please review our articles on this:
+* Core Plan: https://help.myfundedfutures.com/en/articles/11802648-core-plan-sim-funded-and-live-account-highlights
+* Scale Plan: https://help.myfundedfutures.com/en/articles/11802669-scale-plan-sim-funded-and-live-account-highlights
+* Pro Plan: https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights
+​
+Q. How do I adjust my Daily Loss Limit (DLL)?
+A. A decrease in your Daily Loss Limit can be requested at any time by contacting Live Support. Specify the amount you want your DLL set to, and a Risk Manager will adjust it for you.
+Q: Can I increase my contracts and DLL?
+A: While there is no set scaling plan for our Live accounts, we work one on one with all our Live traders to ensure their risk settings reflect their performance and strategy.
+Once you have been live for 2 weeks, feel free to ask your risk manager to review your limits if you wish.
+More prohibited practices
+Q. Are there any other prohibited practices that you guys have?
+A. No, there is nothing else we prohibit, but you must abide by the CME Rules.
+Please review the official CME website for more information on this: https://www.cmegroup.com/rulebook/CME/
+Click here to get started with MyFunded Futures
+Additional Live Account FAQs
+Adjusting Daily Loss Limit (DLL)
+Q. How do I adjust my Daily Loss Limit (DLL)?
+A. A decrease in your Daily Loss Limit can be requested at any time by contacting Live Support. Specify the amount you want your DLL set to, and a Risk Manager will adjust it for you.
+Market Data Troubleshooting
+Q. What should I do if my market data is delayed or not working?
+A. Contact Live Support so they can add the required Live Data/Exchange. Do not try to add data yourself, as this may cause issues.
+Q. Can I change my market data subscription or add exchanges?
+A. Yes, you can request to add or remove market data exchanges (e.g., CME, COMEX) at any time. Fees are deducted from your live balance.
+Dashboard and Account Issues
+Q. What should I do if my dashboard is not reflecting my live account balance or trades?
+A. Contact Live Support. The Tech Team will investigate and resolve the issue. You can request manual payouts or provide screenshots to help diagnose the problem.
+Q. I can log in to my Live Account but there are no funds. What should I do?
+A. Contact Live Support via Email. Funds may take up to 1 business day to reflect on your Live account after a successful onboarding.
+Document Upload Troubleshooting
+Q. My documents won’t upload on the dashboard. What should I do?
+A. Ensure your documents are 5MB or less. If the issue persists, contact Live Support for assistance.
+Live Account Setup Timing
+Q. How long does it take to get the Live Account?
+A. It typically takes 2–4 business days or less for your Live account to be fully set up. Wait times may be extended if additional documents are required.
+Refusing a Live Account
+Q. Can I refuse to move to a Live Funded Account?
+A. No, rejecting the move to a Live Funded Account is not possible once you are selected.
+Multiple Live Accounts
+Q. Can I have more than one Live Funded Account?
+A. Multiple live accounts can be discussed with your risk manager, but are reserved solely for high-performing traders that have a long track record trading Live for MFFU.
+Sim Account Handling
+Q. What happens to my Sim Accounts after moving to Live?
+A. Simulated Evaluations remain dormant after you transition to the Live Environment. You cannot trade both Sim and Live data at the same time. The inactivity rule does not apply to Sim Accounts in this case.
+Feedback and Path Back to Live
+Q. Can I provide feedback or request a path back to live after losing my account?
+A. Yes, you can share your feedback and inquire about options for returning to live. In some cases, a “Path Back to Live” plan may be offered based on your trading history to shorten this journey.
+Trade Limits
+Q. Is there a limit on the number of trades per week or day?
+A. No, there are no limits to the maximum or minimum number of trades you can have per week or per day.
+Drawdown Explanation
+Q. How does the max drawdown work on my Live account?
+A. The max drawdown is static and is set at $140 as the minimum balance. For example, if you have a $5,000 account, your max drawdown limit will be at $140 and your max drawdown will be $4,860.
+Manual Payout Option
+Q. What if my dashboard is not updating and I need a payout?
+A. You can request manual payouts by contacting support if your dashboard is not updating or you encounter issues.
+Related Articles
+Understanding Live Funded Account at MyFunded Futures
+Legacy Pro Plan Sim-Funded and Live Account Highlights
+Builder Plan 50k - A Comprehensive Guide
+Flex Plan - $50,000 / A Comprehensive Guide
+Builder Plan 25k - A Comprehensive Look
+
+URL: https://help.myfundedfutures.com/en/articles/9735811-futures-instrument-list
+FETCHED_UTC: Mon Nov  9 09:08:51 UTC 2026
+HTTP: 200
+RAW_SHA256: 7e878792d6d06c77898a073990bd6bda98828cb55d9d456546b59756e5f6a2f7
+---
+PAGE_TITLE: Futures Instrument List | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+NOTE: The below times specify general market hours. MyFundedFutures trading hours are between 6:00pm EST through 4:10pm EST.
+As of February 7th:
+Due to increased market volatility, MFFU is implementing temporary commodities trading restrictions to align with current industry standards. These adjustments are temporary and intended to promote more consistent trading conditions and reduce the impact of extreme volatility while markets remain elevated.
+​
+The following products are currently restricted from trading:
+Silver (SI)
+Copper (HG)
+Platinum (PL)
+Natural Gas (NG)
+E-Mini Natural Gas (QG)
+As of April 17th, new limits have been implemented for micro contracts on metals trading:
+$25k account → maximum 3 micro contracts
+$50k account → maximum 5 micro contracts
+$100k account → maximum 10 micro contracts
+$150k account → maximum 15 micro contracts
+Also note that due to volatility, MBT is treated as a mini contract. If you have 3 minis max, you have access to 3 MBT contracts max.
+CME
+|
+Instrument Name
+|
+Code
+|
+Trading Hours
+|
+Tick Size
+|
+Tick Value
+|
+Total Cost Round Trip
+|
+Australian Dollar
+|
+6A
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00005
+|
+$5.00
+|
+$5.04
+|
+British Pound
+|
+6B
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0001
+|
+$6.25
+|
+$5.12
+|
+Canadian Dollar
+|
+6C
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00005
+|
+$5.00
+|
+$5.12
+|
+E-mini NASDAQ 100
+|
+NQ
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.25
+|
+$5
+|
+$4.68
+|
+E-mini Russell 2000
+|
+RTY
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.10
+|
+$5.00
+|
+$4.68
+|
+E-mini S&P 500
+|
+ES
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.25
+|
+$12.50
+|
+$4.68
+|
+Euro FX
+|
+6E
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00005
+|
+$6.25
+|
+$5.12
+|
+Japanese Yen
+|
+6J
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0000005
+|
+$6.25
+|
+$5.12
+|
+Lean Hog
+|
+HE
+|
+Monday - Friday 08:30 - 13:05 CT
+|
+0.00025
+|
+$10.00
+|
+$6.12
+|
+Live Cattle
+|
+LE
+|
+Monday - Friday 08:30 - 13:05 CT
+|
+0.00025
+|
+$10.00
+|
+$6.12
+|
+Micro AUD/USD
+|
+M6A
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0001
+|
+$1.00
+|
+$1.44
+|
+Micro Bitcoin
+|
+MBT
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+5.00
+|
+$0.50
+|
+$3.50
+|
+Micro E-mini Nasdaq-100
+|
+MNQ
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.25
+|
+$0.50
+|
+$1.90
+|
+Micro E-mini Russell 2000
+|
+M2K
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.10
+|
+$0.50
+|
+$1.90
+|
+Micro E-mini S&P 500
+|
+MES
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.25
+|
+$1.25
+|
+$1.90
+|
+Micro EUR/USD
+|
+M6E
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0001
+|
+$1.25
+|
+$1.44
+|
+Micro Ethereum
+|
+MET
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.50
+|
+$0.05
+|
+$1.16
+|
+New Zealand Dollar
+|
+6N
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00005
+|
+$5.00
+|
+$5.12
+|
+Nikkei/USD
+|
+NKD
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+5.00
+|
+$25.00
+|
+$6.22
+|
+Swiss Franc
+|
+6S
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00005
+|
+$6.25
+|
+$5.12
+COMEX
+|
+Instrument Name
+|
+Code
+|
+Trading Hours
+|
+Tick Size
+|
+Tick Value
+|
+Total Cost Round Trip
+|
+Copper
+|
+HG
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0005
+|
+$12.50
+|
+$5.12
+|
+Gold
+|
+GC
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.10
+|
+$10.00
+|
+$5.12
+|
+Micro Gold
+|
+MGC
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.10
+|
+$1.00
+|
+$2.20
+|
+Platinum
+|
+PL
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.10
+|
+$10.00
+|
+$4.12
+|
+Silver
+|
+SI
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.005
+|
+$25.00
+|
+$5.12
+|
+Micro Silver
+|
+SIL
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.005
+|
+$5.00
+|
+$2.84
+CBOT
+|
+Instrument Name
+|
+Code
+|
+Trading Hours
+|
+Tick Size
+|
+Tick Value
+|
+Total Cost Round Trip
+|
+Corn
+|
+ZC
+|
+Sunday - Friday 19:00 - 07:45 CT
+Monday - Friday 08:30 - 13:20 CT
+|
+0.0025
+|
+$12.50
+|
+$6.12
+|
+E-mini Dow Jones
+|
+YM
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+1.00
+|
+$5.00
+|
+$5.76
+|
+Micro E-mini dow Jones
+|
+MYM
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+1.00
+|
+$0.50
+|
+$1.90
+|
+Soybean
+|
+ZS
+|
+Sunday - Friday 19:00 - 19:45 CT
+Daily Break: 08:30 - 13:20 CT
+|
+0.0025
+|
+$12.50
+|
+$6.12
+|
+Soybean Meal
+|
+ZM
+|
+Sunday - Friday 19:00 - 19:45 CT
+Daily Break: 08:30 - 13:20 CT
+|
+0.10
+|
+$10.00
+|
+$6.12
+|
+Soybean Oil
+|
+ZL
+|
+Sunday - Friday 19:00 - 19:45 CT
+Daily Break: 08:30 - 13:20 CT
+|
+0.0001
+|
+$6.00
+|
+$6.12
+|
+Wheat
+|
+ZW
+|
+Sunday - Friday 19:00 - 19:45 CT
+Daily Break: 08:30 - 13:20 CT
+|
+0.0025
+|
+$12.50
+|
+$6.12
+NYMEX
+|
+Instrument Name
+|
+Code
+|
+Trading Hours
+|
+Tick Size
+|
+Tick Value
+|
+Total Cost Round Trip
+|
+Crude Oil
+|
+CL
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.01
+|
+$10.00
+|
+$4.92
+|
+E-mini Crude Oil
+|
+QM
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.025
+|
+$12.50
+|
+$4.32
+|
+Heating Oil
+|
+HO
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0001
+|
+$4.20
+|
+$4.92
+|
+Micro Crude Oil
+|
+MCL
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.01
+|
+$1.00
+|
+$1.16
+|
+Natural Gas
+|
+NG
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.00025
+|
+$2.50
+|
+$5.12
+|
+RBOB Gasoline
+|
+RB
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.0001
+|
+$4.20
+|
+$6.00
+|
+E-Mini Natural Gas
+|
+QG
+|
+Sunday - Friday 17:00 - 16:00 CT
+Daily Break: 16:00 - 17:00 CT
+|
+0.005
+|
+$12.50
+|
+$2.92
+To get funded to trade the instruments, start here.
+
+URL: https://help.myfundedfutures.com/en/articles/14290805-builder-plan-50k-a-comprehensive-guide
+FETCHED_UTC: Mon Nov  9 09:09:00 UTC 2026
+HTTP: 200
+RAW_SHA256: 30a528a34283b6f8eae6932b90d661c3398dffbda7bb940767c489f3233d8cb8
+---
+PAGE_TITLE: Builder Plan 50k - A Comprehensive Guide | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+Scope of the 21-day cooldown: This policy applies only when a Live account is closed because of a Maximum Loss breach. It is not a general reset rule and must not be used for evaluation or Sim Funded breaches, reset coupons, or any question where the account stage and plan are not confirmed.
+At My Funded Futures, we create a clear pathway from evaluation, through simulated funding, and into live capital - aligning trader performance with integrity to drive consistent, scalable success. Our mission is to unlock opportunity for disciplined traders while building durable, long-term value.
+We are pleased to introduce the Builder Plan. This guide covers everything you need to know:
+Evaluation Stage
+Simulated Funding Stage
+Payout Policy
+Transition to Live
+Live Account Parameters
+Pricing
+The Builder Plan is available with two Max Loss Limit (MLL) options at checkout. Both options share the same evaluation structure - the MLL is the only difference during evaluation, and it carries through to your sim funded and live stages.
+|
+|
+Builder - Default
+|
+Builder - Add-On
+|
+Price
+|
+$153
+|
+$125
+|
+Discounted Price (30% OFF)
+|
+$107
+|
+$87
+|
+Discounted Price (40% OFF - 2 uses only)
+|
+$92
+|
+$75
+|
+Activation Fee
+|
+$0
+|
+$0
+Evaluation Stage
+My Funded Futures has adopted a streamlined approach to evaluations. The evaluation rules are consistent regardless of which MLL option you select - the only difference is the size of your maximum loss cushion.
+There are absolutely no activation fees on any of our plans.
+|
+|
+Builder - Default
+|
+Builder - Add-On
+|
+Starting Balance
+|
+$50,000
+|
+$50,000
+|
+Profit Target
+|
+$3,000
+|
+$3,000
+|
+Max EOD Drawdown (MLL)
+|
+$2,000
+|
+$1,500
+|
+Starting Minimum Balance
+|
+$48,000
+|
+$48,500
+|
+Daily Loss Limit
+|
+$1,000 - soft pause
+|
+$1,000 - soft pause
+|
+Max Contracts
+|
+4 Minis / 40 Micros
+|
+4 Minis / 40 Micros
+|
+Consistency Rule
+|
+None
+|
+None
+|
+Minimum Trading Days
+|
+1 Day
+|
+1 Day
+|
+News Trading
+|
+Allowed
+|
+Allowed
+|
+Drawdown Model
+|
+EOD Trailing
+|
+EOD Trailing
+Sim Funded Stage
+Once you hit your $3,000 profit target with at least 1 trading day logged, you are promoted to the Sim Funded stage. Your account begins at $0, meaning the balance can go negative before the MLL trails up to breakeven. This is expected and normal.
+Only one Sim Funded account may be active per user at any time on the Builder Plan. In the event of a breach, the earliest a new Sim Funded account may be activated is the following trading day.
+|
+|
+Builder - Default
+|
+Builder - Add-On
+|
+Starting Balance
+|
+$0
+|
+$0
+|
+Max EOD Drawdown (MLL)
+|
+$2,000
+|
+$1,500
+|
+Starting Minimum Balance
+|
+-$2,000
+|
+-$1,500
+|
+Daily Loss Limit
+|
+$1,000 soft pause
+|
+$1,000 soft pause
+|
+Max Contracts
+|
+4 Minis / 40 Micros
+|
+4 Minis / 40 Micros
+|
+Active Accounts Allowed
+|
+1 Builder Account per user
+|
+1 Builder Account per user
+|
+Inactivity Rule
+|
+7 Calendar Days
+|
+7 Calendar Days
+|
+News Trading
+|
+Allowed
+|
+Allowed
+You may request a payout 48 hours after your first trade has been placed, provided that all required payout criterias have been met.
+Payout Policy
+The Builder Plan runs on a flat $2,000 payout cap, up to 5 sim payouts, each paid at 80/20 in your favor.
+|
+|
+Builder - Default
+|
+Builder - Add-On
+|
+Profit Split
+|
+80% Trader / 20% Firm
+|
+80% Trader / 20% Firm
+|
+Consistency Rule
+|
+50%
+|
+50%
+|
+Minimum Qualifying Days / Cycle
+|
+2 Days
+|
+2 Days
+|
+Net Profit Required (First Payout)
+|
+$500 above buffer
+|
+$500 above buffer
+|
+Net Profit Required (Subsequent Payouts)
+|
+$500 since last payout
+|
+$500 since last payout
+|
+Minimum Payout Amount
+|
+$500
+|
+$500
+|
+Maximum Payout Per Cycle
+|
+$2,000
+|
+$2,000
+|
+Buffer (Must Be Cleared to Request)
+|
+$2,100
+|
+$1,600
+|
+Max Sim Payouts
+|
+5 Payouts
+|
+5 Payouts
+Payout Requirements - Step by Step
+Your buffer must be fully cleared before you can submit any payout request. The buffer equals your MLL + $100 ($1,600 or $2,100 depending on your MLL selection ).
+For your first payout: you must have at least $500 in net profit above the buffer.
+For all subsequent payouts: you must have at least $500 in net profit since your last approved payout.
+You must have traded on at least 2 trading days in the current cycle.
+The 50% consistency rule applies: your single largest profit day cannot represent more than 50% of your total profits in the cycle. This calculation resets after each approved payout.
+Maximum payout per cycle is $2,000. You keep 80% of what you withdraw.
+Payout Example
+Trader on the $2,000 MLL plan clears the buffer and builds $3,600 in total sim profits.
+Buffer: $2,100 (cleared, payout requests now available)
+Net profit above buffer: $1,500, meets the $500 minimum for first payout
+Requested payout: $1,500 (within the $2,000 max)
+After 80/20 split, trader receives: $1,200
+Transition to Live
+After your 5th approved sim payout, you are eligible for promotion to a live funded account.
+|
+|
+Builder - Default
+|
+Builder - Add-On
+|
+Promotion Trigger
+|
+After 5th approved sim payout
+|
+After 5th approved sim payout
+|
+Live Account Drawdown
+|
+$2,000 EOD Trailing
+|
+$1,500 EOD Trailing
+|
+Max Loss Limit
+|
+Static once MLL reaches $0
+|
+Static once MLL reaches $0
+|
+Minimum Payout Amount
+|
+$250
+|
+$250
+|
+Profit Split (Live)
+|
+80% Trader / 20% Firm
+|
+80% Trader / 20% Firm
+|
+Live Payout Cycle
+|
+Daily
+|
+Daily
+|
+Daily Loss Limit (Live)
+|
+$1,000
+|
+$1,000
+|
+Consistency Rule (Live)
+|
+None
+|
+None
+|
+Max Live Accounts
+|
+1
+|
+1
+Live payouts are processed daily, typically within minutes of your payout request. There is no consistency rule on the live account. Your MLL on live matches the option you selected at checkout.
+Live Post-Breach Cooldown Period Protocol
+Following Live account closure due to Maximum Loss breach:
+21-Day Cooldown Period initiation: All Sim Funded account trading is prohibited.
+New Evaluation purchases, account resets, or additional account acquisitions are prohibited.
+Post-Cooldown (21 calendar days):
+Cooldown restrictions are lifted.
+You can continue from your active Sim Funded account (if applicable) and/or purchase new Evaluations or accounts, unless communicated otherwise by the team.
+Account Rules
+How the EOD Trailing Drawdown Works
+The Maximum Loss Limit (MLL) is an End of Day (EOD) trailing drawdown. It does not move intraday. It only adjusts after the market closes each session, based on where your account closed.
+The MLL trails upward as your account equity reaches new end-of-day highs.
+It never moves down.
+Open equity losses are counted when determining whether your account has breached the rule at the end of the trading day.
+The MLL locks permanently once it reaches $100 above the starting balance. From that point, it does not trail further.
+Example ($2,000 option): You start at $50,000 with a minimum balance of $48,000. If your account closes at $51,000, your new minimum balance allowed moves to $49,000. The $2,000 distance is always maintained while the drawdown is still trailing.
+News Trading
+News trading is fully unrestricted during the evaluation and sim funded stage. You may open and hold positions through any scheduled news event without limitation.
+Frequently Asked Questions
+Q: What is the difference between the two options?
+The only structural difference is the Maximum Loss Limit: $1,500 or $2,000. A smaller MLL means a tighter safety cushion, with your account floor starting closer to your balance. In exchange, the Builder plan with Add-On is priced lower. Everything else, including profit target, payout rules, live parameters, and contract limits, is identical.
+Q: Are there any activation fees?
+No. There are no activation fees on the Builder Plan.
+Q: Is there a Daily Loss Limit (DLL)?
+Yes. The Evaluation, Sim Funded and Live stage have a $1,000 soft pause DLL.
+Q: Is there a consistency rule during evaluation?
+No. The Builder Plan has no consistency rule during evaluation. You can pass in as little as 1 trading day, as long as you have hit the $3,000 profit target without breaching the MLL.
+Q: How does the 50% consistency rule work on payouts?
+Your single largest profit day in a payout cycle cannot account for more than 50% of your total profits in that cycle. This is calculated at the time of your payout request, and the calculation resets fully after each approved payout.
+Example: If your total net profits since the last payout are $1,000, your best single day cannot exceed $500. If it does, you will need to trade additional days to bring that ratio into compliance before requesting.
+Q: How much net profit do I need before my first payout?
+You need at least $500 in net profit above the buffer. For example, on the $2,000 option, your account balance must reach at least $2,600 before you can submit your first payout request ($2,100 buffer plus $500 net profit above it).
+Q: Can I have more than one active Sim Funded account?
+No. Only one Sim Funded account may be active per user at any time on the Builder Plan. If your active Sim Funded account closes, a new one may be activated only after the following trading day.
+Q: Can I trade news on the Builder Plan?
+News trading is fully unrestricted on the Builder Plan.
+Q: What happens if my live account is breached?
+A live account breach triggers a 21-day cooldown period. During the cooldown, all sim funded account trading is prohibited and no new evaluations or account resets may be purchased. Once the 21 days have elapsed, all restrictions are lifted.
+Q: Can I hold positions overnight?
+No. All positions must be closed before the end of the trading session. Any open positions at session close will be automatically closed by the platform.
+Q: What is the inactivity rule on the sim funded account?
+If you do not place a trade within 7 consecutive calendar days on your sim funded account, the account will be closed due to inactivity. There is no inactivity rule on the live account.
+Related Articles
+Rapid Plan 50k - A Comprehensive Look
+Builder Plan 25k - Legacy No DLL
+Builder Plan 100k - Comprehensive Guide
+Builder Plan 150k - Comprehensive Guide
+Builder Plan 25k - A Comprehensive Look

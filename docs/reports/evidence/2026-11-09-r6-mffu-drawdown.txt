@@ -1,0 +1,515 @@
+URL: https://help.myfundedfutures.com/en/articles/8348565-end-of-day-eod-drawdown-explained
+FETCHED_UTC: Mon Nov  9 09:06:22 UTC 2026
+HTTP: 200
+RAW_SHA256: 1e52641cc4b03c44f53a50d6eee12284247bd90ae62294cb83e176e772862af0
+---
+PAGE_TITLE: End of Day (EOD) Drawdown Explained | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+At MyFundedFutures, we wanted to eliminate the max daily drawdown (MDD) so that our traders could relax without having to worry about the constant drawdowns affecting their accounts and mindset.
+We do not have a daily drawdown but we will have a Max EOD (End of Day) Drawdown. Also to be noted the Max EOD trailing locks in at $100 plus the initial starting balance.
+​
+​NOTE: You must be aware that open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail
+​
+Take the Challenge to Get Funded
+Examples:
+50k is 52k +$100 which is 52.1k 50K Accounts have 4% DD
+100k is 103k +$100 which is 103.1k
+150k is 154.5k +100 which is 154.6k
+Related Articles
+Traders Evaluation Simplified
+Understanding Rapid Live
+Rapid EOD 50k – A Comprehensive Look
+Rapid EOD 25k - A Comprehensive Look
+Builder Plan 150k - Comprehensive Guide
+
+URL: https://help.myfundedfutures.com/en/articles/12802721-intraday-drawdown-explained
+FETCHED_UTC: Mon Nov  9 09:06:27 UTC 2026
+HTTP: 200
+RAW_SHA256: 49ecaf6fa8dd49c37655be47da7d09bdde2ada4a135d3143f42280ce21aa27c9
+---
+PAGE_TITLE: Intraday Drawdown Explained | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+Trailing (Intraday) Drawdown
+Definition
+A Trailing Drawdown is a dynamic loss limit that increases as your account's equity reaches new highs, but does not decrease when losses occur. My Funded Futures uses intraday drawdown to monitor a trader's risk exposure throughout the trading day.
+How It Works
+At the funded stage, the trailing drawdown is calculated intraday based on your peak balance, which includes both realized and unrealized gains. The drawdown will adjust with your account as you experience gains, but it will not exceed the starting balance.
+At the start of your evaluation or funded account, My Funded Futures sets the following:
+Starting Balance: For example, $50,000
+Maximum Trailing Drawdown Amount: For example, $2,000
+Your initial equity limit is calculated as follows:
+Starting Balance − Trailing Drawdown
+→ $50,000 − $2,000 = $48,000
+When your account reaches a new equity high, including unrealized profits, the trailing threshold adjusts upward accordingly:
+New Equity High: $51,000
+New Drawdown Limit: $51,000 − $2,000 = $49,000
+If your account value declines, even during an open trade, the drawdown limit remains unchanged. However, if your equity, including open trades, falls below the most recently adjusted drawdown limit, your account will breach the maximum loss limit.
+Traders can monitor the remaining intraday maximum drawdown limit while executing trades on their trading platforms.
+For Tradovate accounts, keep track of your trailing drawdown doing the following:
+Sign in to your Tradovate account.
+Click in + sign in top right hand corner.
+3. Click on Accounts and drag onto your main screen.
+4. This screen will need to be manually formatted to show the needed columns displaying your trailing drawdown. Click on setting wheel and then columns.
+5. From drop down options, select 'DRAWDOWN AUTO LIQ LEVEL' to monitor current trailing drawdown limit and 'DIST DRAWDOWN' to monitor how much drawdown remains before reaching max drawdown.
+For dxFeed customers, see images below.
+[img alt: image]
+[img alt: image]
+Related Articles
+Rapid Plan 50k - A Comprehensive Look
+Rapid Plan 100k - A Comprehensive Look
+Rapid Plan 150k - A Comprehensive Look
+Builder Plan 50k - A Comprehensive Guide
+Rapid EOD 50k – A Comprehensive Look
+
+URL: https://help.myfundedfutures.com/en/articles/16158363-rapid-eod-50k-a-comprehensive-look
+FETCHED_UTC: Mon Nov  9 09:06:25 UTC 2026
+HTTP: 200
+RAW_SHA256: 0e65d605ed97f93bb4fd63c2d01965a3d0f528ab9f4c4d98690ca412ec9ae94c
+---
+PAGE_TITLE: Rapid EOD 50k – A Comprehensive Look | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+My Funded Futures has adopted a streamlined approach to evaluations. Traders can now follow a standardized evaluation process on their path to simulated funding and live account trading. The evaluation rules remain consistent, regardless of the account type you choose.
+Rapid EOD Plan Evaluation Stage Account Parameters
+|
+Parameters
+|
+Rapid EOD - $50,000
+|
+Profit Target
+|
+$3,000
+|
+Maximum Loss Limit (EOD)
+|
+$2,000
+|
+Daily Loss Limit
+|
+None
+|
+Max Contract
+|
+3 mini / 30 micro
+|
+Consistency
+|
+30% (Eval Only)
+|
+Minimum Trading Days
+|
+4 Days
+|
+T1 News Trading
+|
+Yes
+|
+Inactivity Rule
+|
+7 Days
+There are no activation fees on this plan.
+Rapid EOD Plan Sim Funded Stage Account Parameters
+|
+Parameters
+|
+Rapid EOD - $50,000
+|
+Initial Balance
+|
+$0
+|
+Maximum Drawdown (MLL)
+|
+$2,000
+|
+Drawdown Type
+|
+End-of-Day (EOD) Trailing
+|
+Daily Loss Limit
+|
+None
+|
+Max Contract
+|
+3 mini / 30 micro
+|
+T1 News Trading
+|
+No
+|
+Max # of Funded Accounts
+|
+Three (3)
+|
+Inactivity Rule
+|
+7 Days
+1. Sim Funded Account Parameters
+How the Max Loss works
+Your Max Loss trails upward each time your account closes at a new end-of-day high.
+It does not move intraday – only at the close of each trading session.
+The distance between your account and the Max Loss Limit is always $2,000 while it's trailing.
+It never moves down.
+​
+Max Loss Lock at $100
+Once your trailing Max Loss reaches $100, it locks there.
+From that point on, it does not trail anymore.
+You must always keep at least $100 in the account.
+If your balance goes below $100 → the account is breached.
+​
+News trading
+No T1 news trading is not allowed on this Sim Funded account.
+​
+Contract limits
+You may trade up to 3 minis and/or 30 micros total.
+Exceeding a total of 3 minis or its equivalent in micros (30 micros) can result in a breach of the trading account.
+​
+2. Payouts on Sim Funded (Rapid EOD)
+Payout requirements
+Required Buffer: $2,100
+You must first build at least $2,100 in realized profits in the account before requesting your first payout.
+Payout Unlock Rule: Once the buffer clears, each payout after that unlocks once your net profit since your last payout reaches $500.
+Consistency Requirement: None (you don't need to meet a consistency rule to get paid).
+​
+Timing & frequency
+Payout Frequency: Daily
+There is no cap on how much you can request per payout cycle.
+Amounts & split
+Minimum Payout Request: $500
+Profit Split:
+90% to the trader
+10% to MyFundedFutures
+In summary, the Rapid EOD Sim Funded stage requires:
+Respecting the end-of-day trailing Max Loss, which locks at $100, and
+Clearing the $2,100 buffer for your first payout, then reaching $500 in net profit since your last payout to unlock each payout after that, under the 90/10 split.
+3. Live Account Transition
+For details on transitioning to a Live account, the Reserve Program, and Live account parameters, see Understanding Rapid Live. Live transition on Rapid EOD 50k follows the same rules as standard Rapid 50k.
+Frequently Asked Question:
+Q. Are there any consistency rules in the Rapid EOD evaluation?
+A. Yes, there is a 30% consistency rule in the evaluation phase of the Rapid EOD Plan, and it can be passed in as little as 4 days.
+Q. Is there a Daily Loss Limit (DLL) on the Rapid EOD Plan?
+A. No, there is no daily loss limit in the evaluation or sim funded stages of the Rapid EOD Plan.
+Q. How is the drawdown different from the standard Rapid Plan?
+A. The standard Rapid Plan trails intraday at the sim-funded stage. Rapid EOD trails end-of-day instead – your Max Loss only moves based on where your account closes each session, not on intraday swings.
+Q. Are there any buffer zones in the Rapid EOD payout policy?
+A. Yes, you cannot request your first payout until you clear the $2,100 buffer. After that, each additional payout unlocks once you've made $500 in net profit since your last payout.
+Q. What's the minimum payout per request on the Rapid EOD Plan?
+A. The minimum payout amount on the Rapid EOD Plan is $500.
+Q. Are there any activation fees on the Rapid EOD Plan?
+A. Our Rapid EOD account does not have an activation fee.
+Q. How do I transition to a Live account on Rapid EOD?
+A. See Understanding Rapid Live for transition triggers, Live account parameters, and the Reserve Program. Rapid EOD 50k follows the same rules as standard Rapid 50k.
+Q. Can I trade on live and sim at the same time?
+A. No, once you have a live account, you cannot trade on the sim and live environment simultaneously.
+Related Articles
+Rapid Plan 50k - A Comprehensive Look
+Rapid Plan 100k - A Comprehensive Look
+Rapid Plan 150k - A Comprehensive Look
+Builder Plan 50k - A Comprehensive Guide
+Rapid EOD 25k - A Comprehensive Look
+
+URL: https://help.myfundedfutures.com/en/articles/13134709-rapid-plan-50k-a-comprehensive-look
+FETCHED_UTC: Mon Nov  9 09:06:25 UTC 2026
+HTTP: 200
+RAW_SHA256: d1c9fb434f34e933a1f7fe646645049d52cea3070894a30636cb8ad1733dd568
+---
+PAGE_TITLE: Rapid Plan 50k - A Comprehensive Look | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+My Funded Futures has adopted a streamlined approach to evaluations. Traders can now follow a standardized evaluation process on their path to simulated funding and live account trading. The evaluation rules remain consistent, regardless of the account type you choose.
+Rapid Plan Evaluation Stage Account Parameters
+|
+Parameters
+|
+Rapid - $50,000
+|
+Profit Target
+|
+$3,000
+|
+Maximum Loss Limit (EOD)
+|
+$2,000
+|
+Daily Loss Limit
+|
+None
+|
+Max Contract
+|
+5 mini / 50 micro
+|
+Consistency
+|
+50% (Eval Only)
+|
+Minimum Trading Days
+|
+2 Days
+|
+T1 News Trading
+|
+Yes
+At My Funded Futures, we prioritize our traders by providing the most competitive pricing in the industry. Our evaluation costs are among the lowest, and at MFFU, there are absolutely no activation fees for any of our plans.
+1. Sim Funded Account Parameters
+Account basics
+Initial Balance: $0
+Max Loss Distance: $2,000 from your equity high-water mark (HWM)
+Drawdown Type: Intra-day trailing
+Consistency Rule: None in Sim Funded
+Max Contracts: 5 minis / 50 micros
+How the Max Loss works
+Your Max Loss trails your account equity high-water mark during the day.
+The distance between your HWM and the Max Loss Limit is always $2,000 while it’s moving.
+As you make profits, both your HWM and Max Loss move up.
+Click here for additional details on intraday drawdown.
+Max Loss Lock at $100
+Once your trailing Max Loss reaches $100, it locks there.
+From that point on, it does not trail anymore.
+You must always keep at least $100 in the account.
+If your balance goes below $100 → the account is breached.
+News trading
+No T1 news trading is allowed on this Sim Funded account.
+Contract limits
+You may trade up to 5 minis and/or 50 micros total.
+Exceeding a total of 5 minis or its equivalent in micros (50 micros) can result in a breach of the trading account.
+2. Payouts on Sim Funded (Rapid)
+Payout requirements
+Required Buffer: $2,100
+You must first build at least $2,100 in realized profits in the account before requesting any payout.
+Consistency Requirement: None (you don’t need to meet a consistency rule to get paid).
+Timing & frequency
+Payout Frequency: Daily - every 24 hours
+Your first payout becomes available exactly 24 hours after your first trade on the Sim Funded account (as long as you meet the buffer and minimum).
+Amounts & split
+Minimum Payout Request: $500
+Profit Split:
+90% to the trader
+10% to MyFundedFutures
+That’s it – the Rapid Sim Funded stage is all about:
+Respecting the intraday trailing Max Loss that eventually locks at $100, and
+Building up your $2,100 buffer so you can take fast, daily payouts under the 90/10 split.
+Read all about the Transition to Live Parameters here
+Related Articles
+Rapid Plan 100k - A Comprehensive Look
+Rapid Plan 150k - A Comprehensive Look
+Rapid Plan 25k - A Comprehensive Look
+Builder Plan 50k - A Comprehensive Guide
+Rapid EOD 50k – A Comprehensive Look
+
+URL: https://help.myfundedfutures.com/en/articles/13134718-understanding-rapid-live
+FETCHED_UTC: Mon Nov  9 09:06:28 UTC 2026
+HTTP: 200
+RAW_SHA256: 541dcf8b4421725af35c6f22d8c221e379d5a2fb949aec43be0ae8bd62dc5614
+---
+PAGE_TITLE: Understanding Rapid Live | My Funded Futures Help Center
+EXTRACTION: python3 html.parser, visible text inside <article> element only; one block element per line; scripts/styles dropped
+
+1. Live Stage at a Glance
+Transition Triggers:
+$10,000 net profit achieved in a single trading day (automatic transition), or
+Consistent payout performance reviewed and approved by our Risk Management Team.
+​Live Account Parameters:
+|
+Parameters
+|
+Rapid 25k
+|
+Rapid 50k
+|
+Rapid 100k
+|
+Rapid 150k
+|
+Initial Balance
+|
+$0
+|
+$0
+|
+$0
+|
+$0
+|
+Max Loss Limit
+|
+$1,000
+|
+$2,000
+|
+$3,000
+|
+$4,500
+|
+Drawdown Type
+|
+End-of-Day (EOD)
+|
+End-of-Day (EOD)
+|
+End-of-Day (EOD)
+|
+End-of-Day (EOD)
+|
+Drawdown Floor
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Contracts
+|
+2 mini / 20 micro
+|
+3 mini / 30 micro
+|
+6 mini / 60 micro
+|
+8 mini / 80 micro
+|
+Profit Split
+|
+90/10
+|
+90/10
+|
+90/10
+|
+90/10
+|
+Payout Frequency
+|
+Daily
+|
+Daily
+|
+Daily
+|
+Daily
+​Reserve Program:
+Up to $5,000 of Sim Funded profits are allocated to Reserve upon transition.
+Reserve funds may be accessed if your Live account is breached, or
+Reserve funds may be distributed as a Performance Bonus upon achieving Live account milestones.
+Click on the following link for detailed information regarding the Live Account Reserve Program
+Multiple Accounts:
+When multiple Rapid accounts are transitioned to Live, the Max Loss Limit increases proportionately based on how many accounts are moved. Instead of multiple Live accounts, parameters are combined into one Live account. The Max Contracts will be discussed with the Live team in this case.
+2. Live Account Transition Criteria
+Traders may be transitioned from Rapid Sim Funded to Live through two primary pathways:
+Automatic Live transition occurs when you generate $10,000 in net profit within a single trading session. Upon meeting this criterion, immediate transition to Live account status is initiated, and any profit exceeding $10,000 for that trading day is forfeited.
+Subsequent Risk Management Team performance evaluation.
+This assessment typically considers multiple profitable trading sessions and comprehensive performance metrics; however, final transition approval remains at the Risk Management Team's sole discretion.
+The Risk Management Team reserves the right to contact traders at any time to offer Live account transition opportunities.
+​
+​Example 1:
+A trader generates $10,000 net profit in a single trading day on their Sim Funded account, triggering automatic Live transition. Of the $10,000 profit, $5,000 is allocated to the Reserve Program while the remaining $5,000 becomes available for withdrawal under standard payout protocols. The Sim Funded account is subsequently set to dormant status as Live account transition commences.
+​
+​Example 2:
+A trader demonstrates consistent payout achievement on a Rapid Sim Funded account and receives Risk Management Team approval for Live transition with $7,000 in total account profits. Upon transition, $5,000 is allocated to the Reserve Program while the remaining $2,000 becomes available for withdrawal under standard payout protocols. The Sim Funded account is subsequently set to dormant status as Live account transition commences.
+3. Live Account Transition Process
+Upon Rapid Sim Funded account transition:
+The existing Sim Funded account is placed in dormant status.
+Any remaining Sim Funded profits exceeding the Reserve allocation become available for withdrawal under standard profit-sharing arrangements.
+All simulated trading accounts and additional purchases are suspended during Live account operation.
+Program establishment:
+Up to $5,000 of Sim Funded profits are allocated to Reserve Program balance.
+Traders now operate a Live account, managing actual capital on behalf of My Funded Futures.
+4. Live Account Operating Rules & Risk Management Parameters
+Rapid Live accounts operate under the following specifications:
+|
+Parameters
+|
+Rapid 25k
+|
+Rapid 50k
+|
+Rapid 100k
+|
+Rapid 150k
+|
+Initial Balance
+|
+$0
+|
+$0
+|
+$0
+|
+$0
+|
+Max Loss Limit
+|
+$1,000
+|
+$2,000
+|
+$3,000
+|
+$4,500
+|
+Drawdown Type
+|
+End-0f-Day (EOD)
+|
+End-of-Day (EOD)
+|
+End-of-Day (EOD)
+|
+End-of-Day (EOD)
+|
+Drawdown Floor
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Loss threshold stops at $0
+|
+Max Contracts
+|
+2 mini / 20 micro
+|
+3 mini / 30 micro
+|
+6 mini / 60 micro
+|
+8 mini / 80 micro
+|
+Profit Split
+|
+90/10
+|
+90/10
+|
+90/10
+|
+90/10
+|
+Payout Frequency
+|
+Daily
+|
+Daily
+|
+Daily
+|
+Daily
+Reaching the Maximum Loss Limit results in immediate Live account closure.
+Notes:
+Rapid Live accounts start at $0, so balances may go negative until the maximum loss limit trails up to $0. This is expected and normal.
+Your Max Loss Limit trails based on your EOD balance until the MLL reaches $0.
+There is no buffer requirement on the Rapid Live account.
+Related Articles
+Rapid Plan 50k - A Comprehensive Look
+Rapid Plan 150k - A Comprehensive Look
+Rapid Plan 25k - A Comprehensive Look
+Rapid EOD 50k – A Comprehensive Look
+Rapid EOD 25k - A Comprehensive Look

@@ -1,0 +1,573 @@
+URL: https://help.myfundedfutures.com/en/articles/8230009-news-trading-policy
+FETCHED_UTC: Mon Nov  9 09:18:34 UTC 2026
+HTTP: 200
+RAW_SHA256: c19122b70aca9e4f10ba776535cb832fa75abdacbf99b8c4bb4a363c08090933
+---
+News Trading Policy | My Funded Futures Help Center
+Skip to main content
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Search for articles...
+All Collections
+Funded Accounts
+News Trading Policy
+News Trading Policy
+What is MyFunded Futures policy around trading on key news releases?
+August 31, 2026
+Prohibited News Trading Activities
+​
+Engage in your trading activities mindfully, especially during news releases. The following activities are strictly prohibited:
+Utilizing strategies that exploit immediate news bursts, such as straddles or strangles.
+Masking news trades as standard strategies.
+These prohibitions are in effect for all news releases.
+Standard Trading Protocols
+​
+Maintain the integrity of your trading by:
+Sticking to your regular trading system during news intervals.
+Initiating trades based on standard entry rules.
+Ensuring no open positions or orders are active in the order book 2 minutes before and after any data release.
+These protocols apply to all news releases.
+Looking to get Funded? Start here.
+​
+Tier 1 Data: Special Considerations
+​
+Ensure utmost caution by adhering to the following during Tier 1 Data Releases:
+No positions or orders (including limit orders) can be open 2 minutes before and after the release.
+All positions must be flattened at least two minutes prior to the scheduled ⁠T1 News event. For example, if news is at 8:30, positions must be closed by 8:28:00 or earlier, and may only be reopened after 8:32:00
+​
+Restricted Accounts: Trading on T1 News events is prohibited for the following:
+Rapid Sim Funded
+Pro Sim Funded
+Unrestricted Accounts: Trading on T1 News events is permitted for the following:
+All evaluations
+Builder Plans
+Tier 1 News Includes:
+​
+For All Traders: FOMC Meetings, FOMC Minutes, Employment Report, CPI
+For Energy Traders: EIA
+For Agricultural Traders: Agricultural Reports
+​
+​
+Trading During Other News Releases
+​
+While the Prohibited News Trading Activities and Standard Trading Protocols apply, you may trade through other news releases if it aligns with your regular trading strategy. However, be mindful that data issues or disruptions with brokers can occur during news events, and MFFU is not liable for any issues that arise should you choose to trade during these times.
+A Firm Stance for Fair Trading
+​
+This policy is steadfast and implemented to shield both our traders and the firm. As News Trading is not simulated 1:1 with live markets, it is not allowed. Your understanding and adherence to this policy contribute to a fair and stable trading environment for all.
+Below you will find the T1 news for all of 2026.
+The above are the T1 news events to be avoided on all news-restricted accounts. See above for detailed list.
+​
+​
+This image details the EIA and Agricultural reports exclusively. EIA reports are released every Wednesday at 10:30 am EST except for the holiday adjusted time frames showing to the left of the image above.
+​
+NOTE: It is the trader's responsibility to monitor and remain up to date of ANY changes to the official date and time release of all news events.
+Thank you for being a valued member of the MyFundedFutures trading community. If you have any questions regarding News Trading Policy, please contact our support team on the live chat or at [email protected].
+Related Articles
+Fair Play and Prohibited Trading Practices
+Permitted Times to Trade
+Rapid Plan 50k - A Comprehensive Look
+Builder Plan 100k - Comprehensive Guide
+Builder Plan 150k - Comprehensive Guide
+Did this answer your question?
+Disappointed Reaction😞Neutral Reaction😐Smiley Reaction😃
+
+URL: https://help.myfundedfutures.com/en/articles/16727601-rapid-eod-25k-a-comprehensive-look
+FETCHED_UTC: Mon Nov  9 09:18:35 UTC 2026
+HTTP: 200
+RAW_SHA256: cf760a3a7360902fc5cd4542efd4029e10027d4f51c9ca97d96081628e2ea3f7
+---
+Rapid EOD 25k - A Comprehensive Look | My Funded Futures Help Center
+Skip to main content
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Search for articles...
+All Collections
+Rapid Plans
+End of Day Drawdown Rapid Plans
+Rapid EOD 25k - A Comprehensive Look
+Rapid EOD 25k - A Comprehensive Look
+September 2, 2026
+Table of contents
+Rapid EOD 25k is built on the same foundation as the standard Rapid 25K plan. The key difference is that the Sim Funded stage trails end-of-day instead of intraday, and the evaluation consistency rule is lower. It keeps Rapid's 90/10 profit split.
+Rapid EOD Plan Evaluation Stage Account Parameters
+Parameters
+Rapid EOD - $25,000
+Starting Balance
+$25,000
+Profit Target
+$1,500
+Maximum Loss Limit (EOD)
+$1,000
+Daily Loss Limit
+None
+Max Contract
+2 mini / 20 micro
+Consistency
+30% (Eval Only)
+Minimum Trading Days
+4 Days
+News Trading
+Allowed
+There are no activation fees on this plan and no monthly subscription costs.
+Rapid EOD Plan Sim Funded Stage Account Parameters
+Parameters
+Rapid EOD - $25,000
+Starting Balance
+$0
+Maximum Drawdown (MLL)
+$1,000
+Drawdown Type
+End-of-Day (EOD) Trailing
+Daily Loss Limit
+None
+Max Contract
+2 mini / 20 micro
+News Trading
+Not Allowed
+Max # of Sim Funded Accounts
+Three (3)
+Profit Split
+90/10
+1. Sim Funded Account Parameters
+How the Max Loss works
+Your Max Loss trails upward each time your account closes at a new end-of-day high.
+It does not move intraday – only at the close of each trading session.
+The distance between your account and the Max Loss Limit is always $1,000 while it's trailing.
+Floor Lock at $100
+Once your trailing Max Loss reaches +$100, it locks there.
+From that point on, it does not trail anymore.
+You must always keep at least $100 in the account.
+If your balance goes below $100 → the account is breached. ​
+News trading
+News trading is not allowed on this Sim Funded account. ​
+Contract limits
+You may trade up to 2 minis and/or 20 micros total.
+Exceeding a total of 2 minis or its equivalent in micros (20 micros) can result in a breach of the trading account. ​
+2. Payouts on Sim Funded (Rapid EOD 25k)
+Payout requirements
+Required Buffer: $1,100
+You must first build at least $1,100 in realized profits in the account before requesting your first payout.
+Buffer Unlock: Once the buffer clears, each payout after that unlocks once your net profit since your last payout reaches $250. ​
+Timing & frequency
+Payout Frequency: Daily
+Max Payout per Cycle: No cap
+Amounts & split
+Minimum Payout Request: $500
+Profit Split:
+90% to the trader
+10% to MyFundedFutures
+In summary, the Rapid EOD 25k Sim Funded stage requires:
+Respecting the end-of-day trailing Max Loss, which locks at +$100, and
+Clearing the $1,100 buffer for your first payout, then reaching $250 in net profit since your last payout to unlock each payout after that, under the 90/10 split.
+3. Live Account Transition
+For details on transitioning to a Live account, the Reserve Program, and Live account parameters, see Understanding Rapid Live. Live transition on Rapid EOD 25k Plan follows the same rules as standard Rapid 25K.
+Frequently Asked Questions
+Q. Are there any consistency rules in the Rapid EOD 25k evaluation?
+A. Yes, there is a 30% consistency rule in the evaluation phase of the Rapid EOD 25k Plan, and it can be passed in as little as 4 days.
+Q. Is there a Daily Loss Limit (DLL) on the Rapid EOD 25k Plan?
+A. No, there is no daily loss limit in the evaluation or sim funded stages of the Rapid EOD 25k Plan.
+Q. How is the drawdown different from the standard Rapid 25K Plan?
+A. The standard Rapid Plan trails intraday at the sim-funded stage. Rapid EOD 25k trails end-of-day instead. Your Max Loss only moves based on where your account closes each session, not on intraday swings.
+Q. Are there any buffer zones in the Rapid EOD 25k payout policy?
+A. Yes, you cannot request your first payout until you clear the $1,100 buffer. After that, each additional payout unlocks once you've made $250 in net profit since your last payout.
+Q. What's the minimum payout per request on the Rapid EOD 25k Plan?
+A. The minimum payout amount on the Rapid EOD 25k Plan is $500.
+Q. Are there any activation fees or monthly subscription costs on the Rapid EOD 25k Plan?
+A. Our Rapid EOD 25k account does not have an activation fee or a monthly subscription cost.
+Q. How do I transition to a Live account on Rapid EOD 25k?
+A. See Understanding Rapid Live for transition triggers, Live account parameters, and the Reserve Program. Rapid EOD 25k follows the same rules as standard Rapid 25K.
+Q. Can I trade on live and sim at the same time?
+A. No, once you have a live account, you cannot trade on the sim and live environment simultaneously.
+Related Articles
+Rapid Plan 50k - A Comprehensive Look
+Rapid Plan 100k - A Comprehensive Look
+Rapid Plan 150k - A Comprehensive Look
+Rapid Plan 25k - A Comprehensive Look
+Rapid EOD 50k – A Comprehensive Look
+Did this answer your question?
+Disappointed Reaction😞Neutral Reaction😐Smiley Reaction😃
+Table of contents
+
+URL: https://help.myfundedfutures.com/en/articles/17035331-builder-plan-150k-comprehensive-guide
+FETCHED_UTC: Mon Nov  9 09:18:36 UTC 2026
+HTTP: 200
+RAW_SHA256: d7954dd2bf5c55631fc242a5f04c8e3838169e56f90a8a133b1e0c8c1022f776
+---
+Builder Plan 150k - Comprehensive Guide | My Funded Futures Help Center
+Skip to main content
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Search for articles...
+All Collections
+Builder Plan
+Builder Plan 150k - Comprehensive Guide
+Builder Plan 150k - Comprehensive Guide
+The Builder 150K is a new addition to the Builder plan family. It follows the same core structure as all Builder plans; 1-day evaluation, EOD trailing MLL, 80/20 payout split. Plans sized to carry a soft daily loss limit (DLL) from day one.
+September 25, 2026
+Table of contents
+Evaluation Stage
+MyFundedFutures has adopted a streamlined approach to evaluations.
+There are absolutely no activation fees on any of our plans.
+Plan Parameters (Evaluation Stage)
+Builder 150K
+Starting Balance
+$150,000
+Profit Target (6%)
+$9,000
+Max EOD Drawdown (MLL)
+$4,500
+Soft Daily Loss Limit (Soft Pause)
+$2,500
+Max Contracts
+9 Minis / 90 Micros
+Consistency Rule
+None
+Minimum Trading Days
+1 Day
+T1 News Trading
+Allowed
+Drawdown Model
+EOD Trailing
+Soft DLL does not breach your account. Hitting the $2,500 Soft DLL soft‑pauses trading for the rest of the trading session. The account remains open and the evaluation continues the next trading session. Only breaching the Max Loss Limit (MLL) closes the account.
+Sim Funded Stage
+Once you hit your $9,000 profit target with at least 1 trading day logged, you are promoted to the Sim Funded stage. Your account begins with a $0 balance.
+​
+Traders can hold one active Builder Sim Funded account at a time on the Builder 150K plan.
+Builder 150K
+Starting Balance
+$0
+Max EOD Drawdown (MLL)
+$4,500
+Soft Daily Loss Limit (Soft Pause)
+$2,500
+Max Contracts
+9 Minis / 90 Micros
+Buffer Required
+$4,600
+Inactivity Rule
+7 Calendar Days
+T1 News Trading
+Allowed
+Payout Policy
+The Builder 150K runs on a $4,500 payout cap per cycle, up to 5 sim payouts, each paid at 80/20 in your favor.
+Builder 150K
+Profit Split
+80/20 - 80% to the Trader
+Consistency Rule
+50%
+Minimum Qualifying Days / Cycle
+2 Days
+Minimum Payout Amount
+$1,500
+Maximum Payout Per Cycle
+$4,500
+Buffer (Must Be Cleared to Request)
+$4,600
+Payout Requirements – Step by Step
+Your buffer must be fully cleared before you can submit any payout request. The buffer equals MLL + $100 or $4,500
+For your first payout: you must have at least $1,500 in net profit above the buffer.
+For all subsequent payouts: you must have at least $1,500 in net profit since your last approved payout.
+You must have traded on at least 2 trading days in the current cycle.
+The 50% consistency rule applies: your single largest profit day cannot represent more than 50% of your total profits in the cycle. This calculation resets after each approved payout.
+Maximum payout per cycle is $4,500. You keep 80% of what you withdraw.
+Payout Example
+Trader on the Builder 150K clears the buffer and builds $8,600 in total sim profits.
+Buffer: $4,600 (cleared, payout requests now available)
+Net profit above buffer: $4,000, meets the $1,500 minimum for first payout
+Requested payout: $3,500 (within the $4,500 max)
+After 80/20 split, trader receives: $2,800
+Transition to Live
+After your 5th approved sim payout, you are eligible for a live funded account with Blue Row Capital.
+Builder 150K
+Promotion Trigger
+After 5th approved sim payout
+Live Account Drawdown
+$4,500 EOD Trailing
+Max Loss Limit
+Locks and remains static once it reaches $100 above the starting balance
+Max Contracts
+4 Minis / 40 Micros
+Minimum Payout Amount
+$250
+Profit Split (Live)
+80% Trader / 20% Firm
+Live Payout Cycle
+Daily
+Daily Loss Limit (Live)
+None
+Consistency Rule (Live)
+None
+Max Live Accounts
+1
+Live payouts are processed daily and there is no consistency rule on the live account.
+Live Post-Breach Cooldown Period Protocol
+Following Live account closure due to Maximum Loss breach:
+21-Day Cooldown Period initiation: All Sim Funded account trading is prohibited.
+New Evaluation purchases, account resets, or additional account acquisitions are prohibited.
+Post-Cooldown (21 calendar days):
+Cooldown restrictions are lifted.
+You can continue from your active Sim Funded account (if applicable) and/or purchase new Evaluations or accounts, unless communicated otherwise by the team.
+Account Rules
+How the EOD Trailing Drawdown Works
+The Maximum Loss Limit (MLL) is an End of Day (EOD) trailing drawdown. It does not move intraday. It only adjusts after the market closes each session, based on where your account closed.
+The MLL trails upward as your account equity reaches new end-of-day highs.
+It never moves down.
+The MLL locks permanently once it reaches $100 above the starting balance. From that point, it does not trail further.
+How the Soft Daily Loss Limit Works
+The Soft DLL ($2,500 on the Builder 150K) is a soft pause, not a breach. If your intraday losses reach the Soft DLL, trading stops for the remainder of that trading session. Your account remains active, and you resume the next trading session as normal.
+It applies during both the Evaluation and Sim Funded stages. The only rule that can close your account is breaching the MLL.
+News Trading
+T1 news trading is allowed during the Evaluation and Sim Funded stages. You may open and hold positions through any scheduled T1 news event without limitation.
+Related Articles
+Builder Plan 50k - A Comprehensive Guide
+Builder Plan 25k - Legacy No DLL
+Builder Plan 100k - Comprehensive Guide
+Builder Plan 25k - A Comprehensive Look
+Comprehensive Look into Redesigned Pro Plan
+Did this answer your question?
+Disappointed Reaction😞Neutral Reaction😐Smiley Reaction😃
+Table of contents
+
+URL: https://help.myfundedfutures.com/en/articles/17036130-builder-plan-25k-a-comprehensive-look
+FETCHED_UTC: Mon Nov  9 09:18:37 UTC 2026
+HTTP: 200
+RAW_SHA256: c559d3cafe0f18e09c84c3f9e70aeb3102a4e0740aae9676c66378c1efe05b3a
+---
+Builder Plan 25k - A Comprehensive Look | My Funded Futures Help Center
+Skip to main content
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Search for articles...
+All Collections
+Builder Plan
+Builder Plan 25k - A Comprehensive Look
+Builder Plan 25k - A Comprehensive Look
+The Builder 25k is the entry-level account of our Builder plan family, sitting below the Builder 50k (default) and 50k addon. It follows the same core structure as all Builder plans with regard to evaluations rules; catered to its smaller account size.
+September 23, 2026
+Table of contents
+Evaluation Stage
+My Funded Futures has adopted a streamlined approach to evaluations.
+There are absolutely no activation fees on any of our plans.
+Builder 25k
+Starting Balance
+$25,000
+Profit Target
+$1,500
+Max EOD Drawdown (MLL)
+$1,000
+Starting Minimum Balance
+$24,000
+Soft Daily Loss Limit (Soft Pause)
+$600
+Max Contracts
+2 Minis / 20 Micros
+Consistency Rule
+None
+Minimum Trading Days
+1 Day
+News Trading
+Allowed
+Drawdown Model
+EOD Trailing
+Soft DLL does not breach your account. Hitting the $600 Soft DLL soft‑pauses trading for the rest of the trading session. The account remains open and the evaluation continues the next trading session. Only breaching the Max Loss Limit (MLL) closes the account.
+Sim Funded Stage
+Once you hit your $1,500 profit target with at least 1 trading day logged, you are promoted to the Sim Funded stage. Your account begins at $0, meaning the balance can go negative before the MLL trails up to breakeven. This is expected and normal.
+Traders may have up to 2 Sim Funded accounts, per user, at any time on the Builder 25k Plan. In the event of a breach, the earliest a new Sim Funded account may be activated is the following trading day.
+Builder 25k
+Starting Balance
+$0
+Max EOD Drawdown (MLL)
+$1,000
+Starting Minimum Balance
+-$1,000
+Soft Daily Loss Limit (Soft Pause)
+$600
+Max Contracts
+2 Minis / 20 Micros
+Active Accounts Allowed
+2 Builder Accounts per user
+Inactivity Rule
+7 Calendar Days
+News Trading
+Allowed
+You may request a payout 48 hours after your first trade has been placed, provided that all required payout criteria have been met.
+Payout Policy
+The Builder Plan runs on a flat $1,000 payout cap, up to 5 sim payouts, each paid at 80/20 in your favor.
+Builder 25k
+Profit Split
+80% Trader / 20% Firm
+Consistency Rule
+50%
+Minimum Qualifying Days / Cycle
+2 Days
+Net Profit Required (First Payout)
+$250 above buffer
+Net Profit Required (Subsequent Payouts)
+$250 since last payout
+Minimum Payout Amount
+$250
+Maximum Payout Per Cycle
+$1,000
+Buffer (Must Be Cleared to Request)
+$1,100
+Max Sim Payouts
+5 Payouts
+Payout Requirements - Step by Step
+Your buffer must be fully cleared before you can submit any payout request. The buffer equals your MLL + $100
+For your first payout: you must have at least $250 in net profit above the buffer.
+For all subsequent payouts: you must have at least $250 in net profit since your last approved payout.
+You must have traded on at least 2 trading days in the current cycle.
+The 50% consistency rule applies: your single largest profit day cannot represent more than 50% of your total profits in the cycle. This calculation resets after each approved payout.
+Maximum payout per cycle is $1,000. You keep 80% of what you withdraw.
+Payout Example
+Trader on this MLL plan clears the buffer and builds $2,600 in total sim profits.
+Buffer: $1,100 (cleared, payout requests now available)
+Net profit above buffer: $1,500, meets the $250 minimum for first payout
+Requested payout: $1,000 (within the $1,000 max)
+After 80/20 split, trader receives: $800
+Transition to Live
+After your 5th approved sim payout, you are eligible for promotion to a live funded account.
+Builder 25k
+Promotion Trigger
+After 5th approved sim payout
+Live Account Drawdown
+$1,000 EOD Trailing
+Max Loss Limit
+Static once MLL reaches $0
+Minimum Payout Amount
+$250
+Profit Split (Live)
+80% Trader / 20% Firm
+Live Payout Cycle
+Daily
+Daily Loss Limit (Live)
+None
+Consistency Rule (Live)
+None
+Max Live Accounts
+1
+Live payouts are processed daily, typically within minutes of your payout request. There is no consistency rule on the live account. Your MLL on live matches the option you selected at checkout.
+Live Post-Breach Cooldown Period Protocol
+Following Live account closure due to Maximum Loss breach:
+21-Day Cooldown Period initiation: All Sim Funded account trading is prohibited.
+New Evaluation purchases, account resets, or additional account acquisitions are prohibited.
+Post-Cooldown (21 calendar days):
+Cooldown restrictions are lifted.
+You can continue from your active Sim Funded account (if applicable) and/or purchase new Evaluations or accounts, unless communicated otherwise by the team.
+Account Rules
+How the EOD Trailing Drawdown Works
+The Maximum Loss Limit (MLL) is an End of Day (EOD) trailing drawdown. It does not move intraday. It only adjusts after the market closes each session, based on where your account closed.
+The MLL trails upward as your account equity reaches new end-of-day highs.
+It never moves down.
+Open equity losses are counted when determining whether your account has breached the rule at the end of the trading day.
+The MLL locks permanently once it reaches $100 above the starting balance. From that point, it does not trail further.
+How the Soft Daily Loss Limit Works
+The Soft DLL ($600 on the Builder 25K) is a soft pause, not a breach. If your intraday losses reach the Soft DLL, trading stops for the remainder of that trading session. Your account remains active, and you resume the next trading session as normal.
+It applies during both the Evaluation and Sim Funded stages. The only rule that can close your account is breaching the MLL.
+News Trading
+News trading is fully unrestricted during the evaluation and sim funded stage. You may open and hold positions through any scheduled news event without limitation.
+Frequently Asked Questions
+Q: Are there any activation fees?
+No. There are no activation fees on the Builder Plan.
+Q: Is there a Daily Loss Limit (DLL)?
+Yes. There is a $600 Soft Daily Loss Limit which restricts trading for the remainder of the trading session. You may resume trading once the market reopens.
+Q: Is there a consistency rule during evaluation?
+No. The Builder Plan has no consistency rule during evaluation. You can pass in as little as 1 trading day, as long as you have hit the $1,500 profit target without breaching the MLL.
+Q: How does the 50% consistency rule work on payouts?
+Your single largest profit day in a payout cycle cannot account for more than 50% of your total profits in that cycle. This is calculated at the time of your payout request, and the calculation resets fully after each approved payout.
+Example: If your total net profits since the last payout are $1,000, your best single day cannot exceed $500. If it does, you will need to trade additional days to bring that ratio into compliance before requesting.
+Q: How much net profit do I need before my first payout?
+You need at least $250 in net profit above the buffer. For example, on the $2,000 option, your account balance must reach at least $2,600 before you can submit your first payout request ($2,100 buffer plus $500 net profit above it).
+Q: Can I have more than one active Sim Funded account?
+Yes. Traders may have up to 2 Sim Funded accounts, per user, at any time on the Builder 25k Plan. If your active Sim Funded account closes, a new one may be activated only after the following trading day.
+Q: Can I trade news on the Builder Plan?
+News trading is fully unrestricted on the Builder Plan.
+Q: What happens if my live account is breached?
+A live account breach triggers a 21-day cooldown period. During the cooldown, all sim funded account trading is prohibited and no new evaluations or account resets may be purchased. Once the 21 days have elapsed, all restrictions are lifted.
+Q: Can I hold positions overnight?
+No. All positions must be closed before the end of the trading session. Any open positions at session close will be automatically closed by the platform.
+Q: What is the inactivity rule on the sim funded account?
+If you do not place a trade within 7 consecutive calendar days on your sim funded account, the account will be closed due to inactivity. There is no inactivity rule on the live account.
+Related Articles
+Builder Plan 50k - A Comprehensive Guide
+Builder Plan 25k - Legacy No DLL
+Rapid EOD 25k - A Comprehensive Look
+Builder Plan 100k - Comprehensive Guide
+Builder Plan 150k - Comprehensive Guide
+Did this answer your question?
+Disappointed Reaction😞Neutral Reaction😐Smiley Reaction😃
+Table of contents
+
+URL: https://help.myfundedfutures.com/en/articles/9698984-2-price-limit-rule
+FETCHED_UTC: Mon Nov  9 09:18:38 UTC 2026
+HTTP: 200
+RAW_SHA256: e3b52fc8bc098744fe0579e0789c508b2e75c6d65788782a815390aa5c7e4f79
+---
+2% Price Limit Rule | My Funded Futures Help Center
+Skip to main content
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Go to websiteDiscordYouTube
+Englishहिन्दीEspañol
+English
+Search for articles...
+All Collections
+Funded Accounts
+2% Price Limit Rule
+2% Price Limit Rule
+August 24, 2026
+Table of contents
+At MyFunded Futures, we prioritize protecting our traders from high volatility and hazardous market conditions. To achieve this, we enforce strict guidelines to prevent trading when a product is within 2% of a CME price limit. This policy ensures our traders are not exposed to extreme market fluctuations that could lead to significant losses.
+A price limit is the maximum price range permitted for a futures contract in each trading session. When markets hit the price limit, different actions occur depending on the product being traded. Markets may temporarily halt until price limits can be expanded, remain in a limit condition, or stop trading for the day based on regulatory rules.
+This prohibited conduct is enforced in the following accounts: Sim Funded Account and Live Funded Account.
+How do I know what the CME Price Limits are for the contracts I trade?
+Price limits are calculated based on the end-of-day settlement price and vary by product, contract month, and time of day (i.e., overnight price limits differ from the price limits used during business hours).
+The price limits are updated at 5:05 PM EST after each trading session and can be found on the CME Price Limits page.
+How Do I Ensure I Don't Trade Within 2% of a Price Limit?
+Equity Products ES, MES, NQ, MNQ, RTY, M2K, YM, and MYM overnight price limits have increased to 5%, which is 2% below the CME limit of 7%. Consequently, trading is suspended at MyFunded Futures.
+One of the most effective ways to ensure you are not trading within 2% of any price limit is to monitor the % Net Change for the contract you are participating in via your trading platform's quote board.
+Take the Challenge Now to Get Funded
+Example: If you’re trading when the price limit has reached 5% up and down during overnight sessions, you can use the following calculation to determine the levels that fall within 2% of the price limit, which you should consider as a stop-loss, or halt trading level...
+How to find the % Net Change for the contract I am trading?
+Your trading platform’s quote board/radar screen not only displays the “Net Change” on the day as prices move but can also display “Net Change” as a percentage or “% Net Change.” If the “% Net Change” is not currently displayed on your quote board, simply add that column to display how close your product is to the price limit.
+Example:
+In this picture taken on August 4th, 2024 we see that the reference price is 18,556.00 and the 7% up and down price level limit are displayed at 19846.75 and 17265.25.
+​
+The calculation of the 2% price limit rule is based on these premises.
+Stop trading when market priced above: 18556 x (1 + 0.07 - 0.02) = 19483
+Stop trading when market priced below: 18556 x (1 - 0.07 + 0.02) = 17628
+Why the MyFunded Futures 2% rule?
+To protect our firm and our traders, we do not allow market participation when a product is trading within 2% of a price limit. This prohibited conduct is enforced in the following accounts:
+Sim Funded Account
+Live Funded Account
+Moreover, all speculators assuming risk in a market should have intimate knowledge of that market. It is crucial to be aware of the contract specifications and price limits for any product you trade.
+Explore MyFundedFutures Coupon Codes
+For more information about your favorite products, please reference the CME Group website. Click on your product from the home page for detailed information.
+​
+Related Articles
+Fair Play and Prohibited Trading Practices
+DEEPCHART: Login Instructions
+Understanding Live Funded Account at MyFunded Futures
+Hedging - What You Should Know
+Comprehensive FAQ - Live Accounts at MyFunded Futures
+Did this answer your question?
+Disappointed Reaction😞Neutral Reaction😐Smiley Reaction😃
+Table of contents
+

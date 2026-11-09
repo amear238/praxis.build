@@ -1,0 +1,1291 @@
+URL: https://myfundedfutures.com/plans/rapid
+FETCHED_UTC: Mon Nov  9 09:07:41 UTC 2026
+HTTP: 200
+RAW_SHA256: 2a4809d0a10faf5e4649b6c2b09ff6770972b7ad8201f8894d3ca085e4a35685
+---
+PAGE_TITLE: Rapid Plan — Daily Payouts, 90/10 Split | My Funded Futures
+EXTRACTION: python3 html.parser + json (see bin/extract_site.py docstring). Part A = JSON-LD FAQ/Product text; Part B = visible <body> text, scripts dropped, table cells joined by ' | '
+
+[PART A: JSON-LD]
+PRODUCT_DESCRIPTION: Daily payouts with a 90/10 split and no consistency rule in the funded stage. Pass in 2 days, $0 activation fee. Intraday trailing drawdown — explained upfront.
+Q: How does the 90/10 profit split work on the Rapid plan?
+A: You keep 90% of every payout. MFFU keeps 10%. There's no graduated tier, no 'first $X at one rate, then a different rate.' Every payout you request on a Rapid account follows the same 90/10 split.
+Q: How fast can I get my first payout on Rapid?
+A: The evaluation requires two trading days. Once funded, you need to build the required buffer ($2,100 on the $50K account) in realized profits before your first payout request. After that threshold is cleared, you can request every 24 hours. For most traders, first payout eligibility comes a few days into the funded stage — it depends entirely on how quickly you build the buffer.
+Q: What is intraday trailing drawdown?
+A: Intraday trailing drawdown means your max-loss floor moves up with your equity in real time during the session — not just at end-of-day. On Rapid Sim Funded, once your balance is +$100 above your starting balance after your first payout, the floor locks and stops trailing upward permanently.
+Q: Does the Rapid plan have a daily loss limit?
+A: No. Rapid has no daily loss limit in either the evaluation or the funded stage. The only loss constraint is your max drawdown — that's it.
+Q: What's the difference between Rapid and the other MFFU plans?
+A: Rapid is built for speed: daily payouts, 2-day pass, 90/10 split, $0 activation fee. Builder is the low-cost entry plan with a structured 5-payout ladder to a live brokerage seat. Pro has the largest account sizes and highest per-payout cap. Flex is a separate plan available in $25K and $50K sizes — it has different payout mechanics. Rapid is the plan MFFU recommends for traders who want the fastest payout cadence and best profit split.
+Q: Is there an activation fee on Rapid?
+A: No. Rapid has zero activation fees at every account size. When you pass the evaluation, your funded account activates instantly — you don't pay anything additional to unlock it.
+Q: Can I hold positions overnight on Rapid?
+A: No. Rapid is intended for intraday futures trading. All positions must be closed before the daily session close. Holding overnight will breach the account.
+Q: What happens if I hit the max loss on Rapid?
+A: On a Rapid Evaluation, breaching the max drawdown fails that evaluation, but you can reset it for a specific fee and start trading again. On a Rapid Sim Funded account, breaching the max drawdown closes the account. Funded accounts can't be reset, so you'll need to start a new evaluation. The max drawdown is a hard line, so we recommend trading well above it.
+Q: Why is Tier 1 news trading restricted on Rapid?
+A: Tier 1 news events (CPI, NFP, FOMC, etc.) create extreme short-term volatility that can blow out simulated accounts before stop-losses fill. To keep the simulated market behavior representative of live execution risk, T1 events are restricted within 2 minutes before and after the release.
+Q: How many Rapid accounts can I have at the same time?
+A: For $25K and $50K Rapid accounts, you can hold up to five active sim funded accounts at once. For $100K and $150K accounts, the limit is three total sim funded accounts across all plans.
+
+[PART B: VISIBLE BODY TEXT]
+FuturesCME futures trading
+Perps New24/7 perps trading
+Save 40% On Any Plan With Code CLUB. New to MFFU? Get 50% off your first eval.Claim 40% off
+MyFundedFutures
+About us
+How it works
+More
+Login
+Get Funded
+Login
+Get Funded
+RAPID
+Rapid Plan
+Trade fast. Get paid faster.
+Daily payouts. 90/10 split. Pass in as little as two days. Zero activation fees. The Rapid plan is built for active traders who don't want to wait on a payout window — or pay a fee to unlock the funded account they just earned.
+Start Rapid Evaluation
+See full rules
+No activation fee. No surprise unlocks. Cancel anytime.
+Real Recent Payouts
+Rapid
+Payout auto-approved
+357 ms
+$855.00
+Payout auto-approved
+526 ms
+$450.00
+Payout auto-approved
+435 ms
+$2,154.60
+Sample only. Not all payouts shown. Updates every 4 hours.
+Profit split
+90%
+Payout cadence
+Daily
+Min. to pass
+2 days
+Activation fee
+$0
+RAPID Plan
+Choose your account size
+Same rules. Same 90/10 split. Same daily cadence. Pick the size that matches the contracts you actually trade.
+Evaluation Stage
+One phase · min 2 days · no activation fee
+Days to Pass
+2
+Profit Target
+$3,000 for 50K
+Max Drawdown
+$2,000
+Funded Stage
+One phase · min 2 days · no activation fee
+Get Paid
+Daily
+Profit Split
+90/10
+Trailing Max Drawdown
+$2,000
+Starting at
+$125
+Based on current promotions
+$209
+Daily payouts
+90/10 split
+$0 activation fee
+Start Rapid Evaluation At $50K
+No activation fee · One-time payment, no renewals
+$25,000Starter-size Rapid account · 3 minis / 30 micros max
+$50,000POPULARThe most-traded Rapid size · 5 minis / 50 micros max
+$100,000For scaling traders · 8 minis / 80 micros max
+$150,000Max account size · 10 minis / 100 micros max
+WHO RAPID IS FOR
+Rapid is for traders who want daily payouts.
+The Active Day Trader
+You hit your profit target and you're done for the day. The last thing you want is a five-day waiting list before you can request what you already earned. Rapid pays out every 24 hours.
+The Crossover Trader
+You've already dealt with activation fees and payout delays elsewhere. Rapid keeps things simple with daily payouts, no activation fee, and a 90/10 profit split.
+The Multi-Account Trader
+You already manage multiple accounts and strategies across firms. Rapid gives you another account with no activation fee, daily payouts, and a 90/10 profit split.
+RAPID VS OTHER FIRMS
+Same target. Better terms.
+What it actually means for you: faster funding, faster payouts, and more of your profit stays yours.
+Rapid compared head-to-head against Other Firm
+| | MFFUMFFU Rapid (50K) | Other Firm
+| Recurring Costs | None | Monthly
+| Days to Pass | 2 days | 5 days
+| Profit Split | 90% | 80%
+| Activation Fee | $0 | $130
+| Payout Cadence | Daily | Daily (post-activation)
+| Payout Speed | Instant / sub-second
+*
+Instant for the vast majority of payouts. A subset routed for manual review may take up to 24 business hours. | 1–2 days
+| Profit Target | $3,000 | $3,000
+| Daily Loss Limit | None | None
+| Max Drawdown | $2,000 intraday | $2,000 intraday
+| Consistency Rule (Funded) | None | None
+Comparison reflects publicly available terms for daily-payout plans at major competing futures prop firms as of May 18, 2026. Plan details subject to change.
+STRAIGHT TALK
+Yes, Rapid uses intraday trailing drawdown.
+Here's what that actually means — and why we'd rather explain it upfront instead of hiding it in the fine print.
+The Drawdown Doesn't Trail Forever
+Intraday trailing drawdown only applies while building your safety buffer.
+After building your buffer above the starting balance +$100, the trailing threshold stops moving and becomes static — it stops trailing upward permanently.
+That means after the buffer is secured:
+Your drawdown no longer trails intraday
+Risk parameters become more stable
+You can trade without the floor continuing to climb
+We could hide that in the fine print. Most firms do. Instead, we'd rather you understand the trade-off before you start.
+Start Rapid Evaluation
+You get:
+Daily payouts
+90/10 split
+2-day pass
+$0 activation fee
+No consistency rule once funded
+In exchange:
+Intraday trailing drawdown
+Floor follows unrealized gains
+Faster trailing movement
+Reach (MLL + $100) in profit and the trailing stops permanently
+WHY RAPID
+What traders love about Rapid
+PAYOUT CADENCE
+Paid every 24 hours.
+Once funded and above the buffer, every qualifying trading day becomes a payout opportunity. Most requests process in under a second.
+PROFIT SPLIT
+Keep more of what you earn.
+On a $10,000 payout cycle, a standard 80/20 split takes $2,000. Rapid gives that extra $1,000 back to you.
+SPEED TO FUNDED
+Pass in two days. Move on.
+Most firms require five trading days before you can move forward. Rapid cuts that wait down to two.
+NO HIDDEN COSTS
+Pass the eval. Get the account.
+Rapid keeps it simple — no extra unlock fees and realtime instant activation so you can start trading the day you pass.
+HOW IT WORKS
+From eval to paid in three steps.
+1
+Evaluate
+Hit the profit target (varies by account size) across at least two trading days. Stay under the EOD Trailing Drawdown. Pass.
+2
+Sim Funded
+Trade with no daily loss limit, no consistency rule, and a daily payout cadence. Stay above the buffer and you're eligible to request a payout every 24 hours.
+3
+Get Paid
+90% to you, 10% to us. About 80% of payouts auto-approve. Most clear in under a second.
+Start Rapid Evaluation
+FULL RULES & SPECS
+All the rules. In one place.
+Nothing buried. Nothing in the fine print. The Rapid plan in full.
+All Rapid plan rules by account size
+| Rule | $25K | $50K | $100K | $150K
+| Profit Target | $1,500 | $3,000 | $6,000 | $9,000
+| Max Loss (EOD) | $1,000 | $2,000 | $3,000 | $4,500
+| Daily Loss Limit | None | None | None | None
+| Drawdown Type | EOD | EOD | EOD | EOD
+| Consistency | 50% (Eval Only) | 50% (Eval Only) | 50% (Eval Only) | 50% (Eval Only)
+| Min Trading Days | 2 Days | 2 Days | 2 Days | 2 Days
+| T1 News Trading | Yes | Yes | Yes | Yes
+| Activation Fee | $0 | $0 | $0 | $0
+| Max Loss Distance | $1,000 | $2,000 | $3,000 | $4,500
+| Drawdown Type | Intraday Trailing | Intraday Trailing | Intraday Trailing | Intraday Trailing
+| MLL Locks At | +$100 | +$100 | +$100 | +$100
+| Max Contracts (Mini / Micro) | 3 / 30 | 5 / 50 | 8 / 80 | 10 / 100
+| Tier 1 News Trading | Not allowed | Not allowed | Not allowed | Not allowed
+| Initial Balance | $0 | $0 | $0 | $0
+| Max Loss Limit | $1,000 | $2,000 | $3,000 | $4,500
+| Drawdown Type | End-of-Day (EOD) | End-of-Day (EOD) | End-of-Day (EOD) | End-of-Day (EOD)
+| Drawdown Floor | Max Loss threshold stops at $0 | Max Loss threshold stops at $0 | Max Loss threshold stops at $0 | Max Loss threshold stops at $0
+| Max Contracts (Mini / Micro) | 2 / 20 | 3 / 30 | 6 / 60 | 8 / 80
+| Payout Frequency | Daily | Daily | Daily | Daily
+| Profit Split | 90/10 | 90/10 | 90/10 | 90/10
+| Required Buffer | $1,100 | $2,100 | $3,100 | $4,600
+| Consistency Rule | None | None | None | None
+| Payout Frequency | Daily | Daily | Daily | Daily
+| Min Payout | $500 | $500 | $500 | $500
+| Split | 90/10 | 90/10 | 90/10 | 90/10
+| Activation Fee | $0 | $0 | $0 | $0
+$25K
+$50K
+$100K
+$150K
+Rule category
+Evaluation Rules
+Profit Target
+$3,000
+Max Loss (EOD)
+$2,000
+Daily Loss Limit
+None
+Drawdown Type
+EOD
+Consistency
+50%
+Eval Only
+Min Trading Days
+2 Days
+T1 News Trading
+Yes
+Activation Fee
+$0
+Evaluation
+Sim Funded
+Live
+Payouts
+All
+Rule
+$25K
+$50K
+$100K
+$150K
+Profit Target
+$1,500
+$3,000
+$6,000
+$9,000
+Max Loss (EOD)
+$1,000
+$2,000
+$3,000
+$4,500
+Daily Loss Limit
+None
+Drawdown Type
+EOD
+Consistency
+50%
+Eval Only
+50%
+Eval Only
+50%
+Eval Only
+50%
+Eval Only
+Min Trading Days
+2 Days
+T1 News Trading
+Yes
+Activation Fee
+$0
+Start Rapid Evaluation
+Find us where traders are talking, learning, and leveling up
+FAQ
+Questions traders actually ask.
+How does the 90/10 profit split work on the Rapid plan?
+You keep 90% of every payout. MFFU keeps 10%. There's no graduated tier, no 'first $X at one rate, then a different rate.' Every payout you request on a Rapid account follows the same 90/10 split.
+How fast can I get my first payout on Rapid?
+The evaluation requires two trading days. Once funded, you need to build the required buffer ($2,100 on the $50K account) in realized profits before your first payout request. After that threshold is cleared, you can request every 24 hours. For most traders, first payout eligibility comes a few days into the funded stage — it depends entirely on how quickly you build the buffer.
+What is intraday trailing drawdown?
+Intraday trailing drawdown means your max-loss floor moves up with your equity in real time during the session — not just at end-of-day. On Rapid Sim Funded, once your balance is +$100 above your starting balance after your first payout, the floor locks and stops trailing upward permanently.
+Does the Rapid plan have a daily loss limit?
+No. Rapid has no daily loss limit in either the evaluation or the funded stage. The only loss constraint is your max drawdown — that's it.
+What's the difference between Rapid and the other MFFU plans?
+Rapid is built for speed: daily payouts, 2-day pass, 90/10 split, $0 activation fee. Builder is the low-cost entry plan with a structured 5-payout ladder to a live brokerage seat. Pro has the largest account sizes and highest per-payout cap. Flex is a separate plan available in $25K and $50K sizes — it has different payout mechanics. Rapid is the plan MFFU recommends for traders who want the fastest payout cadence and best profit split.
+Is there an activation fee on Rapid?
+No. Rapid has zero activation fees at every account size. When you pass the evaluation, your funded account activates instantly — you don't pay anything additional to unlock it.
+Can I hold positions overnight on Rapid?
+No. Rapid is intended for intraday futures trading. All positions must be closed before the daily session close. Holding overnight will breach the account.
+What happens if I hit the max loss on Rapid?
+On a Rapid Evaluation, breaching the max drawdown fails that evaluation, but you can reset it for a specific fee and start trading again. On a Rapid Sim Funded account, breaching the max drawdown closes the account. Funded accounts can't be reset, so you'll need to start a new evaluation. The max drawdown is a hard line, so we recommend trading well above it.
+Why is Tier 1 news trading restricted on Rapid?
+Tier 1 news events (CPI, NFP, FOMC, etc.) create extreme short-term volatility that can blow out simulated accounts before stop-losses fill. To keep the simulated market behavior representative of live execution risk, T1 events are restricted within 2 minutes before and after the release.
+How many Rapid accounts can I have at the same time?
+For $25K and $50K Rapid accounts, you can hold up to five active sim funded accounts at once. For $100K and $150K accounts, the limit is three total sim funded accounts across all plans.
+Visit FAQ Center
+Daily payouts. 90/10 split. Pass in two days.
+And no activation fee waiting at the finish line.
+Start Rapid Evaluation
+OTHER PLANS
+Other ways to get funded.
+BUILDER
+Easiest entry. Real path to live.
+$50K plan, one-day pass, structured 5-payout ladder to a live brokerage seat.
+View Builder
+PRO
+Highest payout cap. Path to real capital.
+$90K–$150K sizes, up to $100K per payout, no daily loss limit, defined live transition.
+View Pro
+¹ All MFFU accounts operate in a simulated environment. Evaluation fees are non-refundable. See our
+Terms
+for full program details. All trades are executed on a demo basis and do not involve real capital. Customers who meet the required performance criteria may, at our sole discretion, receive an invitation to access live capital trading through one of our affiliated companies, by invitation only and subject to additional eligibility requirements and terms.
+² Payouts are based on simulated account profits and are subject to rules compliance, trading day requirements, and firm review. See program
+Terms
+for full eligibility conditions.
+Disclaimer: MyFundedFutures provides the information on this website for general informational and educational purposes only. It does not constitute investment, trading, tax, legal, or financial advice, and does not constitute an offer to buy or a solicitation to sell any financial product or derivative instrument. MyFundedFutures is not a broker-dealer, investment adviser, introducing broker, futures commission merchant (FCM), or money manager. You should consult your own advisors before engaging in any transaction.
+Trading futures involves a substantial risk of loss and is not appropriate for every person. The use of leverage amplifies exposure and can lead to significant losses. You should only participate using an understanding of these risks, and nothing in our programs should be relied upon in deciding whether to trade your own capital.
+Permitted Instruments: Participants may trade, within the simulated environment only, standardized futures contracts listed on regulated U.S. exchanges, including those operated by CME Group (CME, CBOT, NYMEX, and COMEX). Equities, equity options, cryptocurrencies, contracts for difference (CFDs), and over-the-counter (OTC) products are prohibited.
+Simulated Performance: All MyFundedFutures evaluation and funded programs are conducted entirely in a simulated, non-executing environment. Participants are advised that hypothetical or simulated performance has inherent limitations. Unlike an actual performance record, simulated results do not represent real trading and may under- or over-compensate for factors such as slippage, liquidity, margin impact, and the psychological demands of live trading. Simulated results are often prepared with the benefit of hindsight. No representation is being made that any participant will or is likely to achieve profits or results comparable to those shown in any marketing, testimonials, or on-platform performance.
+Program Performance¹: The data below is provided for informational purposes only and should not be interpreted as a guarantee, prediction, or representation of any future results. During the applicable measurement period:
+19.97% of all evaluation participants completed the required objectives and advanced beyond the evaluation stage;
+approximately 19.95% of participants who began the evaluation process advanced to a simulated Funded Stage;
+39.2% of participants who reached the simulated Funded Stage earned at least one payout²;
+4.2% of participants trading in a Simulated Funded Account were promoted to a Live Funded Account.
+All results occurred solely within a simulated environment and are not indicative of future results.
+Testimonials: Testimonials reflect the personal experiences of the individuals involved and are not necessarily typical or indicative of what any other participant may expect. They are not a guarantee of future results, payout eligibility, or trading success. No compensation has been provided in connection with the testimonials presented herein.
+For additional program terms, eligibility, jurisdictional limitations, media disclaimers, program integrity rules, intellectual property terms, and full program performance information, see our
+Disclaimer
+and
+Terms
+.
+MyFunded Perpetuals is offered by Funding Perpetuals Holdings, Inc., a company separate from MyFunded Futures, LLC. MyFunded Futures' track record and performance history do not apply to MyFunded Perpetuals or its products.
+Legal
+Disclaimer
+Privacy Policy
+Terms
+Cancellation
+California Privacy Policy
+Job Applicant Privacy Policy
+Cookie Preferences
+About us
+Why Us
+Community
+Careers
+Testimonials
+How it works
+Learn How It Works
+More
+Blogs
+Fintevo
+Hyperprop
+FAQ
+© 2023-2026 MyFundedFutures. All rights reserved.
+
+URL: https://myfundedfutures.com/plans/rapid-eod
+FETCHED_UTC: Mon Nov  9 09:07:42 UTC 2026
+HTTP: 200
+RAW_SHA256: 3136e3165721697e06ed346812be14ef563072e2627d1921a3d539efc9f777a5
+---
+PAGE_TITLE: Rapid EOD Plan — Daily Payouts, 90/10 Split | My Funded Futures
+EXTRACTION: python3 html.parser + json (see bin/extract_site.py docstring). Part A = JSON-LD FAQ/Product text; Part B = visible <body> text, scripts dropped, table cells joined by ' | '
+
+[PART A: JSON-LD]
+PRODUCT_DESCRIPTION: Daily payouts with a 90/10 split and no consistency rule in the funded stage. Pass in 2 days, $0 activation fee. Intraday trailing drawdown — explained upfront.
+
+[PART B: VISIBLE BODY TEXT]
+FuturesCME futures trading
+Perps New24/7 perps trading
+Save 40% On Any Plan With Code CLUB. New to MFFU? Get 50% off your first eval.Claim 40% off
+MyFundedFutures
+About us
+How it works
+More
+Login
+Get Funded
+Login
+Get Funded
+Rapid EOD
+Rapid EOD Plan
+Daily Payouts. Funded EOD Drawdown.
+The daily payout plan traders have been asking for. EOD drawdown in funded. No DLL.
+Get Rapid EOD
+See full rules
+One-time purchase, nothing to cancel.
+Real Recent Payouts
+Rapid
+Payout auto-approved
+357 ms
+$855.00
+Payout auto-approved
+526 ms
+$450.00
+Payout auto-approved
+435 ms
+$2,154.60
+Sample only. Not all payouts shown. Updates every 4 hours.
+Profit split
+90%
+Payout cadence
+Daily
+Min. to pass
+4 days
+Funded drawdown
+EOD
+RAPID EOD Plan
+Choose your account size
+EOD drawdown at both stages. No daily loss limit. 90/10 split with daily payouts.
+Evaluation Stage
+One phase · min 4 days · 30% consistency · no activation fee · EOD drawdown
+Days to Pass
+4
+Profit Target
+$1,500 for 25K
+Max Drawdown
+$1,000
+Funded Stage
+EOD Drawdown · no daily loss limit
+Get Paid
+Daily
+Profit Split
+90/10
+Max Drawdown
+$1,000
+One-time fee
+$87
+Based on current promotions
+$145
+Daily payouts
+90/10 split
+EOD funded drawdown
+Get $25K Rapid EOD
+No activation fee · One-time payment, no renewals
+$25,000The lower-cost Rapid EOD size · contractLimits
+$50,000The Rapid EOD launch size · 3 minis / 30 micros max
+RAPID EOD VS OTHER FIRMS
+Same target. Better terms.
+What it actually means for you: faster funding, faster payouts, and more of your profit stays yours.
+Rapid EOD compared head-to-head against Other Firm
+| | MFFUMFFU Rapid EOD (50K) | Other Firm
+| Recurring Costs | None | Monthly
+| Days to Pass | 4 days | 5 days
+| Profit Split | 90% | 80%
+| Activation Fee | $0 | $130
+| Payout Cadence | Daily | Daily (post-activation)
+| Payout Speed | Instant / sub-second
+*
+Instant for the vast majority of payouts. A subset routed for manual review may take up to 24 business hours. | 1–2 days
+| Profit Target | $3,000 | $3,000
+| Daily Loss Limit | None | None
+| Max Drawdown | $2,000 EOD | $2,000 intraday
+| Consistency Rule (Funded) | None | None
+Comparison reflects publicly available terms for daily-payout plans at major competing futures prop firms as of July 31, 2026. Plan details subject to change.
+FULL RULES & SPECS
+All the rules. In one place.
+Nothing buried. Nothing in the fine print. The Rapid EOD plan in full.
+All Rapid EOD plan rules by account size
+| Rule | $25K | $50K
+| Profit Target | $1,500 | $3,000
+| Max Loss (EOD) | $1,000 | $2,000
+| Daily Loss Limit | None | None
+| Drawdown Type | EOD | EOD
+| Consistency | 30% (Eval Only) | 30% (Eval Only)
+| Min Trading Days | 4 Days | 4 Days
+| T1 News Trading | Yes | Yes
+| Activation Fee | $0 | $0
+| Max Loss EOD | $1,000 | $2,000
+| Drawdown Type | EOD | —
+| MLL Locks At | +$100 | +$100
+| Max Contracts (Mini / Micro) | 2 / 20 | 3 / 30
+| Tier 1 News Trading | Not allowed | Not allowed
+| Initial Balance | $0 | $0
+| Max Loss Limit | $1,000 | $2,000
+| Drawdown Type | End-of-Day (EOD) | End-of-Day (EOD)
+| Drawdown Floor | Max Loss threshold stops at $0 | Max Loss threshold stops at $0
+| Max Contracts (Mini / Micro) | 2 / 20 | 4 / 40
+| Payout Frequency | Daily | Daily
+| Profit Split | 90/10 | 90/10
+| Required Buffer | $1,100 | $2,100
+| Consistency Rule | None | None
+| Payout Frequency | Daily | Daily
+| Min Payout | $500 | $500
+| Split | 90/10 | 90/10
+| Activation Fee | $0 | $0
+| Net Profit Since Last Payout | $250 | $500
+$25K
+$50K
+Rule category
+Evaluation Rules
+Profit Target
+$1,500
+Max Loss (EOD)
+$1,000
+Daily Loss Limit
+None
+Drawdown Type
+EOD
+Consistency
+30%
+Eval Only
+Min Trading Days
+4 Days
+T1 News Trading
+Yes
+Activation Fee
+$0
+Evaluation
+Sim Funded
+Live
+Payouts
+All
+Rule
+$25K
+$50K
+Profit Target
+$1,500
+$3,000
+Max Loss (EOD)
+$1,000
+$2,000
+Daily Loss Limit
+None
+Drawdown Type
+EOD
+Consistency
+30%
+Eval Only
+30%
+Eval Only
+Min Trading Days
+4 Days
+T1 News Trading
+Yes
+Activation Fee
+$0
+Start Rapid EOD Eval
+Read full FAQs→
+Find us where traders are talking, learning, and leveling up
+Daily payouts. 90/10 split. Pass in four days.
+And no activation fee waiting at the finish line.
+Get Rapid EOD
+OTHER PLANS
+Other ways to get funded.
+BUILDER
+Easiest entry. Real path to live.
+$50K plan, one-day pass, structured 5-payout ladder to a live brokerage seat.
+View Builder
+PRO
+Highest payout cap. Path to real capital.
+$90K–$150K sizes, up to $100K per payout, no daily loss limit, defined live transition.
+View Pro
+Legal
+Disclaimer
+Privacy Policy
+Terms
+Cancellation
+California Privacy Policy
+Job Applicant Privacy Policy
+Cookie Preferences
+About us
+Why Us
+Community
+Careers
+Testimonials
+How it works
+Learn How It Works
+More
+Blogs
+Fintevo
+Hyperprop
+FAQ
+© 2023-2026 MyFundedFutures. All rights reserved.
+¹ All MFFU accounts operate in a simulated environment. Evaluation fees are non-refundable. See our
+Terms
+for full program details. All trades are executed on a demo basis and do not involve real capital. Customers who meet the required performance criteria may, at our sole discretion, receive an invitation to access live capital trading through one of our affiliated companies, by invitation only and subject to additional eligibility requirements and terms.
+² Payouts are based on simulated account profits and are subject to rules compliance, trading day requirements, and firm review. See program
+Terms
+for full eligibility conditions.
+Disclaimer: MyFundedFutures provides the information on this website for general informational and educational purposes only. It does not constitute investment, trading, tax, legal, or financial advice, and does not constitute an offer to buy or a solicitation to sell any financial product or derivative instrument. MyFundedFutures is not a broker-dealer, investment adviser, introducing broker, futures commission merchant (FCM), or money manager. You should consult your own advisors before engaging in any transaction.
+Trading futures involves a substantial risk of loss and is not appropriate for every person. The use of leverage amplifies exposure and can lead to significant losses. You should only participate using an understanding of these risks, and nothing in our programs should be relied upon in deciding whether to trade your own capital.
+Permitted Instruments: Participants may trade, within the simulated environment only, standardized futures contracts listed on regulated U.S. exchanges, including those operated by CME Group (CME, CBOT, NYMEX, and COMEX). Equities, equity options, cryptocurrencies, contracts for difference (CFDs), and over-the-counter (OTC) products are prohibited.
+Simulated Performance: All MyFundedFutures evaluation and funded programs are conducted entirely in a simulated, non-executing environment. Participants are advised that hypothetical or simulated performance has inherent limitations. Unlike an actual performance record, simulated results do not represent real trading and may under- or over-compensate for factors such as slippage, liquidity, margin impact, and the psychological demands of live trading. Simulated results are often prepared with the benefit of hindsight. No representation is being made that any participant will or is likely to achieve profits or results comparable to those shown in any marketing, testimonials, or on-platform performance.
+Program Performance¹: The data below is provided for informational purposes only and should not be interpreted as a guarantee, prediction, or representation of any future results. During the applicable measurement period:
+19.97% of all evaluation participants completed the required objectives and advanced beyond the evaluation stage;
+approximately 19.95% of participants who began the evaluation process advanced to a simulated Funded Stage;
+39.2% of participants who reached the simulated Funded Stage earned at least one payout²;
+4.2% of participants trading in a Simulated Funded Account were promoted to a Live Funded Account.
+All results occurred solely within a simulated environment and are not indicative of future results.
+Testimonials: Testimonials reflect the personal experiences of the individuals involved and are not necessarily typical or indicative of what any other participant may expect. They are not a guarantee of future results, payout eligibility, or trading success. No compensation has been provided in connection with the testimonials presented herein.
+For additional program terms, eligibility, jurisdictional limitations, media disclaimers, program integrity rules, intellectual property terms, and full program performance information, see our
+Disclaimer
+and
+Terms
+.
+MyFunded Perpetuals is offered by Funding Perpetuals Holdings, Inc., a company separate from MyFunded Futures, LLC. MyFunded Futures' track record and performance history do not apply to MyFunded Perpetuals or its products.
+
+URL: https://myfundedfutures.com/plans/pro
+FETCHED_UTC: Mon Nov  9 09:07:42 UTC 2026
+HTTP: 200
+RAW_SHA256: 24ec1984680a1034b2a0b19aa8691bf75b4237be2fb739e2ee178ddab920dc2c
+---
+PAGE_TITLE: Pro Plan — Up to $100K total Sim Funded payouts per user, Defined Path to Live Capital | MFFU
+EXTRACTION: python3 html.parser + json (see bin/extract_site.py docstring). Part A = JSON-LD FAQ/Product text; Part B = visible <body> text, scripts dropped, table cells joined by ' | '
+
+[PART A: JSON-LD]
+PRODUCT_DESCRIPTION: The Pro plan: up to $100,000 potential payout, no daily loss limit, no consistency rule once funded, and a defined transition to live capital after three consecutive payouts.
+Q: What's the difference between Pro and Rapid?
+A: Rapid is available in four sizes ($25K–$150K) and pays daily on sim with a 90/10 split using intraday trailing drawdown. Pro starts at $50K, goes up to $150K, pays on a 14-day cycle with a $100,000 cap, uses EOD trailing drawdown, and has a defined path to live capital. Rapid is built for speed and cadence. Pro is built for scale and the live transition.
+Q: How does the Pro live transition actually work?
+A: There are three ways a Pro account can transition to live. The most common is three consecutive payouts on the same account — after which the account is reviewed by our Risk Team. The second is profits exceeding the $100,000 payout cap, where the excess is transitioned to a live balance, up to the maximum allowed by the account size, rather than paid out. The third is a proactive outreach from the Risk Team at any point during your sim funded journey based on your performance. Approved traders move to a real brokerage account at Blue Row Capital — real money, daily payouts, and an 80/20 split. Note: live account parameters differ from sim funded, including a daily loss limit, reduced contract limits, and a static drawdown floor. The trigger is documented; the review is human.
+Q: Why is there a 14-day payout window on Pro?
+A: The 14-day window runs from your first trade on the sim funded account. It gives the EOD trailing drawdown time to settle toward a stable floor and establishes an equity track record before your first payout request. You also need to have cleared the required buffer before a payout can be approved — so the practical unlock is whichever comes later: 14 calendar days or buffer cleared.
+Q: What's the max payout I can actually withdraw on Pro per cycle?
+A: Up to $100,000 per cycle, subject to your live equity above the required buffer at the time of request. Most competing "pro" tiers cap each cycle at $5,000 or 50% of account balance — Pro is the cap that doesn't become the binding constraint in your best months.
+Q: What is Blue Row Capital and how do I get there?
+A: Blue Row Capital is the live brokerage relationship MFFU traders graduate into. Once your Pro account hits three consecutive payouts and clears risk-team review, your account is transitioned to a Blue Row Capital live brokerage seat — same rules, real money, real broker.
+Q: Is the Pro plan worth the cost over the Rapid plan?
+A: It's worth it if you're optimizing for scale over cadence. Rapid is the better economic choice for active traders who want daily cashflow at a 90/10 split on smaller sizes. Pro is the better choice if you want a single account with up to $100K per payout, $50K–$150K sizes, no daily loss limit once funded, and a defined live transition.
+Q: How is the drawdown calculated on Pro?
+A: Pro uses end-of-day trailing drawdown in both eval and sim funded. The max-loss line trails your equity high at the end of each trading day — not intraday. After your first approved payout, the MLL locks permanently at your starting balance plus $100 and stops trailing entirely. Until that first payout, the MLL continues to trail each time you set a new EOD equity high.
+Q: Does the Pro plan have a consistency rule?
+A: There's a 50% consistency rule in evaluation only — no single day's profit can exceed 50% of your total eval profits. Once you're funded, there is no hard consistency rule. That said, the Pro plan does carry a Consistent Trading Policy: MFFU monitors sim funded accounts for trading behavior that falls outside professional norms — things like maxing contracts on every trade, contract flipping, inconsistent position sizing, or high-frequency strategies not aligned with your stated approach. Violations can result in restrictions or account termination. Trade like a professional and it won't be an issue.
+Q: What's the difference between EOD trailing and intraday trailing drawdown?
+A: Intraday trailing (used by Rapid) updates the trailing max-loss line in real time as your equity moves up during the session — your highest unrealized P&L can pull the floor up against you. EOD trailing (used by Pro) only updates the line at the end of each trading day, based on your closing balance. EOD is the model used at most live brokerage seats, and it's more forgiving of mid-session volatility.
+
+[PART B: VISIBLE BODY TEXT]
+FuturesCME futures trading
+Perps New24/7 perps trading
+Save 40% On Any Plan With Code CLUB. New to MFFU? Get 50% off your first eval.Claim 40% off
+MyFundedFutures
+About us
+How it works
+More
+Login
+Get Funded
+Login
+Get Funded
+PRO
+Built for traders ready for uncapped potential.
+Up to $100,000 per payout cycle. No daily loss limit. No consistency rule once funded. A defined transition to live capital after three consecutive payouts. The Pro plan is for traders who've outgrown the limits that other "pro" tiers quietly leave in place.
+Start Pro Evaluation
+See full rules
+No DLL. No consistency rule. No ceiling.
+Real Recent Payouts
+Pro
+Payout auto-approved
+360 ms
+$2,063.20
+Payout auto-approved
+366 ms
+$4,418.40
+Payout auto-approved
+402 ms
+$4,802.40
+Sample only. Not all payouts shown. Updates every 4 hours.
+Max payout
+$100K
+DLL or consistency in funded
+None
+Payouts to live review
+3 → Live
+Activation fee
+$0
+Pro Plan
+Choose Your Account Size
+All three sizes share the same rules. The only thing that scales is the buying power.
+Evaluation Stage
+One phase · min 2 days · no activation fee
+Days to Pass
+2
+Profit Target
+$3,000
+Max Drawdown
+$2,000
+Funded Stage
+Get Paid
+Bi-Weekly
+Profit Split
+80/20
+EOD Drawdown
+$2,000
+Starting at
+$159
+Based on current promotions
+$265
+Start Pro Evaluation At $50K
+No activation fee · One-time payment, no renewals
+$50,000POPULAREntry-tier Pro · 3 mini / 3 micro contracts
+$100,000Standard scaling tier · 6 mini / 6 micro contracts
+$150,000Max account size · 9 mini / 9 micro contracts
+WHO PRO IS FOR
+Pro is for traders who've outgrown the basics.
+The full-time-aspiring trader
+You're not testing. You're working. You need a plan that pays out on your performance, not on a $5,000-per-cycle cap that turns your best month into next month's payout schedule.
+The scaling trader
+You've outgrown $25K and $50K sizes elsewhere. You need the contract count to match the strategy you actually run, and a per-cycle payout that doesn't cap you when you find your rhythm.
+The live-bound trader
+You're done with sim. The Pro plan's three-consecutive-payout trigger is the cleanest defined route in our ecosystem to a real live brokerage seat at Blue Row Capital.
+PRO VS. OTHER FIRMS
+The Pro plan most firms don't actually build.
+Most "pro" plans cap your ceiling. Ours raises it by twenty times.
+Pro compared head-to-head against Other Firm
+| | MFFUMFFU Pro (50K) | Other Firm
+| Daily Loss Limit (Funded) | None | Often required
+| Consistency Rule (Funded) | None | 30%–50%
+| Path to Live Capital | Defined — 3 consecutive payouts | Absent
+| Activation Fee | $0 | $149
+| Max Payout | $100,000 | $5,000
+| Profit Split | 80/20 | 80/20
+| Drawdown | EOD trailing | EOD trailing
+| Recurring Costs | None | Monthly
+Comparison reflects publicly available terms for "pro" or "elite" tier futures prop plans as of Oct 14, 2026. Plan details subject to change.
+WHY PRO
+Four reasons Pro is built for serious traders.
+PAYOUT CEILING
+When you have a great month, you don't have to leave money on the table.
+Other plans from other firms cap each payout cycle at $5,000 – or 50% of account balance, whichever is lower. The MFFU Pro plan caps at $100,000. That difference matters most in the exact times you'd want it to.
+PURE PERFORMANCE
+Once you're funded, your only job is to stay above the drawdown.
+There's no minimum number of trading days you have to clock. There's no rule that limits your best day to a fraction of your total profit. The Pro structure is built around the way disciplined traders already work — trade when there's a setup, sit out when there isn't. Just note: the account requires at least one trade every 7 calendar days to stay active.
+PATH TO REAL CAPITAL
+Three consecutive payouts → Risk Team review for live capital.
+After three consecutive payouts on the same Pro account, the account is reviewed by our team for transition to a live brokerage account. Real money, real broker, daily payouts, no consistency rule.
+BUYING POWER
+3 minis from day one on the $50K. No build-up required.
+Most plans gate your contract count and make you earn your way to full sizing. Pro doesn't. You get your full contract allocation the moment you're funded — whether that's 3 minis at $50K, 6 at $100K, or 9 at $150K. The position sizing is yours from trade one.
+HOW IT WORKS
+From eval to live capital.
+1
+Evaluate
+Hit the profit target across at least two trading days. Stay under the EOD trailing drawdown.
+2
+Sim Funded
+Trade with no daily loss limit and no consistency rule. Payouts unlock 14 days from your first trade, with a $1,000 minimum and up to $100,000 in total Sim Funded payouts per user.
+3
+Live Funded
+After three consecutive Sim Funded payouts, your account is reviewed for Live capital. Approved traders move to a real brokerage account at Blue Row Capital with a $0 starting balance, an EOD-trailing Max Loss Limit, an 80/20 profit split, and up to $5,000 of Sim Funded profit held in Reserve.
+Start Pro Evaluation
+FULL RULES & SPECS
+The Pro plan, in full.
+Nothing buried. Nothing in the fine print. The Pro plan in full.
+All Pro plan rules by account size
+| Rule | $50K | $100K | $150K
+| Profit Target | $3,000 | $6,000 | $9,000
+| Max Loss (EOD) | $2,000 | $3,000 | $4,500
+| Daily Loss Limit | None | None | None
+| Consistency | 50% (Eval Only) | 50% (Eval Only) | 50% (Eval Only)
+| Min Trading Days | 2 Days | 2 Days | 2 Days
+| T1 News Trading | Allowed | Allowed | Allowed
+| Activation Fee | $0 | $0 | $0
+| Max Contracts (Mini / Micro) | 3/30 | 6/60 | 9/90
+| Max Loss (EOD) | $2,000 | $3,000 | $4,500
+| Daily Loss Limit | None | None | None
+| Consistency Rule (Funded) | None | None | None
+| Max Contracts (Mini / Micro) | 3 / 3 | 6 / 6 | 9 / 9
+| Tier 1 News Trading | Not allowed | Not allowed | Not allowed
+| Required Buffer | $2,100 | $3,100 | $4,600
+| Payout Timing | 14 days from first trade + buffer cleared | 14 days from first trade + buffer cleared | 14 days from first trade + buffer cleared
+| Profit Split | 80/20 | 80/20 | 80/20
+| Min Payout | $1,000 | $1,000 | $1,000
+| Live Transition Trigger | 3 consecutive payouts | 3 consecutive payouts | 3 consecutive payouts
+| Live Starting Balance | $0 | $0 | $0
+| Activation Fee | $0 | $0 | $0
+$50K
+$100K
+$150K
+Rule category
+Evaluation Rules
+Profit Target
+$3,000
+Max Loss (EOD)
+$2,000
+Daily Loss Limit
+None
+Consistency
+50%
+Eval Only
+Min Trading Days
+2 Days
+T1 News Trading
+Allowed
+Activation Fee
+$0
+Max Contracts (Mini / Micro)
+3/30
+Evaluation
+Sim Funded
+Payouts & Live Transition
+All
+Rule
+$50K
+$100K
+$150K
+Profit Target
+$3,000
+$6,000
+$9,000
+Max Loss (EOD)
+$2,000
+$3,000
+$4,500
+Daily Loss Limit
+None
+Consistency
+50%
+Eval Only
+50%
+Eval Only
+50%
+Eval Only
+Min Trading Days
+2 Days
+T1 News Trading
+Allowed
+Activation Fee
+$0
+Max Contracts (Mini / Micro)
+3/30
+6/60
+9/90
+Start Pro Evaluation
+Find us where traders are talking, learning, and leveling up
+FAQ
+Questions about the Pro plan.
+What's the difference between Pro and Rapid?
+Rapid is available in four sizes ($25K–$150K) and pays daily on sim with a 90/10 split using intraday trailing drawdown. Pro starts at $50K, goes up to $150K, pays on a 14-day cycle with a $100,000 cap, uses EOD trailing drawdown, and has a defined path to live capital. Rapid is built for speed and cadence. Pro is built for scale and the live transition.
+How does the Pro live transition actually work?
+There are three ways a Pro account can transition to live. The most common is three consecutive payouts on the same account — after which the account is reviewed by our Risk Team. The second is profits exceeding the $100,000 payout cap, where the excess is transitioned to a live balance, up to the maximum allowed by the account size, rather than paid out. The third is a proactive outreach from the Risk Team at any point during your sim funded journey based on your performance. Approved traders move to a real brokerage account at Blue Row Capital — real money, daily payouts, and an 80/20 split. Note: live account parameters differ from sim funded, including a daily loss limit, reduced contract limits, and a static drawdown floor. The trigger is documented; the review is human.
+Why is there a 14-day payout window on Pro?
+The 14-day window runs from your first trade on the sim funded account. It gives the EOD trailing drawdown time to settle toward a stable floor and establishes an equity track record before your first payout request. You also need to have cleared the required buffer before a payout can be approved — so the practical unlock is whichever comes later: 14 calendar days or buffer cleared.
+What's the max payout I can actually withdraw on Pro per cycle?
+Up to $100,000 per cycle, subject to your live equity above the required buffer at the time of request. Most competing "pro" tiers cap each cycle at $5,000 or 50% of account balance — Pro is the cap that doesn't become the binding constraint in your best months.
+What is Blue Row Capital and how do I get there?
+Blue Row Capital is the live brokerage relationship MFFU traders graduate into. Once your Pro account hits three consecutive payouts and clears risk-team review, your account is transitioned to a Blue Row Capital live brokerage seat — same rules, real money, real broker.
+Is the Pro plan worth the cost over the Rapid plan?
+It's worth it if you're optimizing for scale over cadence. Rapid is the better economic choice for active traders who want daily cashflow at a 90/10 split on smaller sizes. Pro is the better choice if you want a single account with up to $100K per payout, $50K–$150K sizes, no daily loss limit once funded, and a defined live transition.
+How is the drawdown calculated on Pro?
+Pro uses end-of-day trailing drawdown in both eval and sim funded. The max-loss line trails your equity high at the end of each trading day — not intraday. After your first approved payout, the MLL locks permanently at your starting balance plus $100 and stops trailing entirely. Until that first payout, the MLL continues to trail each time you set a new EOD equity high.
+Does the Pro plan have a consistency rule?
+There's a 50% consistency rule in evaluation only — no single day's profit can exceed 50% of your total eval profits. Once you're funded, there is no hard consistency rule. That said, the Pro plan does carry a Consistent Trading Policy: MFFU monitors sim funded accounts for trading behavior that falls outside professional norms — things like maxing contracts on every trade, contract flipping, inconsistent position sizing, or high-frequency strategies not aligned with your stated approach. Violations can result in restrictions or account termination. Trade like a professional and it won't be an issue.
+What's the difference between EOD trailing and intraday trailing drawdown?
+Intraday trailing (used by Rapid) updates the trailing max-loss line in real time as your equity moves up during the session — your highest unrealized P&L can pull the floor up against you. EOD trailing (used by Pro) only updates the line at the end of each trading day, based on your closing balance. EOD is the model used at most live brokerage seats, and it's more forgiving of mid-session volatility.
+Visit FAQ Center
+Built for traders who treat this like a job.
+$50K–$150K sizes. Up to $100,000 in potential payouts. A real path to live capital.
+Start Pro Evaluation
+OTHER PLANS
+Other ways to get funded.
+RAPID
+Daily payouts. 90/10 split.
+Pass in 2 days. Get paid every 24 hours. Built for active traders.
+View Rapid
+BUILDER
+Easiest entry. Real path to live.
+$50K plan, one-day pass, structured 5-payout ladder to a live brokerage seat.
+View Builder
+Legal
+Disclaimer
+Privacy Policy
+Terms
+Cancellation
+California Privacy Policy
+Job Applicant Privacy Policy
+Cookie Preferences
+About us
+Why Us
+Community
+Careers
+Testimonials
+How it works
+Learn How It Works
+More
+Blogs
+Fintevo
+Hyperprop
+FAQ
+© 2023-2026 MyFundedFutures. All rights reserved.
+¹ All MFFU accounts operate in a simulated environment. Evaluation fees are non-refundable. See our
+Terms
+for full program details. All trades are executed on a demo basis and do not involve real capital. Customers who meet the required performance criteria may, at our sole discretion, receive an invitation to access live capital trading through one of our affiliated companies, by invitation only and subject to additional eligibility requirements and terms.
+² Payouts are based on simulated account profits and are subject to rules compliance, trading day requirements, and firm review. See program
+Terms
+for full eligibility conditions.
+Disclaimer: MyFundedFutures provides the information on this website for general informational and educational purposes only. It does not constitute investment, trading, tax, legal, or financial advice, and does not constitute an offer to buy or a solicitation to sell any financial product or derivative instrument. MyFundedFutures is not a broker-dealer, investment adviser, introducing broker, futures commission merchant (FCM), or money manager. You should consult your own advisors before engaging in any transaction.
+Trading futures involves a substantial risk of loss and is not appropriate for every person. The use of leverage amplifies exposure and can lead to significant losses. You should only participate using an understanding of these risks, and nothing in our programs should be relied upon in deciding whether to trade your own capital.
+Permitted Instruments: Participants may trade, within the simulated environment only, standardized futures contracts listed on regulated U.S. exchanges, including those operated by CME Group (CME, CBOT, NYMEX, and COMEX). Equities, equity options, cryptocurrencies, contracts for difference (CFDs), and over-the-counter (OTC) products are prohibited.
+Simulated Performance: All MyFundedFutures evaluation and funded programs are conducted entirely in a simulated, non-executing environment. Participants are advised that hypothetical or simulated performance has inherent limitations. Unlike an actual performance record, simulated results do not represent real trading and may under- or over-compensate for factors such as slippage, liquidity, margin impact, and the psychological demands of live trading. Simulated results are often prepared with the benefit of hindsight. No representation is being made that any participant will or is likely to achieve profits or results comparable to those shown in any marketing, testimonials, or on-platform performance.
+Program Performance¹: The data below is provided for informational purposes only and should not be interpreted as a guarantee, prediction, or representation of any future results. During the applicable measurement period:
+19.97% of all evaluation participants completed the required objectives and advanced beyond the evaluation stage;
+approximately 19.95% of participants who began the evaluation process advanced to a simulated Funded Stage;
+39.2% of participants who reached the simulated Funded Stage earned at least one payout²;
+4.2% of participants trading in a Simulated Funded Account were promoted to a Live Funded Account.
+All results occurred solely within a simulated environment and are not indicative of future results.
+Testimonials: Testimonials reflect the personal experiences of the individuals involved and are not necessarily typical or indicative of what any other participant may expect. They are not a guarantee of future results, payout eligibility, or trading success. No compensation has been provided in connection with the testimonials presented herein.
+For additional program terms, eligibility, jurisdictional limitations, media disclaimers, program integrity rules, intellectual property terms, and full program performance information, see our
+Disclaimer
+and
+Terms
+.
+MyFunded Perpetuals is offered by Funding Perpetuals Holdings, Inc., a company separate from MyFunded Futures, LLC. MyFunded Futures' track record and performance history do not apply to MyFunded Perpetuals or its products.
+
+URL: https://myfundedfutures.com/plans/builder
+FETCHED_UTC: Mon Nov  9 09:07:43 UTC 2026
+HTTP: 200
+RAW_SHA256: 1d643830fb2b380dd4f3075f8b34b3b1d7c61d1411eeb5ba3035553fe9782666
+---
+PAGE_TITLE: Builder Plan — Easiest Path to Live Capital | My Funded Futures
+EXTRACTION: python3 html.parser + json (see bin/extract_site.py docstring). Part A = JSON-LD FAQ/Product text; Part B = visible <body> text, scripts dropped, table cells joined by ' | '
+
+[PART A: JSON-LD]
+PRODUCT_DESCRIPTION: $50K Builder: one day to pass, five sim payouts to a live brokerage seat at Blue Row Capital. $0 activation fee, EOD trailing drawdown, and a $1,000 soft-pause daily loss limit.
+Q: What's the difference between Builder and the other MFFU plans?
+A: Builder is the easiest path to funding in the prop space and the only MFFU plan with a fixed payout ladder to live capital — five rungs, each up to $2,000, then a real brokerage account. It has a one-day minimum evaluation, a $1,000 soft-pause daily loss limit, and an 80/20 split. Rapid pays daily on sim with a 90/10 split and no fixed ladder. Pro has the highest payout cap at $100K and its own path to live.
+Q: How does the Builder payout ladder actually work?
+A: After you pass the evaluation, you trade a sim-funded Builder account through up to five approved payout cycles. Before your first payout, you need to clear the required buffer — $2,100 on the default plan, $1,600 on the add-on. Once the buffer is cleared, each payout cycle requires a minimum of 2 qualifying trading days, at least $500 net profit since your last payout, and must fall between $500 and $2,000. A 50% consistency rule applies at the payout stage — your single best day can't account for more than half of that cycle's profits. After your fifth approved sim payout, you graduate to a live brokerage account at Blue Row Capital with daily payouts, an 80/20 split, and no consistency rule.
+Q: What is a "soft pause" daily loss limit?
+A: When your session hits $1,000 down for the day, trading pauses until the next session — but the account is not breached. It is a coaching mechanism for traders still building discipline, not a hard kill switch. You return the next day with the account intact.
+Q: When do I graduate from sim funded to live on Builder?
+A: After five approved sim payouts on your Builder account. The fifth approved payout triggers promotion to a live account underwritten by Blue Row Capital.
+Q: Can I have more than one Builder account at the same time?
+A: No. Builder is limited to one active Builder account per user. The plan is built for focus, not for stacking multiple evals.
+Q: What happens if I breach on Builder?
+A: If you breach max drawdown on the sim-funded Builder account, the account ends and you start a new evaluation. Hitting the $1,000 daily soft-pause limit only ends your session for that day — it does not breach the account. Note: if you breach after graduating to a live account at Blue Row Capital, a 21-day cooldown applies — no sim funded trading, no new eval purchases, and no resets during that period.
+Q: Is Builder good for beginners?
+A: Yes — Builder is designed as the easiest entry path to MFFU with forgiving EOD trailing drawdown, a one-day pass minimum, and a clear five-payout path to live capital. The soft-pause daily loss limit gives traders room to learn without a single bad session ending the account.
+Q: How is Builder different from other low-cost one-step plans?
+A: Most low-cost one-step plans stop at sim. Builder includes a documented five-payout ladder to a real live brokerage seat, $0 activation fee, EOD trailing drawdown (not intraday), and a soft-pause DLL that keeps the account alive after a bad day.
+Q: What does the live Builder account look like?
+A: After five approved sim payouts, you trade live capital at Blue Row Capital. The live account carries an EOD trailing drawdown of $2,000 (default plan) or $1,500 (add-on plan), which becomes static once the MLL reaches $0. You get daily payouts, an 80/20 split, a $1,000 daily loss limit, no consistency rule, and one live account per user. A 21-day cooldown applies if the live account is breached.
+
+[PART B: VISIBLE BODY TEXT]
+FuturesCME futures trading
+Perps New24/7 perps trading
+Save 40% On Any Plan With Code CLUB. New to MFFU? Get 50% off your first eval.Claim 40% off
+MyFundedFutures
+About us
+How it works
+More
+Login
+Get Funded
+Login
+Get Funded
+BUILDER
+The fastest path to funding. For traders ready to build.
+$25K & $50K Builder. One day to pass. Payouts every 48 hours. A structured ladder from your first sim payout to a live brokerage account.
+Start Builder Evaluation
+See full rules
+One account per user. Built for focus, not for stacking.
+Real Recent Payouts
+Builder
+Payout auto-approved
+535 ms
+$1,600.00
+Payout auto-approved
+471 ms
+$1,600.00
+Payout auto-approved
+472 ms
+$414.69
+Sample only. Not all payouts shown. Updates every 4 hours.
+Account size
+$25K & $50K
+Min. to pass
+1 day
+Payout cadence
+Every 48 hours
+Activation fee
+$0
+BUILDER Plan
+Choose your account size
+Pick your account size. Same rules, different buying power.
+Evaluation Stage
+One phase · min 2 days · no activation fee
+Days to Pass
+1
+Profit Target
+$3,000
+Max Drawdown
+1.5k or 2k
+Funded Stage
+One phase · min 2 days · no activation fee
+Get Paid
+Every 48 hrs
+Profit Split
+80/20
+EOD Drawdown
+$2,000
+Starting at
+$92
+Based on current promotions
+$153
+Start builder Evaluation at $50K
+No activation fee · One-time payment, no renewals
+$25,000Standard scaling tier · 2 minis / 20 micros max
+$50,000POPULAREntry-tier Builder · 4 minis / 40 micros max
+$100,000For scaling traders · 6 minis / 60 micros max
+$150,000Max account size · 9 minis / 90 micros max
+WHO BUILDER IS FOR
+Builder is for traders ready for a real start.
+First-time prop firm traders
+You've watched the videos and read the threads. You want a real shot without dropping serious money on your first plan. Builder is the easiest path to your first payout in prop.
+Returning traders rebuilding
+You've blown evals before. You're ready for a plan that pauses your session for the day at $1,000 down — instead of ending the account outright. The Builder DLL is a coaching mechanism, not a kill switch.
+Strategy testers
+Low cost. Low stakes. Real rules. Builder is the lowest-friction way to find out whether your edge holds when actual money is on the line.
+BUILDER VS OTHER FIRMS
+We hand you a path that ends at a real live brokerage seat.
+Other firms sell you a sim account. Builder sells you a ladder.
+Builder compared head-to-head against Other Firms
+| | MFFUMFFU Builder | Other Firms
+| Recurring Costs | None | Monthly
+| Activation Fee | $0 | $99
+| Path to Live Capital | Yes — 5-payout ladder | Rarely defined
+| Pass Requirement | 1-day min, $3K target | 1-day min, similar target
+| Daily Loss Limit | $1K soft pause (account survives) | None, or hard breach
+| Drawdown Type | EOD trailing | Often intraday
+| Profit Split | 80/20 | 80/20
+| Active Accounts | 1 per user (focus) | Multiple (dilution)
+| Min Trading Days Before First Payout | 2 | 8
+Comparison reflects publicly available terms for low-cost one-step futures prop plans as of May 18, 2026. Plan details subject to change.
+WHY BUILDER
+Four reasons Builder is a serious starter plan.
+PRICING
+A real evaluation. At a real entry price
+Builder is the lowest-cost plan we offer — and there's no activation fee waiting after you pass. Some competing one-step firms quietly add $99 to $149 to unlock the funded account. We don't. The price you see is the price you pay.
+SPEED
+Hit the target. Take the seat. Tomorrow.
+The Builder evaluation has a one-day minimum. Hit the $3,000 profit target, stay under the $2,000 drawdown, and you're in the funded stage the next session. Most low-cost one-step plans require eight days of trading before your first payout — Builder gets you trading sooner.
+THE BUILDER DIFFERENCE
+Five payouts. Up to $2,000 each. Then live capital.
+Most starter plans hand you a sim account and leave you there indefinitely. Builder is different. Every payout is a rung. The fifth rung is a real live brokerage account at Blue Row Capital — daily payouts, real money, no consistency rule.
+CADENCE
+Pass in a day. Get paid in two.
+Once you're funded, Builder pays every 48 hours — as soon as you've hit 2 qualifying days and cleared the buffer. Most plans make you wait weeks for your first payout. Builder keeps money moving from your first funded session onward.
+THE BUILDER LADDER
+Every payout is a rung on the ladder.
+Builder is the only MFFU plan with a defined climb from first payout to a real live brokerage seat. Here's the path.
+Up to 5 payouts
+Payouts every 48 hours
+Real brokerage account
+EvaluateHit $3,000 profit in 1+ day under the drawdown
+Sim Funded — Payout #1Up to $2,000 (with $500 minimum)
+Sim Funded — Payout #2Up to $2,000
+Sim Funded — Payout #3Up to $2,000
+Sim Funded — Payout #4Up to $2,000
+Sim Funded — Payout #5Up to $2,000 — final sim payout
+Live FundedReal capital. Real broker. Daily payouts. No consistency rule.
+Evaluate
+Hit $3,000 profit in 1+ day under the drawdown
+Sim Funded — Payout #1
+Up to $2,000 (with $500 minimum)
+Sim Funded — Payout #2
+Up to $2,000
+Sim Funded — Payout #3
+Up to $2,000
+Sim Funded — Payout #4
+Up to $2,000
+Sim Funded — Payout #5
+Up to $2,000 — final sim payout
+Live Funded
+Real capital. Real broker. Daily payouts. No consistency rule.
+Start Builder Evaluation
+HOW IT WORKS
+Three stages. One clear path.
+1
+Evaluate
+Hit $3,000 across at least one trading day. Stay under the $2,000 drawdown. Builder evaluations have a one-day minimum.
+2
+Sim Funded
+Trade up to five payout cycles. Each payout is between $500 and $2,000, with a 50% consistency rule applied at the payout stage. Five clean payouts triggers the live transition.
+3
+Live Funded
+Real capital. Real broker. Daily payouts. 80/20 split. No consistency rule. Underwritten by Blue Row Capital.
+Start Builder Evaluation
+FULL RULES & SPECS
+All the rules. In one place.
+Nothing buried. Nothing in the fine print. The Builder plan in full.
+All Builder plan rules by account size
+| Rule | Builder - $25K | Builder - $50K | Builder - $100K | Builder - $150K
+| Starting Balance | $25,000 | $50,000 | $100,000 | $150,000
+| Profit Target | $1,500 | $3,000 | $6,000 | $9,000
+| Max Loss (EOD Trailing) | $1,000 | $2,000 ($1,500 with add-on) | $3,000 | $4,500
+| Starting Floor | $24,000 | $48,000 ($48,500 with add-on) | $97,000 | $145,500
+| Daily Loss Limit | $600 - soft pause | $1,000 - soft pause | $1,750 - soft pause | $2,500 - soft pause
+| Max Contracts | 2 mini / 20 micro | 4 Minis / 40 Micros | 6 minis / 60 micros | 9 minis / 90 micros
+| Consistency Rule | None | None | None | None
+| Min Trading Days | 1 Day | 1 Day | 1 Day | 1 Day
+| Inactivity Rule | 7 Calendar Days | 7 Calendar Days | 7 Calendar Days | 7 Calendar Days
+| News Trading | Allowed | Allowed | Allowed | Allowed
+| Drawdown Model | EOD Trailing | EOD Trailing | EOD Trailing | EOD Trailing
+| Starting Balance | $0 | $0 | $0 | $0
+| Max EOD Drawdown (MLL) | $1,000 | $2,000 ($1,500 with add-on) | $3,000 | $4,500
+| MLL Lock Level | $100 | $100 | $100 | $100
+| Daily Loss Limit | $600 – soft pause | $1,000 – soft pause | $1,750 - soft pause | $2,500 - soft pause
+| Max Contracts | 2 Minis / 20 Micros | 4 Minis / 40 Micros | 6 minis / 60 micros | 9 minis / 90 micros
+| Active Accounts Allowed | 2 Builder 25K per user | 1 Builder Account per user | 1 Builder Account per user | 1 Builder Account per user
+| Inactivity Rule | 7 Calendar Days | 7 Calendar Days | 7 Calendar Days | 7 Calendar Days
+| News Trading | Allowed | Allowed | Allowed | Allowed
+| Profit Split | 80/20 | 80/20 | 80/20 | 80/20
+| Consistency Rule | 50% | 50% | 50% | 50%
+| Minimum Qualifying Days / Cycle | 2 Days | 2 Days | 2 Days | 2 Days
+| Net Profit Required (First Payout) | $250 above buffer | $500 above buffer | $1,000 above buffer | $1,500 above buffer
+| Net Profit Required (Subsequent Payouts) | $250 since last payout | $500 since last payout | $1,000 since last payout | $1,500 since last payout
+| Minimum Payout Amount | $250 | $500 | $1,000 | $1,500
+| Maximum Payout Per Cycle | $1,000 | $2,000 | $3,000 | $3,500
+| Buffer (Must Be Cleared to Request) | $1,100 | $2,100 ($1,600 with add-on) | $3,100 | $4,600
+| Max Sim Payouts | 5 Payouts | 5 Payouts | 5 Payouts | 5 Payouts
+| Promotion Trigger | After 5th approved sim payout | After 5th approved sim payout | After 5th approved sim payout | After 5th approved sim payout
+| Live Account Drawdown | $1,000 EOD Trailing | $2,000 EOD Trailing ($1,500 with add-on) | $3,000 EOD Trailing | $4,500 EOD Trailing
+| Max Loss Limit | Static once MLL reaches $0 | Static once MLL reaches $0 | Static once MLL reaches $0 | Static once MLL reaches $0
+| Profit Split (Live) | 80/20 | 80/20 | 80/20 | 80/20
+| Payout Cadence | Daily | Daily | Daily | Daily
+| Daily Loss Limit (Live) | $600 | $1,000 | $1,750 | $2,500
+| Consistency Rule (Live) | None | None | None | None
+| Max Live Accounts | 1 | 1 | 1 | 1
+$25K
+$50K
+$100K
+$150K
+Rule category
+Evaluation Rules
+Starting Balance
+$50,000
+Profit Target
+$3,000
+Max Loss (EOD Trailing)
+$2,000
+$1,500 with add-on
+Starting Floor
+$48,000
+$48,500 with add-on
+Daily Loss Limit
+$1,000
+Soft pause
+Max Contracts
+4 Minis / 40 Micros
+Consistency Rule
+None
+Min Trading Days
+1 Day
+Inactivity Rule
+7
+Calendar Days
+News Trading
+Allowed
+Drawdown Model
+EOD Trailing
+Evaluation
+Sim Funded
+Payouts
+Live
+All
+Rule
+$25K
+$50K
+$100K
+$150K
+Starting Balance
+$25,000
+$50,000
+$100,000
+$150,000
+Profit Target
+$1,500
+$3,000
+$6,000
+$9,000
+Max Loss (EOD Trailing)
+$1,000
+$2,000
+$1,500 with add-on
+$3,000
+$4,500
+Starting Floor
+$24,000
+$48,000
+$48,500 with add-on
+$97,000
+$145,500
+Daily Loss Limit
+$600
+Soft pause
+$1,000
+Soft pause
+$1,750
+Soft pause
+$2,500
+Soft pause
+Max Contracts
+2 mini / 20 micro
+4 Minis / 40 Micros
+6 minis / 60 micros
+9 minis / 90 micros
+Consistency Rule
+None
+Min Trading Days
+1 Day
+Inactivity Rule
+7
+Calendar Days
+7
+Calendar Days
+7
+Calendar Days
+7
+Calendar Days
+News Trading
+Allowed
+Drawdown Model
+EOD Trailing
+Start Builder Evaluation
+Find us where traders are talking, learning, and leveling up
+FAQ
+Questions about getting started.
+What's the difference between Builder and the other MFFU plans?
+Builder is the easiest path to funding in the prop space and the only MFFU plan with a fixed payout ladder to live capital — five rungs, each up to $2,000, then a real brokerage account. It has a one-day minimum evaluation, a $1,000 soft-pause daily loss limit, and an 80/20 split. Rapid pays daily on sim with a 90/10 split and no fixed ladder. Pro has the highest payout cap at $100K and its own path to live.
+How does the Builder payout ladder actually work?
+After you pass the evaluation, you trade a sim-funded Builder account through up to five approved payout cycles. Before your first payout, you need to clear the required buffer — $2,100 on the default plan, $1,600 on the add-on. Once the buffer is cleared, each payout cycle requires a minimum of 2 qualifying trading days, at least $500 net profit since your last payout, and must fall between $500 and $2,000. A 50% consistency rule applies at the payout stage — your single best day can't account for more than half of that cycle's profits. After your fifth approved sim payout, you graduate to a live brokerage account at Blue Row Capital with daily payouts, an 80/20 split, and no consistency rule.
+What is a "soft pause" daily loss limit?
+When your session hits $1,000 down for the day, trading pauses until the next session — but the account is not breached. It is a coaching mechanism for traders still building discipline, not a hard kill switch. You return the next day with the account intact.
+When do I graduate from sim funded to live on Builder?
+After five approved sim payouts on your Builder account. The fifth approved payout triggers promotion to a live account underwritten by Blue Row Capital.
+Can I have more than one Builder account at the same time?
+No. Builder is limited to one active Builder account per user. The plan is built for focus, not for stacking multiple evals.
+What happens if I breach on Builder?
+If you breach max drawdown on the sim-funded Builder account, the account ends and you start a new evaluation. Hitting the $1,000 daily soft-pause limit only ends your session for that day — it does not breach the account. Note: if you breach after graduating to a live account at Blue Row Capital, a 21-day cooldown applies — no sim funded trading, no new eval purchases, and no resets during that period.
+Is Builder good for beginners?
+Yes — Builder is designed as the easiest entry path to MFFU with forgiving EOD trailing drawdown, a one-day pass minimum, and a clear five-payout path to live capital. The soft-pause daily loss limit gives traders room to learn without a single bad session ending the account.
+How is Builder different from other low-cost one-step plans?
+Most low-cost one-step plans stop at sim. Builder includes a documented five-payout ladder to a real live brokerage seat, $0 activation fee, EOD trailing drawdown (not intraday), and a soft-pause DLL that keeps the account alive after a bad day.
+What does the live Builder account look like?
+After five approved sim payouts, you trade live capital at Blue Row Capital. The live account carries an EOD trailing drawdown of $2,000 (default plan) or $1,500 (add-on plan), which becomes static once the MLL reaches $0. You get daily payouts, an 80/20 split, a $1,000 daily loss limit, no consistency rule, and one live account per user. A 21-day cooldown applies if the live account is breached.
+Visit FAQ Center
+A starter plan with a finish line.
+$50K. One day to pass. Five payouts to live capital.
+Start Builder Evaluation
+OTHER PLANS
+Other ways to get funded.
+RECOMMENDED
+RECOMMENDED.
+RAPID
+Daily payouts. 90/10 split.
+Pass in 2 days. Get paid every 24 hours. Built for active traders.
+View Rapid
+PRO
+Highest payout cap. Path to real capital.
+$50K–$150K sizes, up to $100K per payout, no daily loss limit, defined live transition.
+View Pro
+Discover all plans
+Legal
+Disclaimer
+Privacy Policy
+Terms
+Cancellation
+California Privacy Policy
+Job Applicant Privacy Policy
+Cookie Preferences
+About us
+Why Us
+Community
+Careers
+Testimonials
+How it works
+Learn How It Works
+More
+Blogs
+Fintevo
+Hyperprop
+FAQ
+© 2023-2026 MyFundedFutures. All rights reserved.
+¹ All MFFU accounts operate in a simulated environment. Evaluation fees are non-refundable. See our
+Terms
+for full program details. All trades are executed on a demo basis and do not involve real capital. Customers who meet the required performance criteria may, at our sole discretion, receive an invitation to access live capital trading through one of our affiliated companies, by invitation only and subject to additional eligibility requirements and terms.
+² Payouts are based on simulated account profits and are subject to rules compliance, trading day requirements, and firm review. See program
+Terms
+for full eligibility conditions.
+Disclaimer: MyFundedFutures provides the information on this website for general informational and educational purposes only. It does not constitute investment, trading, tax, legal, or financial advice, and does not constitute an offer to buy or a solicitation to sell any financial product or derivative instrument. MyFundedFutures is not a broker-dealer, investment adviser, introducing broker, futures commission merchant (FCM), or money manager. You should consult your own advisors before engaging in any transaction.
+Trading futures involves a substantial risk of loss and is not appropriate for every person. The use of leverage amplifies exposure and can lead to significant losses. You should only participate using an understanding of these risks, and nothing in our programs should be relied upon in deciding whether to trade your own capital.
+Permitted Instruments: Participants may trade, within the simulated environment only, standardized futures contracts listed on regulated U.S. exchanges, including those operated by CME Group (CME, CBOT, NYMEX, and COMEX). Equities, equity options, cryptocurrencies, contracts for difference (CFDs), and over-the-counter (OTC) products are prohibited.
+Simulated Performance: All MyFundedFutures evaluation and funded programs are conducted entirely in a simulated, non-executing environment. Participants are advised that hypothetical or simulated performance has inherent limitations. Unlike an actual performance record, simulated results do not represent real trading and may under- or over-compensate for factors such as slippage, liquidity, margin impact, and the psychological demands of live trading. Simulated results are often prepared with the benefit of hindsight. No representation is being made that any participant will or is likely to achieve profits or results comparable to those shown in any marketing, testimonials, or on-platform performance.
+Program Performance¹: The data below is provided for informational purposes only and should not be interpreted as a guarantee, prediction, or representation of any future results. During the applicable measurement period:
+19.97% of all evaluation participants completed the required objectives and advanced beyond the evaluation stage;
+approximately 19.95% of participants who began the evaluation process advanced to a simulated Funded Stage;
+39.2% of participants who reached the simulated Funded Stage earned at least one payout²;
+4.2% of participants trading in a Simulated Funded Account were promoted to a Live Funded Account.
+All results occurred solely within a simulated environment and are not indicative of future results.
+Testimonials: Testimonials reflect the personal experiences of the individuals involved and are not necessarily typical or indicative of what any other participant may expect. They are not a guarantee of future results, payout eligibility, or trading success. No compensation has been provided in connection with the testimonials presented herein.
+For additional program terms, eligibility, jurisdictional limitations, media disclaimers, program integrity rules, intellectual property terms, and full program performance information, see our
+Disclaimer
+and
+Terms
+.
+MyFunded Perpetuals is offered by Funding Perpetuals Holdings, Inc., a company separate from MyFunded Futures, LLC. MyFunded Futures' track record and performance history do not apply to MyFunded Perpetuals or its products.
