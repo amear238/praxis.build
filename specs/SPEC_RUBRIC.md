@@ -71,7 +71,9 @@ closure states it has not been confirmed by direct inquiry.
 
 ---
 
-## OPEN — gradeable now
+## PASSED — closed criteria
+
+Filer's note, not a ruling: O1 is moved here out of OPEN under Amear's C6 (D-2026-11-08-C; DECISION_LOG 2026-11-08T19:12:30Z, WHO: amear), copied by script from `docs/reports/2026-11-08-amear-answers-park-card.md` :34–35 joined with one space, with the `C6  ` label and the leading indentation dropped: `"Discharged" recorded as PASSED@a2f1067 is correct. O1 moves out of the OPEN section.`
 
 ### O1 — Walk-forward gate set for the replication arm
 **State:** PASSED@a2f1067. Amear's ruling A8, D-2026-11-08-B (DECISION_LOG
@@ -85,6 +87,10 @@ and is undefined without an in-sample optimisation step. Deviation D removed
 optimisation from the first pass. **Required:** a written statement of which
 gate set applies to the replication arm and whether GO/HOLD/REJECT sits on the
 replication arm or the later optimisation arm.
+
+---
+
+## OPEN — gradeable now
 
 ### O2 — `praxispush` provisioning
 The signal directory was specified as a dedicated low-privilege macOS user, the
@@ -272,6 +278,39 @@ blocked, move on" wording. It is outside this repository and affects other
 projects, so it is **not** edited from here. This section is the binding text for
 PRAXIS work.
 
+**Park-commit exemption — C2, 2026-11-08 human ruling (D-2026-11-08-C; DECISION_LOG 2026-11-08T19:12:30Z, WHO: amear).**
+
+Filer's note, not a ruling: Amear's words, copied by script from
+`docs/reports/2026-11-08-amear-answers-park-card.md` :19–22.
+
+```text
+C2  Park rule amendment (made between sessions, per the absolutes
+    rule): a park commit to parked/ branches is exempt from the
+    audit-token gate, because it never touches main. Closes
+    Praxis_build-8sw.
+```
+
+State of the build (filer's statement, not a ruling): a static read of
+`.claude/hooks/gate-commit.sh` on 2026-11-09 found no line that mentions "park"
+(`grep -c -i park .claude/hooks/gate-commit.sh` prints 0); it was not
+trip-tested here. Bead `Praxis_build-8sw` is OPEN, and its title records that
+the absolute park rule has no sanctioned commit path: "PARK RULE vs COMMIT GATE:
+absolute park rule has no sanctioned commit path". The gate change is the later,
+trip-tested unit (D-2026-11-08-D D12: "park-commit gate exemption (C2,
+trip-tested)"). So the exemption is RULED and NOT YET BUILT.
+
+Filer's note, not a ruling: this ruling lands under Amear's C8, "The July SPEC_RUBRIC R-A/R-B/R-C hunk lands as written." (D-2026-11-08-C; DECISION_LOG 2026-11-08T19:12:30Z, WHO: amear; docs/reports/2026-11-08-amear-answers-park-card.md :38).
+
+**No-verdict returns — R-A / R-B / R-C, ruled 2026-07-27. Source: DECISION_LOG
+row `2026-07-27T18:15Z`.**
+
+A grading agent that returns no explicit verdict has not graded. Absence of a
+verdict is treated as FAIL for the commit decision and never as PASS or as
+no-finding. It does NOT count toward the park rule's two-strike limit, which
+counts adverse verdicts on the work. A no-verdict unit may be re-dispatched only
+after material reduction, stated in the dispatch row; a second consecutive
+no-verdict return on the same bead counts as the second FAIL.
+
 **Absolutes are amended between sessions only — 2026-07-26 human ruling.**
 
 A rule declared absolute is **never amended inside the session that hits it.**
@@ -343,3 +382,35 @@ settled. Splitting the field makes that question answerable by reading. It does
 not make the answer trustworthy — for that, the authorisation chain in S4 and
 S5 (the ledger append *is* the authorisation) remains the only control, and it
 too is a record rather than a proof.
+
+## Autonomy — D1–D5, 2026-11-08 human ruling (D-2026-11-08-D; DECISION_LOG 2026-11-08T19:57:00Z, WHO: amear)
+
+Filer's note, not a ruling: Amear's words, copied by script from DECISIONS.md
+:1906–1927 (the D-2026-11-08-D verbatim block).
+
+```text
+STANDING RULE CHANGE — AUTONOMY
+D1  Default-decide. When a unit or the master reaches a question that
+    would otherwise go to Amear, it takes the recommended option, logs
+    it as "decided by master under D-2026-11-08-D D1", and continues.
+    Amear may reverse any such decision later; the reversal is filed
+    like any ruling. No unit waits on Amear except for D2 items.
+D2  Only four things stop and wait for Amear's word: (a) spending
+    money; (b) switching live trading on, or any order path to a
+    funded account; (c) changing circuit-breaker values while real
+    money is at stake; (d) installing keys, credentials or agent
+    permissions. Everything else is D1.
+D3  The Telegram commit-approval step in the Hermes setup is removed.
+    Commits land on an audit PASS. Telegram informs; it does not ask.
+D4  Loop: a Hermes timer starts a fresh Code session every four hours.
+    Each run reads HANDOFF.md, executes the next unit(s), and ends with
+    one Telegram message in plain English: what was done, what was
+    decided under D1, what is blocked under D2. No code names (F1, O1,
+    bead IDs) without a plain-language gloss. Rough weekly review with
+    Amear in the Claude.ai channel; nothing waits on it.
+D5  A message to Amear that asks a question with a recommendation
+    attached, on a non-D2 item, is a defect under D1. Log it, bead it,
+    take the recommendation.
+```
+
+S8 is read together with D1 and D2: what belongs to Amear is the D2 list (master's reading, D-2026-11-08-D filing note 1; changeable by Amear).
