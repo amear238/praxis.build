@@ -19,12 +19,13 @@
 - Amear, D-2026-11-06-B ruling 1 (DECISIONS.md:1063): "the VM agent installs cli-nt-bridge via terminal, after a VMware snapshot."
 - Amear's ruling-5 defaults (DECISIONS.md:1063): "test 2a reference = 1,190 trades / $197,327.60 on NQCONTROW SEP25, exact match; my "lift completely once confirmed" ruling covers what tests 2a/2b need (bridge install + its import), D-071 untouched; VM agent reads and reports the NT8 version; Code + auditor judge 2a/2b and log the lift under my ruling; VM agent on Z: while Code runs = second session, coordinate."
 - Amear, D-2026-11-07-A rulings 5–8 and 10 (DECISIONS.md:1229–1234; ledger DECISION_LOG `2026-11-07T12:55:00Z`, WHO: amear), quoted where applied: section 1 limits 4, 6, 8; section 2; steps 3.4, 3.5, 4.2, 4.3, 4.6; section 8.
+- **Amendment 2 (2026-11-09):** applies D-2026-11-08-C C3, C9 and C10 (DECISIONS.md:1830–1850; ledger DECISION_LOG `2026-11-08T19:12:30Z`, WHO: amear) and D-2026-11-08-A R1 (DECISIONS.md:1551–1555; ledger DECISION_LOG `2026-11-08T14:02:11Z`, WHO: amear); unit `2026-11-09-vm-handoff-amendment-2`, repo HEAD `cec36b8`. Writes Amear's filed step-0 answers into section 2 (C10); adds the R1 trading-hours read as step 1 item 0; brings section 1 limit 1, step 1's opening line and items 6 and 9, the step 3 gate, steps 3.1, 3.3 and 3.4, section 8 and §9.5 into line; appends C3 (4) to the go-live list of `docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md`. Superseded text is kept, struck through. Lines that say "Amear's step-0 words" and were not edited (step 4 gate; section 7 items 5 and 14; the step-4 skill) now read those words from section 2.
 
 ## 1. Hard limits for the VM agent
 
 Every limit holds for the whole of this file. If a step seems to need breaking one, STOP and write a reply saying which limit and why.
 
-1. **Account:** Sim101 only, or the sim account Amear names. No live account, ever. No step runs until item 5 is answered (section 2), except steps 1 and 2, which touch no account: steps 3 and 4 wait on Amear's words naming the account. Which account the tests use is still Amear's question (bridge NEEDS AMEAR 8, `report:232`).
+1. **Account:** Sim101 only, or the sim account Amear names. No live account, ever. ~~No step runs until item 5 is answered (section 2), except steps 1 and 2, which touch no account: steps 3 and 4 wait on Amear's words naming the account. Which account the tests use is still Amear's question (bridge NEEDS AMEAR 8, `report:232`).~~ **Amendment 2:** item 5 is answered in section 2 — Amear: "(5) Sim101;" (C3, D-2026-11-08-C). The account is Sim101.
 2. **No orders.** Place, change, cancel or flatten nothing.
 3. **No connection changes (D-071).** No new NT8 connection, no reconnect, no disconnect. Amear: "D-071 untouched" (DECISIONS.md:1063); "Hard limits unchanged: nothing bought, no new data connection, F1–F4 untouched, borrowed code on its own branch, old as-is set out of every commit." (DECISIONS.md:1063). Why it matters here: `reconnect`, `playbackrun` and AutoReconnect all call `Connection.Connect`, and `playbackrun`, on its baseline stage when `require` is playback, disconnects every non-Playback connection (`report:184`; the D-071 consequence is INFERRED, `report:188`). **Do not start, close or restart NinjaTrader.** Starting it may bring connections up; whether it does on this VM is UNVERIFIED. If a step needs NT8 running and it is not, STOP and reply. Starting it is Amear's.
 4. **Bridge commands you must not use.** Amear: "(4) playbackrun/reconnect/flatten/strategies/ghostorders/AutoReconnect stay forbidden until live-trading design says otherwise." (DECISIONS.md:1231, D-2026-11-07-A ruling 7(4)). `flatten` has no Sim-only check (`report:178`). This file's own limit for these steps, not his words: the only bridge commands it permits are `backtest` and `ntstatus` (step 4). Not `doctor`, `deploy`, `compile`, `reload`, `restart`, `watchdog`, `configure`, `satemplate`, `analyzerrun`, or any other.
@@ -42,34 +43,80 @@ Every limit holds for the whole of this file. If a step seems to need breaking o
 
 ## 2. Hand step 0 — Amear, on the Mac
 
-Before the VM agent does anything below, take a VMware Fusion snapshot of the VM. Source: ruling 1, "after a VMware snapshot" (DECISIONS.md:1063); R-VN4-13, "Yeah, just do the snapshot." (DECISIONS.md:960). Whose hand, in your words: "Snapshot is my hand step: confirmed." (DECISIONS.md:1232, D-2026-11-07-A ruling 8).
+**Amendment 2 (2026-11-09) — step 0 is answered. Read the answers here; Amear does not repeat them to you.** His words (C10, D-2026-11-08-C): "Code writes the filed step-0 answers into vm/2026-11-06-vm-handoff.md §2 so the VM session reads them from the file. Amear does not repeat them to the VM session." Do not wait for Amear to tell you items 1–6, and do not ask him for them.
 
-- [ ] Fusion → select the VM → Snapshots → Take Snapshot. Name: `pre-cli-nt-bridge-2026-11-06`. (Menu path not checked by Code; use Fusion's own snapshot command if it differs.)
-- **You should see:** the snapshot listed in the VM's Snapshots window with that name and today's date.
-- Then tell the VM session, in your own words, six things. The VM agent pastes what you say, word for word, into its first reply, and Code files it as yours:
-  1. the snapshot is taken, and its name;
-  2. how the bridge source reaches the VM: the anonymous HTTPS clone in step 3.1 (the master's proposal, DECISION_LOG `2026-11-06T22:11:54Z`), the README's SSH clone, or a copy through Z: (bridge NEEDS AMEAR 11, `report:235`);
-  3. whether the install copies only the two AddOn files of step 3.2 (bridge NEEDS AMEAR 1, `report:225`);
-  4. whether the unauthenticated request folders the install creates are acceptable for these tests (bridge NEEDS AMEAR 3, `report:227`);
-  5. which sim account (bridge NEEDS AMEAR 8, `report:232`);
-  6. who performs the one in-NT8 compile (NinjaScript Editor → F5) — Amear by hand, or the VM agent driving NT8's window? The first compile is a step inside NT8, not a terminal command (`README.md:54@9664d9b`: "In NinjaTrader, open the NinjaScript Editor and **compile (F5)**"; `report:31`: "Installing means copying C# into `bin\Custom\AddOns` and compiling it in NT8"; `report:140`). Ruling 1 settles the terminal install and its order; it does not say whose hand presses F5.
-- Anything you leave out, the VM agent does not assume. Step 3 does not start until items 1–6 are answered in your words.
+Amear's answers, verbatim (WHO: amear; REPORTED BY the Claude.ai channel and pasted by Amear, per the answers file's :3). Source: `docs/reports/2026-11-08-amear-answers-park-card.md` lines 23–27 (C3), 39–40 (C9) and 41–43 (C10), filed in D-2026-11-08-C (DECISIONS.md:1830–1834, :1846–1850); ledger DECISION_LOG `2026-11-08T19:12:30Z`, WHO: amear. His approval line in the same paste (:14): "Sending this message is my approval of C1-C10 as written."
+```text
+C3  Step 0, items 2-6: (2) anonymous HTTPS clone, step 3.1;
+    (3) only the two AddOn files of step 3.2; (4) unauthenticated
+    request folders acceptable for sim tests only, closed before real
+    money (go-live list); (5) Sim101; (6) Amear presses Compile in the
+    NinjaScript Editor by hand.
+C9  Step 0, item 1: snapshot taken, named pre-cli-nt-bridge-2026-11-06.
+    The Claude session on the VM is closed.
+C10 Code writes the filed step-0 answers into vm/2026-11-06-vm-handoff.md
+    §2 so the VM session reads them from the file. Amear does not repeat
+    them to the VM session.
+```
+
+| Item | The question (as asked 2026-11-06, struck below) | Amear's answer, his words | Where it applies |
+|---|---|---|---|
+| 1 | the snapshot is taken, and its name | "snapshot taken, named pre-cli-nt-bridge-2026-11-06." (C9) | Step 3 gate (b) |
+| 2 | how the bridge source reaches the VM | "(2) anonymous HTTPS clone, step 3.1;" (C3) | Step 3.1 |
+| 3 | whether the install copies only the two AddOn files | "(3) only the two AddOn files of step 3.2;" (C3) | Step 3.2 |
+| 4 | whether the unauthenticated request folders are acceptable | "(4) unauthenticated request folders acceptable for sim tests only, closed before real money (go-live list);" (C3) | Step 3.4; go-live list |
+| 5 | which sim account | "(5) Sim101;" (C3) | Limit 1; step 4 gate |
+| 6 | who performs the one in-NT8 compile | "(6) Amear presses Compile in the NinjaScript Editor by hand." (C3) | Step 3.3 |
+
+- **Grades.** The snapshot is REPORTED BY Amear (C9). Code has not seen it: no Fusion window and no snapshot list has been observed by Code. "The Claude session on the VM is closed." is REPORTED BY Amear (C9), as of his answer (2026-11-08).
+- **Item 4's condition.** His answer is "acceptable for sim tests only". That tests 2b and 2a are "sim tests" in his words is INFERRED (this file's reading, not his word; changeable by him): they run under limit 1 (Sim101 only; his item 5) and place no orders (limit 2). Which account NT8 uses inside a Strategy Analyzer backtest is UNVERIFIED. "closed before real money (go-live list)" is on the go-live list (step 3.4).
+- **What his answers do not say** stays open and is not filled in here: when, and by what message, Amear tells you he has compiled (step 3.3 waits for him).
+
+**Superseded by Amendment 2 — kept for the record; do not act on it:**
+
+~~Before the VM agent does anything below, take a VMware Fusion snapshot of the VM. Source: ruling 1, "after a VMware snapshot" (DECISIONS.md:1063); R-VN4-13, "Yeah, just do the snapshot." (DECISIONS.md:960). Whose hand, in your words: "Snapshot is my hand step: confirmed." (DECISIONS.md:1232, D-2026-11-07-A ruling 8).~~
+
+- ~~[ ] Fusion → select the VM → Snapshots → Take Snapshot. Name: `pre-cli-nt-bridge-2026-11-06`. (Menu path not checked by Code; use Fusion's own snapshot command if it differs.)~~
+- ~~**You should see:** the snapshot listed in the VM's Snapshots window with that name and today's date.~~
+- ~~Then tell the VM session, in your own words, six things. The VM agent pastes what you say, word for word, into its first reply, and Code files it as yours:~~
+  1. ~~the snapshot is taken, and its name;~~
+  2. ~~how the bridge source reaches the VM: the anonymous HTTPS clone in step 3.1 (the master's proposal, DECISION_LOG `2026-11-06T22:11:54Z`), the README's SSH clone, or a copy through Z: (bridge NEEDS AMEAR 11, `report:235`);~~
+  3. ~~whether the install copies only the two AddOn files of step 3.2 (bridge NEEDS AMEAR 1, `report:225`);~~
+  4. ~~whether the unauthenticated request folders the install creates are acceptable for these tests (bridge NEEDS AMEAR 3, `report:227`);~~
+  5. ~~which sim account (bridge NEEDS AMEAR 8, `report:232`);~~
+  6. ~~who performs the one in-NT8 compile (NinjaScript Editor → F5) — Amear by hand, or the VM agent driving NT8's window? The first compile is a step inside NT8, not a terminal command (`README.md:54@9664d9b`: "In NinjaTrader, open the NinjaScript Editor and **compile (F5)**"; `report:31`: "Installing means copying C# into `bin\Custom\AddOns` and compiling it in NT8"; `report:140`). Ruling 1 settles the terminal install and its order; it does not say whose hand presses F5.~~
+- ~~Anything you leave out, the VM agent does not assume. Step 3 does not start until items 1–6 are answered in your words.~~
 
 ## 3. Step 1 — VM agent self-report (test 2b, part 1)
 
 Write `Z:\vm\replies\<ts>-STATUS.md` with `STARTED` first.
 
-Report each item below. Observe only: open no settings dialog, click no Connect or Disconnect.
+Report each item below. Observe only: open no settings dialog, click no Connect or Disconnect. **Amendment 2:** one exception — item 0 opens the Trading Hours window, read-only.
 
+0. **VM step 0 — read the live trading-hours template (R1; Amendment 2).** Do this first, before items 1–9. Amear's words (D-2026-11-08-A R1, DECISIONS.md:1551–1555; source `docs/reports/2026-11-08-amear-rulings-voice.md`:18–22, REPORTED BY the Claude.ai channel and pasted by Amear, per that file's :3; ledger DECISION_LOG `2026-11-08T14:02:11Z`, WHO: amear). Placing his "VM step 0" here, as step 1 item 0, and reading the hours in NT8's Trading Hours window, is this file's reading, not his word; what his "(T7 readback)" names is not settled here:
+   ```text
+   R1  RTH = 09:30–16:00 ET (answers §4 item 1, B1). Arms (a) and (b)
+       anchor at the 09:30 ET cash open. VM step 0 reads the live
+       "CME US Index Futures RTH" template hours (T7 readback). If the
+       live template starts 08:30 ET, the 2026-11-01 baselines are
+       suspect and are re-run at 09:30 ET before either arm counts.
+   ```
+   - **Read only.** Change nothing: edit no field, add or delete no template or session, press no Save, OK or Apply. Close the window with its close button. If a prompt appears on closing, choose the answer that saves nothing; if no answer clearly saves nothing, leave the prompt open, STOP and reply.
+   - **NT8 must already be running.** Check with item 7's command first. If NT8 is not running, do not start it (limit 3): answer this item "could not read: NT8 not running", answer items 1–9 as written, set the self-report's `RESULT:` line to `STOP` (that self-report is the STOP reply of section 7), write `FINISHED`, and wait for Code. Do not go on to step 2. (The STOP is this file's reading of limit 3, not Amear's word.)
+   - **Route.** Tools → Trading Hours. Source: the committed reference `docs/reference/2026-07-24-nt8-windows-reference.md`, :32 (Tools menu list, marked "from notes") and :156 (`Tools > Trading Hours`). Code has not seen this window on this VM: the route is UNVERIFIED. If the menu differs, reach the Trading Hours window through NT8's own menus, open nothing else, and say how you got there.
+   - **Which template.** The one named exactly `CME US Index Futures RTH` — the name in step 4's table, row 7. If no template has that exact name, STOP: list the template names you see, and reply.
+   - **What to copy, exactly as the screen shows it:** the template's time-zone field; and every session row of its regular sessions, in order — begin day, begin time, end day, end time. If the window has other parts (for example holidays), list their names only; do not open them.
+   - **Do not judge it.** Do not convert time zones, compare with 09:30–16:00 or say whether it "starts 08:30 ET". Code, not you, decides whether R1's 08:30 clause fired. What follows if it fired is in his words above; no step in this file runs it. Code does not know what the live template holds (UNVERIFIED). Whatever it shows, change nothing in step 4: row 7 stays as written, and a difference is reported, not fixed (limit 13).
+   - **Reply:** in the self-report, as item 0: the route you used, then the copied text under `## What I saw on screen`.
 1. Your identity: product name, model and version, as you know them. Say whether you are "the Claude agent running inside the Windows VM" (settlement 3) or something else.
 2. How you load skills: the full path of your skills directory, and the file layout you expect there (for example `<dir>\<name>\SKILL.md`). Report your own convention. Do not guess it.
 3. `python --version` — paste the output. The bridge needs "Python 3.10+" (`README.md:35@9664d9b`; `report:143`).
 4. `$PSVersionTable.PSVersion` — paste the output.
 5. `git --version` — paste the output, or the error. Step 3 needs git.
-6. NT8 version from NinjaTrader → Help → About (D-2026-11-06-A item 1). Amear's own words cover this one read: "VM agent reads and reports the NT8 version" (ruling 5, DECISIONS.md:1063). The Help → About route is the master's (DECISION_LOG `2026-11-06T22:11:54Z`). It is the only NT8 window step 1 opens. If NT8 is not running, do not start it (limit 3): write "could not read: NT8 not running". Copy the text exactly. The bridge report "observes no value of the VM's NT8 build" (`report:2965`). The repo carries REPORTED values that differ by date: 8.1.7.2 from installer events, 2026-10-19 (`report:2966`); 8.1.8.4 per Amear, 2026-10-31 (`report:2967`); 8.1.8.4 per Claude Code on the VM, 2026-11-02 (`report:2968`). Code has observed none of them.
+6. NT8 version from NinjaTrader → Help → About (D-2026-11-06-A item 1). Amear's own words cover this one read: "VM agent reads and reports the NT8 version" (ruling 5, DECISIONS.md:1063). The Help → About route is the master's (DECISION_LOG `2026-11-06T22:11:54Z`). ~~It is the only NT8 window step 1 opens.~~ **Amendment 2:** it and item 0's Trading Hours window are the only NT8 windows step 1 opens. If NT8 is not running, do not start it (limit 3): write "could not read: NT8 not running". Copy the text exactly. The bridge report "observes no value of the VM's NT8 build" (`report:2965`). The repo carries REPORTED values that differ by date: 8.1.7.2 from installer events, 2026-10-19 (`report:2966`); 8.1.8.4 per Amear, 2026-10-31 (`report:2967`); 8.1.8.4 per Claude Code on the VM, 2026-11-02 (`report:2968`). Code has observed none of them.
 7. Is NT8 running? `Get-Process NinjaTrader -ErrorAction SilentlyContinue | Select-Object Id,StartTime` — paste the output.
 8. Your Documents folder: `[Environment]::GetFolderPath('MyDocuments')` — paste the output. NT8's folders sit under it.
-9. Amear's step-0 words (the six items of section 2). Paste them word for word. If you got none, say so.
+9. ~~Amear's step-0 words (the six items of section 2). Paste them word for word. If you got none, say so.~~ **Amendment 2:** Amear's step-0 answers, as filed in section 2 (C10: Amear does not repeat them). Copy the six answers from section 2's table, word for word, and say that you read them from this file. Do not wait for Amear to give them to you.
 
 **Reply:** `Z:\vm\replies\<ts>-self-report.md`, in the format of section 7.
 **You should see:** every item answered, or marked "could not read" with the reason.
@@ -88,7 +135,7 @@ Then write `<ts>-STATUS.md` with `FINISHED`, and stop. Wait for `Z:\vm\replies\<
 
 ## 5. Step 3 — install cli-nt-bridge
 
-**Gate:** start only when all of these hold. (a) `Z:\vm\replies\<ts>-CODE-2b-verdict.md` exists and holds the line `2b: PASS`. (b) The same file holds the line `SNAPSHOT: confirmed` — Code writes it only after reading Amear's step-0 words in your self-report. (c) Amear's words answer section 2 items 2–6 (route, file set, request folders, sim account, who compiles), and the answers let the steps run as written: item 3 accepts the two files of 3.2, item 4 accepts the request folders, item 5 names a sim account. A no, a different file set, a condition, or anything unclear is not a yes: STOP, quote his words in a reply, and wait. Do not adapt the steps. If any fails, do not start. Write `STARTED` first.
+**Gate:** start only when all of these hold. (a) `Z:\vm\replies\<ts>-CODE-2b-verdict.md` exists and holds the line `2b: PASS`. (b) The same file holds the line `SNAPSHOT: confirmed` — ~~Code writes it only after reading Amear's step-0 words in your self-report.~~ **Amendment 2:** Code writes it from Amear's item-1 answer as filed in section 2 (C9, REPORTED BY Amear); the line means Amear reports the snapshot taken, not that Code has seen it. (c) ~~Amear's words answer section 2 items 2–6 (route, file set, request folders, sim account, who compiles), and the answers let the steps run as written: item 3 accepts the two files of 3.2, item 4 accepts the request folders, item 5 names a sim account. A no, a different file set, a condition, or anything unclear is not a yes: STOP, quote his words in a reply, and wait.~~ **Amendment 2:** Amear's answers to section 2 items 2–6 are filed in section 2 (C3) and let the steps run as written: item 2 names the HTTPS clone of 3.1, item 3 names the two files of 3.2, item 5 names Sim101, item 6 names his own hand for the compile (3.3). Item 4 carries his condition, "for sim tests only"; that 2b and 2a are sim tests is this file's reading (section 2), not his word. Anything else unclear: STOP, quote his words in a reply, and wait. Do not adapt the steps. If any fails, do not start. Write `STARTED` first.
 
 What the install is: copy C# into `bin\Custom\AddOns` and compile it in NT8 (`report:31`, `report:140`). Amear's lift covers it: "bridge install + its import" (DECISIONS.md:1089, settlement 6). The commands below are untried.
 
@@ -100,7 +147,7 @@ git -C C:\praxis\bridge-src checkout 9664d9b
 git -C C:\praxis\bridge-src rev-parse HEAD
 ```
 - **You should see:** `9664d9b255bfa34b120d88a481afe7741a4115e6` from the last line (the pinned commit, `report:2973`).
-- The README clones over SSH (`README.md:41@9664d9b`: `git clone git@github.com:eman007/cli-nt-bridge.git`), which "needs a GitHub key" (`report:142`). The block above is the anonymous HTTPS clone the master proposed (DECISION_LOG `2026-11-06T22:11:54Z`). Run it only if Amear's step-0 words chose it. If he chose another route, follow his words and paste what you typed. How the source reaches the VM is his (bridge NEEDS AMEAR 11, `report:235`).
+- The README clones over SSH (`README.md:41@9664d9b`: `git clone git@github.com:eman007/cli-nt-bridge.git`), which "needs a GitHub key" (`report:142`). The block above is the anonymous HTTPS clone the master proposed (DECISION_LOG `2026-11-06T22:11:54Z`). ~~Run it only if Amear's step-0 words chose it. If he chose another route, follow his words and paste what you typed. How the source reaches the VM is his (bridge NEEDS AMEAR 11, `report:235`).~~ **Amendment 2:** he chose it — "(2) anonymous HTTPS clone, step 3.1;" (C3, section 2). Run the block above.
 - If `git` is missing or the clone asks for a login: STOP, reply.
 - **Reply line:** paste all four commands' output.
 
@@ -121,12 +168,12 @@ Get-ChildItem "$D\NinjaTrader 8\bin\Custom\AddOns" | Select-Object Name,Length,L
 - **You should see:** both names in the listing.
 - **Reply line:** paste both listings.
 
-**3.3 Compile in NT8 — wait for Amear's word on section 2, item 6.** The README's first compile is a step inside NT8 (`README.md:54@9664d9b`: "In NinjaTrader, open the NinjaScript Editor and **compile (F5)**"). NT8 compiles "the whole tree" (`report:141`). The bridge's own `compile` command is not permitted (section 1, limit 4). Who presses F5 is Amear's (item 6). This file assumes neither path. Follow only the path his words name:
+**3.3 Compile in NT8 — ~~wait for Amear's word on section 2, item 6.~~ Amendment 2: item 6 is answered — "(6) Amear presses Compile in the NinjaScript Editor by hand." (C3, section 2). Follow the "If he does it by hand" path below only; the other two paths are superseded.** The README's first compile is a step inside NT8 (`README.md:54@9664d9b`: "In NinjaTrader, open the NinjaScript Editor and **compile (F5)**"). NT8 compiles "the whole tree" (`report:141`). The bridge's own `compile` command is not permitted (section 1, limit 4). Who presses F5 is Amear's (item 6). ~~This file assumes neither path.~~ Follow only the path his words name:
 - **If he does it by hand:** after 3.2, wait. Do nothing in NT8. When Amear tells you he has compiled, paste his words, word for word, and the result he gives you (clean, or the error lines) into the reply.
-- **If he lets you drive NT8's window for this compile:** open the NinjaScript Editor, press F5, and copy what the editor shows. Do nothing else in NT8's windows. His word covers this one compile only; it does not cover the Strategy Analyzer tab (step 4.3).
-- **If his words do not clearly name one of the two:** STOP and reply. Do not choose.
+- ~~**If he lets you drive NT8's window for this compile:** open the NinjaScript Editor, press F5, and copy what the editor shows. Do nothing else in NT8's windows. His word covers this one compile only; it does not cover the Strategy Analyzer tab (step 4.3).~~ (Superseded by Amendment 2: his item-6 answer names his hand. Do not open the NinjaScript Editor.)
+- ~~**If his words do not clearly name one of the two:** STOP and reply. Do not choose.~~ (Superseded by Amendment 2: his words name one.)
 - **You should see:** no compile errors. If there are any, copy every error line (file, line, message) into the reply, and STOP. Do not edit any `.cs` file.
-- **Reply line:** Amear's item-6 words, then "Compile by: Amear" or "Compile by: VM agent", then "Compile: clean" or the error lines.
+- ~~**Reply line:** Amear's item-6 words, then "Compile by: Amear" or "Compile by: VM agent", then "Compile: clean" or the error lines.~~ **Amendment 2 — Reply line:** Amear's item-6 answer as filed in section 2, then "Compile by: Amear", then his words, word for word, when he tells you he has compiled, then "Compile: clean" or the error lines.
 
 **3.4 Check the request folders.** The AddOn polls `<UserDataDir>\NT8Bridge\trigger` and writes to `\result` (`report:47`; folders `report:145`):
 ```
@@ -134,8 +181,8 @@ $D = [Environment]::GetFolderPath('MyDocuments')
 Test-Path "$D\NinjaTrader 8\NT8Bridge\trigger"; Test-Path "$D\NinjaTrader 8\NT8Bridge\result"
 ```
 - **You should see:** `True` and `True` once NT8 has loaded the compiled AddOn. If `False`, restart nothing; reply with the output.
-- These folders take requests from any process running as your Windows user, with no authentication (`report:173`; Correction 1, C1-3, `report:2868`: who can write them on the VM is UNVERIFIED). Whether that is acceptable is Amear's question (bridge NEEDS AMEAR 3, `report:227`).
-- **Go-live (not these tests).** Amear: "Go-live checklist additions: remove the unauthenticated bridge request folders (or add auth) before real money; unmap Z: and turn off the SMB share." (DECISIONS.md:1234, D-2026-11-07-A ruling 10). Both items are in the go-live checklist of `docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md` (`:35` unmap Z: and the share; `:38` the request folders). They bind before real money. Whether the folders are acceptable for these tests stays section 2, item 4.
+- These folders take requests from any process running as your Windows user, with no authentication (`report:173`; Correction 1, C1-3, `report:2868`: who can write them on the VM is UNVERIFIED). ~~Whether that is acceptable is Amear's question (bridge NEEDS AMEAR 3, `report:227`).~~ **Amendment 2:** answered — "(4) unauthenticated request folders acceptable for sim tests only, closed before real money (go-live list);" (C3, section 2).
+- **Go-live (not these tests).** Amear: "Go-live checklist additions: remove the unauthenticated bridge request folders (or add auth) before real money; unmap Z: and turn off the SMB share." (DECISIONS.md:1234, D-2026-11-07-A ruling 10). Both items are in the go-live checklist of `docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md` (`:35` unmap Z: and the share; `:38` the request folders). They bind before real money. ~~Whether the folders are acceptable for these tests stays section 2, item 4.~~ **Amendment 2:** section 2 item 4 is answered (C3 (4)); its "closed before real money (go-live list)" restates ruling 10's first item (the master's reading, changeable by Amear; the wordings differ: "closed" here, "remove … (or add auth)" in ruling 10) and is appended to the same go-live list (`docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md`, the line after `:38`).
 
 **3.5 Python CLI.** The README (`README.md:43–45@9664d9b`):
 ```
@@ -308,6 +355,14 @@ This file answers none of these. Where a row is settled, the answer is Amear's w
 Settled since 2026-11-06:
 - Whether the 2a NT8 run on the VM needs his separate word (D-2026-11-06-A NEEDS AMEAR 6, DECISIONS.md:1046): the run half is answered in his words — "2a run: YES, covered by my lift. A test that needs a run includes the run." (DECISIONS.md:1229, D-2026-11-07-A ruling 5). The D-071 half is not: "The D-071 half of that question is not answered by ruling 5's words." (DECISIONS.md:1263). Limit 3 stands.
 
+Settled since 2026-11-08 (Amendment 2). Where a row above still says **Amear's** or "asked at step 0", this list supersedes that cell; the rows themselves are not edited. Source for all: D-2026-11-08-C (DECISIONS.md:1830–1834, :1846–1847); ledger DECISION_LOG `2026-11-08T19:12:30Z`, WHO: amear.
+- Row 1, which files: "(3) only the two AddOn files of step 3.2;" (C3). The lift half stays as the row says.
+- Row 2, whose hand for the in-NT8 compile: "(6) Amear presses Compile in the NinjaScript Editor by hand." (C3).
+- Row 3, the request folders: "(4) unauthenticated request folders acceptable for sim tests only, closed before real money (go-live list);" (C3). That 2b and 2a are sim tests is this file's reading (section 2), not his word.
+- Row 8, the account: "(5) Sim101;" (C3).
+- Row 9, the snapshot: "Step 0, item 1: snapshot taken, named pre-cli-nt-bridge-2026-11-06." (C9). REPORTED BY Amear; not observed by Code.
+- Row 11, route half: "(2) anonymous HTTPS clone, step 3.1;" (C3). The `pip` half is unchanged, as the row says; its open sub-question stays **Amear's**.
+
 Still not decided here:
 - Whether 2a/2b have passed. Code and praxis-auditor judge that (settlement 8). A 2a PASS on a hand-set tab is logged as a partial pass per ruling 6 (step 4.6). Recording the lift is "under my ruling" — his.
 
@@ -348,4 +403,4 @@ Amear, D-2026-11-07-A ruling 7 (DECISIONS.md:1231): "(12) you propose how each a
 8. The copy to Z: (9.2): the master's proposal; untried.
 9. How the NT8 Output-window text and NT8's own trade lists are captured on the VM and moved to Z: is not set here — UNVERIFIED. The only bridge commands permitted are `backtest` and `ntstatus` (limit 4); the `backtest` response shape (`report:65`) carries neither (INFERRED). Who does it, and by what route: **Amear's**.
 
-**9.5 Not answered here.** §8 rows 1, 2, 3 and 8, and row 11's route half, stay **Amear's**; row 6 is a pending value from step 1 (DECISIONS.md:1278). Nothing in §9 answers them, nor who sets the tab by hand, nor the account. §9 takes effect only by his word, after 2a passes.
+**9.5 Not answered here.** ~~§8 rows 1, 2, 3 and 8, and row 11's route half, stay **Amear's**;~~ **Amendment 2:** §8 rows 1, 2, 3 and 8, and row 11's route half, are now answered in his words (C3; §8, "Settled since 2026-11-08"); row 6 is a pending value from step 1 (DECISIONS.md:1278). Nothing in §9 answers them, nor who sets the tab by hand~~, nor the account~~ (the account is answered: "(5) Sim101;", C3). §9 takes effect only by his word, after 2a passes.
