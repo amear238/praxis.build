@@ -1804,3 +1804,204 @@ A11 Amear no longer edits any repo file by hand, including
 - (iv) **A2 and the notes-4 Sharpe item.** A4 (:33–34): "Closes the notes-4 DD equity-base item." A2 (:20–23) gives the gate-2 formula and carries no such words. Notes-4 scope, DECISIONS.md:978: "equity base for the 4% DD gate (item 5) and Sharpe definition (item 4)"; values spec :93: "The gate's Sharpe definition and its equity base stay OPEN under ruling 9". Precedent, DECISIONS.md:1643: "Whether the 4% DD equity-base item stays open — his." Whether the notes-4 Sharpe-definition item (item 4) is closed by A2 is his.
 
 Nothing else.
+
+## 2026-11-08 — D-2026-11-08-C: Amear's answers C1–C10 to the 2026-11-08 park card (Claude.ai channel, 2026-11-08). Filed WHO: amear.
+
+**Date:** 2026-11-08
+**Status:** RECORDED — Amear's answers, WHO: amear. S5 ledger authorisation: DECISION_LOG `2026-11-08T19:12:30Z` (**WHO: amear**; DECISION_LOG.md:743, working tree). The words are REPORTED BY the Claude.ai channel and were pasted by Amear; the paste in `docs/reports/2026-11-08-amear-answers-park-card.md` is OBSERVED as received (answers file :3, written by praxis-master). Filing form: his WHO line in the block, under his heading at :12, "WHO: amear. Agents write every repo file (A11). File as D-2026-11-08-C." (answers file :13). His approval line: "Sending this message is my approval of C1-C10 as written." (:14). C10 was first typed alone, DECISION_LOG `2026-11-08T19:04:00Z` (**WHO: amear**; :742). The park this card follows: DECISION_LOG `2026-11-08T17:25:00Z` (WHO: praxis-master; :741). Dispatch of U8: DISPATCH_LOG `2026-11-08T19:13:00Z` (WHO: praxis-master; DISPATCH_LOG.md:2037). Drafted by praxis-manager, unit `2026-11-08-park-card-filing` (U8), which did not return (DECISION_LOG `2026-11-08T22:27:00Z`, :745). Checked line by line and finished by praxis-manager, unit `2026-11-09-c-d-filing`; corrections are in place and listed in that unit's report `docs/reports/2026-11-09-c-d-filing-manager.md`. That unit did not return (DISPATCH_LOG `2026-11-09T05:04:00Z`, DISPATCH_LOG.md:2124, working tree); its report has no graded Result and is kept as written. Unit `2026-11-09-c-d-filing-resume` re-ran its checks and replaced the HANDOFF.md line pointers in this entry with park-card item pointers (report `docs/reports/2026-11-09-c-d-filing-resume-manager.md`).
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades.** Never mixed. (a) *Amear's words* = the fenced block below and nothing else, copied by script from answers file lines 12–43. (b) The answers file's filing notes 1–5 (:50–54; section heading :48) are each labelled "Master's reading (filing note <n>, :<line>), changeable by Amear" below; a decision taken under D-2026-11-08-D D1 is labelled "decided by master under D-2026-11-08-D D1", changeable by Amear (one, under Open readings below); the label "Master's decision under R-1104-2 (DECISIONS.md:748), changeable by Amear" appears only inside the C4 bullet's quote of D-2026-11-08-A's Correction 1. (c) The filer's readings are labelled "INFERRED, the filer's, not his word", or "Manager's reading, not a ruling" / "Manager's note, not a ruling" (both in S4 timing). Line pointers are the filer's. Unit `2026-11-09-c-d-filing` had U8's draft pointers checked by an adversary worker (W1; an excerpt of its output is pasted in that unit's report; its second adversary's result was lost when the unit did not return). Unit `2026-11-09-c-d-filing-resume` had the finished entry re-checked by a fresh adversary (output pasted in `docs/reports/2026-11-09-c-d-filing-resume-manager.md`, section "Continuation — manager dispatch 2"). Answer line ranges in the answers file: C1 :16–18, C2 :19–22, C3 :23–27, C4 :28, C5 :29–33, C6 :34–35, C7 :36–37, C8 :38, C9 :39–40, C10 :41–43. Where his words name what they answer ("U7 (Praxis_build-diq)", "Praxis_build-8sw", "Step 0, items 2-6", "for D-2026-11-08-A", "D-2026-11-08-B (i)", "Praxis_build-gjj", "Step 0, item 1"), the pointer follows his words; every mapping to a numbered "For Amear" item of the HANDOFF.md 2026-11-08 park card (HANDOFF.md, the card headed "Resume card — 2026-11-08 — `main` = `origin/main` = `6c4c109`; U7 (walk-forward spec amendment) PARKED at audit FAIL 2 (`Praxis_build-diq`), park commit blocked by `Praxis_build-8sw`; session ended by the park rule", its list headed "**For Amear (none asked — the park ends the session):**"; called "the park card" below, and "park card, item <n>" means item <n> of that list. Pointers into HANDOFF.md are by heading and item number, not line number, because HANDOFF.md is uncommitted and a new card is put at its top each session; the working-tree line numbers cited earlier (U8: 10–16; unit `2026-11-09-c-d-filing`: 63–69) are not to be used) is INFERRED, the filer's, not his word. Side by side, not picked: answers file :3 says the paste answers the card's "For Amear" list "(items 1–6)"; the park card's "For Amear" list has seven items, and the filer maps C8 to park card, item 7.
+
+**The answers, verbatim (WHO: amear).** Answers file lines 12–43, inserted by script, not retyped.
+
+```text
+PRAXIS — AMEAR'S ANSWERS TO THE 2026-11-08 PARK CARD (Claude.ai channel)
+WHO: amear. Agents write every repo file (A11). File as D-2026-11-08-C.
+Sending this message is my approval of C1-C10 as written.
+
+C1  U7 (Praxis_build-diq) resumes in this new session. One correction:
+    replace the stale pasted diff with the diff of the blob being
+    committed. One audit. No park branch is landed for diq.
+C2  Park rule amendment (made between sessions, per the absolutes
+    rule): a park commit to parked/ branches is exempt from the
+    audit-token gate, because it never touches main. Closes
+    Praxis_build-8sw.
+C3  Step 0, items 2-6: (2) anonymous HTTPS clone, step 3.1;
+    (3) only the two AddOn files of step 3.2; (4) unauthenticated
+    request folders acceptable for sim tests only, closed before real
+    money (go-live list); (5) Sim101; (6) Amear presses Compile in the
+    NinjaScript Editor by hand.
+C4  One entry satisfies "File each" for D-2026-11-08-A.
+C5  D-2026-11-08-B (i) win/loss judged by price, consistent with
+    B = exit at entry price; (ii) Studio Static rows use the stricter
+    limit type and stage, both shown; (iii) A8 annualisation = mean net
+    P&L per session x 252, for IS and OOS alike; (iv) A2 closes the
+    notes-4 Sharpe item.
+C6  "Discharged" recorded as PASSED@a2f1067 is correct. O1 moves out of
+    the OPEN section.
+C7  Praxis_build-gjj: disable memory in the praxis-manager agent
+    definition. Code makes the edit; auditor checks it.
+C8  The July SPEC_RUBRIC R-A/R-B/R-C hunk lands as written.
+C9  Step 0, item 1: snapshot taken, named pre-cli-nt-bridge-2026-11-06.
+    The Claude session on the VM is closed.
+C10 Code writes the filed step-0 answers into vm/2026-11-06-vm-handoff.md
+    §2 so the VM session reads them from the file. Amear does not repeat
+    them to the VM session.
+```
+
+**Copy check.** `sed -n '12,43p' docs/reports/2026-11-08-amear-answers-park-card.md | openssl dgst -sha256` = `7fd6c65e2e694b3dd88b3e99a880288f204c111be70a114cfb1244fa0ffc60fa` (OBSERVED; equals the value in DECISION_LOG `19:12:30Z`, :743); the fenced body's hash after insertion (DECISIONS.md block lines, `openssl dgst -sha256`) is pasted in `docs/reports/2026-11-09-c-d-filing-manager.md`; U8's report holds no such paste (its "## Result" section, :29–30, reads "(in progress)").
+
+**Per-answer pointers.** His words are in the block above; they are not restated here. Each bullet opens with that answer's line range in the answers file. No answer is read past its words. Unit names are as in the order of DECISION_LOG `19:12:30Z` (:743), quoted under S4 timing.
+
+- **C1** (answers file :16–18). *Answers:* card item 1, second half (park card, item 1, "whether/how U7 resumes"), and the park row's open question (DECISION_LOG `17:25:00Z`, :741, "whether and how U7 resumes") — INFERRED, the filer's, not his word; the bead is his ("U7 (Praxis_build-diq)", :16). *Authorises:* U7 (`Praxis_build-diq`, P1 OPEN, `bd show`, OBSERVED) resumes with one correction and one audit (his words). *Sets aside, for diq only:* park step 1 (`specs/SPEC_RUBRIC.md`:252, "Commit the work to a branch `parked/<bead-id>`."), by his words "No park branch is landed for diq" (:18). The park row records step 1 as "NOT DONE, CANNOT BE DONE by the master" (:741). Master's reading (filing note 2, :51), changeable by Amear: "replace" is carried out "by APPENDING the diff of the blob being committed as the diff of record, and marking the earlier paste SUPERSEDED"; "The stale paste is not deleted." *Left for a later unit:* the U7 resumption ("U7 resumes under C1", :743). Nothing of U7 is edited here.
+- **C2** (:19–22). *Answers:* card item 1, first half (park card, item 1, "How the park branch is landed under 8sw") — INFERRED, the filer's, not his word; the bead is his ("Closes Praxis_build-8sw", :21–22, joined). `Praxis_build-8sw`: "PARK RULE vs COMMIT GATE: absolute park rule has no sanctioned commit path", P1 OPEN (`bd show`, OBSERVED). *Amends:* the absolute park rule (`specs/SPEC_RUBRIC.md`:246–260): a park commit to `parked/` branches is exempt from the audit-token gate (his words). His words place the amendment under the absolutes rule ("made between sessions, per the absolutes rule", :19–20, joined); that rule is rubric :285–289 in the working tree, :275–279 at HEAD ("A rule declared absolute is **never amended inside the session that hits it.**", working tree :287, HEAD :277). Master's reading (filing note 1, :50), changeable by Amear: the amendment was made "in the Claude.ai channel, which is not the session the rule blocked". Master's reading (filing note 4, :53), changeable by Amear: the exemption is "a rubric text change AND a change to the commit-gate hook", and `Praxis_build-8sw` "closes when both are in and trip-tested". *Conditional (bd memory `amear-conditional-commitment`; INFERRED, the filer's, not his word; a pointer, not a ruling):* "because it never touches main" (:21) rests on a mechanism not observed in this unit — that a commit admitted under the exemption lands only on a `parked/` branch and cannot reach `main`. The gate-hook unit is where it is observed (S3 trip test, S9 positive control). *Left for a later unit:* the rubric unit (C2 text; every rubric edit follows A11, rubric :3–6) and the gate-hook unit (code; trip-tested under S3 and S9 before commit). 8sw is not closed here.
+- **C3** (:23–27). *Answers:* card item 2 (park card, item 2, "your six answers") and VM handoff §2 items 2–6 — the item numbers are his ("Step 0, items 2-6", :23). Line correspondence, INFERRED, the filer's, not his word: C3 (2) ↔ `vm/2026-11-06-vm-handoff.md`:51 (bridge source; step 3.1 is :95); (3) ↔ :52 (the two AddOn files; step 3.2 is :107); (4) ↔ :53 (unauthenticated request folders); (5) ↔ :54 (sim account); (6) ↔ :55 (the in-NT8 compile). *Authorises:* under C10, these are written into §2 (§2 is :43–56). C3 (4)'s "closed before real money (go-live list)" (:25–26, joined) bears on the go-live list — see filing note 5 below. *Left for a later unit:* the VM-handoff unit. `vm/` is not edited here.
+- **C4** (:28). *Answers:* D-2026-11-08-A's NEEDS AMEAR, Correction 1 (DECISIONS.md:1708): "(i) Whether one entry satisfies "File each as a DECISIONS.md entry" (DECISIONS.md:1546)."; card item 3 (park card, item 3). His words in A's block (DECISIONS.md:1546): "WHO: amear. File each as a DECISIONS.md entry citing this session." *Effect:* that NEEDS AMEAR is answered by his words (:28). Contrast: Correction 1, "Cure for finding 2" (DECISIONS.md:1678), where one entry was a "Master's decision under R-1104-2 (DECISIONS.md:748), changeable by Amear"; C4 is now his word on the same filing form. *Left for a later unit:* nothing. D-2026-11-08-A and its Correction 1 are not edited.
+- **C5** (:29–33). *Answers:* D-2026-11-08-B NEEDS AMEAR (i)–(iv) (DECISIONS.md:1801–1804), one by one; card item 4 (park card, item 4). C5 (i) (:29–30) ↔ B (i) "A3 break-even vs net basis" (:1801). C5 (ii) (:30–31) ↔ B (ii) "A4 limit type and stage" (:1802) — see Open readings (i) below. C5 (iii) (:31–32) ↔ B (iii) "A8 annualisation method" (:1803). C5 (iv) (:32–33) ↔ B (iv) "A2 and the notes-4 Sharpe item" (:1804; notes-4 scope at DECISIONS.md:978). *Left for a later unit:* the values-spec unit ("values-spec unit (C5)", :743) changes the values-spec and WF-spec text that still carries these items as NEEDS AMEAR or OPEN (for example WF spec NEEDS AMEAR 12, `git show HEAD:docs/specs/2026-11-05-walk-forward-spec.md` :207, OBSERVED). U7's uncommitted edits to both files are in the working tree (DECISION_LOG :741); the order puts the U7 resumption before the values-spec unit. Neither spec is edited here.
+- **C6** (:34–35). *Answers:* card item 5 (park card, item 5). *Effect:* O1's state "PASSED@a2f1067" (`specs/SPEC_RUBRIC.md`:77) is confirmed by his words ("is correct", :34). That this turns the rubric's own label at :81–82 ("Marking O1 PASSED, and the sha as the commit that lands D-2026-11-08-B, are the master's reading (filing note 3), changeable by Amear.", joined) into his word is INFERRED, the filer's, not his word. *Left for a later unit:* the rubric unit moves O1 (rubric :76–88; O2 starts :89) out of the OPEN section (:74). OBSERVED (`grep -n '^## '`): the rubric has no section for PASSED items — its sections are FROZEN :17, OPEN :74, Standing criteria :111, Process rulings :244; state values :12–13. Where O1 goes is the master's in the rubric unit, auditor-checked; it is not picked here.
+- **C7** (:36–37). *Answers:* card item 6 (park card, item 6); the bead is his ("Praxis_build-gjj", :36). `Praxis_build-gjj`: "praxis-manager writes to its agent-memory dir despite explicit per-brief prohibition (3x on 2026-11-08)", P2 OPEN (`bd show`, OBSERVED). *Authorises:* the agent-definition unit; his words "Code makes the edit; auditor checks it" (:37). *Conditional (bd memory `amear-conditional-commitment`; INFERRED, the filer's, not his word; a pointer, not a ruling):* "disable memory in the praxis-manager agent definition" (:36–37, joined) rests on a mechanism not observed in this unit — that the agent definition carries a setting that turns memory off, and that turning it off stops the writes gjj records. The agent-definition unit and its auditor are where it is observed. *Left for a later unit:* the agent-definition unit. gjj is not closed here.
+- **C8** (:38). *Answers:* card item 7 (park card, item 7), the 11-07 return handoff §4 item 4 — INFERRED, the filer's, not his word. *Effect:* the July R-A/R-B/R-C hunk of `specs/SPEC_RUBRIC.md` (working tree :275–284; `git diff --numstat HEAD -- specs/SPEC_RUBRIC.md` = `10	0	specs/SPEC_RUBRIC.md`; one hunk; `git diff -U0 HEAD -- specs/SPEC_RUBRIC.md` hunk header `@@ -274,0 +275,10 @@`; OBSERVED) lands as written (his words, :38). That this is the ruling B's filing note 2 waited for ("unless he rules on it", DECISIONS.md:1783) is INFERRED, the filer's, not his word. *Left for a later unit:* the rubric unit. Card item 7 says "a plain-language summary is owed with it" (park card, item 7); whether the rubric unit carries one is the master's. The card's "§4 items 2 and 4–12" (park card, item 7), item 4 apart, are not answered by C1–C10 (INFERRED, the filer's, not his word).
+- **C9** (:39–40). *Answers:* card item 2 (park card, item 2, "the snapshot name" and "confirm the VM Claude session is closed") and VM handoff §2 item 1 (`vm/2026-11-06-vm-handoff.md`:50, "the snapshot is taken, and its name;"); the item number is his ("Step 0, item 1", :39). The name he gives equals the name the handoff proposed at :47 (`pre-cli-nt-bridge-2026-11-06`, OBSERVED). *Left for a later unit:* the VM-handoff unit writes it into §2 under C10.
+- **C10** (:41–43). *Answers:* no card item; it is DECISION_LOG `19:04:00Z` (:742, WHO: amear), first typed alone. The premise was recorded as not met there: "its premise "the filed step-0 answers" is not met" (:742, master's reading). Row :743: "**C10's premise is now met** by C3 + C9." *Authorises:* the VM-handoff unit writes C3 and C9 into `vm/2026-11-06-vm-handoff.md` §2 so the VM session reads them from the file; Amear does not repeat them (his words). Lines of §2 that his words bear on, INFERRED, the filer's, not his word: :49 ("Then tell the VM session, in your own words, six things.") and :56 ("Step 3 does not start until items 1–6 are answered in your words."). How §2 is reworded is the VM-handoff unit's, auditor-checked. *Left for a later unit:* the VM-handoff unit, with "R1's template read" (:743).
+
+**Filing notes (master's/manager's readings, not rulings).** The master's filing notes 1–5 (answers file :50–54) are below. The readings marked "INFERRED, the filer's" in the bullets above are the manager's.
+- Master's reading (filing note 1, :50), changeable by Amear: "The park was hit in this same Claude Code conversation"; "C1 calls this "this new session""; "The resumption is recorded as his explicit decision (WHO: amear); the master does not argue it."
+- Master's reading (filing note 2, :51), changeable by Amear: "C1's "replace the stale pasted diff" is carried out by APPENDING the diff of the blob being committed as the diff of record"; "The stale paste is not deleted. Changeable by him: if he means the bytes are to be removed, he says so."
+- Master's reading (filing note 3, :52), changeable by Amear: "(a) D-2026-11-08-C is filed and OBSERVED on disk before any unit it authorises is dispatched." The order it gives matches the order of DECISION_LOG `19:12:30Z` (:743), quoted under S4 timing (INFERRED, the filer's, not his word).
+- Master's reading (filing note 4, :53), changeable by Amear: "The exemption is a rubric text change AND a change to the commit-gate hook. `Praxis_build-8sw` closes when both are in and trip-tested."
+- Master's reading (filing note 5, :54), changeable by Amear: "**C3 (4)** adds an item to the go-live list"; "The VM-handoff unit carries the line there by append." OBSERVED beside it: the list at `docs/reports/2026-11-05-fusion-shared-folders-walkthrough.md`:38 already carries "Go-live checklist addendum 2026-11-07, his words (ruling 10):" with "remove the unauthenticated bridge request folders (or add auth) before real money". Whether C3 (4) needs a new line beside :38 is the master's; this entry picks nothing.
+
+**What this entry does NOT do.** No rubric, spec, values-spec, WF-spec, VM-handoff, go-live-list, ledger, agent-definition, hook or bead edit. No bead closed (8sw, gjj and diq stay OPEN). No O1 section move. No park branch. No code, no run.
+
+**S4 timing.** This entry is written before any unit it authorises is dispatched (`git show HEAD:DECISIONS.md | grep -c 'D-2026-11-08-[CD]:'` = `0`, OBSERVED by unit `2026-11-09-c-d-filing`; bd memory `master-s4-entry-before-code`). The order, copied by script from DECISION_LOG `19:12:30Z` (:743, **WHO: amear** row, master's text inside it): "U8 files D-2026-11-08-C, which is verified on disk → U7 resumes under C1 (one correction, one audit; MANIFEST blob = HEAD + U7's rows :299–304 only) → D-2026-11-08-C committed → rubric unit (C2 text, C6, C8) → values-spec unit (C5) → VM-handoff unit (C3, C9, C10, R1's template read, C3(4) go-live line) → agent-definition unit (C7) → gate-hook unit (C2) → U2 housekeeping, U4 F2 proposal, U5 R6 research." One manager at a time; no unit in that order is dispatched before this entry is OBSERVED on disk. Manager's reading, not a ruling: D-2026-11-08-D (D12, voice-2 file :71–75, whose sequence comes "after D6") later re-sets this order. That entry follows this one. Manager's note, not a ruling: ":299–304" in the quote is where U7's MANIFEST rows sit in the working tree. If this entry is committed first with MANIFEST.md as HEAD :1–298 plus this filing's rows, as the master's plan records (DECISION_LOG `2026-11-09T01:05:00Z`, :746, working tree: "Commit blob for MANIFEST = HEAD :1–298 + this unit's rows (U7 :299–304 stay out)."), this filing's rows take :299–305 and U7's rows take later row numbers when U7 lands.
+
+**S5.** No approval is inferred. His words are cited from the answers file :12–43, filed under the ledger row `2026-11-08T19:12:30Z` (**WHO: amear**, DECISION_LOG.md:743); that row is the authorisation. His approval line is inside the block (:14).
+
+**S6 cross-block (interactions only; nothing decided here).** F1–F4 (`specs/SPEC_RUBRIC.md`:19, :32, :47, :61; `grep -n '^### F'`, OBSERVED) are not modified; `git diff --numstat HEAD -- specs/SPEC_RUBRIC.md` = `10	0	specs/SPEC_RUBRIC.md` (the July hunk; OBSERVED by the manager and re-read by the filer). F2 is still under FROZEN (:17); C1–C10 do not change F2; A6 governs its state (B's block, DECISIONS.md:1744–1745; B's A6 bullet, :1774). Interactions, INFERRED, the filer's, not his word: C2 ↔ the commit gate and S7/S9 (rubric :121, :123); C6 ↔ O1 (:76–88); C5 ↔ the values-spec gates and WF spec NEEDS AMEAR 12; C3 (4) ↔ the go-live list (walkthrough :35, :38) — F4 (:61) is not touched.
+
+**S13.** The standing sentence is carried once, in the header. No backtest or P&L figure is stated in this entry. C5 (iii) states a formula, not a figure. The block carries no copy of the sentence (`sed -n '12,43p' <answers file> | grep -c 'Fills are'` = `0`, OBSERVED).
+
+**Open readings (not decided here).** Each item sets texts side by side. No reading is picked. U8 drafted this as "NEEDS AMEAR". Decided by master under D-2026-11-08-D D1 (taken by praxis-manager in unit `2026-11-09-c-d-filing`, its report's Decisions taken 1), changeable by Amear: on that unit's reading neither item is a D2 item of D-2026-11-08-D (voice-2 file :22–26), so under D1 (:17–21) neither waits for Amear; for (ii), the acting unit re-checks D2 (d) first (below). The unit that acts on each one decides it, unless for (ii) it finds a D2 (d) question and stops (below), and logs it "decided by master under D-2026-11-08-D D1": the values-spec unit for (i) and the rubric unit for (ii). Amear may reverse either decision (D1, :20–21).
+- (i) **C5 (ii) and rows whose Eval and Sim-Funded types differ.** B (ii) (DECISIONS.md:1802): "Which limit type and stage A4 means for the Studio Static rows, and for rows whose Eval and Sim-Funded types differ, is his." C5 (ii) (answers file :30–31, joined): "(ii) Studio Static rows use the stricter limit type and stage, both shown;". WF spec at HEAD, rows :118, :121, :125, :128 (Rapid 25K, 50K, 100K, 150K): "(Eval EOD; Sim-Funded intraday trailing)"; :139: "Rapid: Eval is EOD and Sim-Funded is intraday trailing. These are two stages, not a contradiction."; NEEDS AMEAR 12 (:207): "which **stage** (Evaluation or Sim-Funded) and which **type** (EOD or intraday trailing) counts? Do Studio's **Static** limits count?". C5 (ii)'s words name the Studio Static rows; whether they also reach the Rapid rows is for the values-spec unit to decide under D1, changeable by Amear.
+- (ii) **C2 and S7.** S7 (`specs/SPEC_RUBRIC.md`:121): "Nothing is committed while any audit box is unchecked." Park step 1 (:252): "Commit the work to a branch `parked/<bead-id>`. It does not reach `main`." C2 (:20–21, joined): "a park commit to parked/ branches is exempt from the audit-token gate, because it never touches main." The park row cites S7 as its reason (DECISION_LOG :741, master's text): "S7 — nothing committed with a failed audit box." S7's words carry no branch scope; C2's words exempt the park commit from the gate and do not name S7. Whether S7 is amended with C2, or read as covering `main` only, is for the rubric unit to decide under D1, changeable by Amear; if that unit finds the question touches agent permissions (D2 (d), voice-2 file :25–26), it stops for Amear's word instead.
+
+Nothing else.
+
+## 2026-11-08 — D-2026-11-08-D: Amear's rulings D1–D12, voice session 2 (Claude.ai channel, 2026-11-08). Filed WHO: amear.
+
+**Date:** 2026-11-08
+**Status:** RECORDED — Amear's rulings, WHO: amear. S5 ledger authorisation: DECISION_LOG `2026-11-08T19:57:00Z` (**WHO: amear**; DECISION_LOG.md:744, working tree). The words are REPORTED BY the Claude.ai channel and were pasted by Amear. The paste in `docs/reports/2026-11-08-amear-rulings-voice-2.md` is OBSERVED as received (voice-2 file :3, written by praxis-master). Filing form, his WHO line in the block, under his heading at :12: "WHO: amear. Agents write every repo file (A11). File as D-2026-11-08-D." (:13). His approval line: "Sending this message is my approval of D1-D12 as written." (:14). Per the voice-2 file :3 (master's text), the rulings answer §4 of `docs/reports/2026-11-08-voice-strategy-brief.md` (§4 is :42–55 there) and set standing rules. Appended by praxis-manager, unit `2026-11-09-c-d-filing`. That unit did not return (DISPATCH_LOG `2026-11-09T05:04:00Z`, DISPATCH_LOG.md:2124, working tree). Unit `2026-11-09-c-d-filing-resume` re-ran its checks (report `docs/reports/2026-11-09-c-d-filing-resume-manager.md`).
+**Standing limitation:** Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**Evidence grades.** These are kept apart. (a) *Amear's words*: the fenced block below and nothing else, copied by script from voice-2 file lines 12–75 (fences :11 / :76). (b) The master's filing notes 1–5 (voice-2 file :82–98; heading :80) are "the master's readings, changeable by Amear" (:80). They are not rulings. (c) Readings by this unit are marked "manager's reading, not a ruling". Line pointers are into the voice-2 file unless another file is named.
+
+**The rulings, verbatim (WHO: amear).** Voice-2 file lines 12–75, inserted by script, not retyped.
+
+```text
+PRAXIS — AMEAR'S RULINGS, VOICE SESSION 2 (2026-11-08, Claude.ai channel)
+WHO: amear. Agents write every repo file (A11). File as D-2026-11-08-D.
+Sending this message is my approval of D1-D12 as written.
+
+STANDING RULE CHANGE — AUTONOMY
+D1  Default-decide. When a unit or the master reaches a question that
+    would otherwise go to Amear, it takes the recommended option, logs
+    it as "decided by master under D-2026-11-08-D D1", and continues.
+    Amear may reverse any such decision later; the reversal is filed
+    like any ruling. No unit waits on Amear except for D2 items.
+D2  Only four things stop and wait for Amear's word: (a) spending
+    money; (b) switching live trading on, or any order path to a
+    funded account; (c) changing circuit-breaker values while real
+    money is at stake; (d) installing keys, credentials or agent
+    permissions. Everything else is D1.
+D3  The Telegram commit-approval step in the Hermes setup is removed.
+    Commits land on an audit PASS. Telegram informs; it does not ask.
+D4  Loop: a Hermes timer starts a fresh Code session every four hours.
+    Each run reads HANDOFF.md, executes the next unit(s), and ends with
+    one Telegram message in plain English: what was done, what was
+    decided under D1, what is blocked under D2. No code names (F1, O1,
+    bead IDs) without a plain-language gloss. Rough weekly review with
+    Amear in the Claude.ai channel; nothing waits on it.
+D5  A message to Amear that asks a question with a recommendation
+    attached, on a non-D2 item, is a defect under D1. Log it, bead it,
+    take the recommendation.
+
+WORK ORDER
+D6  FIRST: drawdown viability check, Mac-only, read-only, no VM, no
+    purchase. On the three committed 2026-11-01 trade lists, compute
+    per-walk-forward-window worst drawdown at 1 MNQ (MFFU MNQ
+    commission per cost model v1.2.0), with and without a simulated
+    daily-loss cap (breaker #1 at its spec value). Compare to the A4
+    ceiling per tier row (80% of the lower of 4% of account and the
+    trailing limit). If scripts/wf can regenerate the trade list from
+    the 09:30 ET session start (R1), run that too and label it
+    UNVERIFIED against NT8. Report: pass/fail per tier at 1 MNQ and
+    1 NQ.
+D7  If D6 fails at every tier at 1 MNQ: do not design breaker values
+    to fit the drawdown ceiling (that is curve-fitting). Report it, and
+    pull R6's research (higher-win-rate, steadier-equity strategies)
+    forward to P0. The Noise-Area baseline continues through the VM
+    tests for the record, but a GO on MFFU is not expected from it.
+D8  Brief §4 decisions: (3) start the VM session as soon as the VM
+    handoff carries the step-0 answers (C3, C9, C10). (4) draft the F1
+    live-signal topology doc alongside the F2 breaker PROPOSAL. (5) land
+    the two staged MFFU evidence reports (2026-08-07, 2026-10-28) and
+    grade them against F4's criterion. (6) the five P0 guard beads are
+    accepted as known risk while only docs/specs move; fixed before any
+    Block 3 code that can place orders. (7) the VM stays a hands-only
+    executor; Mac is the only master. (8) "final step of this build" =
+    Block 4 paper pass on MFFU sim (the standing proof-of-concept
+    ruling). Block 5 live is a separate sign-off under D2(b).
+D9  The 12 old staged paths are landed properly (audited) rather than
+    unstaged. Root file "F" is traced, then removed and logged.
+D10 Messages to Amear are plain English. Account figures are shown in
+    dollars at the contract size, not in points or percent alone.
+D11 Once per run, the master checks for any waiting question older
+    than one run that is not a D2 item, and closes it under D1.
+D12 Sequence after D6: U7 resume (C1), rubric unit (C2, C6, C8, and
+    D1-D5 as a new "Autonomy" section), values spec (C5), VM handoff
+    (C3, C9, C10), manager memory off (C7), park-commit gate exemption
+    (C2, trip-tested), housekeeping (D9), F1 topology + F2 PROPOSAL,
+    F4 grading, R6 research on its own worktree.
+```
+
+**Copy check.** `sed -n '12,75p' docs/reports/2026-11-08-amear-rulings-voice-2.md | openssl dgst -sha256` = `fd2654699e105849cbfa2f0954a89c97aabe896195af1ac02b11866519115ab1` (OBSERVED; equals the value in DECISION_LOG `19:57:00Z`, :744). The hash of the fenced body as inserted here is pasted in `docs/reports/2026-11-09-c-d-filing-manager.md`.
+
+**Per-ruling pointers.** Each bullet gives the ruling's line range in the voice-2 file and quotes his words. A paraphrase is marked *(paraphrase)* and adds nothing that is not in the cited lines. A quote that runs across a line break in the block is joined with one space. The block above is the record; these bullets do not replace it.
+
+*Section "STANDING RULE CHANGE — AUTONOMY" (:16).*
+- **D1** (:17–21). "Default-decide." A question "that would otherwise go to Amear" is met this way: the unit or master "takes the recommended option, logs it as "decided by master under D-2026-11-08-D D1", and continues." "Amear may reverse any such decision later; the reversal is filed like any ruling. No unit waits on Amear except for D2 items."
+- **D2** (:22–26). "Only four things stop and wait for Amear's word": "(a) spending money"; "(b) switching live trading on, or any order path to a funded account"; "(c) changing circuit-breaker values while real money is at stake"; "(d) installing keys, credentials or agent permissions." "Everything else is D1."
+- **D3** (:27–28). "The Telegram commit-approval step in the Hermes setup is removed. Commits land on an audit PASS. Telegram informs; it does not ask."
+- **D4** (:29–34). *(paraphrase)* "Loop": every four hours a Hermes timer starts a fresh Code session. Each run reads HANDOFF.md, executes "the next unit(s)", and ends with "one Telegram message in plain English" saying what was done, what was decided under D1, and what is blocked under D2. "No code names (F1, O1, bead IDs) without a plain-language gloss." A rough weekly review with Amear happens in the Claude.ai channel, and "nothing waits on it".
+- **D5** (:35–37). "A message to Amear that asks a question with a recommendation attached, on a non-D2 item, is a defect under D1. Log it, bead it, take the recommendation."
+
+*Section "WORK ORDER" (:39).*
+- **D6** (:40–49). *(paraphrase)* "FIRST": a drawdown viability check, "Mac-only, read-only, no VM, no purchase". It runs on "the three committed 2026-11-01 trade lists". It computes the worst drawdown in each walk-forward window at 1 MNQ ("MFFU MNQ commission per cost model v1.2.0"), "with and without a simulated daily-loss cap (breaker #1 at its spec value)". It compares that to "the A4 ceiling per tier row (80% of the lower of 4% of account and the trailing limit)". If scripts/wf can regenerate the trade list "from the 09:30 ET session start (R1)", that is run too and labelled "UNVERIFIED against NT8". Report: "pass/fail per tier at 1 MNQ and 1 NQ."
+- **D7** (:50–54). *(paraphrase)* If D6 fails at every tier at 1 MNQ, breaker values are not designed to fit the drawdown ceiling ("that is curve-fitting"). It is reported, and "R6's research (higher-win-rate, steadier-equity strategies)" is pulled forward to P0. "The Noise-Area baseline continues through the VM tests for the record, but a GO on MFFU is not expected from it."
+- **D8** (:55–64). "Brief §4 decisions:" — "(3) start the VM session as soon as the VM handoff carries the step-0 answers (C3, C9, C10)." "(4) draft the F1 live-signal topology doc alongside the F2 breaker PROPOSAL." "(5) land the two staged MFFU evidence reports (2026-08-07, 2026-10-28) and grade them against F4's criterion." "(6) the five P0 guard beads are accepted as known risk while only docs/specs move; fixed before any Block 3 code that can place orders." "(7) the VM stays a hands-only executor; Mac is the only master." "(8) "final step of this build" = Block 4 paper pass on MFFU sim (the standing proof-of-concept ruling). Block 5 live is a separate sign-off under D2(b)."
+- **D9** (:65–66). "The 12 old staged paths are landed properly (audited) rather than unstaged. Root file "F" is traced, then removed and logged."
+- **D10** (:67–68). "Messages to Amear are plain English. Account figures are shown in dollars at the contract size, not in points or percent alone."
+- **D11** (:69–70). "Once per run, the master checks for any waiting question older than one run that is not a D2 item, and closes it under D1."
+- **D12** (:71–75). "Sequence after D6: U7 resume (C1), rubric unit (C2, C6, C8, and D1-D5 as a new "Autonomy" section), values spec (C5), VM handoff (C3, C9, C10), manager memory off (C7), park-commit gate exemption (C2, trip-tested), housekeeping (D9), F1 topology + F2 PROPOSAL, F4 grading, R6 research on its own worktree."
+
+**Filing notes (master's/manager's readings, not rulings).**
+- *Manager's reading, not a ruling — S8 scope.* D1–D5 change the scope of rubric S8 (`specs/SPEC_RUBRIC.md`:122, "No question that belongs to Amear is answered on his behalf."). D1 (:21) and D2 (:22, :26) narrow what belongs to Amear to the four D2 items. The rubric text itself is not amended by this entry. D12 (:71–72) gives that to a later unit: "rubric unit (C2, C6, C8, and D1-D5 as a new "Autonomy" section)". The master's filing note 1 (:82) reads it the same way.
+- *Manager's reading, not a ruling — §4 numbering.* D8's "(3)"–"(8)" match the items 3–8 of the strategy brief §4 (`docs/reports/2026-11-08-voice-strategy-brief.md`:50–55). Reading them as answers to those items, and reading D6/D7 as the answers to §4 items 1–2 (:44–49 there), is the manager's inference.
+- Master's reading (filing note 1, :82), changeable by Amear: D1 "narrows what belongs to Amear"; "Until it lands, auditors are told that D-2026-11-08-D governs S8's scope."
+- Master's reading (filing note 2, :83), changeable by Amear: setting up the Hermes timer and Telegram "may install keys, a bot token, or agent permissions", and "Each such step is a D2(d) item and stops for Amear's word when it is reached."
+- Master's decision, not Amear's (filing note 3, :84): it is labelled "Decided by master under D-2026-11-08-D D1" and "Changeable by Amear". The decision is that each timer run checks for a live session on the tree and exits without work if it finds one (CLAUDE.md single-session rule).
+- Master's reading (filing note 4, :85–92), changeable by Amear: the order in force is (a) U8, (b) U9 files D, (c) "One audit of both entries, then a commit", (d) the D6 drawdown check, (e) the D12 sequence; "D7 is applied to D6's result as written." *Manager's note:* U8 did not return (DECISION_LOG `2026-11-08T22:27:00Z`, :745). Unit `2026-11-09-c-d-filing` filed both C and D and did not return (DISPATCH_LOG `2026-11-09T05:04:00Z`, :2124, working tree); unit `2026-11-09-c-d-filing-resume` re-ran its checks.
+- Master's reading (filing note 5, :93–98), changeable by Amear: D6's inputs are named in the D6 brief "read when the unit runs, not assumed now". This entry reads none of them.
+
+**What this entry does NOT do.** It makes no rubric edit; the S8 scope change waits for the D12 rubric unit. It makes no spec, values-spec, WF-spec, VM-handoff, ledger, agent-definition, hook, Hermes or Telegram edit. It does not move the index: D9's landing of the 12 staged paths is the housekeeping unit's. No bead is opened or closed. No D6 run, no code, no purchase.
+
+**S4 timing.** This entry is written before any unit that acts on D is dispatched. OBSERVED by unit `2026-11-09-c-d-filing` (its report, V5): DISPATCH_LOG.md after the U8 dispatch row (:2037) held hook spawn/close rows, the U8 no-return row and that unit's own spawns, and no D6 or D12 unit dispatch. Re-observed by unit `2026-11-09-c-d-filing-resume`: the rows after :2037 now also hold the master's rows for the c-d-filing no-return and the resume dispatches (working tree :2124–2127), and still no D6 or D12 unit dispatch. `git show HEAD:DECISIONS.md | grep -c 'D-2026-11-08-[CD]:'` = `0` (OBSERVED; V2 of `docs/reports/2026-11-09-c-d-filing-manager.md`). The re-observation is pasted in `docs/reports/2026-11-09-c-d-filing-resume-manager.md`.
+
+**S5.** No approval is inferred. His words are cited from the voice-2 file :12–75, filed under the ledger row `2026-11-08T19:57:00Z` (**WHO: amear**, DECISION_LOG.md:744). That row is the authorisation. His approval line is inside the block (:14).
+
+**S6 cross-block (interactions only; nothing decided here).** Manager's readings, not rulings. D1–D5 ↔ S8 (rubric :122) and the D12 rubric unit. D3 ↔ the commit gate and S7 (commits "land on an audit PASS"). D2(b) and D8 (8) ↔ Block 5 sign-off. D2(c) ↔ the circuit breakers (F1/F2; Block 3). D6/D7 ↔ the A4 ceiling (D-2026-11-08-B) and breaker #1. D8 (5) ↔ F4. D8 (6) ↔ the five P0 guard beads. D9 ↔ the 12 staged paths. F1–F4 are not modified by this entry.
+
+**S13.** The standing sentence is carried once, in the header. No backtest or P&L figure is stated in this entry. D6 asks for drawdown figures and states none. "80%" and "4%" are the terms of A4's ceiling, not results. The block carries no copy of the sentence (`grep -c 'Fills are'` on the block = `0`, pasted in `docs/reports/2026-11-09-c-d-filing-manager.md`, V4).
+
+Nothing else.
