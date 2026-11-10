@@ -75,6 +75,24 @@
 #      head_before, ts, cmd_sha256); scripts/commit-tree-verify.sh (PostToolUse)
 #      compares the landed HEAD^{tree} with it. Detection only (A1/A3: a git
 #      pre-commit hook or background job can still change the index after allow).
+#
+# D-2026-11-08-C C2 (2026-11-09, unit 2026-11-09-c2-park-gate): park-commit
+#   exemption. The audit-token requirement is skipped ONLY when HEAD of ROOT is
+#   exactly refs/heads/parked/Praxis_build-<[a-z0-9]+>, named by HEAD directly
+#   (no symref chain; git symbolic-ref -q must equal --no-recurse) (read with git
+#   symbolic-ref -q; detached HEAD or any error = no exemption; no exemption
+#   either when GIT_DIR/GIT_WORK_TREE/GIT_COMMON_DIR is set in the hook's env
+#   or the payload has an agent_id key, or the ref does not exist under that
+#   exact name), AND the command
+#   passes every stack-master check below (whole-command form
+#   [GIT_INDEX_FILE=<abs path> ]git commit -m ..., payload cwd == ROOT, toplevel
+#   == ROOT, hooks dir == HEAD), AND every other check (form, index selection,
+#   single-session) passes, AND HEAD is unchanged when re-read just before the
+#   token lookup. On exemption: one stderr line naming the branch, exit 0, no
+#   token consumed, no last-allowed record, nothing appended to the mint log
+#   (this gate never writes it). Any other branch takes the token route below.
+#   X3 (unit 2026-11-10-c2-park-gate-resume, adversarial finding X3): a parked HEAD is unaudited, so for an
+#   in-repo hooks dir a park commit also needs `git diff --quiet refs/heads/main HEAD -- <dir>` to pass (no main = deny).
 set -uo pipefail
 INPUT=$(cat)
 CMD=$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("command",""))' 2>/dev/null || true)
@@ -144,6 +162,31 @@ CALLER_TYPE=$(pj agent_type)
 CALLER_ID=$(pj agent_id)
 STACK_MASTER=0
 [ "$CALLER_TYPE" = "praxis-master" ] && [ -z "$CALLER_ID" ] && STACK_MASTER=1
+# --- C2 park-commit candidate (D-2026-11-08-C C2). HEAD of ROOT must be EXACTLY
+# refs/heads/parked/Praxis_build-[a-z0-9]+ (explicit class, no locale ranges).
+# symbolic-ref failure (detached HEAD, error) leaves PARK=0 = no exemption.
+# No exemption either when GIT_DIR / GIT_WORK_TREE / GIT_COMMON_DIR is set in
+# this hook's own environment (the HEAD read would not be ROOT's; adversarial
+# case G1, 2026-11-09), or for a subagent caller (agent_id KEY present in the
+# payload, any value of any type incl. null, or a payload parse error; subagents
+# never commit — scripts/no-commit-guard.sh). Those cases take the token route.
+# The ref must also exist under exactly that name (for-each-ref): no unborn HEAD, no case-folded alias.
+PARK=0
+_pk_ref=$(cd "$ROOT" 2>/dev/null && env -u GIT_INDEX_FILE git symbolic-ref -q HEAD 2>/dev/null) || _pk_ref=""
+# HEAD must name the parked ref DIRECTLY: the unfollowed read must equal the
+# followed one (a symref chain HEAD -> WIP|main -> parked/... gets no exemption).
+_pk_nr=$(cd "$ROOT" 2>/dev/null && env -u GIT_INDEX_FILE git symbolic-ref -q --no-recurse HEAD 2>/dev/null) || _pk_nr=""
+[ -n "$_pk_nr" ] && [ "$_pk_nr" = "$_pk_ref" ] || _pk_ref=""
+_pk_noid=$(printf '%s' "$INPUT" | python3 -c 'import json,sys
+d=json.load(sys.stdin)
+print("yes" if isinstance(d, dict) and "agent_id" not in d else "no")' 2>/dev/null) || _pk_noid=""
+if [[ "$_pk_ref" =~ ^refs/heads/parked/Praxis_build-[abcdefghijklmnopqrstuvwxyz0123456789]+$ ]] \
+   && [ -z "${GIT_DIR+x}" ] && [ -z "${GIT_WORK_TREE+x}" ] && [ -z "${GIT_COMMON_DIR+x}" ] \
+   && [ -z "$CALLER_ID" ] && [ "$_pk_noid" = "yes" ]; then
+  # the branch must exist under EXACTLY this name (no unborn HEAD, no case-folded alias)
+  _pk_have=$(cd "$ROOT" 2>/dev/null && env -u GIT_INDEX_FILE git for-each-ref --format='%(refname)' "$_pk_ref" 2>/dev/null) || _pk_have=""
+  [ "$_pk_have" = "$_pk_ref" ] && PARK=1
+fi
 
 # --- Stack-master exact form (W4 fix, 2026-11-04). `git commit -m x somefile`
 # (a pathspec WITHOUT ' -- ') commits somefile's WORKING-TREE content, not the
@@ -159,7 +202,7 @@ STACK_MASTER=0
 # quotes too ("$@" / "${a[@]}" expand to several words) — put a literal $ in
 # single quotes. Runs BEFORE token lookup so a form denial never consumes the
 # token. Non-stack callers are NOT narrowed by this block.
-if [ "$STACK_MASTER" = 1 ]; then
+if [ "$STACK_MASTER" = 1 ] || [ "$PARK" = 1 ]; then   # C2: a park candidate gets every stack-master check
   _sm=$(printf '%s' "$CMD" | python3 -c '
 import re, shlex, sys
 # Fix B: strip ONLY ASCII space/tab (str.strip() also drops VT/FF/NBSP/...,
@@ -282,6 +325,14 @@ print("OK")
         [ "$_hnow" = "$_hsha" ] || deny_hooks "entry '${_hf##*/}' content differs from HEAD"
         if [ -x "$_hf" ] && [ "$_hmode" != 100755 ]; then deny_hooks "entry '${_hf##*/}' is executable but HEAD mode is $_hmode"; fi
       done
+      # C2 X3: a parked HEAD is itself unaudited (park commits skip the token),
+      # so "matches HEAD" is no anchor there; also require HEAD == main for the dir.
+      if [ "$PARK" = 1 ]; then
+        _pk_main=$(env -u GIT_INDEX_FILE git -C "$_root_rp" rev-parse -q --verify 'refs/heads/main^{commit}' 2>/dev/null) || _pk_main=""
+        [ -n "$_pk_main" ] || deny_hooks "park commit: refs/heads/main does not resolve to a commit, so the hooks dir in the (unaudited) parked HEAD cannot be checked against it"
+        env -u GIT_INDEX_FILE git --literal-pathspecs -C "$_root_rp" diff --quiet --no-ext-diff --no-textconv "$_pk_main" HEAD -- "$_hrel" >/dev/null 2>&1 \
+          || deny_hooks "park commit: the hooks dir in HEAD differs from refs/heads/main, or the comparison failed (a parked HEAD is unaudited)"
+      fi
     else
       for _hf in "$_hd_rp"/* "$_hd_rp"/.[!.]* "$_hd_rp"/..?*; do
         [ -e "$_hf" ] || [ -L "$_hf" ] || continue
@@ -598,6 +649,20 @@ $LSOF_OUT
 EOF_LSOF
 if [ -n "$FOREIGN" ]; then
   deny_session "another live claude session (pid$FOREIGN) has its cwd inside this repo — it can pollute the shared .git/index between audit and commit (2026-07-10 incident)"
+fi
+
+# --- C2 park-commit exemption (D-2026-11-08-C C2). Reached only after every
+# check above passed for a PARK candidate. HEAD is re-read and must be the same
+# parked ref; any change or error denies (fail closed).
+if [ "$PARK" = 1 ]; then
+  _pk_ref2=$(cd "$ROOT" 2>/dev/null && env -u GIT_INDEX_FILE git symbolic-ref -q HEAD 2>/dev/null) || _pk_ref2=""
+  _pk_nr2=$(cd "$ROOT" 2>/dev/null && env -u GIT_INDEX_FILE git symbolic-ref -q --no-recurse HEAD 2>/dev/null) || _pk_nr2=""
+  if [ -n "$_pk_ref2" ] && [ -n "$_pk_nr2" ] && [ "$_pk_ref2" = "$_pk_ref" ] && [ "$_pk_nr2" = "$_pk_ref" ]; then
+    echo "Commit allowed without an audit token: park-commit exemption (D-2026-11-08-C C2) for branch '${_pk_ref#refs/heads/}'. No token consumed." >&2
+    exit 0
+  fi
+  echo "Commit denied: HEAD moved during the park-commit check (was '${_pk_ref}', now '${_pk_ref2:-unresolvable}', named directly '${_pk_nr2:-unresolvable}'). Re-issue the commit." >&2
+  exit 2
 fi
 
 # --- Token + AUDIT_LOG checks: only a fresh token whose hash also appears as a

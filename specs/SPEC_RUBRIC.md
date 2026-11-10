@@ -299,6 +299,37 @@ absolute park rule has no sanctioned commit path". The gate change is the later,
 trip-tested unit (D-2026-11-08-D D12: "park-commit gate exemption (C2,
 trip-tested)"). So the exemption is RULED and NOT YET BUILT.
 
+Filer's note, not a ruling (2026-11-09, corrected 2026-11-10, under C2 and
+A11): the exemption is written in `.claude/hooks/gate-commit.sh`: the
+audit-token requirement is skipped only when HEAD of the project root is
+exactly `refs/heads/parked/Praxis_build-<[a-z0-9]+>`, named by HEAD directly
+(no symref chain), and that ref exists under exactly that name, no GIT_DIR,
+GIT_WORK_TREE or GIT_COMMON_DIR is set in the hook's environment, the payload
+has no agent_id key, the command passes every stack-master check (the whole
+command is `[GIT_INDEX_FILE=<abs path> ]git commit -m ...`, payload cwd and git
+toplevel equal the root, the git hooks dir matches HEAD and, for a park commit
+with an in-repo hooks dir, also matches `refs/heads/main`, because a parked
+HEAD is unaudited) and every other existing check (form, temp-index,
+single-session), and HEAD is unchanged on both reads when re-read before the
+token lookup. Level: TESTED (synthetic): PreToolUse payloads piped to the hook
+in a throwaway clone, unit `2026-11-10-c2-park-gate-resume`, report
+`docs/reports/2026-11-10-c2-park-gate-resume-manager.md` (the 2026-11-09 unit
+`2026-11-09-c2-park-gate` did not finish and its report shows no trip test).
+Live trip by the master pending. Known gaps, observed in that report and not
+closed: a session that moves HEAD to `main` after the hook allows, or that
+rewrites `refs/heads/main` or adds `refs/replace/` refs before a park commit,
+defeats the exemption's conditions, and git config that runs programs
+(`core.fsmonitor`, `gpg.program`) is not inspected on any route. On "because
+it never touches main": in a scratch clone a commit on a `parked/` branch
+reached `main` by `git merge --ff-only`, `git merge`, `git cherry-pick`,
+`git branch -f`, `git update-ref` and `git push <remote> parked/<x>:main`; no
+hook registered in `.claude/settings.json` denied any of these command texts
+for a plain session or a main-thread praxis-master (only
+`scripts/no-commit-guard.sh` denies the merge and push forms, and only for
+subagent callers); and GitHub reports the remote's `main` branch as not
+protected, with no rulesets. So "never touches main" is held by the park
+procedure, not by any enforced mechanism (observed in that report).
+
 Filer's note, not a ruling: this ruling lands under Amear's C8, "The July SPEC_RUBRIC R-A/R-B/R-C hunk lands as written." (D-2026-11-08-C; DECISION_LOG 2026-11-08T19:12:30Z, WHO: amear; docs/reports/2026-11-08-amear-answers-park-card.md :38).
 
 **No-verdict returns — R-A / R-B / R-C, ruled 2026-07-27. Source: DECISION_LOG
