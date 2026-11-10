@@ -16,19 +16,6 @@ State values: `FROZEN` (blocks dependent work) · `OPEN` (gradeable now) ·
 
 ## FROZEN — nothing downstream may proceed until these clear
 
-### F1 — Signal-path topology vs. circuit-breaker placement
-**Criterion.** A written statement, committed, naming what emits the live
-trading signal, and showing how each of the nine circuit breakers sits upstream
-of order submission on that path.
-**Why frozen.** Block 3 specifies the breakers as n8n workflow gates that
-terminate before the file-write node. Deviation A moved strategy logic into
-NinjaScript. If NT8 computes the signal internally there is no webhook, no n8n
-execution, and no gate — every breaker is bypassed and the Block 1 pipe is
-unused.
-**Unblocks when.** `docs/specs/*-live-signal-topology.md` exists, is committed,
-and the auditor confirms it addresses every one of the nine breakers by name.
-**Blocks.** Block 3 entirely. Any SHM threshold derivation.
-
 ### F2 — Session-flat time vs. breakers #4 and #5
 **Criterion.** One governing rule, written down, resolving: breaker #4 closes
 positions at 11:30 ET; breaker #5 disables everything 15:00–18:00 ET;
@@ -87,6 +74,22 @@ and is undefined without an in-sample optimisation step. Deviation D removed
 optimisation from the first pass. **Required:** a written statement of which
 gate set applies to the replication arm and whether GO/HOLD/REJECT sits on the
 replication arm or the later optimisation arm.
+
+Filer's note, not a ruling: F1 is moved here out of FROZEN. F1's own unblock clause, copied by script from its text at `b4c3291` :28–29 joined with one space: "**Unblocks when.** `docs/specs/*-live-signal-topology.md` exists, is committed, and the auditor confirms it addresses every one of the nine breakers by name." `docs/specs/2026-11-10-live-signal-topology.md` was committed at `b4c3291`. The auditor (DECISION_LOG 2026-11-10T13:34:00Z) graded check 1 PASS, with the nine breaker names byte-identical to the Phase 3 import (that row: "six of six", "nine breaker names `cmp`-identical to the Phase 3 import"; the check-1 numbering is the master's 2026-11-10T13:36:00Z row). The move is made under A11 (rubric :3–6) and D-2026-11-08-D D1 (DECISION_LOG 2026-11-08T19:57:00Z, WHO: amear) as the master's decision, changeable by Amear. The design itself is recorded in D-2026-11-10-B (DECISIONS.md).
+
+### F1 — Signal-path topology vs. circuit-breaker placement
+**State:** PASSED@b4c3291.
+**Criterion.** A written statement, committed, naming what emits the live
+trading signal, and showing how each of the nine circuit breakers sits upstream
+of order submission on that path.
+**Why frozen.** Block 3 specifies the breakers as n8n workflow gates that
+terminate before the file-write node. Deviation A moved strategy logic into
+NinjaScript. If NT8 computes the signal internally there is no webhook, no n8n
+execution, and no gate — every breaker is bypassed and the Block 1 pipe is
+unused.
+**Unblocks when.** `docs/specs/*-live-signal-topology.md` exists, is committed,
+and the auditor confirms it addresses every one of the nine breakers by name.
+**Blocks.** Block 3 entirely. Any SHM threshold derivation.
 
 ---
 

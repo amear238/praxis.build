@@ -2043,3 +2043,32 @@ MANIFEST.md row 308 (HEAD `18d94a5`) says the rubric unit left `specs/SPEC_RUBRI
 **What this entry does not do.** It provisions no user, changes no permissions and installs nothing; provisioning is D2(d)-adjacent ("installing keys, credentials or agent permissions", DECISIONS.md:1974; sweep row G30, :81) and stays with Amear. It does not edit the rubric: O2 (`specs/SPEC_RUBRIC.md`:95–101) stays OPEN, and this entry does not grade it. Bead `Praxis_build-zd4` stays open; the master updates it after the commit.
 
 S13: Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-10 — D-2026-11-10-B: live-signal topology adopted as the working design (rubric F1; bead Praxis_build-1hv)
+
+**Status:** Decided by master under D-2026-11-08-D D1; changeable by Amear.
+**Authority:** DECISION_LOG.md row 2026-11-10T13:36:00Z (praxis-master, unit `2026-11-10-f1-closeout`, decided under D-2026-11-08-D D1, DECISIONS.md:1907; DECISION_LOG 2026-11-08T19:57:00Z, WHO: amear). The design is the one in `docs/specs/2026-11-10-live-signal-topology.md`, committed at `b4c3291`; its audit is recorded in DECISION_LOG row 2026-11-10T13:34:00Z. Every statement below is taken from that document and cites its lines; where this entry says more than the document, it says so.
+
+**Where things stand today.** Nothing emits a live trading signal, and none of the nine circuit breakers exists in code or workflow (topology doc :31; row 1.6 at :22, row 1.13 at :29). Every breaker's level is SPECIFIED only (:54).
+
+**The working design: option 1** (:37–41, :74, :78). A new NT8 signal-emitter strategy (working name `PraxisNoiseAreaEmitter`, not built, :39) runs the Noise-Area band logic on bar close, calls no order method, and posts each decision to the existing local n8n webhook `praxis-signal` (:39). The breaker gates run in n8n with Redis, default closed, before Write Signal File (:41, :45). `PraxisSignalConsumer.cs` stays the only component that submits orders (:39), and carries consumer-side checks for breakers #4, #5, #7, #8 and #9 before `SubmitBracket` (:41): new checks for #4, #5, #8 and #9 (:48; per breaker, :61–62, :65–66), and for #7 its existing `qty > MaxQty` reject, set to plan size (:64, :74). #5's check is as the Phase 3 text stands; under the F2 proposal (PROPOSED, not adopted) it is removed (:62). The path in full is the one at :41.
+
+**Fallback: option 3, only if OPEN-T1 fails.** Option 3 (the NT8 strategy computes the signal and gates itself, in NinjaScript, before its own order calls, :76) is the fallback only if OPEN-T1 finds the VM cannot reach the n8n webhook (:78, :98). It is not adopted by this entry.
+
+**The deviation this entry records (S4).** CLAUDE.md states the signal flow as "TradingView alert → webhook → n8n workflow → …" (quoted from CLAUDE.md itself, more fully than the topology doc's :48). For the anchor strategy the emitter is NT8, not TradingView (topology doc :48; the anchor strategy is not TradingView-exportable, row 1.5 at :21). The Phase 3 breaker placement (n8n gates before the file-write node, Redis, default closed) is kept (:45, :74). The topology document was committed (`b4c3291`, from git, not from the doc) before this entry, and the audit row 2026-11-10T13:34:00Z names the missing entry as an S4 gap; nothing on the design has been built (:39, :74), so this entry is filed after the design document and before any build work.
+
+**What it leaves with Amear, by name.**
+- The B1 HMAC signing key (n8n signs gate-passed files; the consumer refuses unsigned ones): waits for Amear, D2(d) (:86).
+- Provisioning the `praxispush` user that would narrow who can write the drop dir (B1 (c)): stays with Amear, D2(d), so B1 stays open as an accepted risk until then (:86).
+- The B5 webhook authentication credential: waits for Amear, D2(d) (:90).
+- Any order path to a funded account: waits for Amear, D2(b) (:87, :106).
+- Breaker values once real money is at stake: wait for Amear, D2(c) (:101; also :58, :63).
+- A paid data feed: the document raises it only under option 2 (a Mac-side program with a live NQ feed; "a data subscription may cost money, D2(a), waits for Amear", :75). Option 2 is not adopted.
+
+**F2 stays FROZEN.** Breakers #4 and #5 depend on F2 (:61–62). The F2 proposal `docs/specs/2026-11-10-f2-session-flat-proposal.md` is PROPOSED, not adopted (:62); under A6, "F2's state changes when Amear approves the proposed values" (DECISIONS.md:1744).
+
+**What this entry does not do.** It builds nothing. It edits no code, no n8n workflow and no spec, including the topology document and the Phase 3 breaker text. It does not adopt the F2 proposal or Rule F2-1, and does not set any breaker value. It does not resolve any OPEN item (topology doc :94–106).
+
+**S6 cross-block (from topology doc §7, :112).** Block 1 (emitter changes from TradingView to NT8; the TESTED pipe is reused; Deviation G's ingress question leaves the anchor's live path); Block 2 (emitter-vs-backtest parity under O4); Block 3 (all nine breakers, Redis, PostgreSQL, the fallback script); Block 4 (paper pass on MFFU sim, D8(8)); Block 5 (live, D2(b)); Deviation A; Deviation C (bead `Praxis_build-yra`); Deviation G (D-2026-07-09-D); D-2026-11-10-A (bypass B1); rubric F2, F4, O2, O4; the SHM thresholds F1 blocks.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
