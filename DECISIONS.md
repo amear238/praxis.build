@@ -2005,3 +2005,20 @@ D12 Sequence after D6: U7 resume (C1), rubric unit (C2, C6, C8, and
 **S13.** The standing sentence is carried once, in the header. No backtest or P&L figure is stated in this entry. D6 asks for drawdown figures and states none. "80%" and "4%" are the terms of A4's ceiling, not results. The block carries no copy of the sentence (`grep -c 'Fills are'` on the block = `0`, pasted in `docs/reports/2026-11-09-c-d-filing-manager.md`, V4).
 
 Nothing else.
+
+## 2026-11-10 — Pointer note for D-2026-11-08-C and D-2026-11-08-D (bead Praxis_build-75n)
+
+Filer's note, not a ruling. It edits nothing above; the two entries stand as filed. Both were filed in `ec73ba8` and cite `specs/SPEC_RUBRIC.md` as it stood at `6c4c109` (345 lines), plus, in D-2026-11-08-C only, the then-uncommitted ten-line July R-A/R-B/R-C hunk at working-tree :275–284. The rubric units `cec36b8` and `23556aa` moved those lines. Old cite → the same text in the rubric at `18d94a5` (447 lines; text matched line for line against `git show 6c4c109:specs/SPEC_RUBRIC.md`, evidence in `docs/reports/2026-11-10-housekeeping-2a-manager.md`):
+
+- D-2026-11-08-C, DECISIONS.md:1857 — park step 1 `:252` → `:258`.
+- :1858 — absolute park rule `:246–260` → `:252–266`; absolutes ruling "working tree :285–289, :275–279 at HEAD" → `:345–349`; "working tree :287, HEAD :277" → `:347`; A11 header "rubric :3–6" → `:3–6` (unchanged).
+- :1862 — O1 state `:77` → `:79`; O1 label `:81–82` → `:83–84`; O1 `:76–88` → `:78–90`; "O2 starts :89" → `:95`; OPEN section `:74` → `:93` (`:74` is now "## PASSED — closed criteria"); Standing criteria `:111` → `:117`; Process rulings `:244` → `:250`; FROZEN `:17` and state values `:12–13` unchanged.
+- :1864 — July hunk "working tree :275–284" → `:335–344`, by position: the ten lines directly above the absolutes heading, which was working-tree :285 and is now `:345`. The hunk header `@@ -274,0 +275,10 @@` there is a recorded observation, not a pointer.
+- :1881 — F1–F4 `:19, :32, :47, :61` and FROZEN `:17` unchanged; S7/S9 "rubric :121, :123" → `:127`, `:129`; O1 `:76–88` → `:78–90`.
+- :1887 — S7 `:121` → `:127`; park step 1 `:252` → `:258`.
+- D-2026-11-08-D, DECISIONS.md:1989 — S8 `:122` → `:128`.
+- :2003 — S8 "rubric :122" → `:128`.
+
+The same unit inserts eleven lines into the rubric (a ten-line filer's paragraph on the C2 live trip plus one blank line) after the blank line at `:332`. When that lands, every target above at `:333` or below moves down by 11 (`:335–344` → `:346–355`, `:345–349` → `:356–360`, `:347` → `:358`); the rest do not move.
+
+MANIFEST.md row 308 (HEAD `18d94a5`) says the rubric unit left `specs/SPEC_RUBRIC.md` at "now 413" lines. That does not match the committed file: `git show cec36b8:specs/SPEC_RUBRIC.md | wc -l` prints 416. (413 was the count before that unit's Correction 1 added three lines, per `docs/reports/2026-11-09-rubric-unit-manager.md`; the row was not updated.) The row is not edited here.

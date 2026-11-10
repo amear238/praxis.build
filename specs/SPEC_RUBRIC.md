@@ -330,6 +330,17 @@ subagent callers); and GitHub reports the remote's `main` branch as not
 protected, with no rulesets. So "never touches main" is held by the park
 procedure, not by any enforced mechanism (observed in that report).
 
+Filer's note, not a ruling (2026-11-10, under C2 and A11): the master's live
+trip is recorded in DECISION_LOG 2026-11-10T06:12:00Z: on a local
+`parked/Praxis_build-c2trip` branch a commit with no audit run was allowed
+(git printed `[parked/Praxis_build-c2trip a27250f] … 1 file changed`; the
+branch was then deleted, and `git ls-remote --heads origin | grep -c c2trip`
+printed 0), and on `main` a commit with no audit run was denied ("Commit
+denied: no audit PASS token for this exact staged diff …"); that the
+exemption arm, not another allow, admitted the first is inferred by
+elimination from the second, because the gate's exemption stderr line is
+not shown on exit 0.
+
 Filer's note, not a ruling: this ruling lands under Amear's C8, "The July SPEC_RUBRIC R-A/R-B/R-C hunk lands as written." (D-2026-11-08-C; DECISION_LOG 2026-11-08T19:12:30Z, WHO: amear; docs/reports/2026-11-08-amear-answers-park-card.md :38).
 
 **No-verdict returns — R-A / R-B / R-C, ruled 2026-07-27. Source: DECISION_LOG
