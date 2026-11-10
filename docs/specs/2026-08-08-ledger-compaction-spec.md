@@ -24,8 +24,7 @@ own — template gap (b) — compact.sh also regenerates the line `S12: <N> rows
 `scripts/compact.sh`, POSIX shell or stdlib Python, run at session close by a human. It registers no hook.
 - **Archive** rows whose `STATE:` is CLOSED, RESOLVED or SUPERSEDED out of the three ledgers into `archive/<same-name>`,
   appended in file order and never rewritten.
-- **Retain** OPEN, BLOCKED, DEFERRED and IN-PROGRESS as open items. DEFERRED is open; it does not vanish. **DISPATCHED**
-  is handled per §2.3.
+- **Retain** OPEN, BLOCKED, DEFERRED and IN-PROGRESS as open items. DEFERRED does not vanish. **DISPATCHED** per §2.3.
 - **Unknown state is a hard error.** Fail safe toward retention: never archive a row the script cannot classify.
 - **Exit nonzero, loudly,** when STATE.md breaches the ceiling. No soft-warning path — failing loud is the enforcement.
 
@@ -54,6 +53,7 @@ master's, pasted into the brief. A convention, not a hook.
 | K4 | First run with no marker retains every dispatched row | [PROPOSED] |
 | K5 | Unknown state is a hard error, biased to retention | [PROPOSED] |
 | K6 | Environment subtraction stays DEFERRED (D-7) | [PROPOSED] |
+| K7 | compact.sh stages only; it never invokes `git commit` and never writes into `.git/` | [PROPOSED] |
 
 Acceptance: STATE.md within K1 · compact.sh exits nonzero when it is not · Step 3's positive control — one auditor
 answering a known-answer question under the new brief format in under 30,000 tokens — is the empirical check on K1.
@@ -99,3 +99,15 @@ property of this author's formatting rather than of the suite.
 praxis-auditor, and the master must not self-grade. Recorded because the master normally dispatches rather than authors:
 writing to `specs/` is permitted by `master-write-guard.sh:15`, and dispatching a manager to write it would have spent
 the tokens the spec exists to save.
+
+**C-9 — CONTRADICTION, carried not resolved. K7 [PROPOSED]: compact.sh stages only; it never invokes `git commit` and
+never writes into `.git/`.** As filed, the row forbids what it mandates: staging *is* a write into `.git/`. Measured in
+a throwaway repo this session — before `git add` there was no `.git/index` and `.git/objects/` held 0 files; after
+`git add a.txt` the index existed and `.git/objects/ce/013625030ba8dba906f756967f9e9ca394464a` had appeared. The
+wording stands as filed by ruling and is not reworded here; the intended reading is *no commit, and no writes to
+`.git/` beyond those `git add` itself performs*. Second residual: staging-only collides with the commit gate.
+`.claude/hooks/gate-commit.sh:167-176` binds the audit token to the exact staged tree — it compares `git write-tree`
+against the `tree=` recorded at mint and denies on any mismatch — so a compact.sh run between mint and commit denies
+that commit. Both residuals are recorded so they are visible at the ratification gate; neither is resolved here.
+
+Pointer note appended 2026-11-10 under D9 (D-2026-11-08-D): C-9's `.claude/hooks/gate-commit.sh:167-176` was written against an older gate; as of commit 23556aa the staged-tree binding it describes is at `.claude/hooks/gate-commit.sh:752-760`. Read from the gate's code at 23556aa, not trip-tested: the collision holds for a token commit made from the real index, where a changed staged diff finds no token keyed on its hash (`:678-681`) and is denied at `:778`; a temp-index commit is checked against that index's own hash and tree (`git_idx` at `:423-429`, used at `:678` and `:755`), so staging in the real index does not by itself cause a deny there. A commit on a `parked/Praxis_build-<id>` branch is allowed at `:657-662` (C2) before any token check.
