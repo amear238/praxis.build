@@ -1096,7 +1096,7 @@ Resume cards go here, newest on top.
 - `qtk` (P2, Q5) Dev-D WFE gate-set partition (replication vs optimization arm).
 - `fx4` (P1, Q7) MFFU automation-compliance.
 - **`r8j` (P1) = ROOT CAUSE** (import Phase-3 spec) blocks `2nh/ax4/yra/qtk`. Highest-leverage unblock.
-- Also open: `ax4` (P1, Q2 Dev-B 16:00 flat vs 11:30/Vyvanse breakers), `zd4` (P1, Q6 praxispush never provisioned). `bd dep cycles` = none.
+- Also open: `ax4` (P1, Q2 Dev-B 16:00 flat vs 11:30/session window breakers), `zd4` (P1, Q6 praxispush never provisioned). `bd dep cycles` = none.
 
 **Next 3 dispatches (P0→P2):**
 1. **`r8j`** — import the Phase 3 Build Spec (unblocks 2nh/ax4/yra/qtk; lets the collisions be resolved against real spec text, not prose). Likely needs the trader to supply the spec from the plan agent's side.

@@ -448,3 +448,7 @@ $ sed -n 1290p DECISIONS.md | cut -c1-60
 ~~~
 
 Result: PASS
+
+## Pointer note 2026-11-10 (filer's note, not a ruling)
+
+The "superset token probe v2" method at lines 113-118 above seeds its candidate set from `HEAD:DECISION_LOG.md:47` (line 114). Its liveness arm (line 116) runs on the whole of `HEAD:DECISION_LOG.md` and on `7d9be8e:HANDOFF.md`, as the two LIVENESS lines at 120-121 show; in `HEAD:DECISION_LOG.md` the withheld term is on line 47 only. From the scrub-forward commit on (bead Praxis_build-8ux; DECISION_LOG row 2026-11-10T09:08:00Z), `DECISION_LOG.md:47` no longer carries the withheld term. A re-run must therefore read `0eea766:DECISION_LOG.md:47` for the seed and `0eea766:DECISION_LOG.md` for the liveness arm, instead of the `HEAD:` forms, or extract the term from the gitignored source, as docs/reports/2026-11-10-d9-housekeeping-manager.md V5 does. The `7d9be8e:HANDOFF.md` arm is pinned to a commit and is not affected. No line above this note was changed.

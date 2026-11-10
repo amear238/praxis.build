@@ -632,7 +632,7 @@ bf6fcc74e1392e606750b33294ca83e07c3d7ab3 2026-11-09T05:02:44-05:00 2026-11-09T05
 
 ### Batch 5 (G beads)
 Open beads (54) whose id is absent from the report: `1tz 1ys 2nh 2vu 37h 43n 4gx 67b 6di 9lj 9qx aac ajj ax4 b5z c2t cbf cyd hwk kgp lnb nj1 qtk yra zi1`. Scanned each `bd show` for amear/trader/ruling: only "Owner: Amear Bani-Ahmad" boilerplate, except 1tz ("AMEAR RULED 2026-07-26"), 9qx, 6di (past facts). Content check of the question-shaped ones:
-- ax4 ("which of {11:30 gate, 16:00 flat, Vyvanse disable} governs the anchor strategy and what manages an open position 15:00-16:00") — same content as G11/H02 (breakers #4/#5); NOTE only.
+- ax4 ("which of {11:30 gate, 16:00 flat, session window disable} governs the anchor strategy and what manages an open position 15:00-16:00") — same content as G11/H02 (breakers #4/#5); NOTE only.
 - yra ("whether 4uu runs with breakers / without / both, and how the Block-4 acceptance gate is satisfiable") — same as G20 (DECISIONS.md:533); NOTE: G20 should list bd:Praxis_build-yra.
 - qtk (gate set per arm, GO/HOLD/REJECT) — settled by A7/A8 (DECISIONS.md:1746,:1748); stale bead.
 - 2nh (live-signal topology) — D8(4) orders the doc (DECISIONS.md:1946-1947).
@@ -2229,3 +2229,7 @@ $ grep -c '^Result:' docs/reports/2026-11-09-d11-sweep-manager.md
 ~~~~
 
 Result: PASS (the producer's result after the correction, not a grade): the inventory and its tables are unchanged; the false claim that ADV1 re-checked the D2 tests and the Table 3 statuses is SUPERSEDED, and C1.1 now gives what ADV2a and ADV2b actually covered (13 of 15 D2 or D2-AMBIGUOUS closures, 5 of 25 NOT-D2 tests, and 24 of 148 Table 3 statuses, with the rest marked as not independently re-checked); the MANIFEST row is line 307 in the master's commit blob (line 315 in the working tree), and the HANDOFF.md and ISSUE_REGISTER.md pointers are into uncommitted working-tree files.
+
+## De-identification note 2026-11-10
+
+Line 635 was redacted in place on 2026-11-10 under D-2026-08-06-A (DECISIONS.md:1144-1152) and the master's decision of record (DECISION_LOG row 2026-11-10T09:08:00Z): one withheld term was replaced with "session window" (Amear's words). No other line of this report was changed. History was not rewritten; earlier commits keep the original text.
