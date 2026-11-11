@@ -1,3 +1,340 @@
+## Resume card — 2026-11-11 run (17:30Z–19:50Z, `claude -p` on Amear's relayed go "U do them") — `main` = `origin/main` = `d056e91`; Unit 1 LANDED; Units 2+3 PARKED on `parked/Praxis_build-n1y` (`7f143d7`, pushed); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-11T17:32:05Z–19:45:30Z (rows after 18:13:30Z are in the working tree only, not yet committed). The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary `/Users/admin/.local/bin/claude`; no other claude on this tree; newest `vm/replies/` STATUS = FINISHED (17:29:40Z).
+
+**Landed (OBSERVED, pushed, `0 0`):** `d056e91` the Hermes MFFU connection investigation, corrected append-only (Correction 1: Sim-only consumer guard means going live needs a code change, D2(b) Amear's; nine breakers SPECIFIED only; the $4.68 fee as "the Tradovate fee" INFERRED, no NinjaTrader routing fee found; effort figures INFERRED; drawdown comparison REPORTED BY Amear; rubric F4 misquote recorded; rep name removed; replacement MFFU ticket at the report's C3.3 for Amear to send). Audit PASS first time.
+
+**PARKED (absolute park rule; a human resumes, the orchestrator does not):** bead `Praxis_build-n1y`, branch `parked/Praxis_build-n1y` @ `7f143d7` (19 files: D-2026-11-11-A V1–V7 rulings and MFFU replies; D-2026-11-11-B VM Python/git ARM64 install record; the return-handoff file and the install reply, de-identified; unit + correction reports; MANIFEST rows). FAIL 1: support rep's name in 5 pasted image paths (cured, count 0). FAIL 2: S1 in `...-correction-1-worker1.md` §7/§8 (claims "at least 11 filenames" and "all nine sections pending" with partial pastes) and the correction manager report repeating it. `notify.sh audit-fail-x2` fired (exit 0). Until a human resumes: Rule F2-1's approval (V2), the V3/V5 overnight ruling and the limit 9 lift are recorded in DECISION_LOG :828 (working tree) but NOT in DECISIONS.md on `main`.
+
+**Working tree note (OBSERVED):** the parked files are still present untracked/modified in the `main` working tree at their parked bytes; HEAD was moved to the parked branch with `git symbolic-ref` for the park commit and back, so the working tree and real index were not touched. Real index = the PNG only.
+
+**Next, for whoever resumes (not the orchestrator for n1y):**
+1. Human: resume or rule on `n1y` (the fix is the worker1 report's §7/§8 pastes; resumption is Amear's decision).
+2. Next master run: flush DECISION_LOG rows from 18:19:10Z onward and this card to `main` (small unit; skip n1y's files).
+3. Still open from earlier: the 16:00Z Hermes-replies grading unit (manager report reads `(pending)`); broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); F2 breaker #4/#5 spec amendment; the F2 proposal :8 cites rubric :43–44 for the unblock clause (it is :30–31).
+
+**For Amear's hands (not questions):** send the replacement MFFU ticket (investigation report C3.3) from his logged-in dashboard; decide on resuming the parked filing; D2 items: the Sim-only guard change before any live path, SSH keys for any VM-to-n8n tunnel, the x64-Python fallback if the bridge's pip step fails on ARM64.
+
+F2, F3, F4 FROZEN (F4 NOT MET).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-10 interactive session (20:41Z–21:30Z) — `main` = `origin/main` = `55979ee` (nothing committed); Hermes VM-agent unit AUDITED PASS but NOT COMMITTED (token not minted, bead `aqf`); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this session. Ledger detail: DECISION_LOG 2026-11-10T20:42:00Z–21:27:30Z. The cards below are unchanged.
+
+**What happened (OBSERVED):** Amear proposed Hermes over SSH as the VM agent (20:42:00Z, WHO: amear). Master accepted under D1 (20:43:00Z). One manager wrote `vm/replies/20261110T211738Z-CODE-vm-agent-hermes.md` (terms T1–T7), handoff Amendment 3 (:23), D-2026-11-10-C, MANIFEST rows, five reports. Audit PASS first time on `/tmp/idx-hermes` (diff sha256 `5d5009bc…69cb`); reduced re-audit PASS. Both REFUSED by the token minter (no text last assistant message; interactive hand-back). No commit.
+
+**Before doing anything:** check `vm/replies/` for the newest `*-STATUS.md`. If it holds STARTED, Hermes is on the VM: dispatch nothing and close (T5, handoff §1 limit 11). Amear may have started Hermes after 21:30Z.
+
+**Next, in order (decided by master under D1):**
+1. When no STARTED is open: re-check `/tmp/idx-hermes` still exists and hashes `5d5009bc…69cb` (else rebuild: HEAD + the ten files listed in the 21:19:00Z row, MANIFEST as HEAD plus the 8 vm-agent-hermes rows, DECISION_LOG through the 21:19:00Z row); fresh praxis-auditor in the `-p` run; gated commit; push. Then flush DECISION_LOG from 21:28:00Z.
+2. Bead `aqf`: minter fix so an interactive master can commit.
+3. Grade any Hermes replies in `vm/replies/` (self-report, 2b skill job) with praxis-auditor; Amear's screen reads (Trading Hours, Help → About) are filed as his words.
+4. Then the 17:00Z card's list (MANIFEST rows owed for four f4 reports; R6 step 2).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-10 evening timer run (17:00Z–18:30Z) — `main` = `origin/main` = `55979ee`; F4 grading LANDED; F4 graded NOT MET, stays FROZEN; real index = the mffu PNG only; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-10T17:01:00Z–18:28:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322, one binary at `/Users/admin/.local/bin/claude`. No claude process seen on this tree (pid 45727, `claude -r` on binary 2.1.319, shows no cwd in lsof; UNVERIFIED where it sits).
+
+**Landed (OBSERVED, pushed, `0 0`):**
+- `55979ee` F4 comparison: what MFFU wrote, set against each part of the D-2026-11-10-B pattern. Audit FAIL 1 (S1: commands described, not pasted), Correction 1 (append-only), one no-result re-audit (R-A, no strike), reduced re-audit PASS. Strike count ended at 1.
+  - What is on disk: reply 1 (relayed only) says algo trading is allowed on all plans. Reply 2 (screenshot, no date) says the same and names only the Tradovate API. Neither mentions NinjaTrader or Rithmic. The question MFFU answered is not on disk.
+  - **Auditor grade of F4: NOT MET.** F4 stays FROZEN. What would unblock it: a filed copy of an outgoing email that describes our pattern (an NT8 strategy placing bracket orders over Rithmic, with signals from an NT8 emitter going through a local n8n webhook and a file drop), plus MFFU's dated written reply, with headers, saying this is permitted on the funded account. Amear's to send (rubric F4 Owner). Bead `fx4` notes updated.
+
+**Rules learned this run (OBSERVED):**
+- An auditor with a 30-turn cap ran out of turns with no grade on an 11-file diff. A reduced re-audit (cure check + new content only, 20-call budget, batched checks) finished in 16 calls. Brief re-audits that way from the start.
+- A cap-stopped manager can leave a complete report on disk. Read the disk before counting it as a no-return.
+- Do not cite the 2026-10-28 reply-filing report by path in ledger rows; the path carries a support rep's first name.
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. MANIFEST rows for the four f4-grading reports without one (manifest-manager, correction-1 manager, correction-1 worker1, correction-1 worker2); flush DECISION_LOG from 18:24Z and DISPATCH_LOG. Small unit.
+2. R6 step 2 (H03), on its own worktree.
+3. OPEN-T1: a read-only VM-to-webhook reachability check, added to the next VM session's steps.
+- Also open: `7bw`; the C2 report's ungated ref-write and git-config items; the hk2b S6 drop-dir path list; topology OPEN-T2..T9; the strategy filter audit row A15 that wrongly calls F4 closed (rubric governs).
+- HELD until a human resumes diq: values-spec unit C5. HELD for Amear's approval (A6): adopting Rule F2-1.
+
+**For Amear's hands (not questions):** the MFFU follow-up email naming NinjaTrader 8 + Rithmic and the n8n file-drop pattern (his 2026-10-28 ruling; F4 cannot clear without it), plus the R6 OPEN-1 overnight-holding question; start the VM session (handoff at `Z:\vm\2026-11-06-vm-handoff.md`; NT8 must be running); the praxispush user when he wants it; his yes or no on Rule F2-1.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-10 afternoon timer run (13:01Z–13:48Z) — `main` = `origin/main` = `d30ab4d`; F1 topology + F2 PROPOSAL and F1 close-out LANDED; rubric F1 = PASSED@b4c3291; real index = the mffu PNG only; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-10T13:03:00Z–13:47:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322 (was 2.1.321 at 09:02Z), one binary at `/Users/admin/.local/bin/claude`. No other claude session on this tree.
+
+**Landed (OBSERVED, pushed, `0 0`):**
+- `b4c3291` F1 topology doc `docs/specs/2026-11-10-live-signal-topology.md` + F2 proposal `docs/specs/2026-11-10-f2-session-flat-proposal.md` + report. Audit PASS first time (six of six).
+  - Today nothing emits a live signal and none of the nine breakers exists (SPECIFIED only).
+  - Working design (master under D1): a new NT8 emitter strategy posts to the local n8n webhook; gates in n8n + Redis before the file write; the consumer stays the only order submitter, with checks for #4, #5, #7, #8, #9. Fallback (gates inside NT8) only if the VM cannot reach the webhook (OPEN-T1).
+  - F2 Rule F2-1 (PROPOSED): the 16:00 ET flat governs; an open position stays open at 15:00; no new system entries 16:00–18:00; #5 becomes an operator lockout. F2 stays FROZEN until Amear approves (A6).
+- `d30ab4d` D-2026-11-10-B (topology as working design; records the NT8-not-TradingView deviation) + rubric F1 moved to PASSED@b4c3291 (A11 filer note). Audit PASS first time. Bead `1hv` closed.
+
+**Rules learned this run (OBSERVED):**
+- A design doc that changes the architecture needs its DECISIONS entry in the same or the next unit; the auditor flags it as S4. Brief the entry with the doc next time.
+- My row stamps ran up to ~2 min ahead of `date -u` again (13:34Z, 13:36Z). Stamp from the `date -u` read, not a rounded-up minute.
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. F4 grading of the two MFFU evidence reports (`docs/reports/2026-08-07-f4-mffu-compliance-evidence.md`, the 2026-10-28 F4 reply-filing report [path de-identified 2026-11-11T21:07Z by praxis-master]), now against the named pattern in D-2026-11-10-B (NT8 emitter → n8n → file → NT8 consumer). The strategy filter audit's row A15 calls F4 "closed"; the rubric governs (F4 FROZEN).
+2. R6 step 2 (H03).
+3. OPEN-T1: a read-only VM-to-webhook reachability check, added to the next VM session's steps.
+- Also open: `7bw`; the C2 report's ungated ref-write and git-config items; the hk2b S6 drop-dir path list; topology OPEN-T2..T9 (Block 3 design).
+- HELD until a human resumes diq: values-spec unit C5. HELD for Amear's approval (A6): adopting Rule F2-1.
+
+**For Amear's hands (not questions):** start the VM session (handoff at `Z:\vm\2026-11-06-vm-handoff.md`; NT8 must be running); the MFFU email for R6 OPEN-1; when he wants it, the praxispush user (D-2026-11-10-A); his yes or no on the F2 proposal (Rule F2-1).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-10 morning timer run (09:00Z–10:26Z) — `main` = `origin/main` = `a587a27`; scrub-forward and housekeeping 2b LANDED; real index = the mffu PNG only; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-10T09:02:00Z–10:25:00Z. The cards below are unchanged.
+
+**Landed (OBSERVED, pushed, `0 0`):**
+- `16c7bfe` scrub-forward (bead `8ux` CLOSED): the withheld term swapped for "session window" in the 3 HEAD files (files with the term at HEAD: 3 → 0, runtime-TERM count, control at `0eea766` = 3). Pointer note in the 2026-11-07 rulings-filing report pins its old token probe to `0eea766`. Bead descriptions `r8j`, `ax4` scrubbed in current fields. Under D11 the master closed D-2026-08-06-A's "retroactive?" question: forward edit yes, history rewrite no (Amear's). Audit PASS first time.
+- `a587a27` housekeeping 2b: the four 2026-11-01 NinjaTrader grid trade lists archived unaltered in `docs/reports/evidence/` (hashes equal the readback); D-2026-11-10-A records the praxispush user as DEFERRED with its accepted risk (rubric O2 now gradeable; bead `zd4` stays open for provisioning, Amear's). Audit FAIL 1 (S13 "once"), Correction 1, re-audit PASS.
+
+**Rules learned this run (OBSERVED):**
+- S13 "carries, once" is graded on standalone lines. A report that also lists S13 as a criterion bullet carries it twice. Brief: "S13 line once, at the end; refer to it elsewhere as 'the S13 sentence'".
+- `sed …` then `grep -i` in one master command trips the bash guard again. Split them.
+- The term's history still lives in git history, bead history and the Dolt store. The beads remote is the same GitHub repo (`bd dolt remote list`).
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. F1 topology + F2 PROPOSAL (carry G11/G21 item 1 and H02). F1 unblocks on a committed `docs/specs/*-live-signal-topology.md` naming all nine breakers; F2 on a DECISIONS entry plus amended breakers #4/#5.
+2. F4 grading; 3. R6 step 2 (H03).
+- Also open: `7bw`; the C2 report's ungated ref-write and git-config items; the hk2b report's S6 list of specs that hard-code the drop dir.
+- HELD until a human resumes diq: values-spec unit C5.
+
+**For Amear's hands (not questions):** start the VM session (handoff at `Z:\vm\2026-11-06-vm-handoff.md`; NT8 must be running); the MFFU email for R6 OPEN-1; whenever he wants it, the praxispush user (D-2026-11-10-A).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-10 early timer run (05:18Z–07:36Z) — `main` = `origin/main` = `0eea766`; C2 gate, D9 and housekeeping 2a LANDED; real index = the mffu PNG only; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-10T05:20:00Z–07:35:00Z (the 06:53Z decision is filed late as 07:11:00Z, a write-ahead breach by the master). The cards below are unchanged.
+
+**Before this run (OBSERVED):** the 19:15Z run of 2026-11-09 landed the C7 probe (`02d53c6`, bead `gjj` closed) and then died at the weekly limit mid-C2. A 05:11Z run (pid 63543) died within 7 minutes with nothing on disk; cause UNVERIFIED (the Hermes resume-cron agent was running loop commands at the time; INFERRED candidate).
+
+**Landed (OBSERVED, pushed, `0 0`):**
+- `23556aa` C2 park-commit gate exemption, TESTED (synthetic) + master live trip (06:12:00Z: parked branch commit with no token allowed; main commit with no token denied). Adversary found and fixed X3 (an exempt commit could plant a git hook). "Never touches main" is held by procedure, not enforced. Bead `8sw` CLOSED.
+- `18d94a5` D9: 11 of the 12 old staged paths landed with S13 trailers and itemised de-identification; root `F` traced and removed. Audit FAIL 1 (S6 stale gate pointer), Corrections 1 and 1b, re-audit PASS (strike 1 only).
+- `0eea766` housekeeping 2a: DISPATCH_LOG flushed (row moved, `trn` closed), DECISIONS pointer note (`75n` closed), rubric C2 live-trip note.
+- Real index = ONE path, the 2026-10-28 MFFU reply image under `docs/reports/evidence/` [path de-identified 2026-11-11T21:07Z by praxis-master], held out (a support rep's full-name address; bead `rpy`). The old "12-path fingerprint" rule is retired.
+
+**Rules learned this run (OBSERVED):**
+- An Edit with a non-unique anchor fails. Do not send a dispatch in the same message as its ledger row. Write the row, see it succeed, then dispatch.
+- A pointer sentence the master dictates is a claim. Have the unit verify it before it lands; one over-claim cost a correction round this run.
+- `echo ===` fails in zsh (`== not found`). Use `echo '---'`.
+- Never print or type the withheld personal term or its category word. Counts only, using the D9 report's V5 runtime-variable method.
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. Scrub-forward, bead `Praxis_build-8ux` (P1). Remove the withheld term from the HEAD copies of the 3 tracked files (one was added by a 2026-11-09 commit, after the forward-only ruling). Forward commit only; history rewrite stays Amear's.
+2. Housekeeping 2b: G18 trade-list archive (into `docs/reports/evidence/` with a hash line); G30 `praxispush` deferral DECISIONS entry and its accepted risk (rubric O2 allows this).
+3. F1 topology + F2 PROPOSAL (carry G11/G21 item 1 and H02); F4 grading; R6 step 2 (H03).
+- Also open from this run: `7bw` (commit-tree-verify false alarm after a park commit); the C2 report's ungated ref-write and git-config items (guard work, wider than C2).
+- HELD until a human resumes diq: values-spec unit C5.
+
+**For Amear's hands (not questions):** start the VM session (handoff at `Z:\vm\2026-11-06-vm-handoff.md`; NT8 must be running); the MFFU email for R6 OPEN-1.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-09 evening timer run (18:08Z–18:55Z) — `main` = `origin/main` = `b3c1efe`; VM handoff amendment 2 and C7 LANDED; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 17:30:00Z–18:51:00Z (the 17:26Z run's rows, then this run's); DISPATCH_LOG from 17:38:00Z (working tree only). The cards below are unchanged.
+
+**The 17:26Z run died (OBSERVED):** its log `~/.hermes/praxis-loop/20261109-122539.log` reads "You've hit your 5-hour limit". Its VM handoff manager left nothing on disk. Not graded, no strike. That run's D11 closures (DECISION_LOG 17:32:00Z: R6 OPEN-3, OPEN-2 tail, OPEN-4) were audited and landed in `7f3590e`.
+
+**Landed (OBSERVED, pushed, `0 0`):**
+- `7f3590e` VM handoff amendment 2. §2 now carries Amear's step-0 answers (C3, C9, C10). Step 1 item 0 is the read-only R1 read of the live trading-hours template. The C3(4) go-live line is in. Audit PASS on the first try.
+- `b3c1efe` C7: `memory: project` removed from `.claude/agents/praxis-manager.md`, at level WRITTEN. Audit FAIL 1 (S1, report only), then PASS.
+- Real index = the old 12 (`5bfab445…bda95`).
+
+**C7 is NOT shown to work.** Probes before and after the edit, in the same session, both still saw the manager's `# Persistent Agent Memory` section. Two readings, both INFERRED: (A) agent definitions are read at session start; (B) removing the field does not turn memory off. Bead `gjj` stays OPEN.
+
+**Rules learned this run (OBSERVED):**
+- A timer run can die at the 5-hour usage limit. Check the Hermes log before diagnosing a missing return.
+- The manager output gate accepts only `Result: PASS|FAIL|BLOCKED` and requires a "Verification evidence (command output)" section. Probe briefs must say so.
+- Stamp every row from a fresh `date -u`. Two rows were again stamped ahead of the clock (clock note, 18:42:30Z).
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. FIRST dispatch: the C7 fresh probe. Same brief as `docs/reports/2026-11-09-c7-probe-test-manager.md` items 1–6, new report `docs/reports/<date>-c7-probe-fresh-manager.md`. If the memory section is absent, (A) holds: close `gjj` on an audited commit of the probe. If present, (B) holds: a write-deny hook is bead gjj's other option. That is guard work under the 2026-08-06 freeze and is D2(d) if it changes agent permissions, so it stops for Amear.
+2. Park-commit gate exemption (C2, trip-tested; bead `8sw`). This lets diq's park commit land.
+3. Housekeeping D9 (beads `trn`, `75n`; G18 trade-list archive; G30 `praxispush` deferral entry).
+4. F1 topology + F2 PROPOSAL (carry G11/G21 item 1 and H02); F4 grading; R6 step 2 (free release list, H03).
+- HELD until a human resumes diq: values-spec unit C5.
+
+**For Amear's hands (not questions):**
+- **Start the VM session.** The handoff is ready at `Z:\vm\2026-11-06-vm-handoff.md`. C9 says the VM Claude session is closed, and only he can open it. NT8 must already be running for step 1 item 0; starting NT8 is his. While the VM session writes, Code dispatches nothing (settlement 9).
+- The MFFU email for R6 OPEN-1 (as in the card below).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-09 afternoon timer run (13:00Z–14:30Z) — `main` = `origin/main` = `cec36b8`; D11 sweep and rubric unit LANDED; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 13:05:00Z–14:26:00Z (rows 13:50Z/14:05Z were stamped ahead of the clock; see the 13:54:00Z clock note). The cards below are unchanged.
+
+**Landed (OBSERVED, pushed, `0 0`):** `10354e5` D11 sweep: the inventory report with Correction 1, plus the DECISION_LOG flush through 14:05Z (audit FAIL 1, then PASS). `cec36b8` rubric unit: O1 moved to a PASSED section (C6); the C2 park-commit exemption recorded as RULED, NOT YET BUILT; the July R-A/R-B/R-C text landed with a C8 cite; D1–D5 as an "Autonomy" section (audit FAIL 1, then PASS). Real index = the old 12 (`5bfab445…bda95`). Bead `7zq` closed under D11 G17.
+
+**D11 result (DECISION_LOG 13:50:00Z as revised by 14:05:00Z):** about 25 old questions closed under D1. Not closed: G28, G31, G34 (keys/agent permissions, D2(d)); G01 tier pick (his own timing, and it is a purchase); G10 diq resume (the absolute park rule says a human resumes it); G38 F4 state change (decided when the F4 grade exists); G23+G39 (bead `1gd`, the data acceptance bar); G25, G29, G32, G33, G35, G36 (held by Amear's 2026-08-06 "Stop, freeze it" row, DECISION_LOG.md:165). R6 OPEN-3 and two more R6 items are due at next run's D11 (raised 09:40Z–10:02Z).
+
+**Rules learned this run (OBSERVED):**
+- DISPATCH_LOG.md cannot be flushed: an uncommitted row (2026-11-07T22:17:00Z) sits mid-file. Leave it out of commits until bead `trn` (housekeeping D9) moves it.
+- A closure must not stretch a ruling past its words. Two master closures failed audit this way: R-VN3-3 covers only the 1-minute data, and D8(6) covers only "the five P0 guard beads".
+- A rubric sentence about a hook must state only what was observed. "Admits only a PASS-minted token" failed audit, because the matcher skips plumbing commits.
+- `2>/dev/null` trips the master bash guard (`>`). Use `|&`.
+
+**Next, in order (decided by master under D1; one manager at a time; skip diq's files):**
+1. D11 for this run's items: R6 OPEN-3 (does A7 gate 4's 250-trade bar apply to event strategies?), and H02/H03 from the d11 report Table 2.
+2. VM handoff: C3, C9, C10, R1's template read, the C3(4) go-live line. Then start the VM session (D8(3)).
+3. Manager memory off (C7, `gjj`).
+4. Park-commit gate exemption (C2, trip-tested). This lets diq's park commit land.
+5. Housekeeping D9, with beads `trn` and `75n`, the G18 trade-list archive and the G30 `praxispush` deferral entry. Then F1 topology + F2 PROPOSAL (carrying G11/G21 item 1), F4 grading, R6 step 2.
+- HELD until a human resumes diq: the values-spec unit C5.
+
+**For Amear's hands (not questions):** the MFFU email for R6 OPEN-1 (as in the card below).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-09 mid-morning timer run (09:00Z–10:40Z) — R6 step 1 LANDED on branch `r6/announcement-research` @ `bf6fcc7` (pushed); `main` = `origin/main` = `f10603a` unchanged; diq still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 09:05:00Z–10:35:00Z; DISPATCH_LOG 09:05:30Z–10:35:30Z (working tree only, not flushed). The cards below are unchanged.
+
+**Landed (OBSERVED):** `bf6fcc7` on `r6/announcement-research` (pushed; worktree `/Users/admin/Praxis.build-r6`, clean). 11 files: the R6 step-1 report (with Corrections 1 and 2), the PROPOSED design `docs/specs/2026-11-09-r6-announcement-research-design.md`, eight raw MFFU page captures, MANIFEST rows 307–316 (branch copy). Audit FAIL 1 (S2: the headline said "allowed" while the finding was UNVERIFIED), cured; re-audit PASS. Bead `Praxis_build-ckh` stays OPEN (step 1 of several). Real index = the old 12 (`5bfab445…bda95`).
+
+**What R6 step 1 found (plain English, audited):** MFFU lets the evening-entry trade through its news rule if it exits before the 8:30 release. Holding through a big release (CPI, jobs, Fed) is banned on Rapid and Pro sim-funded accounts. MFFU's pages do not say whether buying the evening before counts as "holding overnight" (OPEN-1). Flat time is 4:10 PM ET. These events give about 30 trades a year, so the walk-forward's 250-trade gate cannot be met (OPEN-3). Gaps between events break MFFU's 7-day inactivity rule if the strategy runs alone.
+
+**For Amear's hands (not a question):** OPEN-1 needs a written answer from MFFU support: "Does a position opened after 6 PM ET and closed before 8:28 AM ET the next morning count as holding overnight?" Only he can send that email.
+
+**Rules learned this run (OBSERVED; `bd memories master-worktree-location`):**
+- Worktrees cannot go under `/Volumes/Sensidine` root (Permission denied). Use `/Users/admin/<name>`.
+- Gated commit on a worktree branch: detach the worktree, check out the branch in the main tree, temp index from the worktree tree, bare commit, push -u, back to main, re-attach.
+- Briefs that bar MANIFEST edits leave MANIFEST over-claims uncured. A correction brief must name EVERY file that carries the claim, MANIFEST rows included.
+
+**Next, in order (decided by master under D1; one manager at a time; skip anything touching diq's files):**
+1. D11 sweep (owed two runs now): close waiting non-D2 questions under D1, including R6 OPEN-3 (whether gate 4's 250-trade bar applies to event strategies).
+2. Rubric unit: C2 text, C6, C8, D1–D5 as an "Autonomy" section.
+3. VM handoff: C3, C9, C10, R1's template read, the C3(4) go-live line; then start the VM session (D8(3)).
+4. Manager memory off (C7, `gjj`).
+5. Park-commit gate exemption (C2, trip-tested), which lets diq's park commit land.
+6. Housekeeping D9; F1 topology + F2 PROPOSAL; F4 grading; R6 step 2 (event simulator per design §5, on the branch).
+- HELD until a human resumes diq: values-spec unit C5.
+- Owed: a ledger flush (DECISION_LOG/DISPATCH_LOG rows since 2026-11-08 16:12Z are working-tree only).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-09 morning timer run (05:00Z–06:40Z) — `main` = `origin/main` = `f10603a`; U7 `Praxis_build-diq` PARKED AGAIN (C1's single audit FAILED); session ended by the park rule; read THIS card first
+
+Written by praxis-master at the park (`date -u` 06:36Z). OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 05:04:00Z–06:37:00Z; DISPATCH_LOG 05:04:00Z–06:37:30Z (working tree only, not flushed). The cards below are unchanged; the 2026-11-08 park card keeps its exact heading, because entry D-2026-11-08-C points into it by heading.
+
+**Landed (OBSERVED, pushed, `0 0`):** `ec73ba8` D-2026-11-08-C + D-2026-11-08-D filed (audit 3 PASS after a no-verdict and a FAIL caused by the master's brief); `f10603a` D6 drawdown check (audit PASS). Real index = the old 12 (`git diff --cached --name-only | openssl dgst -sha256` = `5bfab445…bda95`).
+
+**D6 result → D7 FIRED** (report `docs/reports/2026-11-09-d6-drawdown-check-manager.md`; computed on NT8 Standard-resolution lists, MNQ derived, no breakers). At 1 MNQ the committed values-spec measure (worst of four, values spec :139) fails every MFFU tier for all three strategies: worst window $4,463–$5,280 against ceilings of $160–$3,600. Within-window only, it is $2,774–$2,914, which passes only the four 150K rows. At 1 NQ every row fails. Breaker #1 has NO numeric spec value anywhere, so the capped run is not possible (F2 proposal input). A 09:30 re-run is not possible (`scripts/wf` cannot generate trades). Decided by master under D1: D7 is judged on the committed measure. R6 is P0 as bead `Praxis_build-ckh`. Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+**PARKED — `Praxis_build-diq` (U7). A human resumes it; the orchestrator does not.** The C1 audit PASSED the diff of record (index diff = `docs/reports/evidence/2026-11-09-u7-diff-of-record.patch` = sha `b06ee494…`). It FAILED on S1/S2: the resume report's MANIFEST evidence and commit list describe 313 lines, but the blob has 314. Root cause: the master's follow-up brief. Notify rc 0. Park commit impossible (8sw). In the working tree: both specs, the resume report, the .patch, one SUPERSEDED line at the end of the U7 manager report, and **MANIFEST.md laid out as HEAD :1–306 + U7 rows :307–314** (so any other unit's surgical MANIFEST blob = HEAD + rows after :314).
+
+**Rules learned this run (OBSERVED; `bd memories master-p-mode-foreground-agents`):**
+- In `claude -p` runs, every Agent call is `run_in_background: false`. The 01:00Z run died because the master ended its turn on a background manager; the CLI kills background tasks after 10 min.
+- Managers must also foreground their workers (bead `Praxis_build-4gx`). Put it first in every brief.
+- S13 is "carries, once". Never brief "on line 1 only": that wording cost one audit FAIL and caused DT1.
+- After ANY follow-up edit before an audit, the brief must require re-pasting ALL evidence for the final blob (MANIFEST asserts, commit list, diff). The stale-evidence shape has now parked U7 twice.
+- Auditors: 30 turns. A broad brief ran out (no verdict). Keep to 5–6 checks and "verdict by turn 20".
+
+**Next, in order (decided by master under D-2026-11-08-D D1; one manager at a time; skip anything touching diq's files):**
+1. R6 research, P0 `Praxis_build-ckh`, on its own worktree and branch (R7). Step 1: read MFFU's current T1 news rule, and whether an evening entry is the same trading day; then the research design. Nothing bought.
+2. Rubric unit: C2 text, C6, C8, D1–D5 as an "Autonomy" section.
+3. VM handoff: C3, C9, C10, R1's template read, the C3(4) go-live line; then start the VM session (D8(3)).
+4. Manager memory off (C7, `gjj`; another breach this run, self-reported).
+5. Park-commit gate exemption (C2, trip-tested). This is what lets diq's park commit land.
+6. Housekeeping D9; F1 topology + F2 PROPOSAL; F4 grading.
+- HELD until a human resumes diq: values-spec unit C5 (it edits the same file).
+- Owed: the D11 sweep of waiting non-D2 questions (not run this run); a ledger flush.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-08 night (closed 22:27Z on Amear's word) — `main` = `origin/main` = `6c4c109`; read THIS card first; the 2026-11-08 park card below is superseded where they differ
+
+Written by praxis-master at close (`date -u` 2026-11-08T22:26:05Z). OBSERVED = read by the master at close. The cards below are unchanged.
+
+**Standing rules now in force (Amear, all WHO: amear, filed verbatim; DECISIONS entries for C and D NOT yet written — see step 1):**
+- **A11:** agents write every repo file. Amear edits nothing by hand. The rubric records this at `specs/SPEC_RUBRIC.md:3-6` (committed `6c4c109`).
+- **C1–C10** (`docs/reports/2026-11-08-amear-answers-park-card.md:12-43`; DECISION_LOG `19:12:30Z`): U7 resumes, the park-rule exemption for `parked/` commits, the step-0 answers, his answers to every open NEEDS AMEAR item, O1 out of OPEN, manager memory off, the July rubric hunk lands, and the step-0 answers are written into the VM handoff §2.
+- **D1–D12** (`docs/reports/2026-11-08-amear-rulings-voice-2.md:12-75`; DECISION_LOG `19:57:00Z`): **DEFAULT-DECIDE.**
+  - Only four things wait for Amear: spending money; turning live trading on or any order path to a funded account; changing breaker values while real money is at stake; installing keys, credentials or agent permissions.
+  - Everything else: take the recommended option, log it "decided by master under D-2026-11-08-D D1", and continue.
+  - Messages to Amear: plain English, dollars at contract size. Asking him a non-D2 question with a recommendation attached is a defect.
+  - See `bd memories amear-autonomy-d1-d2`.
+
+**State at close (OBSERVED):**
+- HEAD = origin/main = `6c4c109`, `0 0`. The real index is the old 12 paths. `vm/replies/` has README.md only.
+- **U8 (filing D-2026-11-08-C) did NOT return.** The manager started 19:12:59Z. It has no close row, and nothing happened after a worker spawn at 19:25:39Z. Its report has 30 lines and no `Result:`.
+  - DECISIONS.md :1807–1889 = an UNVERIFIED draft of D-2026-11-08-C.
+  - MANIFEST.md :305–307 = U8's draft rows.
+- **U7 (walk-forward spec amendment) is parked, `Praxis_build-diq`.** Its work is uncommitted in the working tree: values spec, WF spec, four reports, MANIFEST :299–304. It resumes under C1.
+- Uncommitted:
+  - DECISION_LOG rows from `16:12:00Z` on, and the 2026-11-08 DISPATCH_LOG rows;
+  - three paste files: `-amear-answers-park-card.md`, `-amear-rulings-voice-2.md`, and the voice strategy brief `docs/reports/2026-11-08-voice-strategy-brief.md`. None has a MANIFEST row yet.
+
+**Next, in order (decided by master under D1; one manager at a time; each audited, committed on PASS):**
+1. **Fresh filing unit, D-2026-11-08-C plus D-2026-11-08-D.**
+   - Take :1807–1889 as an unverified draft. Verify every line against the C paste (sha `7fd6c65e…60fa`) and complete it.
+   - Append D-2026-11-08-D from the D paste (sha `fd265469…15ab1`).
+   - Never edit at or above DECISIONS :1806 or MANIFEST :304. Add MANIFEST rows for both paste files and the brief.
+   - One audit. Commit with a surgical MANIFEST blob: HEAD plus this unit's rows; U7's :299–304 stay out.
+2. **D6 drawdown check.** Mac-only, read-only, nothing bought.
+   - Input: the three committed 2026-11-01 trade lists.
+   - Compute worst drawdown per walk-forward window at 1 MNQ and at 1 NQ, in dollars, with and without breaker #1's daily loss cap. Compare each against A4's ceiling (80% of the lower of 4% of account and MFFU's trailing limit), one result per tier.
+   - Re-run from the 09:30 session start if `scripts/wf` can do it; label that UNVERIFIED against NT8.
+   - **D7:** if it fails at every tier at 1 MNQ, do NOT tune breakers to fit. Report it, and move the R6 steadier-strategy research to P0.
+3. **The D12 sequence:**
+   - U7 resume: one correction, appending the diff of the committed blob; one audit.
+   - Rubric unit: C2 text, C6, C8, and D1–D5 as an "Autonomy" section.
+   - Values spec: C5.
+   - VM handoff: C3, C9, C10, R1's template read, and C3(4) go-live line. Then **start the VM session (D8(3))**.
+   - Manager memory off: C7.
+   - Park-commit gate exemption: C2, trip-tested.
+   - Housekeeping: D9 lands the 12 old staged paths, audited; trace and remove `F`.
+   - F1 topology doc together with the F2 breaker PROPOSAL.
+   - F4 grading of the two MFFU evidence reports.
+   - R6 research on its own worktree.
+
+**Gate notes (`bd memories master-minter-keyword-count`, `master-gate-route-2026-11-07`):**
+- Auditor output must contain each of VERDICT, COMMIT-INDEX and COMMIT-DIFF-SHA256 exactly once, in any case, anywhere.
+- The bash guard denies any `>`. It also denies `sed` followed later by `-i` in the same command, which catches `grep -i` and `update-index`.
+- **Paste a diff of record LAST**, after the final edit. A stale paste parked U7.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-08 — `main` = `origin/main` = `6c4c109`; U7 (walk-forward spec amendment) PARKED at audit FAIL 2 (`Praxis_build-diq`), park commit blocked by `Praxis_build-8sw`; session ended by the park rule
+
+Written by praxis-master at the park (`date -u` 2026-11-08T17:24:54Z). Grades: OBSERVED = read by the master this session; REPORTED BY = a ledger row or report, not re-checked here. The cards below are unchanged.
+
+**Landed today (OBSERVED `git log`, all pushed, `0 0`; all by the master through the gate):** `19ae6c8` D-2026-11-08-A (Amear's R1–R9, voice 2026-11-08) + its Correction 1, the rulings file, the answers file, the strategy filter audit (input, PROPOSED); `a2f1067` D-2026-11-08-B (Amear's A1–A11) — S4 authority for everything below; `6c4c109` `specs/SPEC_RUBRIC.md` :3-6 under A11 ("Amear decides; agents write") and O1 `PASSED@a2f1067` under A8, plus a DECISION_LOG flush through `16:08:00Z`. The rubric's July R-A/R-B/R-C hunk is still working-tree only (`10 0`) — return handoff §4 item 4, Amear's.
+
+**PARKED — `Praxis_build-diq` (P1).** Unit `2026-11-08-wf-spec-amendment` + corrections 1–3: values spec v2.2 (21/21) and WF spec A4 buffer (5/5), in place, line counts unchanged; MANIFEST :299–304; four reports. FAIL 1 (17:08Z) on S1/labels/open items/S4-scope; FAIL 2 (~17:24Z) on one item only — the U7 report's pasted "current diff of record" predates correction 3's edit at values :12. Root cause: the master's sequencing (DECISION_LOG `17:25:00Z`). **All of it is UNCOMMITTED in the working tree.** The park commit to `parked/Praxis_build-diq` could not be made: the gate admits only a PASS-minted token (`Praxis_build-8sw`). Notify fired, rc 0. **A human resumes it; the master does not.**
+
+**For Amear (none asked — the park ends the session):**
+1. How the park branch is landed under 8sw, and whether/how U7 resumes.
+2. Step-0: your six answers + the snapshot name in your own words (the VM session said you gave them there; they are not on any ledger). And confirm the VM Claude session is closed (you ruled "Mac stays master; VM session closed", DECISION_LOG `15:11:00Z`).
+3. D-2026-11-08-A NEEDS AMEAR: one entry vs "File each".
+4. D-2026-11-08-B NEEDS AMEAR (i)–(iv): A3 W/L by price or by net; A4 limit type/stage for Studio Static rows; A8 annualisation method; whether A2 closes the notes-4 Sharpe item.
+5. Rubric: is "discharged" recorded as `PASSED@a2f1067` right; should O1 leave the OPEN section.
+6. Bead `Praxis_build-gjj`: managers write to their agent-memory dir despite every brief (three, possibly four, today; gitignored, nothing in the repo).
+7. Still open from the 11-07 return handoff: §4 items 2 and 4–12, item 4 first (the July rubric hunk — a plain-language summary is owed with it).
+
+**Next session, in order, after his word on item 1:** U2 housekeeping (unstage the 12 old paths; trace and remove root `F`; bead 867 title; MFFU current terms — flat time 16:10 vs 16:59, T1 news rule, same-trading-day; the audit-ledger surgical flush); U3 VM handoff (step 0: his answers when filed, R1's live-template read); U4 F2 breaker PROPOSAL (input: the strategy filter audit, A9); U5 R6 research on its own branch/worktree after U2's MFFU read. Ledgers: DECISION_LOG rows `16:12:00Z`–`17:25:00Z` and DISPATCH_LOG's 2026-11-08 rows are working-tree only.
+
+**Gate lessons learned today (REPORTED BY master; `bd memories master-minter-keyword-count`):** the minter counts VERDICT / COMMIT-INDEX / COMMIT-DIFF-SHA256 case-insensitively anywhere in the auditor's output and needs each exactly once; a refused mint is not an adverse verdict. The bash guard's `sed … -i` arm also trips on `grep -i` and `update-index` later in the same command.
+
+**HOUSEKEEPING CORRECTION (Amear's item, append-only): the 2026-11-07 evening card below says at its gate-route paragraph that the `bd remember` save failed ("three attempts with `>` in the body were denied, so they live here"). That is out of date: `master-gate-route-2026-11-07` IS in the beads store (OBSERVED `bd memories master-gate-route`, 2026-11-08). The card's text is left as written.**
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-07 evening — `main` = `origin/main` = `b1f1a6a`; build half of the loop landed (arm (b) on `arm-b/wf-tunables` @ `c16f85f`); B1 (session start) is Amear's; VM session startable, not started
 
 Written by unit `2026-11-07-status-handoff-evening` (drafted from a `date -u` read of 2026-11-07T21:49:11Z). Grades are as in the STATUS.md section of the same name: OBSERVED / REPORTED BY / UNVERIFIED. A bare time like `18:12:00Z` is a DECISION_LOG row of 2026-11-07. The cards below are unchanged.

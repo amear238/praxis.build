@@ -1,5 +1,76 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-11 (run 17:30Z, Amear's go) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2, F3, F4 FROZEN (F4 NOT MET).
+**Landed (OBSERVED, pushed):** `d056e91` MFFU connection investigation corrected and audited; replacement MFFU ticket ready for Amear. `main` = `origin/main` = `d056e91`.
+**Parked:** filing of Amear's 2026-11-10 rulings (V1–V7, incl. Rule F2-1 approval) and the VM Python/git install record, bead `Praxis_build-n1y`, branch `parked/Praxis_build-n1y` (`7f143d7`); two audit FAILs; a human resumes.
+**Waiting on Amear's hands:** send the MFFU ticket; resume or rule on the parked filing.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-10 evening (timer run 17:00Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2, F3, F4 FROZEN.
+**Landed (OBSERVED, pushed):** `55979ee` F4 comparison of MFFU's written replies against our pattern. The auditor graded F4 NOT MET: MFFU's replies allow algo trading in general and via the Tradovate API, but neither mentions NinjaTrader or Rithmic, and the question they answered is not on disk. `main` = `origin/main` = `55979ee`.
+**Waiting on Amear's hands:** the MFFU follow-up email naming NinjaTrader 8 + Rithmic (F4 cannot clear without it); starting the VM session; his approval of the F2 proposal (A6).
+**Next:** small MANIFEST/ledger flush, then R6 step 2; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-10 afternoon (timer run 13:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2, F3, F4 FROZEN.
+**Landed (OBSERVED, pushed):** `b4c3291` F1 live-signal topology (nothing emits a live signal today; no breaker built; working design = NT8 emitter → n8n gates → file → consumer) and the F2 session-flat PROPOSAL (16:00 ET flat governs). `d30ab4d` D-2026-11-10-B and rubric F1 moved to PASSED. `main` = `origin/main` = `d30ab4d`.
+**Waiting on Amear's hands:** starting the VM session; the MFFU email (R6 OPEN-1); his approval of the F2 proposal (A6).
+**Next:** F4 grading; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-10 morning (timer run 09:00Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1–F4 FROZEN.
+**Landed (OBSERVED, pushed):** `16c7bfe` scrub-forward of the withheld term (forward only, history kept). `a587a27` trade-list archive plus D-2026-11-10-A (praxispush user deferred, accepted risk recorded). `main` = `origin/main` = `a587a27`.
+**Waiting on Amear's hands:** starting the VM session; the MFFU email (R6 OPEN-1).
+**Next:** F1 topology + F2 PROPOSAL; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-10 early (timer run 05:18Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1–F4 FROZEN.
+**Landed (OBSERVED, pushed):** `23556aa` C2 park-commit gate exemption (synthetic trip-tested, then live-tripped by the master). `18d94a5` D9: 11 of the 12 old staged paths landed, de-identified; root `F` removed; the mffu reply image held out. `0eea766` ledger housekeeping. `main` = `origin/main` = `0eea766`.
+**Waiting on Amear's hands:** starting the VM session; the MFFU email (R6 OPEN-1).
+**Next:** scrub-forward (bead `8ux`), then housekeeping 2b; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-09 evening (timer run 18:08Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1–F4 FROZEN.
+**Landed (OBSERVED, pushed):** `7f3590e` VM handoff amendment 2 (step-0 answers filed; R1 template read; go-live line). `b3c1efe` C7 manager memory field removed, WRITTEN only (not shown to take effect). `main` = `origin/main` = `b3c1efe`.
+**Waiting on Amear's hands:** starting the VM session; the MFFU email (R6 OPEN-1).
+**Next:** C7 fresh probe, then the C2 park-commit gate unit; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-09 afternoon (timer run 13:00Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1–F4 FROZEN.
+**Landed (OBSERVED, pushed):** `10354e5` D11 sweep: about 25 old non-D2 questions closed under D1; the D2 items and frozen guard items were held. `cec36b8` rubric: O1 PASSED section, C2 exemption text (ruled, not yet built), C8 July text, D1–D5 Autonomy section. `main` = `origin/main` = `cec36b8`.
+**Next:** VM handoff unit; detail in the HANDOFF.md top card.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-09 (timer runs 01:00Z, 05:00Z, 09:00Z) — short status by praxis-master; full detail in HANDOFF.md top cards and DECISION_LOG 2026-11-09 rows
+
+**Phase:** unchanged — Block 2 (Backtesting). F1, F2, F3, F4 FROZEN (rubric re-read 09:05Z).
+**Landed today (OBSERVED):** `ec73ba8` (D-2026-11-08-C and -D filed), `f10603a` (D6 drawdown check; D7 fired) on `main`; `bf6fcc7` (R6 step 1: MFFU rules read + PROPOSED research design) on branch `r6/announcement-research`. All pushed. `main` = `origin/main` = `f10603a`.
+**Parked:** U7 walk-forward spec amendment (`Praxis_build-diq`), human resumes.
+**R6 (P0, `Praxis_build-ckh`):** step 1 done; the build and backtest are later steps. OPEN-1 (MFFU "overnight" wording) needs an email from Amear; OPEN-3 (250-trade gate) is the next D11 item.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-07 evening — the build half of Amear's loop order landed: 7 gated commits today (6 on `main`, 1 on `arm-b/wf-tunables`; all by the master through the gate — REPORTED BY master); B1 (session start) is Amear's; `main` = `origin/main` = `b1f1a6a`
 
 Written by unit `2026-11-07-status-handoff-evening` (U5, the last unit of the loop; R-1104-2) (drafted from a `date -u` read of 2026-11-07T21:49:11Z). Grades: OBSERVED = read by this unit from git, bd or the file named; REPORTED BY = stated in the ledger row named, not re-checked here; UNVERIFIED = nobody has observed it. A bare time like `18:12:00Z` is a DECISION_LOG row of 2026-11-07. The sections below are unchanged.
