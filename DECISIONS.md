@@ -2097,3 +2097,107 @@ The Mac's Hermes agent can now drive the Windows VM over SSH (host praxis-vm, ke
 - **Handoff §1 limit 10 and the skill's gates.** The skill's summary of limit 10 is narrower than the handoff's (it leaves out the two SKILL.md copies into the skills directory). The CODE- reply's T1(c) allows exactly those two copies and widens nothing else in the write set; the copies persist in Hermes's skills directory (T1(c)). The skill's gate 1 opens on the reply's existence, and its gate 2 and the handoff's limit 11 are joined by T5 and T5(a).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-11 — D-2026-11-11-A: Amear's rulings V1–V7 (Claude.ai channel voice sessions, 2026-11-10) and MFFU's replies. Filed WHO: amear, REPORTED BY the Claude.ai channel.
+
+**Status:** WHO: amear, REPORTED BY the Claude.ai channel. The four decisions in the master's D1 block below are the master's under D-2026-11-08-D D1, changeable by Amear; they are not Amear's rulings.
+**Authority:** DECISION_LOG.md:828 (row 2026-11-11T18:19:40Z, WHO: amear) and DECISION_LOG.md:829 (row 2026-11-11T18:20:00Z, praxis-master, the four D1 decisions); at filing both rows sit in the working copy, after the 826 lines of DECISION_LOG.md at HEAD `d056e91`. Amear's go reached the master through the Claude.ai channel (chat 2026-11-11 17:27Z); his words, copied by script from DECISION_LOG.md:828: "U do them". S5: the ledger append at DECISION_LOG.md:828 is the authorisation record; a channel-reported ruling is recorded, not proven given. The source of every ruling below, except the combined V3/V5 reading (DECISION_LOG.md:828), is `docs/reports/2026-11-10-return-handoff-claude-ai-voice-rulings.md` (called the return-handoff file below; untracked at filing), written by the Claude.ai channel; its line numbers are cited as `return-handoff :N`. V4's words are from chat, not a voice session (return-handoff :58: "Amear (chat, 14:38 ET)"). Every quotation in this entry is copied by script, byte-identical to the cited line.
+
+**V1 and V6 — both outgoing MFFU emails: SENT.** V1 (return-handoff :9–11): Amear: "Write it now and then send it." Sent 2026-11-10T19:29:01Z from Amear's Gmail as a reply in the existing MFFU support thread (Gmail message id `1a1c6ef68efc93d2`, thread `19f9edc188595b0c`, return-handoff :11); body at return-handoff :13–42, not re-pasted here. V6 (return-handoff :81–83): Amear: "Go ahead." Sent 2026-11-10T22:49:22Z, same thread (`19f9edc188595b0c`), Gmail message id `1a1c7a6d7d0d0dec` (return-handoff :83); body at return-handoff :84–103, not re-pasted here; it asks R6's OPEN-1. Grade: REPORTED BY the Claude.ai channel. The channel says it OBSERVED both sends via the Gmail connector (return-handoff :11, :83); nobody in this repo did.
+
+**V2 — Rule F2-1: APPROVED (A6).** (return-handoff :45–48.) The words put to Amear were the channel's summary, return-handoff :46: "flat by 16:00 ET governs; a position open at 15:00 may stay open until 16:00; no new system entries 16:00–18:00 ET." Amear: "Uh, yeah, you have my approval." (return-handoff :47). It is filed as closing the A6 hold, that is, Amear's approval, the first of the three parts OPEN-F2-5 names at `docs/specs/2026-11-10-f2-session-flat-proposal.md`:79 (its resolution cell, copied by script: "Amear's approval under A6; then a DECISIONS.md entry and the amended #4/#5 text in the breaker spec."), on the words put to him at return-handoff :46. The amended #4/#5 text does not exist, and OPEN-F2-5 is not closed by this entry. Whether his approval reaches the elements (a)–(f) listed below, which were not put to him in those words, is not graded here. That file is called the proposal below. Rule F2-1 as the proposal writes it, copied by script from proposal :20:
+
+```text
+**Rule F2-1. Deviation B's 16:00 ET session flat governs. The closing order for every open system position is submitted no later than 16:00:00 ET (or no later than the exchange's early close on an early-close day), and the position must be confirmed flat before MFFU's 4:10 PM ET auto-close. The system opens no new position from that flat time until 18:00 ET, when the next session begins.**
+```
+
+The 15:00 disposition, copied by script from proposal :30 (its first two sentences; the rest of :30 by pointer): "On a full trading day, at 15:00 ET an open system position stays open." "Nothing closes it at 15:00."
+
+Elements of the proposal's text that are not in the summary at return-handoff :46, listed without grading whether his approval reaches them: (a) the summary says "flat by 16:00 ET"; proposal :20 says "The closing order for every open system position is submitted no later than 16:00:00 ET"; (b) "(or no later than the exchange's early close on an early-close day)" (proposal :20); (c) "the position must be confirmed flat before MFFU's 4:10 PM ET auto-close" (proposal :20); (d) the summary's no-entry period is 16:00–18:00 ET; proposal :20 says "The system opens no new position from that flat time until 18:00 ET"; (e) from proposal :30: "New system entries between 15:00 and 16:00 are allowed under Rule F2-1, subject to breakers #1, #2, #3, #6, #7, #8 and #9." and "Between 15:00 and 18:00 ET Amear's own manual interaction is locked out"; (f) the proposed replacement text for breakers #4 and #5 (proposal :36, :38). DECISION_LOG.md:828 records V2 in the summary's terms.
+
+The 16:00–18:00 lockout: Amear asked why it exists. The channel's answer, in the channel's words at return-handoff :47 (the channel's, not Amear's): "it only stops the system firing while the account is shut".
+
+MFFU's 4:10 PM auto-close, from the committed capture `bf6fcc7:docs/reports/evidence/2026-11-09-r6-mffu-trading-day.txt`, lines 10 and 12, copied by script: "Trades may be placed beginning at 6:00 PM EST when the Globex session opens and can remain open until the New York session closes at 4:10 PM EST." and "At MyFundedFutures, any open positions will be automatically closed at 4:10 PM EST on regular (non-holiday) trading days." Holiday days, line 20: "During holiday trading hours, auto-liquidation will not occur at the half-time market close, and the trader is responsible for closing the positions." MFFU writes "EST"; reading it as ET is an INFERENCE (proposal :25: "this file reads it as US Eastern local time (ET), an INFERENCE, not stated by MFFU"). The channel's own report of these pages (return-handoff :48) is not the source used here.
+
+**F2 stays FROZEN.** The rubric's unblock clause, copied by script from `specs/SPEC_RUBRIC.md`:30–31:
+
+```text
+**Unblocks when.** A DECISIONS.md entry names the governing rule and the
+15:00 disposition, and breaker specs #4 and #5 are amended to match.
+```
+
+DECISION_LOG.md:828 records "its unblock also needs breaker specs #4 and #5 amended" (copied by script from DECISION_LOG.md:828). This entry does not read that "also" as meaning any part of the unblock clause is met. This entry amends neither (that is a later unit) and grades no part of the unblock clause. A6 ties F2's state change to Amear's approval ("F2's state changes when Amear approves the proposed values", DECISIONS.md:1744–1745, line break and the next line's leading indent joined as one space). The #4/#5 text was not put to him (element (f) above); whether A6 is triggered is not graded here. This entry changes no rubric state.
+
+**V3 as clarified by V5 — overnight holding.** V3 (return-handoff :50–53): Amear: "Yes, however, if uh, I go with a, another prop firm that uh, potentially allows for overnight uh, holds, would we be able to duplicate the dur uh, the uh, the infrastructure or change that?" Then: "Having to fuck around." (return-handoff :52). V5 (return-handoff :76–79): Amear: "I don't care about evening entries. It's more about compli uh, the MFFU's compliance." (return-handoff :78). The combined ruling as Amear's 2026-11-11 brief states it (relayed, chat 17:27Z), copied by script from DECISION_LOG.md:828: "MFFU compliance governs; nothing across the 16:10-18:00 ET close; evening entries stand on MFFU's written answer" (as relayed in DECISION_LOG.md:828, which calls it "the combined reading"; the brief itself is not on disk). The channel's reading at return-handoff :79 is INFERRED, not his words; the channel says it was "put back to him and not objected to". The ambiguity the channel flagged at return-handoff :55 ("do not file V3 as closing OPEN-1 until Amear answers") is answered by V5, as the combined reading relayed in DECISION_LOG.md:828 states it (REPORTED BY the Claude.ai channel). V3 does not close OPEN-1. R6 stays open pending MFFU's written answer to OPEN-1 (R6 design §7, `bf6fcc7:docs/specs/2026-11-09-r6-announcement-research-design.md`:110: "A written MFFU answer is needed before any funded use.").
+
+**V4.** Pointer only: filed as D-2026-11-10-C (DECISIONS.md:2076).
+
+**V7 — work order for 2026-11-11.** Amear: "commit everything that we just discussed and the plan for tomorrow is to get put together a plan to run within the VM to backtest all these strategies inside of NinjaTrader." (return-handoff :106). Amear: "I don't remember if I installed the tool to access the NinjaTrader through a bash command." (return-handoff :107: "Asked that this check be on tomorrow's (2026-11-11) list."). REPORTED BY the channel from Hermes's replies (return-handoff :108): "So cli-nt-bridge is not installed". This entry claims nothing about it beyond that.
+
+**MFFU's three replies** (return-handoff :112–136; the channel says it OBSERVED them via the Gmail connector at 2026-11-11T17:00Z; graded here REPORTED BY the Claude.ai channel; the rep's name is `[rep]` in that file).
+- 2026-11-10T19:43:42Z, reply to V1 (message `1a1c6fce04330f0d`, return-handoff :114). Items 1, 2 and 4, copied by script from return-handoff :120, :121, :123: "1. Kindly be informed that we do not offer Rithmic at MFFu"; "2. Kindly be informed that automated trading is allowed provided you abide by our rules and policies : https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices"; "4. You can trade using your strategy at the evaluation phase". The channel's reading (INFERRED, return-handoff :130): "Funded-account permission for the pattern is not stated; item 4 names the evaluation only."
+- 2026-11-10T23:08:17Z, reply to V6 (message `1a1c7b82f130416b`, return-handoff :132): an identity-verification request, not an answer; "OPEN-1 (evening entry vs overnight) is NOT answered." (return-handoff :133).
+- 2026-11-11T15:20:34Z (message `1a1cb3255cf62d16`, return-handoff :135): ticket closed: "we see you've been inactive for some time, so this ticket is being closed." (return-handoff :136).
+
+**F4 stays FROZEN / NOT MET.** (graded NOT MET by the auditor at `55979ee`; not re-graded here). The rubric's F4 criterion, copied by script from `specs/SPEC_RUBRIC.md`:49–50:
+
+```text
+**Criterion.** Written confirmation from MFFU that this specific automation
+pattern is permitted on a funded account.
+```
+
+A replacement ticket exists at `docs/reports/2026-11-11-mffu-connection-investigation.md`:1422 (heading "C3.3 — Replacement ticket"); its :1424 reads "Amear sends this himself from his logged-in MFFU dashboard."
+
+**Decided by master under D-2026-11-08-D D1, changeable by Amear.**
+Source: DECISION_LOG.md:829.
+1. The per-firm settings profile, the channel's proposal at return-handoff :53 ("firm rules (flat time, overnight holding, other firm limits) live in a per-firm settings profile, MFFU as the first profile, not hard-coded."), which the channel left for Amear as O2 at return-handoff :72 ("O2 — R6 per-firm profile (V3): confirm."), is adopted as the design direction for firm rules, MFFU as the first profile. Nothing is built. The profile's contents are not decided here.
+2. The V7 strategy list at return-handoff :110, copied by script: "the Noise-Area baseline (test 2a: 1,190 trades / $197,327.60 on NQCONTROW SEP25) and its walk-forward; the three 2026-11-01 strategies; the R6 announcement variants (no NinjaScript exists for them; the R6 design proposed a Mac-side Python first pass, which this work order changes to NT8 — the master's call under D1, changeable by Amear)." This list is the working scope of the NT8 backtest plan. R6's first pass moves from Mac-side Python to NT8. The list and its P&L figure are the channel's (REPORTED BY the Claude.ai channel); this entry did not re-check them.
+3. MFFU's "we do not offer Rithmic" (return-handoff :120) contradicts D-2026-11-10-B's broker route (DECISIONS.md:2054: "The path in full is the one at :41."; the topology path ends "→ Rithmic → account.", `docs/specs/2026-11-10-live-signal-topology.md`:41). D-2026-11-10-B is not edited. The route is recorded as contradicted and is NOT re-decided here; that is the next unit (DECISION_LOG.md:829: "next unit").
+4. The VM-to-n8n path (O1, return-handoff :71) stays open. The channel recommends an "SSH reverse tunnel from the Mac for sim testing (no new exposure of n8n)" (return-handoff :71); that tunnel uses SSH keys, which is a D2(d) item ("(d) installing keys, credentials or agent permissions", `specs/SPEC_RUBRIC.md`:446–447, line break and the next line's leading indent joined as one space), so it waits for Amear.
+
+Context for decision 4 (not part of it): D-2026-11-10-C records Amear's 20:42Z words about a reverse tunnel as REPORTED BY Amear and the tunnel as UNVERIFIED (DECISIONS.md:2085, :2089); decision 4 does not change that. Amear's 20:42Z clause, copied by script from DECISIONS.md:2082: "n8n reachability is settled: an SSH reverse tunnel lets the VM reach the Mac's n8n at http://127.0.0.1:5678, and n8n stays closed to the network". DECISION_LOG.md:829 keeps O1 open; the difference between his "is settled" and "stays open" is recorded here, not resolved.
+
+Context from the channel's proposal (return-handoff :53), not part of the decision: "Any overnight-holding profile needs its own backtest, because current results assume flat every day."
+
+**Open for Amear.**
+- The SSH keys any VM-to-n8n reverse tunnel would use: D2(d).
+- The identity-verification details MFFU asked for: "the verification details are his to give" (return-handoff :136; request at :133).
+- Sending the replacement ticket (investigation C3.3, :1422) is his.
+- A header-bearing export of the outgoing V1 message is his to file if the auditor wants headers (return-handoff :43).
+- Confirming or changing the per-firm profile direction (O2, return-handoff :72) is his; decision 1 is changeable by him.
+- Both his 20:42Z "is settled" (DECISIONS.md:2082) and decision 4's "stays open" (DECISION_LOG.md:829) are on record; which stands is his.
+
+**What this entry does not do.** It builds nothing. It edits no spec, no rubric, no VM handoff, and not D-2026-11-10-B, the F2 proposal or the topology document. It does not unblock F2 or F4; it grades neither and does not re-grade F4. It sets no breaker value and amends no breaker text. It decides no D2 item, no broker route, no per-firm profile contents and no VM-to-n8n path. It does not file the four 2026-11-10 Hermes replies (DECISION_LOG.md:829).
+
+**S6 cross-block.** Block 2 (the NT8 backtest plan's working scope is the V7 list, decision 2; R6's first pass in NT8; any overnight-holding profile needs its own backtest, return-handoff :53). Block 3 (broker route recorded as contradicted, decision 3; VM-to-n8n path open, decision 4; breakers #4 and #5 not amended by this entry). Rubric F2 (Rule F2-1 approved; F2 FROZEN). Rubric F4 (FROZEN / NOT MET). R6 OPEN-1 (open; V6 asked it; MFFU's 23:08:17Z reply did not answer it).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-11 — D-2026-11-11-B: VM handoff §1 limit 9 lifted by Amear for one install; Python 3.12.10 and git 2.56.0 (ARM64) installed in the VM. Record only. Filed WHO: amear, REPORTED BY the Claude.ai channel.
+
+**Status:** Record only. WHO: amear, REPORTED BY the Claude.ai channel.
+**Authority:** DECISION_LOG.md:828 (row 2026-11-11T18:19:40Z, WHO: amear; its ALSO part, on the limit 9 lift) and DECISION_LOG.md:829 (row 2026-11-11T18:20:00Z, praxis-master). Source: `vm/replies/20261111T172933Z-python-git-install.md` (called the install reply below; untracked at filing); its line numbers are cited as `install reply :N`. S5: the ledger append at DECISION_LOG.md:828 is the authorisation record; a channel-reported ruling is recorded, not proven given. Every quotation is copied by script, byte-identical to the cited line.
+
+**The limit.** VM handoff §1 limit 9, copied by script from `vm/2026-11-06-vm-handoff.md`:37: "**Do not install anything else** — not Python, not git, not a package manager. If a tool is missing, STOP and report it."
+
+**Amear's words (install reply :7–8) and the channel's note (:9).** Voice, 2026-11-11 ~16:5xZ, on whether to snapshot first: "Okay, you know what? Let's forget about the snapshot. Let's have it execute those things first." Then: "Hermes is going to give me a uh, a physical button to accept or deny, so don't worry about that." (install reply :7). Chat, 2026-11-11 17:27Z, on the two open items (file the 2026-11-10 note; install Python and git in the VM): "U do them" (install reply :8). Install reply :9: "No new snapshot was taken (Amear's choice)."
+
+**Who did it.** Install reply :2 names the writer as "Claude (Claude.ai Praxis channel, Cowork session)", "driving the VM over SSH from the Mac (host praxis-vm), commands run from the Mac via osascript". By that line the install was driven by the Claude.ai channel, not by Hermes; D-2026-11-10-C (DECISIONS.md:2076) names Hermes as the VM agent. The install reply does not say whether the accept-or-deny button Amear mentions at :7 was used.
+
+**What was installed, and where (install reply :18–19).** Python: `Python 3.12.10` at `C:\Program Files\Python312-arm64\python.exe` (`py -0p`: `-V:3.12-arm64 *`), installer exit `PYTHON_EXIT=0`. Git: `git version 2.56.0.windows.4` at `C:\Program Files\Git\cmd\git.exe`, installer exit `GIT_EXIT=0`. NinjaTrader still pid 9600, start time unchanged; `PROCESSOR_ARCHITECTURE=ARM64`. Install reply :28 adds "the VM is Windows on ARM64 and winget installed the ARM64 builds". Install reply :17 (the pre-install check: the account the shell ran as, winget's version, the administrator-role result and the NinjaTrader process) is not copied here.
+
+**What was kept (install reply :24–25).** "NinjaTrader not started, stopped or touched (same pid and start time before and after). No connection change (D-071). No orders. No pip run, no clone, no bridge files. No Windows restart. Nothing else installed. Only new files under `vm/replies/`."
+
+**Scope.** The install reply's header (install reply :1) says limit 9 was "lifted by Amear for this install". Amear's quoted words at install reply :7–8 set no scope of their own. This entry reads the lift as covering this one install only and does not widen it; limit 9 binds every later step as written.
+
+**Timing (S4).** The install reply is stamped `UTC: 20261111T172933Z` (install reply :3), that is 2026-11-11T17:29:33Z, before DECISION_LOG.md:828 (2026-11-11T18:19:40Z) and before this entry. This entry records the install after the fact. So for this install the order S4 and S5 ask for (a DECISIONS.md entry and a ledger append before the work) did not hold: the work is stamped 17:29:33Z, the ledger append 18:19:40Z, this entry later. D-2026-11-10-C reads Amear's D2(d) word as "for this grant only: Hermes acts as the VM agent over SSH" (DECISIONS.md:2085, copied by script). This entry records that the Claude.ai channel drove the VM over SSH (install reply :2); it grants nothing.
+
+**Open risk.** Copied by script from install reply :28: "Whether the bridge's dependencies (notably `pyarrow`, also `numpy`) have win_arm64 wheels at versions meeting the bridge's floors is not checked." "If step 3.5 fails on a build-from-source, the fallback is an x64 Python (runs under emulation) — that is Amear's call, not taken here." So the bridge's pip step (handoff step 3.5, "3.5 Python CLI.", `vm/2026-11-06-vm-handoff.md`:188) on ARM64 wheels (`pyarrow`, `numpy`) is UNVERIFIED, and the x64-Python fallback is Amear's call.
+
+**How sure.** Every install fact above is REPORTED BY the Claude.ai channel in the install reply. Nobody in this repo re-ran the commands or looked at the VM.
+
+**Open for Amear.** Whether the Claude.ai channel may drive the VM over SSH again is an agent-permission item, D2(d), his. The x64-Python fallback (install reply :28) is his call.
+
+**What this entry does not do.** No pip, no clone, no venv, no bridge files. It does not edit the VM handoff. It changes no step gate in handoff step 3.5 (`vm/2026-11-06-vm-handoff.md`:188 onward), including its STOP conditions on a failed install (:200, "Consequence") and on any unnamed download (:201, "Detection, after the fact"). It installs nothing and grants no key, credential or permission.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
