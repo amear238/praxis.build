@@ -1,5 +1,14 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-12 (timer run 21:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
+**Landed:** only this close flush (ledgers and these cards).
+**Not landed:** the one-line record that the Block 1 sign-off covered the internal signal path only (rubric O3). Its supporting evidence report was rewritten short and is three pasted outputs short of ready. Along the way the record now also notes a real gap: the Phase 3 plan's Block 1 milestone called for a test signal fired from TradingView, and the sign-off did not include one. That is recorded, not re-opened.
+**Waiting on Amear:** a decision on the parked R6 filing (`ckh`); his two MFFU questions; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-12 (timer run 17:00Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
