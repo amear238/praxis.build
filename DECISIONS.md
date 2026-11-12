@@ -2201,3 +2201,78 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 **What this entry does not do.** No pip, no clone, no venv, no bridge files. It does not edit the VM handoff. It changes no step gate in handoff step 3.5 (`vm/2026-11-06-vm-handoff.md`:188 onward), including its STOP conditions on a failed install (:200, "Consequence") and on any unnamed download (:201, "Detection, after the fact"). It installs nothing and grants no key, credential or permission.
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-12 — D-2026-11-12-A: breakers #4 and #5 amended to match Rule F2-1 (rubric F2; master under D-2026-11-08-D D1)
+
+**Status:** Decided by master under D-2026-11-08-D D1, changeable by Amear. Not Amear's ruling. A spec amendment only: nothing is built.
+**Authority:** DECISION_LOG.md:854 (row 2026-11-12T05:29:00Z, WHO: praxis-master, unit `2026-11-12-f2-breaker-amendment`, Unit F2B); at filing that row sits in the working copy, after the 851 lines of DECISION_LOG.md at HEAD `9905804`. Rule F2-1's approval: D-2026-11-11-A, V2 (DECISIONS.md:2108–2116). D1: `specs/SPEC_RUBRIC.md`:437–442. Every quotation in this entry is copied by script, byte-identical to the cited line or to the stated part of it. The row's item (1), copied by script from DECISION_LOG.md:854:
+
+```text
+(1) the proposal's #4/#5 replacement text is adopted as the amended breaker spec, matching Rule F2-1; this is not D2(c) — no account exists and no real money is at stake (D-2026-11-11-A: Amear has no MFFU account; consumer Sim-only guard);
+```
+
+Its item (2), copied by script from the same line:
+
+```text
+(2) the Phase 3 spec is a faithful import, so its body lines :100–101 are NOT rewritten; the amendment is an appended, labelled amendment section plus at most one pointer line, and a new DECISIONS.md entry D-2026-11-12-A written BEFORE the spec edit (S4) records the adoption and names the governing rule and the 15:00 disposition;
+```
+
+**The governing rule: Rule F2-1.** Copied by script from `docs/specs/2026-11-10-f2-session-flat-proposal.md`:20 (called the proposal below):
+
+```text
+**Rule F2-1. Deviation B's 16:00 ET session flat governs. The closing order for every open system position is submitted no later than 16:00:00 ET (or no later than the exchange's early close on an early-close day), and the position must be confirmed flat before MFFU's 4:10 PM ET auto-close. The system opens no new position from that flat time until 18:00 ET, when the next session begins.**
+```
+
+**The 15:00 disposition.** Copied by script from proposal :30 (the whole line; its first two sentences are the ones D-2026-11-11-A quotes at DECISIONS.md:2114):
+
+```text
+**On a full trading day, at 15:00 ET an open system position stays open.** Nothing closes it at 15:00. (On an early-close day whose close is at or before 15:00, Rule F2-1 has already flattened it and no system position is open at 15:00.) It is managed by its own strategy's exits (for the Noise-Area: the band / VWAP trailing stop and reverse rule) and by the always-on breakers #1, #6 and #7, and its closing order is sent no later than 16:00:00 ET by Rule F2-1 (the strategy's own flat, backed by breaker #4), flat before 16:10 ET. New system entries between 15:00 and 16:00 are allowed under Rule F2-1, subject to breakers #1, #2, #3, #6, #7, #8 and #9. Between 15:00 and 18:00 ET Amear's own manual interaction is locked out (R8 KEEP, breaker #5 below).
+```
+
+**The amended breaker text.** The proposal's replacement text for breakers #4 and #5 is adopted as the amended breaker spec. Copied by script from proposal :36 and :38:
+
+```text
+> 4. Session flat gate — clock reaches 16:00:00 ET, or the exchange's early close on an early-close day if earlier → cancel working entry orders, send market orders closing all system positions, confirm flat before 4:10 PM ET (alert if not), and refuse new system entries until the next session opens at 18:00 ET.
+
+> 5. Session window (operator lockout) — clock is in 3:00–6:00 PM ET → lock out manual order entry and manual changes to the system by the operator. The system's own trading is not disabled by this breaker; the system's no-entry period 16:00–18:00 ET is enforced by breaker #4.
+```
+
+They supersede the Phase 3 import's lines :100 and :101 (`docs/specs/2026-11-05-phase3-build-specification.md`), copied by script:
+
+```text
+4. Session time gate — clock hits 11:30 ET → close positions, disable until next session
+5. Afternoon session window — clock enters 3:00–6:00 PM ET → disable everything
+```
+
+The Phase 3 spec is a faithful import, so :100 and :101 are not rewritten. The amendment is a labelled section appended at the end of that file ("Amendment 1 — 2026-11-12 — breakers #4 and #5 (Rule F2-1; D-2026-11-12-A)") No pointer line is added inside the body: a line there would shift the body's line numbers after :106, which other specs cite (topology doc :24, :61, :89; proposal :67). This entry is written to disk before that spec edit (S4).
+
+**Why this is the master's decision, changeable by Amear.** Amear's approval (D-2026-11-11-A, V2) was given on the words put to him, "flat by 16:00 ET governs; a position open at 15:00 may stay open until 16:00; no new system entries 16:00–18:00 ET." (as copied at DECISIONS.md:2108). That entry records, copied by script from DECISIONS.md:2108: "The amended #4/#5 text does not exist" and "Whether his approval reaches the elements (a)–(f) listed below, which were not put to him in those words, is not graded here." Its element (f), copied by script from DECISIONS.md:2116: "(f) the proposed replacement text for breakers #4 and #5 (proposal :36, :38)." So his approval reached Rule F2-1 as summarised, and whether it reaches element (f) is ungraded. This entry does not read his approval as reaching (f). The adoption of the #4/#5 text is the master's, under D1, and Amear may change it. The master's reading (not graded by anyone else): the adopted text keeps the three parts of the summary — #4 flattens by 16:00 ET and refuses new system entries until 18:00 ET; #5 no longer disables the system's own trading, so a position open at 15:00 may stay open until 16:00.
+
+**Not D2(c).** D2, copied by script from `specs/SPEC_RUBRIC.md`:443–447:
+
+```text
+D2  Only four things stop and wait for Amear's word: (a) spending
+    money; (b) switching live trading on, or any order path to a
+    funded account; (c) changing circuit-breaker values while real
+    money is at stake; (d) installing keys, credentials or agent
+    permissions. Everything else is D1.
+```
+
+Moving #4 from 11:30 to 16:00 and removing #5's system disable change breaker values, but no real money is at stake: no account exists. Source, copied by script from `docs/reports/2026-11-11-return-handoff-claude-ai-mffu-prepurchase.md`:10 (committed at `9905804`; REPORTED BY the Claude.ai channel): "Amear has no MFFU account. The email was sent as a pre-purchase question to MFFU support, not from a dashboard." The order path is also walled to Sim accounts, copied by script from `ninjascript/PraxisSignalConsumer.cs`:39: "// HARD SCOPE WALL: refuses to run unless the attached account name starts with "Sim"". DECISION_LOG.md:854 cites D-2026-11-11-A for "Amear has no MFFU account"; that statement is not in D-2026-11-11-A; its source is the return handoff's :10, cited above. Once real money is at stake, any further change to these values waits for Amear (D2(c)).
+
+**Level.** The nine breakers, #4 and #5 included, remain SPECIFIED ONLY: zero implemented, zero tested, zero tested under failure (Phase 3 import status note, :11). This entry changes text, not level.
+
+**Rubric F2.** The unblock clause, copied by script from `specs/SPEC_RUBRIC.md`:30–31:
+
+```text
+**Unblocks when.** A DECISIONS.md entry names the governing rule and the
+15:00 disposition, and breaker specs #4 and #5 are amended to match.
+```
+
+This entry names the governing rule (Rule F2-1) and the 15:00 disposition, and records the amendment of #4 and #5. It does not grade the clause and does not change F2's state. The F2 state move is a later, separate unit after this unit is audited and committed; DECISION_LOG.md:854 item (4), copied by script: "(4) the rubric F2 state move is a later, separate unit after this one is audited and committed (F1 precedent `b4c3291` → `d30ab4d`)." A6 ties F2's state change to Amear's approval (DECISIONS.md:1744–1745); whether A6 is triggered is not graded here. Citation note, not an edit: the proposal :8 cites the unblock clause as (`specs/SPEC_RUBRIC.md`:43–44); the clause is at :30–31.
+
+**What this entry does not do.** It builds nothing: no code, no n8n workflow, no NinjaScript, no Redis or PostgreSQL. It edits no rubric line and no spec other than the Phase 3 spec's appended Amendment 1; the F2 proposal, the topology document, the walk-forward spec and values, and the Noise-Area ruleset are not edited. It sets no value for #1, #2, #3, #6, #7, #8 or #9. It decides no D2 item. It does not decide OPEN-F2-1 to OPEN-F2-4 (proposal :75–78) or how #5's operator lockout is enforced (topology doc OPEN-T8, :105). D-2026-11-10-B's statement that the F2 proposal is "PROPOSED, not adopted" (DECISIONS.md:2068) is superseded for the #4/#5 text by this entry; that entry is not edited.
+
+**S6 cross-block.** Graded line by line in `docs/reports/2026-11-12-f2-breaker-amendment-manager.md` (S6 section); nothing is edited by it. Conflicts and the other follow-ups are named there as F-1 to F-9 (its subsection "Follow-ups (named, not fixed)"); that subsection is the full list, and this entry does not restate it. Bearings: rubric O4 (breakers-on vs breakers-off backtest; #4 and #5 now share the 16:00-flat clock of the current backtests, #2 and #3 still differ; O4's question is not answered here); OPEN-F2-1 (backtest flat on the 15:59 or the 16:00 bar); the Phase 3 fallback script's "session time" threshold (:109; the line states no value) is read by this entry as 16:00 under the amended #4; Block 4 and Block 5 (live path, D2(b)).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.

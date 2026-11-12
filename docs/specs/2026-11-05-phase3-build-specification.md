@@ -186,3 +186,59 @@ The Praxis coaching integration. The EQS scoring, debrief automation, and behavi
 One strategy. One instrument. One build path. Prove it works. Then expand.
 
 What questions do you have before we close this session’s scope?
+
+## Amendment 1 — 2026-11-12 — breakers #4 and #5 (Rule F2-1; D-2026-11-12-A)
+
+> ***Added 2026-11-12; not part of the source document.*** This section amends the imported breaker list. It is not part of the import and is not the source author's text; the import notes at the top of this file describe the imported body only.
+
+**Authority.** `DECISIONS.md` entry D-2026-11-12-A (DECISIONS.md:2205), decided by master under D-2026-11-08-D D1, changeable by Amear; DECISION_LOG row 2026-11-12T05:29:00Z (WHO: praxis-master). Rule F2-1 was approved by Amear in the words of a summary (D-2026-11-11-A, V2, DECISIONS.md:2108); the #4/#5 text below is the master's adoption of the F2 proposal's replacement text (`docs/specs/2026-11-10-f2-session-flat-proposal.md`:36, :38), not Amear's words.
+
+**Level.** Unchanged: the nine breakers, #4 and #5 included, are SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure. This amendment changes specified text, nothing else.
+
+**How the text was carried.** Each quoted line below is copied by script, byte-identical to the cited line, including the `> ` marker at the start of the proposal's lines :36 and :38. No adaptation was made. The imported body is not rewritten: lines :100 and :101 above stay as imported, no line of the body is changed and no pointer line is added, so the body's line numbers stay as other documents cite them.
+
+### Governing rule (Rule F2-1)
+
+Copied by script from `docs/specs/2026-11-10-f2-session-flat-proposal.md`:20:
+
+```text
+**Rule F2-1. Deviation B's 16:00 ET session flat governs. The closing order for every open system position is submitted no later than 16:00:00 ET (or no later than the exchange's early close on an early-close day), and the position must be confirmed flat before MFFU's 4:10 PM ET auto-close. The system opens no new position from that flat time until 18:00 ET, when the next session begins.**
+```
+
+### Breaker #4 — amended
+
+Amended text, copied by script from the proposal :36:
+
+> 4. Session flat gate — clock reaches 16:00:00 ET, or the exchange's early close on an early-close day if earlier → cancel working entry orders, send market orders closing all system positions, confirm flat before 4:10 PM ET (alert if not), and refuse new system entries until the next session opens at 18:00 ET.
+
+Supersedes the imported line :100, quoted verbatim:
+
+```text
+4. Session time gate — clock hits 11:30 ET → close positions, disable until next session
+```
+
+### Breaker #5 — amended
+
+Amended text, copied by script from the proposal :38:
+
+> 5. Session window (operator lockout) — clock is in 3:00–6:00 PM ET → lock out manual order entry and manual changes to the system by the operator. The system's own trading is not disabled by this breaker; the system's no-entry period 16:00–18:00 ET is enforced by breaker #4.
+
+Supersedes the imported line :101, quoted verbatim:
+
+```text
+5. Afternoon session window — clock enters 3:00–6:00 PM ET → disable everything
+```
+
+De-identification (import note, top of this file) is unchanged: the amended name "Session window (operator lockout)" is the F2 proposal's wording; the source document's title for breaker #5 is not reproduced.
+
+### What happens to an open position at 15:00
+
+Copied by script from the proposal :30:
+
+```text
+**On a full trading day, at 15:00 ET an open system position stays open.** Nothing closes it at 15:00. (On an early-close day whose close is at or before 15:00, Rule F2-1 has already flattened it and no system position is open at 15:00.) It is managed by its own strategy's exits (for the Noise-Area: the band / VWAP trailing stop and reverse rule) and by the always-on breakers #1, #6 and #7, and its closing order is sent no later than 16:00:00 ET by Rule F2-1 (the strategy's own flat, backed by breaker #4), flat before 16:10 ET. New system entries between 15:00 and 16:00 are allowed under Rule F2-1, subject to breakers #1, #2, #3, #6, #7, #8 and #9. Between 15:00 and 18:00 ET Amear's own manual interaction is locked out (R8 KEEP, breaker #5 below).
+```
+
+### Not changed by this amendment
+
+Breakers #1, #2, #3, #6, #7, #8 and #9 and their values; the Block 3 state management, fallback script and milestone text; Blocks 1, 2, 4 and 5. Where #4 and #5 sit on the live path is in `docs/specs/2026-11-10-live-signal-topology.md`, section 3, which this amendment does not edit.
