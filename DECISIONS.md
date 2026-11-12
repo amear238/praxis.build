@@ -2276,3 +2276,95 @@ This entry names the governing rule (Rule F2-1) and the 15:00 disposition, and r
 **S6 cross-block.** Graded line by line in `docs/reports/2026-11-12-f2-breaker-amendment-manager.md` (S6 section); nothing is edited by it. Conflicts and the other follow-ups are named there as F-1 to F-9 (its subsection "Follow-ups (named, not fixed)"); that subsection is the full list, and this entry does not restate it. Bearings: rubric O4 (breakers-on vs breakers-off backtest; #4 and #5 now share the 16:00-flat clock of the current backtests, #2 and #3 still differ; O4's question is not answered here); OPEN-F2-1 (backtest flat on the 15:59 or the 16:00 bar); the Phase 3 fallback script's "session time" threshold (:109; the line states no value) is read by this entry as 16:00 under the amended #4; Block 4 and Block 5 (live path, D2(b)).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-12 — D-2026-11-12-B: R6 step 2 backtest engine authorised, first pass only (Mac-side Python event simulator on the 1-minute file; master under D-2026-11-08-D D1)
+
+**Status:** Decided by master under D-2026-11-08-D D1, changeable by Amear. Not Amear's ruling. An authorisation entry only: at filing no R6 step 2 code, run or result exists.
+**Authority chain.** Amear's ruling D-2026-11-08-A R6 (DECISIONS.md:1572–1579: research and backtest on the existing 1-minute data only, nothing bought), pulled forward to P0 by Amear's D-2026-11-08-D D7 (DECISIONS.md:1940–1944) after D6 failed (HANDOFF.md:289 at `c29d08b`: "D6 result → D7 FIRED"). D1: `specs/SPEC_RUBRIC.md`:441–445. R6 step 1 design: `bf6fcc7:docs/specs/2026-11-09-r6-announcement-research-design.md`, on branch `r6/announcement-research` in the worktree `/Users/admin/Praxis.build-r6`, not on `main` (cited below as "design :N"). The master's closures of R6 OPEN-3 and OPEN-4 (H01, H03): DECISION_LOG.md:765 (row 2026-11-09T17:32:00Z). This run's master row: DECISION_LOG.md:861 (row 2026-11-12T09:03:23Z, items (c) and (d)); at filing that row sits in the working copy, after the 859 lines of DECISION_LOG.md at HEAD `c29d08b`. Bead `Praxis_build-ckh`. Fenced quotations below are whole lines copied by script from the cited source; short quotations in running text are parts of the cited line.
+**S4 timing.** Written before any R6 step 2 code exists and before the backtest unit is dispatched. Check run before this entry was written, at HEAD `c29d08b`:
+
+```text
+$ git show HEAD:DECISIONS.md | grep -c 'D-2026-11-12-B'
+0
+```
+
+The design asks for this entry. Design :102:
+
+```text
+- Engine (proposal [D1]; the master files a DECISIONS.md entry before the backtest unit, S4): a Mac-side Python event simulator on the 1-minute file (signals on bar close, fills at the next bar's open, equivalent to Standard resolution), then an NT8 replication of any variant that qualifies, for parity (O4). No VM time in the first pass.
+```
+
+**1. Engine, first pass only.** Adopted as design :102 states, first pass only: a Mac-side Python event simulator on the existing 1-minute file named in design §4, signals on bar close, fills at the next bar's open. The file, design :84:
+
+```text
+- Data: `~/praxis-signals/b2-data/NQ-continuous-1min.nt8import.txt`, sha256 `307c5e8a…e454` (match), 1,857,362 lines, first `20210307 180100`, last `20260720 112700`. End-stamped bars (DECISIONS.md :257, INFERRED there). Eastern local wall clock INFERRED (NT8 match; 17:00/18:01 row structure). Holes 2021-09-09→09-27 and 2025-12-14→2026-01-01 are used as is (R-VN3-3).
+```
+
+The simulator, its code and its outputs live on branch `r6/announcement-research` in the worktree; nothing from it merges to `main` under this entry. No VM time. The second half of design :102 (an NT8 replication of any variant that qualifies, for parity, O4) is not authorised here (item 6).
+
+**2. Variants.** Exactly the variants named in design §1 and §2: 1N, 1C and 1F (design :36–38, rules :42–46) and 2A and 2S (design :62, :64–68). ISM and GDP stay excluded (design :39). No new variant and no parameter optimisation in this pass. Design :46:
+
+```text
+- Direction long only; no stop, no target, no optimisation in the first pass. Size 1 MNQ (1 NQ shown alongside, as D6).
+```
+
+**3. Costs, slippage, size.** As the design states; this entry adds no number. Design :85:
+
+```text
+- Costs (config/backtest-cost-model.json v1.2.0): MNQ $1.90 round turn + 2 ticks/side × $0.50 = $2.00 → $3.90 per MNQ round turn; NQ $4.68 + $20.00 = $24.68. 2S costs two round turns per event ($7.80 MNQ).
+```
+
+Design :52 (the sensitivity rows beside the judged 18:05 / 2-tick figures):
+
+```text
+- Low-volume hours: "Profiting from isolated, stale or unrealistic fills … during low-volume hours is not allowed" (news.txt:86). The 18:05 bar can be thin (volume 29 on 2024-06-11, E5). The first pass reports a 20:00 ET entry and a 4-ticks/side slippage row beside the judged 18:05 / 2-tick figures [D1]. Whether MFFU would treat an ordinary market order at 18:05 as "stale fill" profit is UNVERIFIED (OPEN-5).
+```
+
+**4. Event calendar.** Free sources only, design §3 (:71–80). Nothing bought: D2(a) (`specs/SPEC_RUBRIC.md`:446–447) and R-1104-3 (design :119). H03, DECISION_LOG.md:765, in part: "R6 step 2 (the backtest unit) sources a FREE release list (nothing bought, D2(a)); until it does, 1F and 2S stay provisional." So the backtest unit must also try to source a free list of the non-T1 releases inside the 1F and 2S holds (design OPEN-4 :113; constraint (ii) :23). If it cannot, every 1F and 2S result is labelled provisional. A list that could only be bought is not bought; it is reported as not sourced.
+
+**5. Grading.** H01, DECISION_LOG.md:765, in part: "no bar is written, lowered or waived." In the same row's words, "any R6 event strategy is graded against the existing walk-forward gates as written" (`docs/specs/2026-11-06-walk-forward-values.md`:125, gate 4 "≥ 250 aggregate OOS trades"; :126, gate 5 "≥ 60% of walk-forward windows profitable"), and "so an R6 result is reported as research, not as a gate pass." The R6 report names no gate as passed. The design §5 measures (:87–98) are reported as research measures.
+
+**6. Rubric F3 (FROZEN).** F3 (`specs/SPEC_RUBRIC.md`:19–31) concerns "The fill resolution the Strategy Analyzer will actually run at" and blocks "`4uu`. Everything downstream of `4uu`." This entry does NOT clear, satisfy or move F3. The master's reading that the R6 simulator sits outside F3's block is DECISION_LOG.md:861 item (d), in part: "the R6 Python simulator is a separate arm pulled forward by Amear's D7 and is not downstream of `4uu`"; this entry relies on that reading and does not grade it. The R6 report must state its fill resolution (1-minute bars, signals on bar close, fills at the next bar's open) and its slippage (2 ticks/side on the judged rows, 4 ticks/side on the sensitivity row) in writing before the backtest runs (F3's own timing, `specs/SPEC_RUBRIC.md`:20–22; DECISION_LOG.md:861 item (d), "before it runs") and again in the report before its results, and carry the S13 sentence once. No NT8 Strategy Analyzer run and no NT8 replication in step 2; any NT8 replication is later, on the VM, under its own DECISIONS.md entry.
+
+**7. MFFU.** Design OPEN-1 (:110, evening entry vs holding overnight) and OPEN-5 (:114, the low-volume / stale-fill rule) stay OPEN; this entry decides neither. The R6 report makes no funded-account eligibility claim; design :89 already says an evening-entry variant "cannot qualify for any funded-account tier row until OPEN-1 is answered in writing by MFFU". Rubric F4 (`specs/SPEC_RUBRIC.md`:33–42) stays FROZEN / NOT MET (state as read in DECISION_LOG.md:861: "NOT MET").
+
+**8. S6: the design's holds against amended breakers #4 and #5.** The amended text (D-2026-11-12-A, DECISIONS.md from :2205; Amendment 1 of `docs/specs/2026-11-05-phase3-build-specification.md`, heading :190), copied by script from that spec's :212 and :224:
+
+```text
+> 4. Session flat gate — clock reaches 16:00:00 ET, or the exchange's early close on an early-close day if earlier → cancel working entry orders, send market orders closing all system positions, confirm flat before 4:10 PM ET (alert if not), and refuse new system entries until the next session opens at 18:00 ET.
+
+> 5. Session window (operator lockout) — clock is in 3:00–6:00 PM ET → lock out manual order entry and manual changes to the system by the operator. The system's own trading is not disabled by this breaker; the system's no-entry period 16:00–18:00 ET is enforced by breaker #4.
+```
+
+The holds as the design states them (times are the signal bars' closes, US Eastern local time; each fill is at the next bar's open):
+
+| Variant | Entry | Exit | Design lines | Amended #4 (flat by 16:00:00; no new system entries 16:00–18:00) | Amended #5 (operator lockout 15:00–18:00) |
+|---|---|---|---|---|---|
+| 1N, 1C | 18:05 bar on E−1; 20:00 ET sensitivity row | 08:25 bar on E | :42–43, :52 | no conflict: entry after 18:00, exit before 16:00 | no conflict: system trading not disabled |
+| 1F | 18:05 bar on E−1; 20:00 ET sensitivity row | 13:55 bar on E, or earlier under the override | :42–44, :52 | no conflict | no conflict |
+| 2A | 18:05 bar on E−1 | 16:05 bar on E | :62 | CONFLICT: holds past 16:00:00; its exit signal is the close of the 16:05 bar. Second CONFLICT on early-close days: 2A has no early-close rule (:62), so it holds across an early close (below) | no conflict |
+| 2S | 18:05 bar on E−1; out at T−5 and back at T+3 around each T1 release | 16:05 bar on E | :65–67 | CONFLICT: holds past 16:00:00 to the 16:05 bar, as 2A. No early-close conflict: :68 skips its post-release leg on an early-close day. Its T+3 re-entries follow 08:30 and 14:00 releases, before 16:00, so they are outside the 16:00–18:00 no-entry period | no conflict |
+
+Early close: amended #4 flattens at the exchange's early close if earlier. Strategy 1 skips any exit after an early close (:45: "any later exit is skipped"; 1N exits at 08:25, before the data's 09:15 end on the Good Friday NFP days the design names there) and 2S skips its post-release leg on an early-close day (:68). 2A's rule (:62) carries no early-close skip, so on an early-close event day 2A as written holds across the early close: a second conflict with amended #4, and also with the design's own constraint (iii) (:24, "before any early close"). This is a reading of the design text, not a test. The design's own flat-by measure (:95) checks "zero positions at 16:10 ET or across 16:10-18:00", which is MFFU's 16:10, not amended #4's 16:00.
+
+Disposition. The strategies are not changed. The first pass simulates the design as written, 2A and 2S to the 16:05 bar included, without breakers as design :116 (O4) states, and the R6 report labels every 2A and 2S result as conflicting with amended breaker #4's 16:00 flat. 2A is already a research benchmark only (:62). On an early-close event day, where the 16:05 bar does not exist, the design gives 2A no exit rule; the backtest unit reports each such day and that gap, and adds no exit rule of its own. A live or breakers-on version of 2A or 2S would need a resolution of these conflicts; none is decided here.
+
+Design OPEN-2 is superseded in part by D-2026-11-12-A. Design :111:
+
+```text
+| OPEN-2 | F2 (FROZEN); breakers #4 and #5 (Phase 3 spec :100-101); R8/A6 proposal unit | #4 "clock hits 11:30 ET → close positions, disable until next session": 1F (to 13:55) and 2S/2A (to 16:05) hold past 11:30. #5 "clock enters 3:00–6:00 PM ET → disable everything": 2S/2A hold 15:00-16:05. Entries at 18:05 are after #5 ends; whether #4's "next session" starts at 18:00 is undefined. 1N/1C (18:05→08:25) touch neither window. | OPEN (F2 changes state only when Amear approves the breaker proposal, A6) |
+```
+
+It was written against the pre-amendment #4 and #5 (Phase 3 spec :100–101, superseded by D-2026-11-12-A). Under the amended text the 11:30 conflict it names for 1F and 2S/2A is gone (#4 now flattens at 16:00), and the #5 conflict it names for 2S/2A over 15:00–16:05 is gone (#5 no longer disables the system's trading). What remains under amended #4 is the 2S/2A tail past 16:00:00 and 2A's hold across an early close, both recorded above. On its question whether #4's "next session" starts at 18:00: the amended #4 text says "until the next session opens at 18:00 ET"; this entry records that and does not grade whether it closes the question. The design file is not edited by this entry.
+
+**9. What this entry does not decide.**
+- It writes no code and runs no backtest. At filing the engine is SPECIFIED ONLY (design :102 plus this entry): not implemented, not tested.
+- No NT8 replication, no Strategy Analyzer run, no VM time.
+- No acceptance bar is written, lowered or waived; no gate is graded.
+- F3 is not cleared or moved; F4 stays FROZEN / NOT MET; design OPEN-1 and OPEN-5 stay OPEN.
+- No resolution of the 2A/2S conflicts with amended #4; no breaker text or value is changed; no strategy rule is changed.
+- Nothing is bought; no D2 item is decided.
+- Nothing merges from `r6/announcement-research` to `main`.
+- Design OPEN-2 is not closed; the A14 overlay priority (design :117) and O4 parity (design :116) stay open.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
