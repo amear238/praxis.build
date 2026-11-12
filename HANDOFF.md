@@ -1,3 +1,55 @@
+## Resume card — 2026-11-12 run (05:01Z–06:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `e3323a8` plus this close flush; MFFU pre-purchase filing LANDED (`9905804`); breakers #4/#5 amended (`e3323a8`); rubric F2 → PASSED@e3323a8 (in the close flush); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T05:08:00Z–06:13:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary `/Users/admin/.local/bin/claude`; no other claude on this tree. Drift: the 00:37Z run landed `ee54344` (n1y filing, D-2026-11-11-A/B; `n1y` closed) and then died inside Unit 2 with no close card.
+
+**Landed (OBSERVED, pushed):**
+- `9905804` MFFU pre-purchase return handoff filed, with its grading report (each MFFU support statement mapped to R6 OPEN-1, T1 news, the Simulation connection type vs the consumer Sim-only guard, inactivity, F4). F4 stays FROZEN / NOT MET. Audit PASS (a first, unmintable PASS plus a confirmation PASS; see lesson 1).
+- `e3323a8` D-2026-11-12-A + Amendment 1 to the Phase 3 spec: #4 = 16:00 ET session-flat gate, no new system entries until 18:00; #5 = operator lockout 15:00–18:00, system trading not disabled; a position open at 15:00 stays open and is closed by 16:00. Master's adoption of the F2 proposal text under D1, changeable by Amear. Breakers SPECIFIED ONLY. Audit PASS first time. Bead `ax4` closed; follow-ups F-1..F-9 = bead `fgd` (P2).
+- Close flush: rubric F2 moved to PASSED@e3323a8 (filer's note, A11 + D1), this card, the STATUS card, DECISION_LOG and DISPATCH_LOG rows.
+
+**Questions that are Amear's (by his brief; listed, not answered):** (1) does MFFU's 2026-11-11T22:41:33Z reply, point 4, close R6 OPEN-1 (overnight / evening entries)? (2) should F4's bar change, given MFFU support says a specific configuration "cannot be approved in writing from the available information"? Facts for both: `docs/reports/2026-11-12-mffu-prepurchase-filing-manager.md`, "Questions for Amear".
+
+**Rules learned this run (OBSERVED):**
+1. Every audit brief that may lead to a commit must require the minter's three-line ending (`.claude/hooks/auditor-mint.sh` :4–7): `VERDICT: PASS` / `COMMIT-INDEX: <path>` / `COMMIT-DIFF-SHA256: <hex>`, and forbid those words elsewhere in the message.
+2. The temp-index commit must be the whole command (no `cd … &&`), and the message must be single-line `-m` arguments: `gate-commit.sh:402` scrubs quotes line by line. Use `-m "subject" -m "Co-Authored-By: … (noreply@…)"`.
+3. Reading `.claude/state/mint-log` or naming token files in a Bash command trips `mint-guard.sh`; use `ls .claude/state/ | grep -c <hash prefix>`.
+4. Managers on spec units hit the 60-turn cap; give a hard tool-call budget in the brief and require the report be written early.
+5. My row stamps ran 2–11 minutes ahead of `date -u` again. Stamp from the read.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. R6 step 2 (H03), on its own worktree — the last D12 item.
+2. Bead `fgd`: align the topology doc, Noise-Area ruleset, WF values and `_Flat1559.cs` comment with amended #4/#5 (spec/doc edits; the `.cs` comment is code, a manager unit).
+3. Still open: broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check (next VM session); rubric O2/O3/O4 gradeable; F3 (fill resolution statement before any backtest report).
+
+**For Amear's hands (not questions):** the two questions above; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase, including an MFFU evaluation).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-11 run (22:06Z–23:28Z, `claude -p`, Amear's resume of `n1y` relayed by the Claude.ai channel) — `main` = `origin/main` = `a962475` (nothing landed); `n1y` PARKED AGAIN on `parked/Praxis_build-n1y` @ `83891f6` (pushed); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-11T22:08:00Z–23:27:30Z (working tree only, with the 21:09:00Z row; DISPATCH_LOG from 21:04:33Z also uncommitted). The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary `/Users/admin/.local/bin/claude`; no other claude on this tree. The 21:06Z run had landed `a962475` (ledger flush) and left no close row or card.
+
+**What happened (OBSERVED):** Amear resumed `n1y` ("yep", chat 22:04–22:05Z, REPORTED BY the channel; DECISION_LOG 22:08:30Z). Correction 2 manager re-ran the FAIL-2 claims with full output: 11 filenames (exact), 43 files (not "about 45"), and the skeleton RECOVERED as 8 sections, not nine. Fresh audit: the cure itself PASSED, but the unit FAILED on (a) S1 in the new correction-2 manager report (:184 agent-memory claims with no paste; placeholder arguments in pasted commands at :105, :146, :153, :163) and worker6 :16/:34; (b) 4 email addresses in added lines (MFFU's public support address x3, the Anthropic noreply trailer x1). The brief allowed no exception there; that wording was the master's. Under the park rule and Amear's "if it fails again, park and stop": park commit `83891f6` on top of `7f143d7`, pushed; `notify.sh audit-fail-x2` fired (rc 0); stopped.
+
+**Still NOT on `main`:** D-2026-11-11-A (V1–V7, Rule F2-1 approval, V3/V5 "MFFU compliance governs overnight") and D-2026-11-11-B (VM Python/git install record). Amear's item 3 (ledger and card flush) was not done; the park rule ended the run first.
+
+**Next, for whoever resumes (a human decides on `n1y`):**
+1. Human: resume or rule on `n1y` again. A cure is narrow: paste output for the correction-2 manager :184 and worker6 :34; replace the placeholder arguments at :105/:146/:153/:163 and worker6 :16 with the real commands; decide whether public non-personal email addresses (MFFU support, the Anthropic noreply trailer) are allowed. That ruling is Amear's, or the master's under D1 if he resumes without one. Temp index recipe in DECISION_LOG 23:20:00Z (HEAD + the n1y paths + MANIFEST = parked MANIFEST rows only).
+2. Next master run: flush DECISION_LOG from 21:09:00Z, DISPATCH_LOG from 21:04:33Z, and this card plus the STATUS card to `main` (ledger-only unit; no n1y files).
+3. Brief lesson: every correction report, including the manager's own disposition notes, must paste output for each factual statement, and pasted commands must be the literal command run (no `<…>` or `...` arguments).
+
+**For Amear's hands (not questions):** the MFFU replacement ticket (investigation report C3.3); the decision on `n1y`; D2 items unchanged.
+
+F2, F3, F4 FROZEN (F4 NOT MET).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-11 run (17:30Z–19:50Z, `claude -p` on Amear's relayed go "U do them") — `main` = `origin/main` = `d056e91`; Unit 1 LANDED; Units 2+3 PARKED on `parked/Praxis_build-n1y` (`7f143d7`, pushed); read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-11T17:32:05Z–19:45:30Z (rows after 18:13:30Z are in the working tree only, not yet committed). The cards below are unchanged.

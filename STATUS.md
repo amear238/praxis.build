@@ -1,5 +1,22 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-12 (timer run 05:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8 (moved this run); F3, F4 FROZEN (F4 NOT MET).
+**Landed (OBSERVED, pushed):** `ee54344` (previous run) Amear's V1–V7 rulings and the VM install record. `9905804` MFFU pre-purchase replies filed and graded. `e3323a8` breakers #4/#5 amended to match Rule F2-1 (16:00 ET flat governs; #5 is an operator lockout; spec only, nothing built).
+**Waiting on Amear:** his two questions (does MFFU's reply close the overnight question; should F4's bar change); D2 items unchanged.
+**Next:** R6 step 2; bead `fgd` (align other docs with amended #4/#5).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-11 (run 22:06Z, Amear's resume of the parked filing) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2, F3, F4 FROZEN (F4 NOT MET).
+**Landed:** nothing on `main` (`a962475`). The filing of Amear's 2026-11-10 rulings and the VM install record failed its fresh audit again: the new correction report repeated the evidence-pasting fault, and four email addresses appeared. It is parked again (`parked/Praxis_build-n1y` @ `83891f6`, pushed).
+**Waiting on Amear's hands:** a decision on the parked filing; the MFFU ticket.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-11 (run 17:30Z, Amear's go) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2, F3, F4 FROZEN (F4 NOT MET).

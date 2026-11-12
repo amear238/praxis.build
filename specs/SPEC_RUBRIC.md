@@ -16,21 +16,6 @@ State values: `FROZEN` (blocks dependent work) · `OPEN` (gradeable now) ·
 
 ## FROZEN — nothing downstream may proceed until these clear
 
-### F2 — Session-flat time vs. breakers #4 and #5
-**Criterion.** One governing rule, written down, resolving: breaker #4 closes
-positions at 11:30 ET; breaker #5 disables everything 15:00–18:00 ET;
-Deviation B flattens at 16:00 ET. State what happens to an open position at
-15:00.
-**Why frozen.** The plan itself carried the contradiction — the strategy
-shortlist recorded the source strategy as EOD-flat while Phase 2 closure and
-the Phase 3 spec locked 09:30–11:30 and built breaker #4 around it. The build
-resolved it toward the paper without re-scoping the safety layer. Phase 2's
-medication-window justification for the 11:30 cut is now unsupported and was
-never revisited.
-**Unblocks when.** A DECISIONS.md entry names the governing rule and the
-15:00 disposition, and breaker specs #4 and #5 are amended to match.
-**Blocks.** Block 3. Block 4 paper trading.
-
 ### F3 — Backtest fill resolution vs. acquired data granularity
 **Criterion.** The fill resolution the Strategy Analyzer will actually run at,
 and the slippage assumption applied at the band edge, stated in writing before
@@ -90,6 +75,24 @@ unused.
 **Unblocks when.** `docs/specs/*-live-signal-topology.md` exists, is committed,
 and the auditor confirms it addresses every one of the nine breakers by name.
 **Blocks.** Block 3 entirely. Any SHM threshold derivation.
+
+Filer's note, not a ruling: F2 is moved here out of FROZEN. F2's own unblock clause, from its text at `e3323a8` :30–31 joined with one space: "**Unblocks when.** A DECISIONS.md entry names the governing rule and the 15:00 disposition, and breaker specs #4 and #5 are amended to match." The governing rule is Rule F2-1, approved by Amear (D-2026-11-11-A V2, DECISIONS.md; DECISION_LOG 2026-11-11T18:19:40Z, WHO: amear). The 15:00 disposition and the amended #4/#5 text are in D-2026-11-12-A (DECISIONS.md) and Amendment 1 at the end of `docs/specs/2026-11-05-phase3-build-specification.md`, both committed at `e3323a8`; the #4/#5 text is the master's adoption of the F2 proposal's replacement text under D-2026-11-08-D D1, not Amear's words. The auditor graded the match (DECISION_LOG 2026-11-12T06:12:00Z, check 4: no contradiction left between the 11:30 close, the 15:00–18:00 disable and the 16:00 flat). Residuals named there and in bead `Praxis_build-fgd`, not contradictions: #4's backstop fires at 16:00:00 with no margin over the strategy's own flat (OPEN-F2-1); the 15:00–18:00 operator lockout overlaps #4's "alert if not" flat by 4:10. The breakers remain SPECIFIED ONLY. The move is made under A11 (rubric :3–6) and D-2026-11-08-D D1 as the master's decision, changeable by Amear.
+
+### F2 — Session-flat time vs. breakers #4 and #5
+**State:** PASSED@e3323a8.
+**Criterion.** One governing rule, written down, resolving: breaker #4 closes
+positions at 11:30 ET; breaker #5 disables everything 15:00–18:00 ET;
+Deviation B flattens at 16:00 ET. State what happens to an open position at
+15:00.
+**Why frozen.** The plan itself carried the contradiction — the strategy
+shortlist recorded the source strategy as EOD-flat while Phase 2 closure and
+the Phase 3 spec locked 09:30–11:30 and built breaker #4 around it. The build
+resolved it toward the paper without re-scoping the safety layer. Phase 2's
+medication-window justification for the 11:30 cut is now unsupported and was
+never revisited.
+**Unblocks when.** A DECISIONS.md entry names the governing rule and the
+15:00 disposition, and breaker specs #4 and #5 are amended to match.
+**Blocks.** Block 3. Block 4 paper trading.
 
 ---
 
