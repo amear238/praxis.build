@@ -198,3 +198,25 @@ Aligned reading: under (a), the consumer-side checks #4, #7, #8 and #9 still app
 | OPEN-A1 | Where amended #4's "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)" sit on the live path. D-2026-11-12-A adopts the text; it places neither action. | (a) Both are part of the FLATTEN command the consumer executes at the flat time (the consumer cancels its own working entries and reports flat or not flat). (b) The confirmation is a separate n8n-side check on account state, which needs the account-state feed of OPEN-T3. Not chosen here. |
 
 **F1 bearing (not a grade).** Rubric F1 (PASSED@b4c3291) asks that this document address "every one of the nine breakers by name". The table at :58–66 still names all nine by the import's body names; this note adds the amended names of #4 and #5. Amended #5 no longer sits on the signal path at all (its system half moved into #4; its lockout is off-path, B3). Whether F1 needs re-grading is the master's call; this note does not grade it.
+
+## Amendment note 2 — 2026-11-12 (rubric line citations)
+
+> ***Added 2026-11-12; not part of the text above.*** Body lines 1–200 above are unchanged, including the amendment note at :116–200. Unit `2026-11-12-fgd-part-b` (bead `Praxis_build-fgd`, part B), decided by master under D-2026-11-08-D D1, changeable by Amear (DECISION_LOG 2026-11-12T17:03:00Z, item c). `specs/SPEC_RUBRIC.md` has been edited since this file was committed at `b4c3291`, so the rubric line numbers cited at :7 and :112 no longer point at the cited text. Each corrected citation below names the rubric criterion, its section and its line range at the pinned sha `5467031`. This note makes no new design choice, writes no DECISIONS.md entry and changes no rubric state. Each old line below is copied by script from this file at HEAD `5467031`, byte-identical.
+
+### :7 — rubric F1 unblock clause
+
+```text
+This document does not clear F1. F1 clears when this file is committed and the auditor confirms it addresses every one of the nine breakers by name (`specs/SPEC_RUBRIC.md`:28–29). It builds nothing, changes no code, no workflow and no account.
+```
+
+Corrected citation: rubric F1, section "## PASSED — closed criteria" (subsection "### F1 — Signal-path topology vs. circuit-breaker placement", :65), `specs/SPEC_RUBRIC.md`:75–76 at `5467031`. The cited clause is F1's "**Unblocks when.**" text; it was at :28–29 at `b4c3291` and its words are unchanged.
+
+### :112 — rubric F1 "Blocks" line
+
+```text
+This topology touches: Block 1 (the emitter changes from TradingView to NT8; the TESTED pipe is reused; Deviation G's ingress question leaves the anchor's live path); Block 2 (the emitter must reproduce the backtest strategy's decisions, so O4 parity now also covers emitter-vs-backtest equality); Block 3 (all nine breakers, Redis, PostgreSQL, the fallback script); Block 4 (the paper pass on MFFU sim runs on this path, D8(8)); Block 5 (live, D2(b)); Deviation A (strategy logic in NinjaScript, kept; now also the emitter); Deviation C (reversals are entries for #2, bead `Praxis_build-yra`); Deviation G (D-2026-07-09-D); D-2026-11-10-A (bypass B1); rubric F2 (the flat time and session boundary for #4/#5); rubric F4 (MFFU automation, FROZEN); rubric O2 (`praxispush`); rubric O4 (parity); the SHM thresholds that F1 blocks (`specs/SPEC_RUBRIC.md`:30).
+```
+
+Corrected citation: rubric F1, section "## PASSED — closed criteria" (subsection "### F1 — Signal-path topology vs. circuit-breaker placement", :65), `specs/SPEC_RUBRIC.md`:77 at `5467031`. The cited line is F1's "**Blocks.**" line ("Block 3 entirely. Any SHM threshold derivation."); it was at :30 at `b4c3291` and its words are unchanged. At `5467031` F1 is PASSED@b4c3291; the line stays in F1's text.
+
+No other `specs/SPEC_RUBRIC.md` line citation appears in lines 1–200 of this file.

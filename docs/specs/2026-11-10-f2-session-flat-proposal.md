@@ -109,3 +109,29 @@ Status: PROPOSED. F2 stays FROZEN until Amear approves (A6, DECISIONS.md:1744)
 ```
 
 That status is historical: Rule F2-1 is adopted (D-2026-11-12-A) and rubric F2 is PASSED@e3323a8. The rest of this file is unchanged; OPEN-F2-1 to OPEN-F2-4 (:75–78) stay open.
+
+## Amendment note 2 — 2026-11-12 (rubric line citations)
+
+> ***Added 2026-11-12; not part of the text above.*** Body lines 1–111 above are unchanged, including the amendment note at :83–111. Unit `2026-11-12-fgd-part-b` (bead `Praxis_build-fgd`, part B), decided by master under D-2026-11-08-D D1, changeable by Amear (DECISION_LOG 2026-11-12T17:03:00Z, item c). `specs/SPEC_RUBRIC.md` has been edited since this file was committed at `b4c3291`, so the rubric line numbers cited at :61 and :69 no longer point at the cited text. Each corrected citation below names the rubric criterion, its section and its line range at the pinned sha `5467031`. This note makes no new design choice, writes no DECISIONS.md entry and changes no rubric state. Each old line below is copied by script from this file at HEAD `5467031`, byte-identical.
+
+### :61 — rubric O4 citation
+
+```text
+| Block 4 parity gate (rubric O4, `specs/SPEC_RUBRIC.md`:108–113) | Rule F2-1 removes the 11:30 cut and the 15:00 system disable, so a breakers-on backtest and the live run use the same session clock as the current 16:00-flat backtests. O4's question (breakers on, off, or both) is not answered here. |
+```
+
+Corrected citation: rubric O4, section "## OPEN — gradeable now" (subsection "### O4 — Backtest-vs-live configuration parity"), `specs/SPEC_RUBRIC.md`:114–119 at `5467031` (heading :114, text :115–119). It was at :108–113 at `b4c3291`; the words are unchanged.
+
+### :69 — rubric F2 "Why frozen" citation
+
+```text
+| Rubric F2 "Why frozen" (`specs/SPEC_RUBRIC.md`:37–42) | The operator-schedule justification for the 11:30 cut named there is retired by Rule F2-1, not repaired. |
+```
+
+Corrected citation: rubric F2, section "## PASSED — closed criteria" (subsection "### F2 — Session-flat time vs. breakers #4 and #5", :81), `specs/SPEC_RUBRIC.md`:87–92 at `5467031`. The cited text is F2's "**Why frozen.**" paragraph; it was at :37–42 at `b4c3291` and its words are unchanged. At `5467031` F2 is PASSED@e3323a8; the paragraph stays in F2's text.
+
+### Other `specs/SPEC_RUBRIC.md` line citations in lines 1–111 of this file
+
+- :8 cites :43–44 (rubric F2 unblock clause). Stale at `5467031`; already re-pointed by the amendment note above (:95) to :93–94 at `006a08b`. `specs/SPEC_RUBRIC.md` is unchanged between `006a08b` and `5467031`, so :93–94 (section "## PASSED — closed criteria", subsection "### F2 — Session-flat time vs. breakers #4 and #5", :81) also holds at `5467031`.
+- :92 is the copy of :8 inside that amendment note; its :43–44 is quoted old text, not a live citation.
+- :95 cites :93–94 at `006a08b`, :81, and :30–31 at `e3323a8`. Each points at the cited text at the sha it names; :93–94 and :81 also hold at `5467031`.
