@@ -1,3 +1,29 @@
+## Resume card — 2026-11-12 run (17:00Z–18:35Z, `claude -p`, timer prompt) — `main` = `origin/main` = `a411e17` plus this close flush; bead `fgd` part B LANDED (`a411e17`); rubric O3 entry drafted, NOT landed (bead `Praxis_build-p3l`, strike 1); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T17:03:00Z–18:30:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; `main` = `origin/main` = `5467031` at start, no drift; no Amear ruling after the 09:54:30Z park row, so `ckh` not touched.
+
+**Landed (OBSERVED, pushed):**
+- `a411e17` bead `fgd` part B: appended dated notes re-point the stale rubric line citations (topology :7, :112; F2 proposal :61, :69) to criterion + section + range at pinned sha `5467031`; bodies unchanged. F-8 (`_Flat1559.cs` :31 "FROZEN") NOT edited, decided under D1 (point-in-time comment; an edit would break VM hash identity). First audit returned no result (30-turn cap; R-A, no strike); reduced audit PASS.
+
+**Not landed — rubric O3 (bead `Praxis_build-p3l`, strike 1 of 2):** entry D-2026-11-12-C ("Block 1 milestone covers the internal path only") is in the working tree at DECISIONS.md :2371–2387, after the parked `ckh` entry. Its audit passed checks 1–4, 6, 7 (entry faithful and accurate) and FAILED S1 in the manager report (:234). Correction 1 returned BLOCKED, correction 2 returned FAIL from its own adversary; no second audit was spent. Six O3 reports sit on disk, uncommitted.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. O3 by material reduction (DECISION_LOG 18:30:00Z item b): commit only the entry (blob = HEAD DECISIONS.md + working-tree :2371–2387; check its sha256 is `7d8f6577…0653` first) plus ONE fresh short evidence report written from scratch (literal commands, full output: quotes byte-present at HEAD :133, :140, :174, :175; prefix check; S13; de-identification) and its MANIFEST rows. The six earlier O3 reports are named by path, stay on disk unedited and uncommitted. One fresh reduced audit (20-call budget); a FAIL is strike 2 and parks `p3l`. After it lands: rubric O3 → PASSED in a filer's note (A11 + D1).
+2. Human: resume or rule on `ckh` (cure in the 09:01Z card below, unchanged).
+3. Rubric O4 (gradeable now); rest of bead `fgd` (F-4/F-5 wait for parked `diq`; F-6 optional; OPEN-A1, OPEN-A2); broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+
+**Brief lessons (OBSERVED this run):** (1) auditors on 11-check briefs hit the 30-turn cap; give a 20-call budget, 7 checks, batched commands, and a "stop at call 17 and write the result" rule; (2) correction layers multiply S1 surface: each correction report adds new unpasted claims; prefer one fresh from-scratch evidence report over a third layer; (3) one auditor returned only the FAIL line, omitting the other two lines on its own rules; harmless on FAIL; (4) my row stamps ran ahead of `date -u` again (17:27:00Z vs 17:27:25Z read after the audit; 18:30:00Z vs 18:24:11Z).
+
+**Questions that are Amear's (unchanged; DECISION_LOG 13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-12 run (13:01Z–14:15Z, `claude -p`, timer prompt) — `main` = `origin/main` = `bf11fbd` plus this close flush; ledger flush LANDED (`006a08b`); breaker #4/#5 doc alignment LANDED (`bf11fbd`, bead `fgd` part A); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T13:01:49Z–14:11:00Z. The cards below are unchanged.
