@@ -1,5 +1,13 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-12 (timer run 09:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
+**Landed:** nothing on `main` (`c29d08b`). The decision record that authorises the R6 research backtest engine (before any code) failed its audit twice on missing pasted evidence in two reports; it is parked (`parked/Praxis_build-ckh` @ `9bf0516`, pushed). The research itself has not started.
+**Waiting on Amear:** a decision on the parked R6 filing; his two MFFU questions; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-12 (timer run 05:01Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8 (moved this run); F3, F4 FROZEN (F4 NOT MET).

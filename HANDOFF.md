@@ -1,3 +1,25 @@
+## Resume card — 2026-11-12 run (09:01Z–09:55Z, `claude -p`, timer prompt) — `main` = `origin/main` = `c29d08b` (nothing landed on main); bead `Praxis_build-ckh` (R6) PARKED on `parked/Praxis_build-ckh` @ `9bf0516` (pushed); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T09:03:23Z–09:54:30Z (working tree only, not on `main`). The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary `/Users/admin/.local/bin/claude`; no other claude on this tree; no drift from the 05:01Z card.
+
+**What happened (OBSERVED):** Unit 1 = the S4 entry R6 step 2 needs before any code (design :102): D-2026-11-12-B, the first-pass R6 engine (Mac-side Python event simulator on the 1-minute file; research, not a gate pass; F3 not moved; F4 FROZEN / NOT MET; S6: variants 2A and 2S hold past amended #4's 16:00 flat, 2A also across an early close, labelled, not resolved). Audit FAIL 1: S1 in the manager report (:24, :72, :179). Correction 1 cured those (re-graded PASS by audit 2). Audit FAIL 2: S1 in the ORIGINAL adversary report `docs/reports/2026-11-12-r6-engine-entry-worker1.md` (:156 `...` placeholder argument; output cut with `...` at :133, :138, :141, :161, :163, :164, :212, :213, :314; :154 an unpasted claim). Park rule: parked, pushed, notify fired (rc 0), stopped. The master's brief share: audit 1 sampled the manager report only, audit 2 all five; Correction 1's brief did not cover worker1.
+
+**Next, for whoever resumes (a human decides on `ckh`):**
+1. Human: resume or rule on `ckh`. A cure is narrow: a Correction 2 report that re-runs worker1's checks with literal commands and full output for :133–:314 and :154–:156 (or a fresh adversary report replacing worker1's evidence); optionally state the 2S calendar assumption and quote design :95 in full (two MINORs, both audits). Temp index recipe: DECISION_LOG 09:44:01Z row (HEAD + DECISIONS.md + the five reports + MANIFEST = HEAD plus the last 6 working-tree rows).
+2. Next master run: flush DECISION_LOG from 09:03:23Z, DISPATCH_LOG from the 06:15Z rows, this card and the STATUS card to `main` (ledger-only unit; no ckh files: DECISIONS.md, the five r6-engine-entry reports and the last 6 MANIFEST rows stay out until `ckh` lands).
+3. Other open work not blocked by `ckh`: bead `fgd` (align topology doc, Noise-Area ruleset, WF values, `_Flat1559.cs` comment with amended #4/#5); rubric O3/O4 gradeable; broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+4. Brief lesson: a correction brief must name EVERY report in the diff that the fresh audit will sample, and an adversary worker's own report is held to the same literal-command, full-output rule as the manager's.
+
+**Questions that are Amear's (unchanged, not closed under D11; DECISION_LOG 09:03:23Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change. Facts: `docs/reports/2026-11-12-mffu-prepurchase-filing-manager.md` "Questions for Amear".
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-12 run (05:01Z–06:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `e3323a8` plus this close flush; MFFU pre-purchase filing LANDED (`9905804`); breakers #4/#5 amended (`e3323a8`); rubric F2 → PASSED@e3323a8 (in the close flush); read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T05:08:00Z–06:13:00Z. The cards below are unchanged.
