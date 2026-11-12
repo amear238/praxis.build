@@ -1,3 +1,28 @@
+## Resume card — 2026-11-12 run (13:01Z–14:15Z, `claude -p`, timer prompt) — `main` = `origin/main` = `bf11fbd` plus this close flush; ledger flush LANDED (`006a08b`); breaker #4/#5 doc alignment LANDED (`bf11fbd`, bead `fgd` part A); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T13:01:49Z–14:11:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary `/Users/admin/.local/bin/claude`; `main` = `origin/main` = `c29d08b` at start, no drift; no Amear ruling after the 09:54:30Z park row, so `ckh` was not touched.
+
+**Landed (OBSERVED, pushed):**
+- `006a08b` ledger-only flush of the 09:01Z run's rows and cards. Audit PASS first time.
+- `bf11fbd` bead `fgd` part A: appended, dated amendment notes in the topology doc, the Noise-Area ruleset and the F2 proposal so they read in line with amended #4 (16:00 flat gate) and #5 (operator lockout only). Bodies unchanged. No new design choice. Two items recorded as OPEN, not chosen: OPEN-A1 (where #4's cancel-entries and confirm-flat steps sit on the live path) and OPEN-A2 (whether a later Noise-Area arm may keep its own 11:30 stop). The topology doc still names all nine breakers (F1 not re-graded). Breakers SPECIFIED ONLY. Audit FAIL 1 (S1 in two reports; a support rep's first name in a pasted file path), Correction 1, fresh audit PASS. Strike count ended at 1.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. Human: resume or rule on `ckh` (cure described in the card below, unchanged).
+2. Rest of bead `fgd`: stale rubric line cites (proposal :61, :69; topology :7, :112); F-8 `_Flat1559.cs` :31 comment (code, manager unit); F-4/F-5 wait for the parked `diq` work; F-6 optional.
+3. Rubric O3 / O4 (gradeable now); broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check (next VM session).
+
+**Brief lessons (OBSERVED this run):** (1) a correction brief that orders a FULL S1 sweep of every report in the diff, with an itemised old/new edit log, passed its fresh audit; (2) every de-identification scan needs a support-rep-name category, derived by script from the evidence PNG filename and never printed; (3) MANIFEST rows should not cite working-tree row numbers when the commit blob drops parked rows.
+
+**Questions that are Amear's (unchanged; DECISION_LOG 13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-12 run (09:01Z–09:55Z, `claude -p`, timer prompt) — `main` = `origin/main` = `c29d08b` (nothing landed on main); bead `Praxis_build-ckh` (R6) PARKED on `parked/Praxis_build-ckh` @ `9bf0516` (pushed); read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T09:03:23Z–09:54:30Z (working tree only, not on `main`). The cards below are unchanged.

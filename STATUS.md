@@ -1,5 +1,14 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-12 (timer run 13:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
+**Landed (OBSERVED, pushed):** `006a08b` ledger flush. `bf11fbd` three planning documents now carry notes saying how they read under the amended breakers #4 and #5 (16:00 flat; 15:00–18:00 is an operator lockout only); two open points recorded, not decided; breakers are still specified only, nothing built.
+**Waiting on Amear:** a decision on the parked R6 filing (`ckh`); his two MFFU questions; D2 items unchanged.
+**Next:** rest of bead `fgd`; rubric O3/O4.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-12 (timer run 09:01Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
