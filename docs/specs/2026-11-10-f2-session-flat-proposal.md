@@ -79,3 +79,33 @@ How the rule maps to R8 (DECISIONS.md:1583–1589): R8 opens "F2 unfreezes." and
 | OPEN-F2-5 | Adoption of Rule F2-1. | Amear's approval under A6; then a DECISIONS.md entry and the amended #4/#5 text in the breaker spec. |
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Amendment note — 2026-11-12 (D-2026-11-12-A alignment)
+
+> ***Added 2026-11-12; not part of the text above.*** Body lines 1–81 above are unchanged. Unit `2026-11-12-fgd-doc-alignment` (bead `Praxis_build-fgd`, part A), decided by master under D-2026-11-08-D D1, changeable by Amear. This note carries out D-2026-11-12-A (DECISIONS.md:2205) and Amendment 1 at the end of `docs/specs/2026-11-05-phase3-build-specification.md` (amended #4 at its line :212, amended #5 at :224). It makes no new design choice and writes no DECISIONS.md entry; where an aligned reading would need a choice that D-2026-11-12-A and Rule F2-1 do not make, the item is listed as OPEN below with both readings. Each old line below is copied by script from this file at HEAD, byte-identical.
+
+**Level.** Unchanged: the nine breakers, #4 and #5 included, remain SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure. This note changes how lines are read; it builds nothing.
+
+### :8 — rubric line citation (follow-up F-7)
+
+```text
+This file is a proposal only. It writes no DECISIONS.md entry, edits no breaker spec, and changes no rubric state. F2 unblocks when "A DECISIONS.md entry names the governing rule and the 15:00 disposition, and breaker specs #4 and #5 are amended to match" (`specs/SPEC_RUBRIC.md`:43–44). Under A6, "F2's state changes when Amear approves the proposed values" (DECISIONS.md:1744–1745).
+```
+
+Aligned reading: the F2 unblock clause quoted here is at `specs/SPEC_RUBRIC.md`:93–94 at HEAD `006a08b`, inside the section "### F2 — Session-flat time vs. breakers #4 and #5" (:81), which now sits under "## PASSED — closed criteria". It was at :30–31 at `e3323a8` (D-2026-11-12-A); the rubric change at `c29d08b` moved F2 into PASSED. The quoted words are unchanged. The second citation on this line, DECISIONS.md:1744–1745 (A6), is unchanged. The line's "changes no rubric state" is true of this file; rubric F2's state was moved at `c29d08b`, not by this file.
+
+### :79 — OPEN-F2-5 (follow-up F-9)
+
+```text
+| OPEN-F2-5 | Adoption of Rule F2-1. | Amear's approval under A6; then a DECISIONS.md entry and the amended #4/#5 text in the breaker spec. |
+```
+
+Aligned reading: OPEN-F2-5 is closed on the records below, within D-2026-11-12-A's stated limits. Each step its "What would decide it" column names now has a record: Amear's approval of Rule F2-1 (D-2026-11-11-A, V2, DECISIONS.md:2108); a DECISIONS.md entry (D-2026-11-12-A, DECISIONS.md:2205); the amended #4/#5 text in the breaker spec (Amendment 1 of the Phase 3 spec). Rubric F2 is PASSED@e3323a8. Limits carried from D-2026-11-12-A, not changed here: Amear's approval was given on the words of a summary; the #4/#5 text is the master's adoption under D1, not Amear's words, changeable by Amear; whether his approval reaches that text, and whether A6 is triggered, are not graded.
+
+Read with :3, which states this file's status when it was filed:
+
+```text
+Status: PROPOSED. F2 stays FROZEN until Amear approves (A6, DECISIONS.md:1744)
+```
+
+That status is historical: Rule F2-1 is adopted (D-2026-11-12-A) and rubric F2 is PASSED@e3323a8. The rest of this file is unchanged; OPEN-F2-1 to OPEN-F2-4 (:75–78) stay open.

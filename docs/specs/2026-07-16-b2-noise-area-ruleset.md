@@ -109,3 +109,62 @@ Other implementation facts to hard-code (not optimize): checkpoints at `HH:00`/`
 - **T5: instrument transfer** — SPY→NQ is unvalidated by this paper; NQ evidence is third-party (Quantitativo). Confirm the NQ port is treated as requiring its own Block-2 validation, not inheriting the paper's SPY numbers.
 
 *End ruleset spec. All numbered §1–§4 rules carry paper citations; all open items are isolated in §7.*
+
+## Amendment note — 2026-11-12 (D-2026-11-12-A alignment)
+
+> ***Added 2026-11-12; not part of the text above.*** Body lines 1–111 above are unchanged. Unit `2026-11-12-fgd-doc-alignment` (bead `Praxis_build-fgd`, part A), decided by master under D-2026-11-08-D D1, changeable by Amear. This note carries out D-2026-11-12-A (DECISIONS.md:2205) and Amendment 1 at the end of `docs/specs/2026-11-05-phase3-build-specification.md` (amended #4 at its line :212, amended #5 at :224). It makes no new design choice and writes no DECISIONS.md entry; where an aligned reading would need a choice that D-2026-11-12-A and Rule F2-1 do not make, the item is listed as OPEN below with both readings. Each old line below is copied by script from this file at HEAD, byte-identical.
+
+**Level.** Unchanged: the nine breakers, #4 and #5 included, remain SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure. This note changes how lines are read; it builds nothing.
+
+**What governs the 11:30 framing now.** Two records, both made before this unit:
+
+1. Amear's lock of the Block-2 strategy definition, DECISION_LOG.md:42 (row 2026-07-16T19:29Z, WHO: trader (Amear) + orchestrator), item (1), copied by script: "(1) session-flat = 16:00 ET cash close (NOT the 11:30 PRAXIS window)". Its item (3), copied by script: "(3) FIRST build = pure paper replication with FIXED params".
+2. D-2026-11-12-A / Amendment 1: breaker #4 no longer closes positions at 11:30 ET; it is the 16:00 ET session flat gate, and amended #5 does not disable system trading 15:00–18:00 ET. No breaker now forces an 11:30 cut.
+
+R1 (DECISIONS.md:1551) reads "RTH = 09:30–16:00 ET".
+
+### :8 — scope note (follow-up F-3)
+
+```text
+> **Scope note.** The paper studies **SPY** (the ETF), NOT NQ futures, and trades **all day** (every half-hour, flat at the 16:00 cash close). PRAXIS applies it to **NQ** inside a **09:30–11:30 ET** window. Every place where the PRAXIS framing departs from the paper is flagged below — those departures are trader decisions, not paper-derived facts.
+```
+
+Aligned reading: the "09:30–11:30 ET window" is no longer the PRAXIS framing of the replication strategy: its session flat is 16:00 ET (lock item (1)), and no breaker cuts it at 11:30 (amended #4). On the flat time the PRAXIS replication and the paper now agree; the instrument difference (SPY vs NQ, D9, T5) stands.
+
+### :79 — discrepancy D8 (F-3)
+
+```text
+| D8 | Flat time | **16:00** — no 11:30 stop in paper | b2-q1 report notes a **"flat-by-11:30-ET baseline"** | ❌ **CONFLICT** — 11:30 is a **PRAXIS window choice** (09:30–11:30 active hours), NOT the paper. The paper's edge is measured on full-day holds to 16:00; truncating at 11:30 is untested by the paper and changes expectancy |
+```
+
+Aligned reading: D8 is resolved toward the paper for the replication strategy: flat at 16:00 ET (lock item (1)); and the breaker-side 11:30 close is removed (amended #4). The "flat-by-11:30-ET baseline" in the b2-q1 report is a superseded framing, not edited.
+
+### :84 — "Net" item (b) (F-3)
+
+```text
+**Net:** The RTF prose is a faithful summary of the paper on band/gap/sizing/16:00-flat, but three PRAXIS framings are **NOT paper-derived and need trader decisions**: (a) "one position per session" (D5), (b) the 09:30–11:30 window / 11:30 flat (D8), and (c) a tunable "noise multiplier" and "stop-ATR" (D1, §3 — the paper has neither).
+```
+
+Aligned reading: item (b), "the 09:30–11:30 window / 11:30 flat (D8)", has its trader decision: lock item (1). Items (a) and (c) are outside this note.
+
+### :99 — implementation facts (F-3)
+
+```text
+Other implementation facts to hard-code (not optimize): checkpoints at `HH:00`/`HH:30`; `ref = max/min(Open_{9:30}, PrevClose)`; VWAP anchored at 09:30, market-hours only; **flat at 16:00** (or the trader-chosen 11:30 — see D8). Entry via `EnterLongStopMarket`/`EnterShortStopMarket` at the boundary is a reasonable NT8 realization of "act at the next HH:00/HH:30 stamp if price is outside the band," but note the paper acts on the **stamp**, not on an intrabar stop-touch — a stop-market order can fill mid-bar and diverge slightly; reconcile in b2-signal-repro.
+```
+
+Aligned reading: "flat at 16:00" stands; the parenthesis "(or the trader-chosen 11:30 — see D8)" is withdrawn for the replication strategy (lock item (1)); no breaker supplies an 11:30 flat either (amended #4). The rest of the line is unchanged.
+
+### :105 — open item T1 (F-3)
+
+```text
+- **T1 (highest priority): session-flat time — 16:00 (paper) vs 11:30 (PRAXIS window).** The paper's entire performance record is full-day-to-16:00. A 09:30–11:30 NQ variant is a different strategy the paper does not evaluate. Trader must decide the flat time AND accept that paper Sharpe/DD numbers do not transfer if truncated. (Resolves D8 + the b2-q1 conflict.)
+```
+
+Aligned reading: T1 is decided for the replication strategy: 16:00 (lock item (1)). The safety-layer side of the conflict (breaker #4 at 11:30) is removed by D-2026-11-12-A.
+
+### OPEN
+
+| ID | Open item | The two readings |
+|---|---|---|
+| OPEN-A2 | Whether a strategy-level stop at 11:30 (a strategy rule, not a breaker) is still available to a later Noise-Area arm (the walk-forward tunables arm or the live emitter), now that no breaker forces it. D-2026-11-12-A and Rule F2-1 do not decide this. | (a) No: lock item (1) sets the session flat at 16:00 ET, "NOT the 11:30 PRAXIS window", and under Rule F2-1 system entries are allowed until 16:00 (proposal :30), so the full-day window carries to every Noise-Area arm. (b) Yes, as a choice for that arm: lock item (3) scopes the "FIRST build" to paper replication, and Rule F2-1 sets only the latest flat ("Strategies may flat earlier than 16:00 by their own rules", proposal :24), so an earlier strategy stop stays a design choice for the unit that specifies that arm. Not chosen here. |

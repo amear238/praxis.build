@@ -112,3 +112,89 @@ Option 3 has the fewest unbuilt parts, because NT8 already holds account P&L, po
 This topology touches: Block 1 (the emitter changes from TradingView to NT8; the TESTED pipe is reused; Deviation G's ingress question leaves the anchor's live path); Block 2 (the emitter must reproduce the backtest strategy's decisions, so O4 parity now also covers emitter-vs-backtest equality); Block 3 (all nine breakers, Redis, PostgreSQL, the fallback script); Block 4 (the paper pass on MFFU sim runs on this path, D8(8)); Block 5 (live, D2(b)); Deviation A (strategy logic in NinjaScript, kept; now also the emitter); Deviation C (reversals are entries for #2, bead `Praxis_build-yra`); Deviation G (D-2026-07-09-D); D-2026-11-10-A (bypass B1); rubric F2 (the flat time and session boundary for #4/#5); rubric F4 (MFFU automation, FROZEN); rubric O2 (`praxispush`); rubric O4 (parity); the SHM thresholds that F1 blocks (`specs/SPEC_RUBRIC.md`:30).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Amendment note — 2026-11-12 (D-2026-11-12-A alignment)
+
+> ***Added 2026-11-12; not part of the text above.*** Body lines 1–114 above are unchanged. Unit `2026-11-12-fgd-doc-alignment` (bead `Praxis_build-fgd`, part A), decided by master under D-2026-11-08-D D1, changeable by Amear. This note carries out D-2026-11-12-A (DECISIONS.md:2205) and Amendment 1 at the end of `docs/specs/2026-11-05-phase3-build-specification.md` (amended #4 at its line :212, amended #5 at :224). It makes no new design choice and writes no DECISIONS.md entry; where an aligned reading would need a choice that D-2026-11-12-A and Rule F2-1 do not make, the item is listed as OPEN below with both readings. Each old line below is copied by script from this file at HEAD, byte-identical.
+
+**Level.** Unchanged: the nine breakers, #4 and #5 included, remain SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure. This note changes how lines are read; it builds nothing.
+
+**Governing text.** Amended #4, copied by script from `docs/specs/2026-11-05-phase3-build-specification.md`:212:
+
+> 4. Session flat gate — clock reaches 16:00:00 ET, or the exchange's early close on an early-close day if earlier → cancel working entry orders, send market orders closing all system positions, confirm flat before 4:10 PM ET (alert if not), and refuse new system entries until the next session opens at 18:00 ET.
+
+Amended #5, copied by script from `docs/specs/2026-11-05-phase3-build-specification.md`:224:
+
+> 5. Session window (operator lockout) — clock is in 3:00–6:00 PM ET → lock out manual order entry and manual changes to the system by the operator. The system's own trading is not disabled by this breaker; the system's no-entry period 16:00–18:00 ET is enforced by breaker #4.
+
+### :41 — path line (follow-up F-1)
+
+```text
+Path: NT8 emitter (computes signal) → HTTP POST → n8n webhook → **[breaker gates, Redis, default closed]** → Write Signal File → outbox → sweep daemon → drop dir → `PraxisSignalConsumer` → **[consumer-side checks #4, #5, #7, #8, #9]** → `SubmitBracket` → Rithmic → account.
+```
+
+Aligned reading: the consumer-side checks on this path are #4, #7, #8 and #9. #5 has no check on the signal path: amended #5 does not disable the system's own trading, and the system's no-entry period 16:00–18:00 ET is enforced by #4. This is the case the #5 row (:62) already states for adoption of the F2 proposal ("the n8n/consumer window check is then removed"): D-2026-11-12-A adopts the proposal's #4/#5 replacement text (DECISIONS.md:2232), and proposal :40 states that, if adopted, the system window check is removed.
+
+### :48 — consumer-side checks (F-1)
+
+```text
+**What changes from the Block 1 architecture.** The emitter is NT8, not TradingView (CLAUDE.md "Signal flow: TradingView alert → webhook → …"). Deviation G's public-ingress question stops being on the anchor strategy's live path, because the emitter posts from inside the local network. Breakers #4, #5, #8 and #9 gain a consumer-side check (section 3), because n8n cannot measure relay delay after its own write, and cannot vouch for itself when it is down.
+```
+
+Aligned reading: breakers #4, #8 and #9 gain a consumer-side check; #5 does not (see :41). The reason given for #4, #8 and #9 is unchanged.
+
+### :54 — breaker names (F-2)
+
+```text
+Names are exactly as the Phase 3 import lists them (`docs/specs/2026-11-05-phase3-build-specification.md`:97–105, at HEAD) [E1]. Every row's current level is SPECIFIED: no breaker exists in code or workflow (1.13). "Upstream" means the check runs, and can stop the order, before `SubmitBracket` calls `EnterLong` / `EnterShort`.
+```
+
+Aligned reading: the names in the table are the import's body names at :97–105, and they stay as written. Since Amendment 1, the body lines :100–101 of the import are superseded and #4 and #5 carry the amended names: #4 "Session flat gate" (body name "Session time gate"); #5 "Session window (operator lockout)" (body name "Afternoon session window"). Read the #4 and #5 rows (:61, :62) under the amended names and the amended text.
+
+### :61 — breaker #4 row (F-2)
+
+```text
+| 4 | Session time gate | Two checks: an n8n gate node before Write Signal File (ET clock; entries refused after the flat time until the next session), and an ET clock check in the consumer before `SubmitBracket`, so a file written just before the cut-off, or dropped straight into the drop dir (bypass B1), is still refused after it. Its "close positions" action: the emitter's own time exit posted as a FLATTEN signal, plus the FLATTEN command from n8n at the gate time. | The n8n check runs before the file write; the consumer check is the last step before `EnterLong` / `EnterShort` and bounds the relay delay that n8n cannot see after its own write. | ET wall clock; the flat time and the next-session start (both are F2's; see `docs/specs/2026-11-10-f2-session-flat-proposal.md`, PROPOSED). | SPECIFIED | F2 (FROZEN); FLATTEN path (unbuilt); the deterministic fallback script for when n8n is down (Phase 3 :109; unbuilt). |
+```
+
+Aligned reading: name "Session flat gate". The flat time is 16:00:00 ET, or the exchange's early close on an early-close day if earlier, and the next session starts at 18:00 ET (amended #4); they are no longer PROPOSED. "F2 (FROZEN)" in the "Depends on" column reads: rubric F2 is PASSED@e3323a8. The two checks (n8n gate before Write Signal File, consumer ET clock check before `SubmitBracket`) and the FLATTEN close action stay as written, and now also carry the system's no-entry period 16:00–18:00 ET that amended #5 hands to #4. Amended #4 also names "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)"; this row does not place either action on the path, and this note does not place them (OPEN-A1 below).
+
+### :62 — breaker #5 row (F-1, F-2)
+
+```text
+| 5 | Afternoon session window | As the Phase 3 text stands: an n8n gate node before Write Signal File plus the same consumer clock check as #4, refusing every system entry (including Noise-Area reversals) in the window. Under the F2 proposal (`docs/specs/2026-11-10-f2-session-flat-proposal.md`, PROPOSED, not adopted) #5 becomes an operator lockout only, and the system no-entry period 16:00–18:00 moves into #4; the n8n/consumer window check is then removed. | As the text stands, the n8n check runs before the file write and the consumer check before `SubmitBracket`; nothing in the window becomes an order. | ET wall clock; the window. | SPECIFIED | F2. R8 splits #5 into a disable of the system's own trading (redone) and a lockout on Amear's own interaction (KEPT). **The lockout half cannot sit on this path**: a manual order typed into NT8 or the broker platform never passes n8n (bypass B3, section 5). |
+```
+
+Aligned reading: name "Session window (operator lockout)". The row's own conditional ("Under the F2 proposal … the n8n/consumer window check is then removed") is now in effect: there is no n8n gate node and no consumer clock check for #5, and nothing on the signal path enforces #5. System entries 15:00–16:00 ET are allowed, subject to breakers #1, #2, #3, #6, #7, #8 and #9 (proposal :30, copied into Amendment 1); from 16:00 to 18:00 ET they are refused by #4. The row's "As the Phase 3 text stands" readings describe the superseded import text. The row's last sentence stands: the lockout cannot sit on this path (bypass B3); how it is enforced is OPEN-T8 (:105), not decided here. "Depends on: F2" reads: rubric F2 is PASSED@e3323a8.
+
+### :74 — option 1, unbuilt components (F-1)
+
+```text
+| **1 (recommended)** | NT8 emitter strategy posts to the local n8n webhook | n8n + Redis before the file write; #7/#8/#9 also in the consumer | emitter strategy; VM → n8n reach (OPEN-T1); EXIT/FLATTEN instruction types; consumer clock check for #4/#5; n8n gate nodes; Redis gate keys; PostgreSQL trip log; account-state and fill feed into Redis; FLATTEN command in the consumer; consumer checks for #8/#9 (and #7 at plan size); n8n health stamp; fallback script | Yes |
+```
+
+Aligned reading: "consumer clock check for #4/#5" reads "consumer clock check for #4". Option 2 (:75, "Same as 1") reads the same way.
+
+### :78 — fallback option 3 (F-1; found by this unit, not in the cited list)
+
+```text
+Option 3 has the fewest unbuilt parts, because NT8 already holds account P&L, position and clock. The decision rule puts the Phase 3 placement first unless the evidence shows the signal cannot pass through n8n, and it does not show that today. So option 1 is recommended, and option 3 is the fallback **only if** OPEN-T1 finds the VM cannot reach the webhook. If the fallback is taken, what changes: all nine checks move into the strategy before its order calls; Redis default-closed becomes a strategy default (no entries until every check has been confirmed this session); #9 needs an outside health source the strategy can read.
+```
+
+Aligned reading: if the fallback is taken, the system checks that move into the strategy are those of #1–#4 and #6–#9; #5 has no system check to move; where its operator lockout sits, including whether the strategy could carry it, is OPEN-T8 (:105), not decided here.
+
+### :86 — bypass B1 (F-1)
+
+```text
+| B1 | A JSON file written straight into the drop dir `/Users/admin/praxis-signals`, into `incoming/`, or into the n8n outbox, by anything that can write as `admin`, or through any share that exposes the drop dir to the VM. D-2026-11-10-A (DECISIONS.md:2041) already reads it this way ("a file written straight into the drop dir would not pass those gates (inference from that text, not tested)"). | No. The consumer cannot tell a file that came through n8n from one that did not. | (a) The consumer-side checks #4, #5, #7, #8 and #9 still apply to such a file; #1, #2, #3 and #6 do not, because they run only in n8n. (b) n8n signs each gate-passed file (HMAC over the payload) and the consumer refuses unsigned files. That needs a key in n8n and in the VM: **waits for Amear (D2(d))**. (c) The `praxispush` user and drop-dir move (D-2026-11-10-A) narrow who can write. | (b) Amear, D2(d). (c) the deferral is decided (D-2026-11-10-A, DECISIONS.md:2039, "DEFERRED, not dropped"); provisioning stays with Amear (D2(d), :2043), so B1 stays open as an accepted risk until then. |
+```
+
+Aligned reading: under (a), the consumer-side checks #4, #7, #8 and #9 still apply to such a file; #5 has none. The rest of the row is unchanged.
+
+### OPEN
+
+| ID | Open item | The two readings |
+|---|---|---|
+| OPEN-A1 | Where amended #4's "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)" sit on the live path. D-2026-11-12-A adopts the text; it places neither action. | (a) Both are part of the FLATTEN command the consumer executes at the flat time (the consumer cancels its own working entries and reports flat or not flat). (b) The confirmation is a separate n8n-side check on account state, which needs the account-state feed of OPEN-T3. Not chosen here. |
+
+**F1 bearing (not a grade).** Rubric F1 (PASSED@b4c3291) asks that this document address "every one of the nine breakers by name". The table at :58–66 still names all nine by the import's body names; this note adds the amended names of #4 and #5. Amended #5 no longer sits on the signal path at all (its system half moved into #4; its lockout is off-path, B3). Whether F1 needs re-grading is the master's call; this note does not grade it.
