@@ -1,3 +1,28 @@
+## Resume card — 2026-11-13 run (09:01Z–09:30Z, timer prompt) — `main` = `origin/main` = `587101b` plus this close flush; rubric O4 entry NOT landed (bead `Praxis_build-yra`, no strike; one more defect found); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T09:03:00Z–09:09:00Z and the close row after them. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; the other two claude processes (pids 801, 94216) have cwds outside this tree; `main` = `origin/main` = `587101b`, no drift; no Amear ruling after the 09:54:30Z park row, so `ckh` not touched.
+
+**What happened (OBSERVED):** O4 deletion-only round 2 on entry D-2026-11-13-A (working-tree DECISIONS.md :2389–2416). Line :2393 lost ", the version closest to live" and " (R-VN3-5, R-1104-3)"; `diff` against `/tmp/o4red2-pre-DECISIONS.md` = one hunk `2393c2393`. The cold adversary passed checks (a), (b), (d), (e), (f) and failed (c) on :2410: "SHM-4 and SHM-5's "backtest" is read as the with series" is a reading of Amear's resolved bands (D-2026-07-15-B), not labelled as the master's. Reports `docs/reports/2026-11-13-o4-reduce2-manager.md` and `-reduce2-worker1.md`, uncommitted. No audit spent. O4 stopped for this run as pre-committed. The breakers stay SPECIFIED ONLY: none built or tested; no with-breakers results exist.
+
+**Also checked, not moved:** rubric O2 stays OPEN. D-2026-11-10-A records the low-privilege user as DEFERRED ("not dropped"), and O2 asks for the user to exist or for its removal to be recorded.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. O4 round 3, deletion and labels only (DECISION_LOG 09:09:00Z): delete "The 2026-11-01 runs are without-series records only." from :2393; in :2410 append " (the master's reading under D1, changeable)" after "is read as the with series"; at :2405 add the :512 qualifier only if :512 carries it byte-for-byte; `diff` vs pre-copy; one cold adversary, checks (a)–(f) as in `-reduce2-worker1.md`; on PASS one auditor on DECISIONS.md blob (HEAD + entry range) + MANIFEST blob (HEAD + O4 rows, re-pointed at the committed reports) + the round-3 reports. If it fails, O4 stops again.
+2. Human: resume or rule on `ckh` (cure in the 2026-11-12 09:01Z card below, unchanged).
+3. Bead `fgd` OPEN-A1 (topology :198) and OPEN-A2 (ruleset :170): decide under D1, one short entry each, AFTER O4 lands (keeps the DECISIONS.md blob simple); broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+
+**Brief lesson (OBSERVED this run):** each cold adversary round on this entry finds one new defect; a round should also hand the adversary the prior round's ungraded observations to grade.
+
+**Questions that are Amear's (unchanged; DECISION_LOG 2026-11-12T13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase; approved values for breakers #2/#3 once real money is at stake).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3 PASSED. O2, O4 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-13 run (05:01Z–06:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `cae83dc` plus this close flush; rubric O3 LANDED (`cae83dc`) and moved to PASSED@cae83dc (in this flush); rubric O4 entry drafted, NOT landed (bead `Praxis_build-yra`, no strike); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T05:04:00Z–06:10:00Z. The cards below are unchanged.
