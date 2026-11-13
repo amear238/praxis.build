@@ -1,3 +1,30 @@
+## Resume card — 2026-11-13 run (from 13:01Z, timer prompt) — `main` = `origin/main` = `4ffce95` plus this close flush; rubric O4 LANDED (`4ffce95`) and moved to PASSED@4ffce95 (in this flush); OPEN-A1 entry drafted, NOT landed (bead `fgd`, strike 1 for that item); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T13:02:03Z–13:37:42Z and the close row after them. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; the other two claude processes (pids 801, 94216) have cwds outside this tree; `main` = `origin/main` = `52ad416`, no drift; no Amear ruling after 2026-11-12T02:41:00Z, so `ckh` not touched.
+
+**Landed (OBSERVED, pushed):**
+- `4ffce95` entry D-2026-11-13-A (backtest-vs-live breaker parity, rubric O4) + its round-3 reports + 3 MANIFEST rows. Round 3 (deletion and labels) passed its adversary; a pointer to an unfinished report was re-pointed; audit FAIL 1 on MANIFEST line numbers and two report lines (:13 and :78 of the round-3 manager report), cured, fresh audit PASS (7 of 7). Bead `yra` closed; strike ended at 1.
+- In this flush: `specs/SPEC_RUBRIC.md` O4 → PASSED@4ffce95 (filer's note under A11 + D1, as for O3). Breakers stay SPECIFIED ONLY; no with-breakers series exists until #2/#3 have approved values.
+
+**Not landed — OPEN-A1 (bead `fgd`; strike 1 of 2 for this item):** entry D-2026-11-13-B at working-tree DECISIONS.md :2417–2434 (option (a): breaker #4's cancel and confirm-flat sit inside the consumer's FLATTEN command; CONDITIONAL). Audit failed on an over-stated phrase, a missing breaker #1 gap, a row/brief conflict (both master's fault) and report S1 gaps.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. OPEN-A1 cure exactly as DECISION_LOG 2026-11-13T13:37:42Z items (i)–(iv): delete one clause at :2422, add one named gap on breaker #1 in S6, ONE fresh short evidence report from scratch (no sed-altered diffs, no `--name-only` pastes), MANIFEST rows re-pointed to it; the two `open-a1` reports stay on disk uncommitted. Commit blob = HEAD DECISIONS.md + working-tree :2417–end. One fresh audit; a FAIL is strike 2 and parks the item.
+2. Human: resume or rule on `ckh` (cure in the 2026-11-12 09:01Z card below, unchanged).
+3. OPEN-A2 (ruleset :170), after OPEN-A1 lands; broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+
+**Brief lessons (OBSERVED this run):** (1) never ask a manager to paste `git diff --cached --name-only`: the one staged evidence file's name carries a person's name; use `| wc -l`; (2) when an entry is committed as HEAD + a working-tree range, every line number in a MANIFEST row must be labelled working-tree or replaced by a paragraph name; (3) a decision row must not carry level words ("already carries") the entry will copy; (4) check that a decision row's format cap matches the brief's required sections; (5) adversary checks phrased "in the edited file" catch pre-existing HEAD content; phrase them "in the added lines".
+
+**Questions that are Amear's (unchanged; DECISION_LOG 2026-11-12T13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase; approved values for breakers #2/#3 once real money is at stake).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-13 run (09:01Z–09:30Z, timer prompt) — `main` = `origin/main` = `587101b` plus this close flush; rubric O4 entry NOT landed (bead `Praxis_build-yra`, no strike; one more defect found); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T09:03:00Z–09:09:00Z and the close row after them. The cards below are unchanged.

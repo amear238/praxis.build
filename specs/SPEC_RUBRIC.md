@@ -102,6 +102,16 @@ Block 1 was signed off as the signal path proven end-to-end. Deviation G defers
 public ingress to Blocks 4–5, untested. **Required:** one line in DECISIONS.md
 recording that the Block 1 milestone covers the internal path only.
 
+Filer's note, not a ruling: O4 is moved here out of OPEN. O4's requirement, from its text at `4ffce95` :120–122 joined with one space: "**Required:** a written statement of whether the Block 2 backtest runs with breakers applied, without them, or both — and how the Block 4 gate is satisfiable if they differ." Entry D-2026-11-13-A was committed at `4ffce95`. It states that every Block 2 run yields a without-breakers series and a with-breakers series from one trade list, that the Block 2 gates and the Block 4 gate are computed on the with series only, and the arithmetic of the Block 4 gate. The auditor graded it (DECISION_LOG 2026-11-13T13:28:34Z: checks 1–7 PASS). The rule for applying breakers #2 and #3 is CONDITIONAL with a void clause; #2 and #3 have no approved values, so no with series exists yet; all nine breakers stay SPECIFIED ONLY. The entry is the master's decision under D-2026-11-08-D D1, not Amear's words. The move is made under A11 (rubric :3–6) and D-2026-11-08-D D1 as the master's decision, changeable by Amear.
+
+### O4 — Backtest-vs-live configuration parity
+**State:** PASSED@4ffce95.
+Deviation C permits reverse-and-re-enter. Breakers #2 and #3 cap trades and end
+the session after two consecutive losers. Block 4's gate compares live to
+backtest within ±15% win rate and ±25% average trade P&L. **Required:** a
+written statement of whether the Block 2 backtest runs with breakers applied,
+without them, or both — and how the Block 4 gate is satisfiable if they differ.
+
 ---
 
 ## OPEN — gradeable now
@@ -113,13 +123,6 @@ at `~/praxis-signals/`, surfacing in Windows as `C:\Mac\Home\praxis-signals\` �
 the primary account home mounted into the VM. **Required:** either the user
 exists, or a DECISIONS.md entry records the removal and its accepted risk.
 A security requirement that stopped being mentioned is not a resolved one.
-
-### O4 — Backtest-vs-live configuration parity
-Deviation C permits reverse-and-re-enter. Breakers #2 and #3 cap trades and end
-the session after two consecutive losers. Block 4's gate compares live to
-backtest within ±15% win rate and ±25% average trade P&L. **Required:** a
-written statement of whether the Block 2 backtest runs with breakers applied,
-without them, or both — and how the Block 4 gate is satisfiable if they differ.
 
 ---
 
