@@ -1,5 +1,13 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-13 (timer run 17:00Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed (OBSERVED, pushed):** `9bf653a` where breaker #4's "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)" steps sit: inside the consumer's flatten command. The rule is conditional, with a stated condition that would void it. `661e073` whether a later version of the strategy may stop trading before 16:00 (for example at 11:30): by default no, every version trades the full day to the 16:00 flat; a later version may stop earlier only through its own written decision, made before it is built. Both are written plans only: the breakers are specified, not built or tested.
+**Waiting on Amear:** a decision on the parked R6 filing (`ckh`); his two MFFU questions; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-13 (timer run 13:01Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.

@@ -1,3 +1,30 @@
+## Resume card — 2026-11-13 run (from 17:00Z, timer prompt) — `main` = `origin/main` = `661e073` plus this close flush; topology OPEN-A1 LANDED (`9bf653a`) and ruleset OPEN-A2 LANDED (`661e073`), both bead `fgd`; `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T17:02:02Z–17:37:20Z and the close row after them. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; other claude processes: 801 and 94216 (cwds outside this tree, as before) and two Claude desktop-app sessions 61386 and 61464 (bundled 2.1.321, not on PATH, cwd `/Volumes/Sensidine/MVA-Case-Local`); `main` = `origin/main` = `b64ff1a`, no drift; no Amear ruling after 2026-11-12T02:41:00Z, so `ckh` not touched.
+
+**Landed (OBSERVED, pushed):**
+- `9bf653a` entry D-2026-11-13-B (breaker #4's cancel and confirm-flat steps sit inside the consumer's FLATTEN command; CONDITIONAL with a void clause; breaker #1 gap and alert destination named) + one fresh evidence report + 2 MANIFEST rows. The cure manager returned BLOCKED on two faults in the master's brief and its cold adversary failed checks (f) and (g) on the same two; a fix manager cured them (no second adversary); then a fresh audit PASS 9 of 9. Strike on OPEN-A1 ended at 1.
+- `661e073` entry D-2026-11-13-C (OPEN-A2: every Noise-Area arm keeps the full-day window to the 16:00 ET flat; an earlier strategy stop is allowed for a later arm only through that arm's own DECISIONS entry, written before it is built and graded under S6) + evidence report + 2 MANIFEST rows. First audit PASS 10 of 10.
+- Both are written statements only. The breakers stay SPECIFIED ONLY: none built or tested.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. Human: resume or rule on `ckh` (cure in the 2026-11-12 09:01Z card below, unchanged).
+2. Broker route: MFFU does not offer Rithmic; D-2026-11-10-B is contradicted and not re-decided. One short entry deciding under D1, or naming the D2 item if a purchase or account is involved.
+3. OPEN-T1 VM-to-webhook check (needs the VM; Amear's hands for any VM step).
+4. Rest of bead `fgd`: F-4/F-5 wait on parked `diq`; F-6 optional; F-8 not edited; residuals OPEN-F2-1 and the lockout/4:10-alert overlap.
+
+**Brief lessons (OBSERVED this run; bd memory `master-brief-rule-conflicts`):** two manager returns carried three faults in the master's own briefs: (1) a rule conflict, "no person name" vs "paste the full entry" (ruled: the rule is for third parties; the owner's name is fine); (2) not a rule conflict: a master-dictated MANIFEST row that misdescribed the edit; (3) a rule conflict, "full untrimmed diff" vs "S13 sentence once" (ruled: the once-rule counts standalone lines; diff output in a code block is fine). Test every prohibition against every required paste before dispatch, and let the manager draft MANIFEST rows. Also: an attached orchestrator-mine skill told one manager to write state files under `.claude/`; the brief forbade it and the manager followed the brief (recorded, not investigated).
+
+**Questions that are Amear's (unchanged; DECISION_LOG 2026-11-12T13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase; approved values for breakers #2/#3 once real money is at stake).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-13 run (from 13:01Z, timer prompt) — `main` = `origin/main` = `4ffce95` plus this close flush; rubric O4 LANDED (`4ffce95`) and moved to PASSED@4ffce95 (in this flush); OPEN-A1 entry drafted, NOT landed (bead `fgd`, strike 1 for that item); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T13:02:03Z–13:37:42Z and the close row after them. The cards below are unchanged.
