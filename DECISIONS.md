@@ -2340,3 +2340,26 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 **S4 timing.** Written 2026-11-13, before the work it governs: FLATTEN is unbuilt (topology :99) and no breaker is implemented (spec :196). Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-13T13:29:04Z (WHO: praxis-master).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-13 — D-2026-11-13-C: Strategy-level stop before 16:00 for a later Noise-Area arm (ruleset OPEN-A2; master under D-2026-11-08-D D1)
+
+**Status:** Decided by master under D-2026-11-08-D D1 (DECISION_LOG 2026-11-13T17:19:15Z), changeable by Amear. Not Amear's ruling. A written statement only (bead `Praxis_build-fgd`, ruleset item OPEN-A2). Not CONDITIONAL: it rests on no unobserved mechanism. Not a D2 item (no money, no live path, no breaker value, no credential).
+
+**Decision.** Option (b) of ruleset :170, with a stated default. DEFAULT: every Noise-Area arm keeps lock item (1)'s full-day window to the 16:00 ET flat. An earlier strategy-level stop (11:30 or any other time) is allowed for a later arm (the walk-forward tunables arm or the live emitter) ONLY through that arm's own DECISIONS.md entry, written before the arm is built (S4) and graded under S6 against entry D-2026-11-13-A (backtest-vs-live parity), amended breaker #4 (the 16:00 backstop, unchanged) and the Block 4 gate. The replication arm is unchanged. No arm adopts an 11:30 stop by this entry. Reasons, each the master's reading under D1, changeable by Amear: lock item (3) scopes the "FIRST build" to paper replication; Amear's V2 approval was given on the summary "flat by 16:00 ET governs", which sets a latest flat, not an earliest; the sentence "Strategies may flat earlier than 16:00 by their own rules" (proposal :24) is the proposal's text, adopted by the master. Neither that sentence nor any reading here is credited to Amear.
+
+**Sources (quoted byte-exact).**
+- Ruleset `docs/specs/2026-07-16-b2-noise-area-ruleset.md` :170 "Whether a strategy-level stop at 11:30 (a strategy rule, not a breaker) is still available to a later Noise-Area arm" and "Not chosen here."
+- Lock row `DECISION_LOG.md` :42 (stamp 2026-07-16T19:29Z; "WHO: trader (Amear) + orchestrator (session 16)"): item (1) "session-flat = 16:00 ET cash close (NOT the 11:30 PRAXIS window)"; item (3) "FIRST build = pure paper replication with FIXED params".
+- `DECISIONS.md` :2108 "flat by 16:00 ET governs; a position open at 15:00 may stay open until 16:00".
+- F2 proposal `docs/specs/2026-11-10-f2-session-flat-proposal.md`: :24 "Strategies may flat earlier than 16:00 by their own rules (for example arm (b)'s Flat1559 exit policy)"; :60 "Allowed: an earlier flat than 16:00."
+- Entry D-2026-11-13-A, "Backtest-vs-live breaker parity": "Every Block 2 run yields two series from one trade list."
+- Phase 3 spec `docs/specs/2026-11-05-phase3-build-specification.md`: :212 "clock reaches 16:00:00 ET" and "confirm flat before 4:10 PM ET (alert if not)"; :196 "SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure".
+- Rubric `specs/SPEC_RUBRIC.md` :111 "±15% win rate and ±25% average trade P&L".
+
+**S6 cross-block.** Named here, not resolved. Replication arm: unchanged; lock items (1) and (3) govern it. Arm (b): the proposal's text names its Flat1559 exit policy as an earlier flat (proposal :24, :60); this entry neither adopts nor changes it. D-2026-11-13-A parity: an earlier stop would change the one trade list from which that entry's two series are drawn. Amended breaker #4 (spec :212): its 16:00 trigger is unchanged; how an earlier strategy stop sits with it is for that arm's entry. Block 4 gate (rubric :111): how an arm with an earlier stop meets it is for that arm's entry. No ruleset row, spec text or breaker text is edited.
+
+**Limits.** No code, no spec body and no breaker value is changed. The ruleset row :170 is not edited. The nine breakers stay SPECIFIED ONLY (spec :196): zero implemented, zero tested. This entry does not touch F3 or F4.
+
+**S4 timing.** Written 2026-11-13. It governs future arm entries only: each later arm's earlier stop must be filed in that arm's own entry before that arm is built. Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-13T17:19:15Z (WHO: praxis-master).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
