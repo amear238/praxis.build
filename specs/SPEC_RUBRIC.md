@@ -94,6 +94,14 @@ never revisited.
 15:00 disposition, and breaker specs #4 and #5 are amended to match.
 **Blocks.** Block 3. Block 4 paper trading.
 
+Filer's note, not a ruling: O3 is moved here out of OPEN. O3's requirement, from its text at `cae83dc` (two lines joined with one space): "**Required:** one line in DECISIONS.md recording that the Block 1 milestone covers the internal path only." Entry D-2026-11-12-C was committed at `cae83dc`; its scope line (DECISIONS.md :2284 at `cae83dc`) opens "The Block 1 milestone signed off on 2026-07-15 covers the internal path only". The auditor graded it (DECISION_LOG 2026-11-13T05:33:00Z: checks 1–7 and S1, S2, S4, S6, S7, S8, S13 PASS). The entry records, not resolves, one cross-block gap: the Phase 3 spec's Block 1 milestone (spec :60) includes a test signal fired from TradingView, which the 2026-07-15 sign-off did not include; the sign-off itself is not re-graded and Block 1 is not re-opened. Public ingress stays untested, deferred to Blocks 4–5. The entry is the master's decision under D-2026-11-08-D D1, not Amear's words. The move is made under A11 (rubric :3–6) and D-2026-11-08-D D1 as the master's decision, changeable by Amear.
+
+### O3 — Block-1 milestone scope statement
+**State:** PASSED@cae83dc.
+Block 1 was signed off as the signal path proven end-to-end. Deviation G defers
+public ingress to Blocks 4–5, untested. **Required:** one line in DECISIONS.md
+recording that the Block 1 milestone covers the internal path only.
+
 ---
 
 ## OPEN — gradeable now
@@ -105,11 +113,6 @@ at `~/praxis-signals/`, surfacing in Windows as `C:\Mac\Home\praxis-signals\` �
 the primary account home mounted into the VM. **Required:** either the user
 exists, or a DECISIONS.md entry records the removal and its accepted risk.
 A security requirement that stopped being mentioned is not a resolved one.
-
-### O3 — Block-1 milestone scope statement
-Block 1 was signed off as the signal path proven end-to-end. Deviation G defers
-public ingress to Blocks 4–5, untested. **Required:** one line in DECISIONS.md
-recording that the Block 1 milestone covers the internal path only.
 
 ### O4 — Backtest-vs-live configuration parity
 Deviation C permits reverse-and-re-enter. Breakers #2 and #3 cap trades and end

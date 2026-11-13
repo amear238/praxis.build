@@ -1,3 +1,30 @@
+## Resume card — 2026-11-13 run (05:01Z–06:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `cae83dc` plus this close flush; rubric O3 LANDED (`cae83dc`) and moved to PASSED@cae83dc (in this flush); rubric O4 entry drafted, NOT landed (bead `Praxis_build-yra`, no strike); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T05:04:00Z–06:10:00Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; the other two claude processes (pids 801, 94216) have cwds outside this tree; `main` = `origin/main` = `0804c3e`, no drift; no Amear ruling after the 09:54:30Z park row, so `ckh` not touched.
+
+**Landed (OBSERVED, pushed):**
+- `cae83dc` entry D-2026-11-12-C (Block 1 milestone covers the internal signal path only) + its evidence report + 2 MANIFEST rows. Cure 3 changed :251 of the report and added its own Cure 3 section (416 to 491 lines). Fresh audit PASS first time (7 of 7 checks). Bead `p3l` closed; strike ended at 1.
+- In this flush: `specs/SPEC_RUBRIC.md` O3 → PASSED@cae83dc (filer's note under A11 + D1, as for F2).
+
+**Not landed — rubric O4 (bead `Praxis_build-yra`, no audit spent, no strike):** entry D-2026-11-13-A ("Backtest-vs-live breaker parity") at working-tree DECISIONS.md :2389–2416, sha256 `7f9b16a1…9908`. It decides: the Block 2 backtest yields two series from one trade list, without breakers and with #2/#3 applied after the run; gates are graded on the with series; the Block 4 gate compares paper trades to the with series; the rule is CONDITIONAL with a void clause; #2/#3 have no approved values, so no with series exists yet. All nine breakers stay SPECIFIED ONLY: none is built or tested. The first manager hit its 60-turn cap after 4 adversary FAILs; a deletion-only round cured 3 defects; its adversary failed one more at :2393 ("the version closest to live (R-VN3-5, R-1104-3)" credits Amear with a reading his words do not carry).
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. O4: one deletion-only round on :2393 (delete ", the version closest to live" and " (R-VN3-5, R-1104-3)"), `diff` against a pre-copy, one cold adversary with the same six checks (a)–(f) the reduce round used (its brief; named in the 06:10:00Z row); on PASS one auditor on DECISIONS.md blob (HEAD + working-tree entry range) + MANIFEST blob (HEAD + the O4 rows; check they name a report that is in the commit) + `docs/reports/2026-11-13-o4-reduce-manager.md` and `-reduce-worker1.md` (or the next round's reports). The five earlier O4 reports stay on disk, uncommitted. After it lands: rubric O4 → PASSED in a filer's note.
+2. Human: resume or rule on `ckh` (cure in the 2026-11-12 09:01Z card below, unchanged).
+3. Rest of bead `fgd`; broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+
+**Brief lessons (OBSERVED this run):** (1) a filing unit that drafts a long entry from many sources hits the 60-turn manager cap; cap adversary rounds at 2 and the entry at a few short paragraphs; (2) deletion-only cure rounds converge; (3) the master Bash guard reads `update-index` after `sed` as `sed ... -i`, and `2>/dev/null` or awk `>=` as redirection; use awk `NR==a,NR==b` and the Read tool.
+
+**Questions that are Amear's (unchanged; DECISION_LOG 2026-11-12T13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase; approved values for breakers #2/#3 once real money is at stake).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-13 run (01:00Z–01:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `a65987a` plus this close flush; rubric O3 entry NOT landed (bead `Praxis_build-p3l`, strike still 1; no audit spent); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T01:01:32Z–01:13:51Z. The cards below are unchanged.

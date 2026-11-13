@@ -1,5 +1,14 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-13 (timer run 05:01Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1, F2, O1, O3 PASSED; F3, F4 FROZEN (F4 NOT MET).
+**Landed (OBSERVED, pushed):** `cae83dc` the record that the Block 1 sign-off covered the internal signal path only (rubric O3), with its evidence; the rubric marks O3 passed in this close flush.
+**Not landed:** the statement on whether the backtest runs with the safety breakers (rubric O4). Drafted: the backtest produces two versions of the results, without breakers and with the trade cap and two-losers stop applied after the run; it is graded on the with-breakers version, and the paper-trading check compares against that version. This is a written plan only: the breakers are specified, not built or tested, and no with-breakers results exist yet. One phrase still credits Amear with a reading his words do not carry. Next run deletes it, then spends the audit.
+**Waiting on Amear:** a decision on the parked R6 filing (`ckh`); his two MFFU questions; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-13 (timer run 01:00Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1 PASSED@b4c3291; F2 PASSED@e3323a8; F3, F4 FROZEN (F4 NOT MET).
