@@ -2276,3 +2276,20 @@ This entry names the governing rule (Rule F2-1) and the 15:00 disposition, and r
 **S6 cross-block.** Graded line by line in `docs/reports/2026-11-12-f2-breaker-amendment-manager.md` (S6 section); nothing is edited by it. Conflicts and the other follow-ups are named there as F-1 to F-9 (its subsection "Follow-ups (named, not fixed)"); that subsection is the full list, and this entry does not restate it. Bearings: rubric O4 (breakers-on vs breakers-off backtest; #4 and #5 now share the 16:00-flat clock of the current backtests, #2 and #3 still differ; O4's question is not answered here); OPEN-F2-1 (backtest flat on the 15:59 or the 16:00 bar); the Phase 3 fallback script's "session time" threshold (:109; the line states no value) is read by this entry as 16:00 under the amended #4; Block 4 and Block 5 (live path, D2(b)).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-12 — D-2026-11-12-C: Block 1 milestone scope — internal path only (rubric O3; master under D-2026-11-08-D D1)
+
+**Status:** Decided by master under D-2026-11-08-D D1 (DECISION_LOG 2026-11-12T17:31Z), changeable by Amear. Not Amear's ruling. A scope record only.
+
+**Scope line (rubric O3).** The Block 1 milestone signed off on 2026-07-15 covers the internal path only: the locally driven path that D-2026-07-09-D names, test webhook posts through "webhook → local n8n → JSON file drop into the signals dir → Parallels VM share → NT8 FileSystemWatcher → sim bracket order"; public TradingView ingress (Deviation G, D-2026-07-09-D) was "deferred to pre-live (Block 4–5)" and is untested (rubric O3).
+
+**Sources (DECISIONS.md at a411e17).**
+- D-2026-07-09-D, heading at :133 ("n8n Runs LOCALLY on the Mac for Block-1 Build-First; Public-Ingress Topology Deferred to Pre-Live"); the path and the deferral are in its **Decision:** paragraph at :140.
+- The sign-off, heading "## 2026-07-15 — Block 1 milestone — trader sign-off" at :174, body at :175; the body records B1-a as "verified-as-DEFERRED (D-2026-07-09-D)".
+- Rubric O3, `specs/SPEC_RUBRIC.md` "## OPEN — gradeable now", "### O3 — Block-1 milestone scope statement".
+
+**Limits.** This entry records scope only. It makes no design choice, adds no test, and does not re-open or re-grade the 2026-07-15 sign-off. It does not change rubric O3's state; that move is a later master step. It does not decide where public ingress goes. Cross-reference only: `docs/specs/2026-11-10-live-signal-topology.md` (D-2026-11-10-B) :112 already says Deviation G's ingress question leaves the anchor's live path; this entry adds nothing to it.
+
+**S6 cross-block.** Touches Block 0 (Step 0.8, commit `2582531`, whose body records "Webhook->validate->file write (/tmp/praxis-signals on n8n host)"; nothing in Block 0 is re-graded), Block 1 (the reach of the 2026-07-15 sign-off), Block 2 (`docs/specs/2026-11-05-phase3-build-specification.md` :180, "When Block 1’s milestone is hit, Block 2 starts. Not before."), Block 4 and Block 5 (where D-2026-07-09-D places the deferred ingress question; nothing is moved there) and rubric F1 / the live-signal topology `docs/specs/2026-11-10-live-signal-topology.md` (:112, cross-reference only). One conflict, recorded, not resolved: the Phase 3 spec's Block 1 milestone (:60, "fire a fake signal from TradingView") includes TradingView ingress; the milestone signed off on 2026-07-15 did not; the sign-off records "Block 2 (Backtesting) entry condition now satisfied" (:175). This entry records the gap; it does not re-grade the sign-off, re-open Block 1 or stop Block 2 (decided by master under D-2026-11-08-D D1, DECISION_LOG 2026-11-12T21:41Z, changeable by Amear). Evidence: `docs/reports/2026-11-12-o3-block1-scope-evidence-2.md` (S6 section).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
