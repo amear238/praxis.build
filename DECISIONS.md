@@ -2322,3 +2322,21 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 **S4 timing.** Written 2026-11-13, before the work it governs: no with series, no breaker code and no Block 4 paper trade exists. Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-13T05:45:00Z (WHO: praxis-master).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-13 — D-2026-11-13-B: Breaker #4 cancel and confirm-flat placement (topology OPEN-A1; master under D-2026-11-08-D D1)
+
+**Status:** Decided by master under D-2026-11-08-D D1 (DECISION_LOG 2026-11-13T13:29:04Z), changeable by Amear. Not Amear's ruling. A written statement only (bead `Praxis_build-fgd`, topology item OPEN-A1). The part marked CONDITIONAL rests on a mechanism nobody has observed and carries a void clause.
+
+**Decision.** Option (a) of topology :198: amended #4's "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)" (spec :212) are both part of the FLATTEN command the consumer executes at the flat time; the consumer cancels its own working entries and reports flat or not flat. The master's reason: option (b) depends on OPEN-T3 (topology :100), which is unresolved. CONDITIONAL: this rests on the unobserved mechanism that the consumer can see and cancel its own working entry orders and read its own position; FLATTEN as an instruction type is unbuilt (OPEN-T2, topology :99). Void clause: if either is observed false, the placement is re-decided toward (b) after OPEN-T3. Named gap: where the "alert" goes is not decided here. Not a D2 item (no money, no live path switched on, no breaker value, no credential). OPEN-A2 is not decided here.
+
+**Sources (quoted byte-exact).**
+- Topology `docs/specs/2026-11-10-live-signal-topology.md`: :198 "(a) Both are part of the FLATTEN command the consumer executes at the flat time (the consumer cancels its own working entries and reports flat or not flat)." and "(b) The confirmation is a separate n8n-side check on account state, which needs the account-state feed of OPEN-T3."; :99 "EXIT / FLATTEN types, unbuilt"; :100 "Where account state (P&L, equity, fills, open position) comes from, and how fresh it must be."; :61 "Its "close positions" action: the emitter's own time exit posted as a FLATTEN signal, plus the FLATTEN command from n8n at the gate time."; :58 "Its "cancel all, flatten" action: n8n writes a FLATTEN command file that the consumer executes"; :106 "D8(8): the final step of this build is a Block 4 paper pass on MFFU sim; Block 5 live is a separate sign-off."
+- Phase 3 spec `docs/specs/2026-11-05-phase3-build-specification.md`: :212 "cancel working entry orders, send market orders closing all system positions, confirm flat before 4:10 PM ET (alert if not)"; :196 "SPECIFIED ONLY — zero implemented, zero tested, zero tested under failure."
+
+**S6 cross-block.** Block 3 breakers and topology: the two #4 actions at spec :212 are placed inside FLATTEN, the same command topology :61 names for #4's "close positions" action; no topology row and no spec text is edited. OPEN-T2 (topology :99) stays open; under (a) the FLATTEN type it names is where both actions would live. OPEN-T3 (topology :100) stays open; option (b) waits on it under the void clause. Block 4 paper (topology :106): no Block 4 text is changed. Named gap: breaker #1's "cancel all, flatten" action (topology :58) is specified as a FLATTEN command file the consumer executes; whether #1's flatten carries the cancel and confirm-flat steps placed here for #4 is not decided here. Nothing else is edited.
+
+**Limits.** No code, no spec body and no breaker value is changed. The nine breakers stay SPECIFIED ONLY (spec :196): zero implemented, zero tested. This entry does not touch F3 or F4.
+
+**S4 timing.** Written 2026-11-13, before the work it governs: FLATTEN is unbuilt (topology :99) and no breaker is implemented (spec :196). Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-13T13:29:04Z (WHO: praxis-master).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
