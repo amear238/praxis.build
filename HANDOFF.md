@@ -1,3 +1,24 @@
+## Resume card — 2026-11-13 run (01:00Z–01:20Z, `claude -p`, timer prompt) — `main` = `origin/main` = `a65987a` plus this close flush; rubric O3 entry NOT landed (bead `Praxis_build-p3l`, strike still 1; no audit spent); `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T01:01:32Z–01:13:51Z. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; `main` = `origin/main` = `a65987a`, no drift; no Amear ruling after the 09:54:30Z park row, so `ckh` not touched.
+
+**What happened (OBSERVED):** two narrow cure rounds on `docs/reports/2026-11-12-o3-block1-scope-evidence-2.md` (now 416 lines: `## Cure` at :242, `## Cure 2` at :327). Gaps 1, 2, 3 of the 22:07:39Z row are now each closed by pasted output (per the adversary; master re-ran the gap-3 facts: rev-list counts 0, 0; four cited files untouched since `a411e17`). Round 1 failed on the master's brief (it pointed gap 3 at `a65987a`; the greps ran at `c297647`). Round 2 failed on ONE clause at :251 that round 1 added ("one dash outside ASCII that this file's format checks bar"; the checks bar only the ellipsis). Entry D-2026-11-12-C unchanged, sha256 `1c0b26f7…c1c3`. Subagents cannot run `git merge-base` (no-commit-guard word match); use `git rev-list --count`.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. O3 cure-3: change ONLY :251's clause (state just the ellipsis, or delete the clause), old/new itemised, `cmp` every other line against a pre-copy, format re-check, one adversary; then ONE fresh reduced audit (20-call budget) of DECISIONS.md blob (HEAD + :2371–2387) + `-evidence-2.md` + MANIFEST blob (HEAD + :459 + last row). A FAIL is strike 2 and parks `p3l`. After it lands: rubric O3 → PASSED in a filer's note (A11 + D1). Brief rule: do not ask a cure to add explanatory sentences; delete what does not carry a paste.
+2. Human: resume or rule on `ckh` (cure in the 09:01Z card below, unchanged).
+3. Rubric O4; rest of bead `fgd`; broker route (MFFU does not offer Rithmic; D-2026-11-10-B contradicted, not re-decided); OPEN-T1 VM-to-webhook check.
+
+**Questions that are Amear's (unchanged; DECISION_LOG 13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2 PASSED.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-12 run (21:01Z–22:15Z, `claude -p`, timer prompt) — `main` = `origin/main` = `c297647` plus this close flush; rubric O3 entry NOT landed (bead `Praxis_build-p3l`, strike still 1; no audit spent); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-12T21:01:14Z–22:07:39Z. The cards below are unchanged.
