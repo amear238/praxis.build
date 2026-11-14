@@ -1,3 +1,84 @@
+## Resume card — 2026-11-14 Hermes-started run (from 09:00Z) — `main` = `origin/main` = `bdb63b7` plus this close flush; first handoff step 2 is DONE (units a, b, c); BUILDS PAUSED until three strategy contenders (D-2026-11-13-D ruling 2); next is the strategy search loop; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-14T09:05:00Z onward. The 02:1xZ card below was written by the previous session for a flush that did NOT land (its auditor left no verdict); this flush carries that card, its STATUS block, its ledger rows and its reports.
+
+**Session start (OBSERVED):** `claude --version` 2.1.325; one binary, `/Users/admin/.local/bin/claude` (listed three times by `which -a`: duplicate PATH entries); `main` = `origin/main` = `9a18fde`; no git lock; no other Claude session on this tree.
+
+**Landed (OBSERVED, pushed):**
+- `bdb63b7`: step 2(c) filing. 29 older evidence files (25 reports, 4 Hermes VM replies of 2026-11-10) that the dirty-tree sort marked owner-clear, with 29 MANIFEST rows. 11 old reports got a filer's note plus the standard limitation line appended; their text is otherwise unchanged. Audit PASS 8 of 8. It took three manager rounds: the first hit its turn limit with no report; a finisher reverted one append that would have doubled the limitation line; a trim removed three files.
+- This flush: the ledger rows from 2026-11-13T19:40Z on (the parked 13:44Z-17:43Z rows stay out), 26 reports dated 2026-11-14 with MANIFEST rows (held out: `docs/reports/2026-11-14-dirty-tree-cna-filing-worker1.md`, limitation line twice; and the flush's own two reports, written after its snapshot), this card, the previous 2026-11-14 card, and both STATUS blocks.
+
+**Held out of `bdb63b7` (on disk, untracked; decided by master under D1):**
+- `docs/reports/2026-10-28-review-note-delivery.md`: carries email addresses.
+- `docs/reports/2026-11-12-o3-block1-scope-correction-1-manager.md`, `-correction-2-manager.md`, `-evidence.md`: the earlier exclusion rows give content reasons (unchecked cures; adversary FAIL with 7 defects).
+- `docs/reports/2026-11-13-o3-cure3-manager.md`, `2026-11-13-o4-parity-worker2.md`, `-worker3.md`: each carries the limitation line twice in its own text.
+- Everything the sort classed UNCLEAR stays where it is (sort report, table at :9-:56).
+
+**Parked, not resumed this run (a human resumes):** close flush `Praxis_build-gfx` (its 2026-11-13 17:00Z card, STATUS block and 13:44Z-17:43Z rows stay in the working tree only); rep-name sweep `Praxis_build-c2w`; also `ckh` and `diq` as before.
+
+**Next, in order (decided by master under D1):**
+1. Hermes: resume handoff step 4. Create `praxis-search-loop`, send Amear the one Telegram asking for the $4.68 commission, and run one candidate per run under D-2026-11-13-D and -E. Builds stay paused.
+2. Each loop report states its fill resolution (Standard, 1-minute bars) before the run and carries the limitation line. F3 is FROZEN; whether loop backtests are downstream of `4uu` is ungraded.
+
+**Questions that are Amear's (listed, not answered; unchanged from the card below):**
+- `ckh`, `diq`, `gfx`: resume or leave parked.
+- The unaudited live SubagentStop closer hook (`43n`).
+- The name-bearing files (`c2w`), and `dj2`.
+- The six D-2026-11-13-D/E points in the card below.
+
+**For Amear's hands:** set the NT8 commission to $4.68 round trip (2.34 on each PRAXIS row). D2 items unchanged.
+
+**Brief lessons (OBSERVED this run):**
+1. A manager asked to classify 36 files and run its own adversary used all 60 turns. Split classification from staging, or budget about 20 files per manager.
+2. The commit gate refuses `;` `&` `|` `<` `>` on any line of a multi-line commit message. Write messages with full stops and commas.
+3. An "append if the last line is not X" rule must first count every standalone X line in the file.
+4. The master's estimated stamps ran ahead of the clock. Read `date -u` before each row.
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-14 interactive run (2026-11-13 19:40Z to 2026-11-14 02:1xZ) — `main` = `origin/main` = `9a18fde` plus this close flush; BUILDS PAUSED until three strategy contenders (D-2026-11-13-D ruling 2); read THIS card first, then `docs/reports/2026-11-14-hermes-resume-0400.md`
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T19:40:54Z to 2026-11-14T02:08:10Z and the close rows after them. The parked 17:00Z card below (bead `gfx`) is NOT committed by this flush. It stays in the working copy for a human to resume.
+
+**Landed (OBSERVED, pushed):**
+- `9ff8a48`: the four 2026-11-13 Claude.ai channel files (Gemini and Kimi research, session close, VM queue T1-T3) and their evidence.
+- `b1815d2`: the strategy-review evidence index (manager and w1-w7), the voice handoff, the channel's Hermes handoff (`docs/reports/2026-11-13-hermes-handoff-strategy-search.md`) and five research-filing reports, plus 15 MANIFEST rows. Audit PASS on the second auditor; the first hit its turn limit with no verdict.
+- `9a18fde`: D-2026-11-13-D, Amear's evening rulings (WHO: amear, REPORTED BY the channel). Peer-review screen removed; builds paused until three contenders; search loop in Claude Code; trade-count gap (09:30 vs 08:30); the in-VM rule still binds agents. Also D-2026-11-13-E, the contender bar and overfitting guard, PROPOSED BY the channel and adopted under D1. Audit PASS.
+- This flush: this run's ledger rows, 19 2026-11-14 reports with their MANIFEST rows, this card, and the STATUS block.
+
+**Hermes (REPORTED BY Amear, from Hermes's own reply pasted in session):**
+- The build timer `praxis-build-loop` is paused (OBSERVED in `~/.hermes/cron/jobs.json`: `paused_at` 2026-11-13T20:21:56-05:00).
+- A one-shot job `praxis-resume-0400` (cb148651f6c1) runs at 04:00 ET 2026-11-14. It runs `~/.hermes/scripts/praxis-resume-0400.sh`, which has a lock and a done-marker (OBSERVED). The script kills this session, which Amear approved (DECISION_LOG 2026-11-14T01:25:40Z), starts one fresh session to finish filing, and then creates the 4-hourly `praxis-search-loop`.
+
+**Next, in order (for the 04:00 ET session; decided by master under D1):**
+1. File any 2026-11-14 report or ledger row this flush did not carry: rows written after its blob was built, and the flush's own reports.
+2. The dirty-tree sort (`docs/reports/2026-11-14-dirty-tree-sort-manager.md`) found 0 CLEAR-FILE items and 36 CLEAR-BUT-NEEDS-AUDIT reports plus 4 MANIFEST rows (its tallies at :60-:63). File them as one unit with its own audit, but only where the master's earlier exclusion rows no longer apply (the sort's list at :312).
+3. Build any blob from HEAD plus hunks, never from the working file. The working-tree ISSUE_REGISTER :63 and the F4 filing report lack de-identification edits HEAD carries (sort :301).
+4. Then the strategy search loop, per D-2026-11-13-E and the channel handoff step 4. Builds stay paused.
+
+**Questions that are Amear's (listed, not answered):**
+- From the sort (:304-:310): resume or leave parked `ckh`, `diq` and `gfx`; whether the unaudited live SubagentStop closer hook (`scripts/dispatch-log-close.sh`, bead `43n`) stays registered; how to handle the files that carry the rep's name (bead `c2w`); `dj2`.
+- From D-2026-11-13-D/E:
+  - whether the loop's new-strategy backtests are downstream of `4uu` under FROZEN F3;
+  - `ckh`'s two ideas through the loop or through `ckh`;
+  - whether the VM Claude Code session may run again;
+  - test 2a's 1,190-trade reference under R1;
+  - the cost basis for the 1 MNQ drawdown;
+  - which beads "all builds" covers.
+
+**For Amear's hands (not questions):** set the NT8 commission to $4.68 round trip (2.34 on each PRAXIS row). D2 items are unchanged.
+
+**Brief lessons (OBSERVED this run):**
+1. Three managers at once filled the 8-subagent limit. Two adversary or auditor spawns were refused, and one manager lost its step E. Run one manager at a time when it needs workers.
+2. Auditors have a 30-turn limit. Brief them to batch their checks into scripts.
+3. A manager's Write of its own report can be refused. The master may file the inline return verbatim, with a filer's note.
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-13 run (from 13:01Z, timer prompt) — `main` = `origin/main` = `4ffce95` plus this close flush; rubric O4 LANDED (`4ffce95`) and moved to PASSED@4ffce95 (in this flush); OPEN-A1 entry drafted, NOT landed (bead `fgd`, strike 1 for that item); `ckh` still PARKED; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T13:02:03Z–13:37:42Z and the close row after them. The cards below are unchanged.

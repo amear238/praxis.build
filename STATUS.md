@@ -1,5 +1,26 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-14 (Hermes-started run from 09:00Z) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting). Builds stay paused until three strategy contenders exist. F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed (OBSERVED, pushed):** `bdb63b7`: 29 older evidence files from the dirty working tree, with their MANIFEST rows. 7 others are held out and listed in HANDOFF. This flush files the ledgers, the 2026-11-14 reports and the cards. The first handoff's filing step is done.
+**Next:** Hermes starts the 4-hourly strategy search loop.
+**Waiting on Amear:** the NT8 commission set to $4.68 (hand step); decisions on parked `ckh`, `diq` and `gfx`; the questions listed in HANDOFF; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-14 (interactive run, 2026-11-13 19:40Z to 2026-11-14 02:1xZ) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting). **Builds are paused until three strategy contenders exist** (D-2026-11-13-D ruling 2, Amear's words). The strategy search loop runs instead (D-2026-11-13-E bar, PROPOSED BY the channel). F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed (OBSERVED, pushed):**
+- `9ff8a48`: the channel's strategy research and VM queue results.
+- `b1815d2`: the strategy-review evidence index and both handoffs.
+- `9a18fde`: Amear's evening rulings (no peer-review screen; build pause; loop in Claude Code) and the proposed contender bar.
+**Next:** Hermes resumes at 04:00 ET. It closes this session (Amear approved) and finishes the filing, then the 4-hourly search loop starts.
+**Waiting on Amear:** the NT8 commission set to $4.68 (hand step); decisions on parked `ckh`, `diq` and `gfx`; the questions listed in HANDOFF; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-13 (timer run 13:01Z) — short status by praxis-master
 
 **Phase:** unchanged — Block 2 (Backtesting). F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
