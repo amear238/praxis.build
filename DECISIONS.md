@@ -2363,3 +2363,163 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 **S4 timing.** Written 2026-11-13. It governs future arm entries only: each later arm's earlier stop must be filed in that arm's own entry before that arm is built. Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-13T17:19:15Z (WHO: praxis-master).
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-13 — D-2026-11-13-D: Amear's rulings of the 2026-11-13 evening (research screen, build pause, search loop in Claude Code, trade-count gap, in-VM rule). Filed WHO: amear, REPORTED BY the Claude.ai channel.
+
+**Status:** WHO: amear, REPORTED BY the Claude.ai channel. What is Amear's: his words, quoted below by script (handoff :9, :13-:15). The numbered rulings (1)-(5) are the channel's wording of those words (handoff :41-:45; DECISION_LOG.md:944 cites them as "The rulings as the handoff lists them at :40-:45"). Any sentence in that wording that goes beyond his quoted words is the channel's, not his. Examples: ruling 4's "it does not change Noise-Area's status", ruling 5's "The VM agent stays Hermes over SSH", and ruling 1's "every brief since April". Approval in the master session: DECISION_LOG.md:942 records his typed "go from here ..." (quoted below). That row's own reading of it is "Amear approves Hermes killing it". That the approval also covers filing these rulings is the master's reading, stated in the REPORTED BY field of DECISION_LOG.md:944 ("which Amear pasted into this session and then approved here"), not his words. Every reading, bearing, finding and cross-block note below is the filer's (praxis-manager for the master, under D-2026-11-08-D D1), changeable by Amear, and not his ruling. The contender bar and the overfitting guard are not in this entry. They are D-2026-11-13-E, PROPOSED BY the channel.
+
+**Authority:** DECISION_LOG.md:944 (row 2026-11-14T01:28:05Z, WHO: amear, REPORTED BY the Claude.ai channel), with :942 (row 2026-11-14T01:25:40Z, WHO: amear) and :943 (row 2026-11-14T01:27:05Z, praxis-master). At filing, all three rows sit in the working copy, after the 921 lines of DECISION_LOG.md at HEAD `b1815d2`. Amear's words in the master session, copied by script from DECISION_LOG.md:942: "go from here and give me a handoff for hermes to resume at 4am tomorrow oncethe run here is over. include fore it to kiill this session and that i have approved". Source: `docs/reports/2026-11-13-hermes-handoff-strategy-search.md` (called the handoff below). The Claude.ai channel wrote it at 2026-11-14T01:20Z. It is committed in `b1815d2` (unit `2026-11-14-strategy-review-filing`), byte-identical to the copy these quotes were taken from. Its line numbers are cited as `handoff :N`. S5: the ledger append at DECISION_LOG.md:944 is the authorisation record. A ruling the channel reports is recorded here, not proven given.
+
+**Amear's words, typed.** In the Claude.ai channel, 2026-11-14T01:16Z (2026-11-13 20:16 ET). Copied by script from handoff :9 (`sed -n 9p`), byte-identical:
+
+```text
+> "Just rewrite the handoff. I'm going to give it to the Hermes agent, instruct it to kill whatever open sessions there are under Praxis Master, and commit everything we discussed. I also want it to run a loop of looking into non-discretionary strategies. I want to remove the guardrails of peer-reviewed, since we would be able to backtest over the last 5 years of data. So the restriction of it being peer-reviewed is no longer a criteria that's needed. Have the loop run within Claude Code, and also instruct the Hermes agent to pause all builds until there's 3 contenders for the strategy."
+```
+
+**Amear's words, voice.** Earlier the same evening, by voice in the channel. Copied by script from handoff :13-:15 (`sed -n 13,15p`), byte-identical. The voice quotes are transcribed, so the wording may be slightly off (handoff :11). The lead-in text before each quote is the channel's.
+
+```text
+- On why the 2026-11-13 VM run had 1,173 trades and the 2026-11-01 hand run had 1,190: "yesterday I basically changed the parameters so that it only trades from 9:30 a.m. onwards, right at the New York Open. And the back tests from November the first had the open via 8:30 a.m."
+- On Claude Code being on the VM: "I just manually put it in there." Then: "I didn't lift it. ... that still exists." And: "Or if I determine that I will bypass the rules. Those rules are for you, not for me."
+- On the other session: "The other session did stop. It's just, oh, I just didn't actually officially close it."
+```
+
+**The rulings.** Copied by script from handoff :41-:45 (`sed -n 41,45p`), byte-identical. This is the channel's wording of his rulings, not his words. Only the parts that his quotes above carry are his.
+
+```text
+   1. **Research screen changed.** Strategy research no longer requires peer-reviewed evidence. In-house backtesting over the five-year data set is the filter instead. This changes the research standard every brief since April has used ("published, peer-reviewed evidence on NQ after 2018"). Indicator-based strategies are now in scope.
+   2. **Builds are paused** until three strategy contenders exist (see step 3).
+   3. **The search loop runs in Claude Code** (see step 4).
+   4. **The trade-count gap is explained.** The 2026-11-13 VM runs trade from 09:30 ET. The 2026-11-01 hand runs used an 08:30 open. This bears on R1's re-run clause (DECISIONS.md :1551-:1555) for the three 2026-11-01 Noise-Area runs. Record the bearing; it does not change Noise-Area's status.
+   5. **The 2026-10-28 rule still stands for agents** (DECISIONS.md :1010). Amear put Claude Code on the VM by hand, and that was his own act, not a lift of the rule. His words: "Those rules are for you, not for me." No agent runs Claude Code inside the VM. The VM agent stays Hermes over SSH (D-2026-11-10-C, :2076).
+```
+
+**Cited DECISIONS.md lines, HEAD text.** Each was checked with `git show HEAD:DECISIONS.md | sed -n 'Np'`. Lines 1-2279 are the same in HEAD and the working copy.
+- :1010 (D-2026-11-06-A, Item 2), cited by ruling 5 as "the 2026-10-28 rule":
+
+```text
+- **Item 2 — in-VM automation.** The "Oct 28 ruling" is ruling (1) of `docs/reports/2026-10-28-voice-session-notes.md:7` (untracked file), "The in-VM automation approach is dropped. No more Cowork or in-VM Claude Code executor work.", taken onto the ledger at DECISION_LOG `2026-10-30T21:36:00Z` (WHO: amear). (filer's identification) DECISIONS.md has no entry for it. In his words it is "lifted COMPLETELY once two tests pass; until then it stands." How far "COMPLETELY" reaches beyond that ruling is not stated (NEEDS AMEAR 6). The two tests:
+```
+
+- :1551-:1555 (D-2026-11-08-A, R1), cited by ruling 4 as "R1's re-run clause":
+
+```text
+R1  RTH = 09:30–16:00 ET (answers §4 item 1, B1). Arms (a) and (b)
+    anchor at the 09:30 ET cash open. VM step 0 reads the live
+    "CME US Index Futures RTH" template hours (T7 readback). If the
+    live template starts 08:30 ET, the 2026-11-01 baselines are
+    suspect and are re-run at 09:30 ET before either arm counts.
+```
+
+- :2076 (the heading of D-2026-11-10-C), cited by ruling 5 for "The VM agent stays Hermes over SSH". Its HEAD text, quoted inline so the copy is not read as a heading: `## 2026-11-10 — D-2026-11-10-C: VM agent = Hermes over SSH (settlement 3 changed; master under D1)`
+
+Each citation says what the handoff says it does. :1010 states the 2026-10-28 ruling and its lift condition ("lifted COMPLETELY once two tests pass; until then it stands."). :1551-:1555 holds R1's re-run clause. :2076 names Hermes over SSH as the VM agent.
+
+**Ruling 1: research screen.** Amear's words: "the restriction of it being peer-reviewed is no longer a criteria that's needed" (handoff :9). Where the record wrote the old screen down (the filer's search, OBSERVED; commands and output are in the unit report):
+- No DECISIONS.md entry and no rubric line states it. `git grep -n -i -E 'peer.?review|post-2018|after 2018' HEAD -- DECISIONS.md specs docs/specs` returns 0 lines.
+- Tracked: `docs/reports/2026-11-08-strategy-filter-audit.md` :57 "| A4 | Post-2018 / algo-impact survival |" and :58 "| A5 | Source tiering (peer-reviewed or institutional; no course sellers) |". Both are PROPOSED filters (:4 "Every outcome below is **PROPOSED** pending Amear's approval."). A9 (DECISIONS.md:1751) files that audit only "as an input to F2".
+- Not versioned (`Redemtion/`, gitignored at `.gitignore:7`): the 2026-04-30 comeback plan, :53 "Source exclusively from peer-reviewed quantitative finance literature, institutional research, and recognized industry authorities"; and the 2026-05-06 Phase 2 search prompts, :47 "| Standalone VWAP/Bollinger reversion on NQ | **EXCLUDED** — no peer-reviewed NQ evidence post-2018 | — |" and :48 (opening gap fade, the same words).
+- The R6 design (`bf6fcc7:docs/specs/2026-11-09-r6-announcement-research-design.md`) and D7 (DECISIONS.md:1940-:1944) do not state the screen.
+
+Finding, recorded and not repaired: the handoff's phrase "published, peer-reviewed evidence on NQ after 2018" (handoff :41) is in no brief. Outside the handoff it appears only at `docs/reports/2026-11-13-voice-handoff-strategy-review.md`:62, praxis-master's 2026-11-13 paraphrase. "Every brief since April" overstates the record. The peer-review clause dates from 2026-04-30 and the post-2018 filter from 2026-05-06. The tracked 2026-11-04 brief (`docs/briefs/2026-11-04-research-briefs-tickdata-repos-poc.md`:11) lists peer-reviewed papers as one accepted source type among several. Ruling 1 stands on Amear's own words regardless. The finding concerns only the channel's description of what the old screen was. The filer reads ruling 1 as removing a screen the record never adopted as a rule, which leaves no entry to amend.
+
+**Ruling 2: builds paused.** The pause is defined at handoff :53-:55 (the channel's text). New build units stop: NinjaScript for the trading path, breakers, monitor, n8n workflows, and walk-forward runs on existing strategies. These carry on: the step 2 filing, the step 4 search loop and its backtests, ledger and close flushes, and pushes. The 4-hour build timer is stated as paused in the master's plan in DECISION_LOG.md:942 ("The 4-hour build timer stays paused."). That is REPORTED BY the master, and this unit did not observe the timer. The open beads it touches are listed below. This is the filer's reading of each bead's title and text (`bd list --status open`, `--status in_progress`, `--status blocked`, `bd ready`, `bd show`). No bead is closed or changed by this entry.
+- PAUSES: `Praxis_build-4uu` (in progress; the NinjaScript re-implementation of Noise-Area), `-zi1` (the walk-forward matrix), `-ajj` (Monte Carlo on zi1's output), `-xdr` (the monitor's reference distributions), `-btb` (blocked; consumer bracket fix, trading path), `-10i` (blocked; n8n Telegram trigger), and `-fgd` for its `_Flat1559.cs` and breaker items.
+- CARRIES ON: `-gfx`, `-37h` and `-67b` (flushes); `-c2w` and `-rpy` (filing hygiene).
+- NOT BUILD: `-fx4`, `-vu8`, `-b5z`, `-q36`, `-1tz`, `-6di`, `-aac`, `-2vu`, `-518` (emails, read-only research, investigations, VM faults, doc fixes).
+- UNCLEAR, 36 beads, among them `-ckh`, decision beads (`-2nh`, `-zyd`, `-qtk`), data plumbing (`-hlw`, `-1gd`, `-a9d`) and 20 agent-harness and guard beads. Neither his words nor handoff :53 say whether "all builds" reaches harness, guard or data work. That is not decided here.
+The pause ends when the loop records its third contender (handoff :55). Which contender goes forward is a strategy decision and stays with Amear (handoff :55). By the same line, no agent decides it.
+
+**Ruling 3: the search loop runs in Claude Code.** Amear's words: "Have the loop run within Claude Code" (handoff :9). The handoff places it "in Claude Code on the Mac" (handoff :57) and sends its backtests to the VM bridge through Hermes over SSH (handoff :64). Finding, recorded and not repaired: handoff :64 says the runs are "dispatched by Hermes over SSH as on 2026-11-13". The record of the 2026-11-13 runs names their source as "the VM Claude Code session's own report" (`docs/reports/2026-11-13-return-handoff-claude-ai-vm-queue-results.md`:5). No record shows Hermes dispatching them. The same file also says, at :29, that the `claude` command "is not installed on the VM". The filer reads that as in tension with :5's "VM Claude Code session". A missing command does not by itself show that no session ran (INFERRED).
+
+**Ruling 4: the trade-count gap.** Amear's account (handoff :13, transcribed): he "changed the parameters so that it only trades from 9:30 a.m. onwards", and "the back tests from November the first had the open via 8:30 a.m." That the 2026-11-13 VM runs are the 09:30 runs is the channel's reading (handoff :44), consistent with the tab name "PRAXIS baseline NQCONTROW 0930" and the session template "CME US Index Futures RTH 0930 ET" (vm-queue results :11, REPORTED BY Amear through the channel). Named, not resolved: R1's condition reads the "live" "CME US Index Futures RTH" template's hours. A separately named 0930 template on the VM bears on that condition. Worker 5's Batch 3 searched DECISIONS.md and docs/reports at HEAD for T7 template readbacks (output capped at 10 lines), and docs/reports/2026-11-13*.md and vm for template hours, and found no readback of hours. That this also means no readback of the 0930 template's hours exists is the filer's reading (INFERRED). Bearing on R1's re-run clause (the filer's reading, changeable by Amear):
+- R1's condition is "If the live template starts 08:30 ET". Amear's words report that the 2026-11-01 runs used 08:30. That is REPORTED BY Amear, not observed: the record holds no readback of the template's hours. T7 (DECISIONS.md:1419) reads back "commission template, backtest type, fill resolution and slippage", not hours. The other 08:30 evidence is a rescued template copy printed as `830`-`1600` (`docs/reports/2026-10-31-o78-worker4-report-adversarial.md`:208-219, REPORTED BY that worker) and the oracle fit at 08:31 (`docs/reports/2026-11-07-return-handoff-claude-ai-2.md`:61).
+- On his account, R1's clause reads as triggered. The three 2026-11-01 Noise-Area runs (`PraxisNoiseAreaBreakout` 1,190 trades, `_OppBand` 810, `_Flat1559` 1,190; `docs/reports/2026-11-01-three-strategy-results.md`:41) are then suspect, and are re-run at 09:30 ET before either arm counts.
+- The 09:30 runs on record are VM queue T1 (BandOrVWAP, 1,173 trades) and T2 (OppBand, 1,112) (vm-queue results :11-:17). They are REPORTED BY Amear through the channel, from the VM agent's own report. None is recorded as R1's re-run. `_Flat1559` has no 09:30 run ("Later, not today", vm-queue results :42). The 1,173-trade hand-run reference has no primary record in the repo.
+- "Explained" is Amear's account. No report compares the two trade lists to account for the 17-trade difference. On wording: the first and last five OppBand entries listed in that report (three-strategy results :174-:183) enter between 10:01 and 11:31, none near 08:30. So 08:30 reads as the session start the bands and VWAP anchor to, not the time of the first entry (the filer's reading).
+- Cross-block, named and not resolved: test 2a's reference is "1,190 trades / $197,327.60 on NQCONTROW SEP25, exact match" (DECISIONS.md:1087). If R1's 08:30 condition holds, that reference is one of the baselines R1 calls suspect. Whether 2a's reference changes is Amear's question.
+- Noise-Area's status is unchanged: D7 (DECISIONS.md:1943-:1944, the two lines joined with one space) "The Noise-Area baseline continues through the VM tests for the record, but a GO on MFFU is not expected from it." This entry runs, re-runs and retires nothing.
+
+**Ruling 5: the 2026-10-28 rule still binds agents.** Amear's words (handoff :14): "I didn't lift it. ... that still exists." and "Those rules are for you, not for me." No lift was found in the record. D-2026-11-06-A :1015 records "no record of either being run". The greps for a pass of tests 2a or 2b since then (DECISIONS.md at HEAD, DECISION_LOG.md, docs/reports, vm; commands and output in `docs/reports/2026-11-14-evening-rulings-worker5.md` Batch 6, :390, with its findings under Q5) found none (OBSERVED for the paths searched). D-2026-11-11-B (DECISIONS.md:2176) lifted a different limit (VM handoff §1 limit 9), for one install. Putting Claude Code on the VM was Amear's own act and is not a lift (his words: "I just manually put it in there.", "I didn't lift it."). Ruling 5 as the channel words it: no agent runs Claude Code inside the VM, and the VM agent stays Hermes over SSH (D-2026-11-10-C, DECISIONS.md:2076). Open question for Amear, not answered here (S8): the 2026-11-13 VM results came from "the VM Claude Code session" (vm-queue results :5), which he placed there by hand. Whether that session may run again, as his own act or as an agent, is his to say. The filer reads ruling 5 as binding every agent this repo dispatches (INFERRED, not his words). Named tension, not resolved: the 2026-10-28 ruling drops "The in-VM automation approach" (:1010), while Hermes, an agent, is the VM agent over SSH under D-2026-11-10-C (:2076). D-2026-11-10-C treats driving the VM over SSH as distinct from an agent inside the VM. Whether :1010's wording reaches it is Amear's to say.
+
+**S6 cross-block.** Evidence: `docs/reports/2026-11-14-evening-rulings-worker2.md` (walk-forward) and `-worker6.md` (F3, F4, beads, drawdown, commission). In brief:
+- Walk-forward spec and values (HEAD): both govern only the Noise-Area arms (spec :3). The pause stops "walk-forward runs on existing strategies", so `zi1` waits. No spec text is changed.
+- D7 and `Praxis_build-ckh`: D7 (DECISIONS.md:1940-:1943; :1942-:1943 joined with one space) says "pull R6's research (higher-win-rate, steadier-equity strategies) forward to P0" if D6 fails. `ckh`'s own text records "D-2026-11-08-D D7 fired on D6 (f10603a)" (`bd show`). `ckh` is parked ("A human resumes", `bd show`), and its D-2026-11-12-B is not at HEAD on `main`. Handoff :111 makes the two announcement ideas loop candidates. Whether they go through the loop or through `ckh`'s own design is not decided here. `ckh` stays parked and is not touched.
+- `Praxis_build-fgd`: its `_Flat1559.cs` and breaker items pause. Its spec-text items are UNCLEAR (above).
+- F3 (FROZEN): F3 is not claimed cleared. Its own text blocks "`4uu`. Everything downstream of `4uu`." `4uu` is the NinjaScript re-implementation of Noise-Area, and ruling 2 pauses it. Whether the loop's backtests of new strategies are downstream of `4uu` is an open question for Amear. This entry does not resolve it.
+- F4 (FROZEN): it blocks Block 4 and Block 5. No ruling here touches either, and none opens an order path.
+- D-2026-11-08-D D2 and D4: no D2 item is touched. D4's 4-hour timer stops for builds; the loop reuses its cadence (handoff :59).
+
+**Limits.** No bead, spec, rubric line, code file, strategy or handoff is changed. Nothing is run. F3 and F4 are not lifted. The contender bar is not adopted here (see D-2026-11-13-E). The beads marked UNCLEAR are not decided.
+
+**S4 timing.** Written 2026-11-14T01:28Z or later (UTC; 2026-11-13 ET), before the work it governs: no loop run and no contender exists, and the master reports the build timer paused (DECISION_LOG.md:942). Chain: Amear (channel, 2026-11-14T01:16Z) → DECISION_LOG 2026-11-14T01:25:40Z (WHO: amear, approval in session) → 2026-11-14T01:28:05Z (WHO: amear, REPORTED BY the Claude.ai channel).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-13 — D-2026-11-13-E: Strategy search loop contender bar and overfitting guard (PROPOSED BY the Claude.ai channel; master under D-2026-11-08-D D1)
+
+**Status:** PROPOSED BY the Claude.ai channel (handoff :71 "(PROPOSED; Amear can change it)", :83 "(PROPOSED)"). Adopted by master under D-2026-11-08-D D1, changeable by Amear. NOT Amear's ruling. No part of this entry is credited to him. The skip list and the commission rule (handoff :67-:69) are not marked PROPOSED in the handoff, and they are not in Amear's quoted words. They are filed on the same footing: channel text, adopted by the master under D1, changeable by Amear. The one hand step they name, setting $4.68 in NT8, is Amear's by the handoff's own words (:69).
+
+**Authority:** DECISION_LOG.md:944 (row 2026-11-14T01:28:05Z), copied by script: "The contender bar and the overfitting guard (handoff :71-:88) are PROPOSED BY the channel, not Amear's rulings; under D-2026-11-08-D D1 the master adopts them, and Amear can change them." DECISION_LOG.md:942 (row 2026-11-14T01:25:40Z), master plan (1)(b), copied by script: "(b) the five 2026-11-13 evening rulings appended to DECISIONS.md, filed as WHO: amear, with the contender bar and overfitting guard filed as PROPOSED BY the Claude.ai channel". The same row's item (3) says "start the strategy search loop (step 4)". It does not name the skip list or the commission rule. That it carries them, because they sit in step 4 (handoff :67-:69), is the filer's reading (INFERRED). At filing, both rows sit in the working copy, after the 921 lines of DECISION_LOG.md at HEAD `b1815d2`. Source: the handoff, as in D-2026-11-13-D.
+
+**The skip list and the commission rule.** Copied by script from handoff :67-:69 (`sed -n 67,69p`), byte-identical:
+
+```text
+**Skip** anything already backtested: the three Noise-Area arms and Last-Half-Hour Momentum. Ideas screened out earlier only because they lacked peer-reviewed evidence are back in scope, because that screen is gone. This includes gap fade, VWAP or Bollinger reversion, and opening-range breakout. The record of what came up before is in `docs/reports/2026-11-13-strategy-review-index-worker2.md` :25-:79.
+
+**Commission (hand step for Amear).** MFFU charges $4.68 round trip, but NT8 still has $2.96 set. Setting $4.68 is Amear's hand step. Send him one Telegram asking for it when the loop starts. Until it is set, label every result "screening, $2.96". **A candidate cannot become a contender until it has a $4.68 run.**
+```
+
+**The contender bar and the overfitting guard.** Copied by script from handoff :71-:88 (`sed -n 71,88p`), byte-identical:
+
+```text
+### Contender bar (PROPOSED; Amear can change it)
+
+A strategy is a contender only when all of these hold:
+
+1. Its rules are fully mechanical (step 4.2).
+2. It has a full five-year backtest at $4.68 commission.
+3. **It passes the drawdown gate at 1 MNQ for at least one MFFU account size.** The gate is in DECISIONS.md :1735-:1740: max drawdown stays below the lower of 3.2% of the account and 80% of MFFU's trailing limit. For a 50K account that is $1,600. Measure it the way the D6 check did (`docs/reports/2026-11-09-d6-drawdown-check-manager.md`), on the four-measure basis.
+4. It makes money after costs over the full period, with profit factor at least 1.10, and it also makes money in the held-out period (below).
+5. It has at least 200 trades over the five years.
+6. Its way of making money differs from the other contenders (not a variant of one already counted).
+7. An auditor that did not produce the result has checked it and passed it.
+
+**Overfitting guard (PROPOSED).** Without peer review, the main risk is finding a lucky fit. So:
+
+- Each idea is tuned only on 2021-03-08 to 2024-12-31.
+- Its rules are then frozen and run once on 2025-01-01 to 2026-07-17.
+- Allow no more than three parameter variants per idea, and log every variant tried, including the failures.
+- Walk-forward testing under the existing spec comes later, for whichever contender Amear picks.
+```
+
+**Citation checks (HEAD).**
+- The drawdown gate cited by bar item 3 as "DECISIONS.md :1735-:1740" is A4 of D-2026-11-08-B. HEAD text:
+
+```text
+A4  FLAG 4: Max-DD gate = backtest max drawdown must stay below 80%
+    of the ruled limit, i.e. below the lower of 3.2% of the MFFU
+    account size and 80% of MFFU's trailing drawdown limit. This
+    amends D-2026-11-05-A item 3 with a safety buffer for model error.
+    Evaluated against every tier row; tier pick stays Q9. Closes the
+    notes-4 DD equity-base item.
+```
+
+  The citation says what bar item 3 says, with one difference: A4 is "Evaluated against every tier row; tier pick stays Q9", while bar item 3 asks for "at least one MFFU account size". The bar is a screen for contenders, not the Block 2 gate. A4 is not changed.
+- "For a 50K account that is $1,600": 3.2% of $50,000 is $1,600, and the D6 report gives $1,600 for the Rapid, Rapid EOD, Pro and Builder 50K rows. It also gives $1,200 for Builder 50K with the add-on (`docs/reports/2026-11-09-d6-drawdown-check-manager.md`:31-:32). The handoff's $1,600 holds for every 50K row except the add-on row.
+- The D6 report path `docs/reports/2026-11-09-d6-drawdown-check-manager.md` exists at HEAD (`git cat-file -e`). "Four-measure" is its name for the values-spec §6 measure (for example :222-:224, "four-measure (values spec 6)"). That measure is taken per 63-session walk-forward window. The bar does not say how "the four-measure basis" applies over a single five-year run, or over the tune and held-out spans. Named gap, not decided here.
+
+**Named gaps and conflicts (the filer's readings, not rulings).**
+- Commission and contract size: $4.68 is the NQ round trip (DECISIONS.md:1063 "NQ $4.68, MNQ $1.90"). Bar item 2 asks for a five-year run at $4.68. Item 3 measures drawdown at 1 MNQ, which costs $1.90. The bar does not say which cost the 1 MNQ drawdown uses, or whether it comes from an MNQ run or is scaled from an NQ run (compare WF spec NEEDS AMEAR 22). Not decided here.
+- Against the Block 2 gates (the six gates at WF spec :153-:159; which arm is judged on which gates, DECISIONS.md:1556-:1558 (R2, R3) and :1746-:1750 (A7, A8)): PF 1.10 over the full period is weaker than OOS PF ≥ 1.30. 200 trades over five years is fewer than ≥ 250 OOS trades. The bar has no Sharpe gate, and its three-variant cap replaces the PBO < 0.05 test. Being a contender is not a Block 2 pass, and no gate is changed.
+- The guard against the walk-forward design: the values spec rolls 252 IS / 63 OOS / 63 step over 2021-03-08 to 2026-07-17 (values :82, :85). Running it unchanged on a contender would reuse both the tuning span and the held-out span as OOS data the idea has already seen. The WF spec governs only the Noise-Area arms (spec :3), so a contender that is not Noise-Area needs its own values, written before its walk-forward. Named, not resolved.
+- Stale gate base: WF spec :31 and values :124 still state 4%, the text from before A4. They are not edited here.
+- Run settings: the loop runs on Standard fill resolution, 1-minute bars, 2 ticks/side (handoff :64). F3's text describes the Block 2 spec as "Order Fill Resolution = High with a 1-tick resolution series, 1-tick slippage, $2.96 round-trip". The standing assumption is D-2026-10-30-A's CONDITIONAL (Standard, 2 ticks/side), and its void clause stands.
+
+**S6 cross-block.** Evidence: `docs/reports/2026-11-14-evening-rulings-worker2.md` and `-worker6.md`. F3 is FROZEN and is not claimed cleared. Whether the loop's backtests of new strategies fall "downstream of `4uu`" is an open question for Amear (see D-2026-11-13-D). F4: no item here touches Block 4 or Block 5. D2: setting the NT8 commission is Amear's hand step (:69). It spends nothing, opens no order path, sets no breaker value and installs no credential. The skip list: "the three Noise-Area arms and Last-Half-Hour Momentum" are the four 2026-11-01 strategies (three-strategy results :41). Last-Half-Hour Momentum is already retired (D-2026-11-02-A).
+
+**Limits.** No backtest is run, and no code, strategy, bead, spec or commission setting is changed. No contender exists. The bar and the guard are the channel's proposal under D1, and Amear can change them at any time.
+
+**S4 timing.** Written before any loop run, any candidate and any contender exist. Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-14T01:25:40Z and 2026-11-14T01:28:05Z.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
