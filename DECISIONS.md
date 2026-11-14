@@ -2523,3 +2523,93 @@ A4  FLAG 4: Max-DD gate = backtest max drawdown must stay below 80%
 **S4 timing.** Written before any loop run, any candidate and any contender exist. Chain: D-2026-11-08-D D1 → DECISION_LOG 2026-11-14T01:25:40Z and 2026-11-14T01:28:05Z.
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-14 — D-2026-11-14-B: Amear's restructure rulings of the 2026-11-14 voice session (R1-R9). Filed WHO: amear, REPORTED BY the voice-chat agent.
+
+**Status:** WHO: amear, REPORTED BY the voice-chat agent. Source: `docs/reports/2026-11-14-voice-notes-pivot.md` (called the notes below; untracked at filing, staged with this entry), written by the voice-chat agent from the voice session of 2026-11-14, about 09:44-10:01 ET (notes :3). Amear's words are as the voice transcript caught them, fillers included (notes :3), so the wording may be slightly off. What is not his: the bold ruling titles (notes :9, :14, :18, :26, :31, :32, :36, :41, :46; the sub-headings below shorten R4's and R9's and merge R5's and R6's), the "Meaning as confirmed back to him" (notes :22), the "Consequence (voice agent, INFERRED)" (notes :24), and the lead-in text around his quotes (for example notes :27, :42). Those are the voice agent's. Every reading below is the filer's (praxis-worker for praxis-manager, for the master under D-2026-11-08-D D1), changeable by Amear, and not his ruling. Each fenced block below is copied by script (`sed -n` of the lines named), byte-identical.
+
+**Authority:** DECISION_LOG rows 2026-11-14T14:49:30Z (WHO: amear; R1 typed in the master session, copied by script: "pause the noon search loop until I decide") and 2026-11-14T15:07:30Z (praxis-master, intake of the notes). This filing was dispatched in row 2026-11-14T15:08:00Z. At filing, these rows sit in the working copy after the 949 lines of DECISION_LOG.md at HEAD `244cfc3`. S5: the ledger append is the authorisation record. A ruling the voice agent reports is recorded here, not proven given.
+
+**R1 — Noon search loop held.** Notes :10-:11:
+```text
+> "I want it held, and I'll stop that. In time."
+Later: "stopped the loop already."
+```
+Filer's reading: the master paused `praxis-search-loop` (id `73d67fad7ec9`) at Amear's typed word (row 14:49:30Z), read back in row 14:50:10Z. The notes say he "stopped the loop already" (notes :11); the record shows the master's pause. Both are consistent with the job being paused. Not resolved further, and not re-observed by this filer.
+
+**R2 — Prop firms set aside for now.** Notes :15:
+```text
+> "let's take out prop firms uh, from the equation for now."
+```
+Filer's reading: set aside "for now"; options A and E are parked, not decided (notes :16, the voice agent's text). F4 (SPEC_RUBRIC.md :34-:35, "Written confirmation from MFFU that this specific automation pattern is permitted on a funded account", two lines joined with one space; Blocks 4-5) is NOT unfrozen or waived by R2. It stays FROZEN. The A4 drawdown gate (DECISIONS.md :1735-:1740 at HEAD) and contender bar item 3 of D-2026-11-13-E (:2482, "It passes the drawdown gate at 1 MNQ for at least one MFFU account size.") are MFFU-based. R2 bears on both; neither is amended. Whether they still apply is Amear's question (Q4).
+
+**R3 — "The cost of the trade" is the number one rule.** Notes :19-:21 and :23 (`sed -n '19,21p;23p'`; :22 is the voice agent's confirmation and is left out; :23's lead-in is the voice agent's):
+```text
+> "the maximum allowed loss for a trade, for now at least, I need it to be looked at as the cost of a trade, as in if the trade is executed, unless there's, uh, you know, let's say the the server crashes or something like that. Uh, it needs to be defined. That's the maximum allowed, uh, maximum amount that's allowed to be risked, but that's also considered the cost of the trade. That is a the biggest, the number one rule here."
+> "It doesn't have to be a dollar amount. It's uh, the percentage of the account."
+> "That's to be determined when um, we figure out. What's uh thing, but these are just a part of the rules."
+Prompted by Amear's objection: "the rules are to be predefined. And uh, that that strategy does not seem to have a predefined rule ... if some uh, news event hits ... that could mean blowing up an account."
+```
+Filer's reading: every trade has a maximum loss defined before entry, as a percentage of the account, counted as the trade's cost once it executes. The percentage is TBD and is not picked here. The reach of the exception is Q2; the balance it uses is Q3.
+
+**R4 — Recheck the tested strategies against R3.** Notes :27 and :29 (`sed -n '27p;29p'`; both lead-ins are the voice agent's):
+```text
+Accepting the voice agent's proposal: "Um, yeah, sure, we'll add that to the queue."
+Context, Amear: "the fact that this rule is missing makes me very skeptical that I've been wasting my time for quite a while now."
+```
+Filer's reading: the recheck is queued. The master dispatched unit `2026-11-14-r3-recheck` (row 15:08:00Z) for the strategies listed at notes :28. What follows from it is Q6.
+
+**R5 and R6 — Options C and D accepted.** Notes :33, then the options as `docs/reports/2026-11-14-voice-brief-pivot.md` :34-:35 stated them (the brief, staged with this entry):
+```text
+> "Uh, yeah, I accept those as you uh, suggested them."
+```
+```text
+C. **Change the lab.** Screen candidates quickly in Python on the Mac, and keep NinjaTrader only for confirming finalists. A draft rule for this exists (D-2026-11-14-A) but only on the parked branch. Amear has not ruled on it.
+D. **Change the process.** Keep the full audit gates for anything that can place an order. Use a lighter evidence standard for research screens, so a failed idea costs minutes, not a parked branch.
+```
+Filer's reading: accepted as the brief stated them (notes :34, the voice agent's text). D-2026-11-14-A exists only on branch `parked/Praxis_build-vn4` (`afa53c6`, and its origin copy), not at HEAD. That it is the starting point for R5 is the voice agent's text (notes :34), not Amear's words; the option he accepted says "Amear has not ruled on it" (brief :34). This entry does NOT adopt its text.
+
+**R7 — Max trades per session: rule exists, number set from backtest data.** Notes :37-:39:
+```text
+> "because I'm currently committing to um, uh, non-discretionary trading, which is fully automated,"
+> "the max amount of trades, I don't really know what to set to yet because I need the data. As in, once a backtest is done, we need to check. Uh, you know, over a, a span of time, what was the maximum of opportunities not successful trades max amount of opportunities that were presented in a single day and maybe average that somehow."
+> "Too early to set that number is my point."
+```
+Filer's reading: the rule exists; its number is set later from backtest data. No number is set here.
+
+**R8 — Daily loss cap: rule exists, number set later from data.** Notes :43 (:42 is the voice agent's question):
+```text
+> "Yeah, that's it's it's just a rule for the time being until uh, we can get some actual like uh, data put together."
+```
+Filer's reading: recorded as wait-for-data, as the notes record it; the other reading is open (Q1). No number is set here.
+
+**R9 — Process instructions.** Notes :47-:48:
+```text
+> "if anything seems ambiguous or not well defined, I want it to put together another brief ... that I can come back here to the voice session to answer the questions."
+> "I also want you to mention to it to create a skill ... if there's like multiple topics to be discussed, decisions ... where it would automatically give me a brief for a voice message. Or voice chat."
+```
+Filer's reading: two instructions. (a) Anything ambiguous goes back to Amear as a voice brief. (b) A voice-brief skill is created (notes :48). That it is proposed to Amear, not self-certified, is the voice agent's handoff (notes :59), not his words.
+
+**Open questions (Amear's, unanswered, S8).** Copied by script from notes :64-:69. None is answered here.
+```text
+- **Q1, R8 wording.** His "Yeah" could mean "wait for data" or agree to "a multiple of the cost of a trade." Recorded as wait-for-data. Confirm.
+- **Q2, the R3 exception.** Is a stop filled past its level by a news gap or slippage still "the cost of the trade", or a breach like a server crash? It decides how the stop is sized and tested.
+- **Q3, which balance R3 uses.** Starting balance, current balance, or high-water mark?
+- **Q4, the target account.** With prop firms out "for now", what account does testing assume: a personal cash account, and at what size? Is the MFFU F4 follow-up still worth chasing?
+- **Q5, the rest of the Floor Rule.** Hard stop time, the account drawdown kill switch, and the post-win protocol were not ruled on today.
+- **Q6, R4 outcome.** Once the recheck is done: is any of the five worth rerunning with a hard stop, or are they dropped?
+```
+
+**S6 cross-block** (the filer's readings; greps at HEAD `244cfc3` are in `docs/reports/2026-11-14-pivot-rulings-filing-worker1.md`). Conflicts are named; none is resolved; no other file is changed.
+- D-2026-11-13-D: R1 holds the search loop of ruling 3 (:2433). Row 14:49:30Z says it holds until Amear says to resume; notes :60 (the voice agent's handoff) adds "until steps 2 to 4 are done". Both leave resuming to Amear. Under ruling 2 (builds paused), whether the R9 skill counts as a build is not decided here (that entry lists harness work as UNCLEAR). The first-filter change (notes :57) alters the search loop, which ruling 2 lists as carrying on (:2426).
+- D-2026-11-13-E and A4: bar item 3 and A4 are MFFU-based (R2, above), and bar item 2's commission is the one that entry's commission rule gives as MFFU's. Not amended. Walk-forward spec and values (HEAD text): the drawdown gate base and per-window drawdown are stated against MFFU (spec :31-:32; :31 says "Revisit if a personal account is used."). R2 bears on both. Arm (a) runs with no added stop (spec :67, marked INFERRED there); arm (b)'s stop is an ATR multiple (values :51, :73), not a percentage of the account. R3 bears on both arms. Not edited.
+- Breaker #1, daily loss (Phase 3 spec `docs/specs/2026-11-05-phase3-build-specification.md` :97; `docs/specs/2026-11-10-live-signal-topology.md` :58; D-2026-11-08-A R8, "KEEP: #1 daily loss limit", :1587): R8 sets no value, so no breaker value changes. Changing one while money is at stake waits for Amear (brief :14). Breaker #2, max trades (Phase 3 spec :98; topology :59): D-2026-11-08-A R8 (:1583-:1589) redoes its value for the automated book, new values to come back as PROPOSED. R7 says the number is too early to set. Named tension, not resolved.
+- Per-trade stop in the Block specs: Phase 3 spec :54 (Block 1) names a bracket "stop-loss + take-profit" with no sizing rule; :140 (Block 5, stage C) states per-trade risk sizing as a percentage, while stages A and B (:138-:139) size by a fixed contract. R3 leaves its percentage TBD. Whether :140's value is R3's, and how R3 meets stages A and B, is Amear's to say.
+- Block 2 (Phase 3 spec :62): its backtest is NinjaTrader's Strategy Analyzer with Order Fill Resolution = High (:76), on data through the MFFU connection (:64). R5's Mac Python screens and R2 bear on both. Not edited.
+- F3 (FROZEN) is not claimed cleared. Whether R5's Mac screens are downstream of `4uu` (F3's Blocks line) is open, as D-2026-11-13-D leaves it open for the loop's backtests. F4 (FROZEN): R6 keeps the full audit gates for anything that can place an order (brief :35). No ruling here opens Block 4 or Block 5.
+
+**Limits.** No bead, spec, rubric line, code file, strategy, breaker value or cron job is changed by this entry. Nothing is run. F3 and F4 are not lifted. No percentage, trade count or loss cap is set.
+
+**S4 timing.** Written 2026-11-14T15:14:01Z, corrected 2026-11-14T15:24Z. Two acts came before it. R1's pause ran on Amear's typed word, with ledger row 14:49:30Z as its authorisation (S5) and its readback in row 14:50:10Z; this entry records it after the fact. The R4 recheck unit was dispatched in row 15:08:00Z; no result of it is used here. No DECISIONS.md entry yet records a voice-brief skill, a first-filter change or an R5/R6 research-screen standard. Resuming the loop, paused at the 14:50:10Z readback, is Amear's. Chain: Amear (voice session, notes :3) → DECISION_LOG 2026-11-14T14:49:30Z (WHO: amear, R1 typed) → 2026-11-14T15:07:30Z (intake) → 2026-11-14T15:08:00Z (dispatch).
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
