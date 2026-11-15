@@ -1,0 +1,157 @@
+{
+ "D1": {
+  "trades": 574,
+  "skipped": 0,
+  "moved_up": 237,
+  "signals": 574,
+  "net": 9729.38,
+  "pf": 1.302,
+  "win_pct": 44.8,
+  "per_year": 3.4,
+  "worst_closed_drop": 2631.41,
+  "largest_loss": -606.4,
+  "losing_run": 9,
+  "stops": 4,
+  "by_year": {
+   "2021": 1106.9,
+   "2022": 3110.0,
+   "2023": 2660.7,
+   "2024": 937.69,
+   "2025": 2586.29,
+   "2026": -672.2
+  },
+  "sha": "80406aac653f",
+  "say": "candidate 1's stop, moved up instead of skipped, 1%",
+  "A_pass": true,
+  "trailing": {
+   "first_cross": "2025-04-09",
+   "closest_room": -672.31,
+   "closest_date": "2026-03-31"
+  },
+  "shuffle": {
+   "runs": 10000,
+   "crossed": 8477,
+   "pct": 84.8,
+   "drop_1_in_20": 3918.31,
+   "drop_median": 2551.1
+  },
+  "B_pass": false,
+  "profit_per_bad_stretch": 2.48
+ },
+ "D2": {
+  "trades": 594,
+  "skipped": 0,
+  "moved_up": 0,
+  "signals": 594,
+  "net": 13024.9,
+  "pf": 1.465,
+  "win_pct": 44.1,
+  "per_year": 4.4,
+  "worst_closed_drop": 1982.4,
+  "largest_loss": -158.4,
+  "losing_run": 9,
+  "stops": 128,
+  "by_year": {
+   "2021": 664.4,
+   "2022": 4141.3,
+   "2023": 3033.0,
+   "2024": 1381.0,
+   "2025": 3379.7,
+   "2026": 425.5
+  },
+  "sha": "05254e042be5",
+  "say": "stop set by the cost, one micro, 0.25%",
+  "A_pass": true,
+  "trailing": {
+   "first_cross": "2025-04-09",
+   "closest_room": -56.8,
+   "closest_date": "2025-04-09"
+  },
+  "shuffle": {
+   "runs": 10000,
+   "crossed": 2658,
+   "pct": 26.6,
+   "drop_1_in_20": 2623.9,
+   "drop_median": 1710.3
+  },
+  "B_pass": false,
+  "profit_per_bad_stretch": 4.96
+ },
+ "D3": {
+  "trades": 595,
+  "skipped": 0,
+  "moved_up": 498,
+  "signals": 595,
+  "net": 12968.3,
+  "pf": 1.459,
+  "win_pct": 44.0,
+  "per_year": 4.4,
+  "worst_closed_drop": 1972.4,
+  "largest_loss": -158.4,
+  "losing_run": 9,
+  "stops": 138,
+  "by_year": {
+   "2021": 590.0,
+   "2022": 4165.3,
+   "2023": 2797.2,
+   "2024": 1526.1,
+   "2025": 3459.7,
+   "2026": 430.0
+  },
+  "sha": "681029eda05e",
+  "say": "day's starting level, moved up instead of skipped, 0.25%",
+  "A_pass": true,
+  "trailing": {
+   "first_cross": "2025-04-09",
+   "closest_room": -46.8,
+   "closest_date": "2025-04-09"
+  },
+  "shuffle": {
+   "runs": 10000,
+   "crossed": 2735,
+   "pct": 27.4,
+   "drop_1_in_20": 2647.5,
+   "drop_median": 1721.4
+  },
+  "B_pass": false,
+  "profit_per_bad_stretch": 4.9
+ },
+ "D4": {
+  "trades": 74,
+  "skipped": 2230,
+  "moved_up": 0,
+  "signals": 2304,
+  "net": -445.0,
+  "pf": 0.843,
+  "win_pct": 39.2,
+  "per_year": -0.2,
+  "worst_closed_drop": 1160.9,
+  "largest_loss": -127.4,
+  "losing_run": 14,
+  "stops": 19,
+  "by_year": {
+   "2021": 136.3,
+   "2022": -204.1,
+   "2023": -35.5,
+   "2024": -242.0,
+   "2025": -99.7
+  },
+  "sha": "b2540817acc0",
+  "say": "day's starting level, skipped if too far, 0.25%",
+  "A_pass": false,
+  "trailing": {
+   "first_cross": null,
+   "closest_room": 794.7,
+   "closest_date": "2024-07-03"
+  },
+  "shuffle": {
+   "runs": 10000,
+   "crossed": 6,
+   "pct": 0.1,
+   "drop_1_in_20": 1486.9,
+   "drop_median": 1035.2
+  },
+  "B_pass": true,
+  "profit_per_bad_stretch": -0.3
+ }
+}

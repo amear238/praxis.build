@@ -17,21 +17,23 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Candidate 1 (long-only intraday momentum) and four variations, tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Code and tests: `research/intraday-momentum-long/`.
+Candidate 1 (long-only intraday momentum) and eight variations, tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Code and tests: `research/intraday-momentum-long/` (`variations.py`, then `stop_distance.py` for D1-D4).
 
 | | Profit | Per year | Skipped | Survival (shuffles crossed) |
 |---|---|---|---|---|
-| Candidate 1, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail |
-| V1 tighter stop (day's starting level) | $19,993 pass | 6.5% | 7 | 100% fail |
-| V2 tighter stop, long and short | $22,445 pass | 7.2% | 11 | 100% fail |
-| V3 tighter stop, held to the close | $16,795 pass | 5.6% | 6 | 100% fail |
-| V4 tighter stop, 0.5% risk | $6,746 pass | 2.4% | 568 | 53.8% fail |
+| Candidate 1, stop at lower band, 1% | $5,317 pass | 1.9% | 1,029 | 24.5% fail |
+| V1 stop at day's starting level, 1% | $19,993 pass | 6.5% | 7 | 100% fail |
+| V4 same, 0.5% | $6,746 pass | 2.4% | 568 | 53.8% fail |
+| D1 candidate 1, stop moved up instead of skipped, 1% | $9,729 pass | 3.4% | 0 | 84.8% fail |
+| D2 stop set by the cost, one micro, 0.25% | $13,025 pass | 4.4% | 0 | 26.6% fail |
+| D3 day's starting level or the cost, nearer one, 0.25% | $12,968 pass | 4.4% | 0 | 27.4% fail |
+| D4 day's starting level, skip if too far, 0.25% | -$445 fail | -0.2% | 2,230 | 0.1% pass |
 
-None passes. At 1% risk a trade risks $500, so four losers in a row use the whole $2,000 limit, and every version has losing runs of 6 to 12. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
+V2 (long and short) and V3 (held to the close) were like V1: 100% fail. None passes both. D2 is the best yet but crossed the limit in the real order too (April 2025 sell-off). The cost of each trade grows with the balance while the limit stays $2,000. On the personal $10,000 account, 0.25% is $25, an 11-point stop on one micro: too tight to trade. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
 
 ## What is next, in order
 
-1. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
+1. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time. Candidate 1 is closed: a smaller cost for D2 would be picked from these results, and 2025-2026 has now been looked at for nine versions, so it is no longer an unseen check.
 2. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
 
 ## What waits on Amear

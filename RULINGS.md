@@ -169,3 +169,9 @@ From the voice call, handed over in his paste block:
 
 The call notes (the voice agent's words, approved by his paste): survival is "you accepted my suggestion, so the account may cross the trailing loss limit in at most 5% of the shuffled orders"; the two branches stay separate; each variation reports return as a percentage a year and skipped signals; "Don't move the bars to fit a result."
 
+
+## Stop-distance variations (2026-11-15)
+
+Pasted by Amear in the Claude Code session:
+
+> "Propose and test variations that address the stop distance. Fix every setting before each run, no tuning on results, 2025 to 2026 last. Judge each on the same two bars: profit at least double the prop maximum drawdown, and the trailing limit crossed in at most 5% of 10,000 shuffles. Also report yearly return and skipped signals. Plain English, side by side."
