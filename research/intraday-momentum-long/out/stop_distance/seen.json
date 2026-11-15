@@ -1,0 +1,90 @@
+{
+ "D1": {
+  "trades": 418,
+  "skipped": 0,
+  "moved_up": 133,
+  "signals": 418,
+  "net": 7815.29,
+  "pf": 1.389,
+  "win_pct": 46.4,
+  "per_year": 3.9,
+  "worst_closed_drop": 1791.3,
+  "largest_loss": -472.41,
+  "losing_run": 9,
+  "stops": 2,
+  "by_year": {
+   "2021": 1106.9,
+   "2022": 3110.0,
+   "2023": 2660.7,
+   "2024": 937.69
+  },
+  "sha": "d17c53335867",
+  "say": "candidate 1's stop, moved up instead of skipped, 1%"
+ },
+ "D2": {
+  "trades": 427,
+  "skipped": 0,
+  "moved_up": 0,
+  "signals": 427,
+  "net": 9219.7,
+  "pf": 1.526,
+  "win_pct": 45.9,
+  "per_year": 4.5,
+  "worst_closed_drop": 1588.9,
+  "largest_loss": -149.9,
+  "losing_run": 9,
+  "stops": 77,
+  "by_year": {
+   "2021": 664.4,
+   "2022": 4141.3,
+   "2023": 3033.0,
+   "2024": 1381.0
+  },
+  "sha": "007741b8b914",
+  "say": "stop set by the cost, one micro, 0.25%"
+ },
+ "D3": {
+  "trades": 428,
+  "skipped": 0,
+  "moved_up": 337,
+  "signals": 428,
+  "net": 9078.6,
+  "pf": 1.508,
+  "win_pct": 45.8,
+  "per_year": 4.5,
+  "worst_closed_drop": 1582.9,
+  "largest_loss": -148.9,
+  "losing_run": 9,
+  "stops": 87,
+  "by_year": {
+   "2021": 590.0,
+   "2022": 4165.3,
+   "2023": 2797.2,
+   "2024": 1526.1
+  },
+  "sha": "5cc7d9cd9a74",
+  "say": "day's starting level, moved up instead of skipped, 0.25%"
+ },
+ "D4": {
+  "trades": 71,
+  "skipped": 1575,
+  "moved_up": 0,
+  "signals": 1646,
+  "net": -345.3,
+  "pf": 0.873,
+  "win_pct": 39.4,
+  "per_year": -0.2,
+  "worst_closed_drop": 1160.9,
+  "largest_loss": -127.4,
+  "losing_run": 14,
+  "stops": 18,
+  "by_year": {
+   "2021": 136.3,
+   "2022": -204.1,
+   "2023": -35.5,
+   "2024": -242.0
+  },
+  "sha": "df58b1b24175",
+  "say": "day's starting level, skipped if too far, 0.25%"
+ }
+}
