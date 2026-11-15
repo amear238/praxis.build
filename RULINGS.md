@@ -147,3 +147,17 @@ Shown the retest (1 micro contract, $10,000 start, March 2021 to July 2026, stop
 
 Reading, not his words: Noise-Area does not pass, and the work moves to the next candidate. The other two versions were run the same way and are no better (worst drop 15% and 21%).
 
+## First candidate and how it is judged (2026-11-15)
+
+Pasted by Amear in the Claude Code session, verbatim:
+
+> "Run the first candidate from the mechanical strategy research report: long-only intraday momentum on the held NQ 1-minute data. Stop-market order at entry at the lower band, fixed-percent risk, 2 ticks of slippage per side, settings locked before the run, 2025 to 2026 kept unseen as the final check."
+
+> "Branch A, profit: total backtest profit must be at least double the prop firm's maximum drawdown, whatever that limit is. Use a 50K account with a $2,000 limit as the stand-in until a firm is chosen."
+
+> "Branch B, survival: run the account day by day under the firm's trailing loss rule, using the same $2,000 stand-in. Report whether the limit is ever crossed, and run the shuffled-order simulation to show how often it would be."
+
+> "Do not blend the two branches into one score. Amear set the Branch A bar himself. Branch B has no pass number yet: report the figures and let Amear set it."
+
+Reading, not his words: this brings a prop-firm account back as the test frame (a 50K stand-in), newer than the Nov 14 and Nov 15 rulings that set prop firms aside and used a personal $10,000 account. The research report it names was not found in the repo; the candidate was read as the noise-band breakout, long side only.
+

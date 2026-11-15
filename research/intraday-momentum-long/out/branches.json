@@ -1,0 +1,21 @@
+{
+ "A": {
+  "net": 5316.68,
+  "bar": 4000.0,
+  "pass": true
+ },
+ "B": {
+  "trailing": {
+   "first_cross": null,
+   "closest_room": 601.9,
+   "closest_date": "2022-12-29"
+  },
+  "shuffled": {
+   "runs": 10000,
+   "crossed": 2453,
+   "pct": 24.5,
+   "median_trading_days_to_cross": 139,
+   "trade_days": 249
+  }
+ }
+}

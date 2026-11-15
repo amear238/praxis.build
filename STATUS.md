@@ -17,21 +17,12 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Nothing. The Noise-Area retest is finished. Amear called the result "pathetic" (2026-11-15); it does not pass. The results, on 1 micro contract, $10,000 start, March 2021 to July 2026, the version that goes flat at 15:59, stop set at 1% of the current balance:
+Candidate 1, long-only intraday momentum, tested 2026-11-15 under Amear's two-branch instruction (50K account, $2,000 limit as a stand-in). Code and tests: `research/intraday-momentum-long/`.
 
-| Fills | Net profit | Profit factor | Worst drawdown | Largest loss |
-|---|---|---|---|---|
-| Kind (filled at the stop price) | $16,680 | 1.25 | 15.1% | $286 |
-| Stops filled at the worst price of the minute | $13,892 | 1.20 | 16.9% | $306 |
-| Every order filled at the worst price of the minute | account wiped | 0.35 | 100% | $162 |
-
-- The stop does not hurt the strategy: with no stop it made $15,161 and its largest loss was $649.
-- The profit ends when slippage reaches about 3 to 4 points per side. The tests assume half a point.
-- The worst drawdown is about 15%, three times the 5% placeholder kill switch.
-- 2021 and 2026 were close to flat. Most of the profit came in 2022 to 2025.
-- The Python engine reproduces all three NinjaTrader trade lists from 2026-11-01, trade for trade.
-- The other two versions, run the same way, are no better: $17,036 with a 14.9% worst drop, and $20,435 with a 21.5% worst drop (kind fills).
-- Code and tests: `research/noise-area-stop/`. The engine and its fill models are reusable for the next candidate.
+- **Profit (his bar: at least $4,000):** $5,317 over March 2021 to July 2026. Pass, narrowly.
+- **Survival:** the $2,000 trailing limit was never crossed in the real order of days (closest: $602 of room, Dec 2022). With the trading days shuffled 10,000 ways, it was crossed in 24.5% of them. No pass number yet; his to set.
+- **The catch:** the stop at the lower band is far from the entry, and it grows as NQ rises: about $480 per micro contract in 2021, about $1,020 in 2026. At 1% of $50,000 ($500), 1,029 of 1,344 signals were skipped as too big to take. In the unseen years it made only 33 trades and $278.
+- Earlier, Noise-Area with a real stop: does not pass ("a pathetic result", 2026-11-15). Code: `research/noise-area-stop/`.
 
 ## What is next, in order
 
