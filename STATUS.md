@@ -1,6 +1,6 @@
 # PRAXIS status
 
-Last updated: 2026-11-15, 14:20 ET.
+Last updated: 2026-11-15.
 
 ## The goal
 
@@ -17,20 +17,34 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Nothing. No strategy contender yet. The strategy search and the Hermes timer jobs were left paused by the last session (not re-checked today).
+The Noise-Area retest with a real stop. First results are in (2026-11-15), on 1 micro contract, $10,000 start, March 2021 to July 2026, the version that goes flat at 15:59, stop set at 1% of the current balance:
+
+| Fills | Net profit | Profit factor | Worst drawdown | Largest loss |
+|---|---|---|---|---|
+| Kind (filled at the stop price) | $16,680 | 1.25 | 15.1% | $286 |
+| Stops filled at the worst price of the minute | $13,892 | 1.20 | 16.9% | $306 |
+| Every order filled at the worst price of the minute | account wiped | 0.35 | 100% | $162 |
+
+- The stop does not hurt the strategy: with no stop it made $15,161 and its largest loss was $649.
+- The profit ends when slippage reaches about 3 to 4 points per side. The tests assume half a point.
+- The worst drawdown is about 15%, three times the 5% placeholder kill switch.
+- 2021 and 2026 were close to flat. Most of the profit came in 2022 to 2025.
+- The Python engine reproduces all three NinjaTrader trade lists from 2026-11-01, trade for trade.
+- Code and tests: `research/noise-area-stop/`. Not yet tested on real micro-contract data.
 
 ## What is next, in order
 
-1. Retest Noise-Area with a real stop-market order placed at entry, in fast Python on the Mac. NinjaTrader confirms only a finalist. Start with the steadier version.
+1. Finish the Noise-Area retest: test it on real micro-contract data, and check real slippage on stops.
 2. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
 3. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
 
 ## What waits on Amear
 
-1. **Backtest fill accuracy, before step 1.** The 1-minute price bars give fills that are too kind exactly where Noise-Area trades. The old rule froze backtests until that was accepted in writing. Choose: run the retest anyway and label the fills optimistic, hold the retest, or drop the rule.
+1. **The drawdown.** The strategy's worst drawdown (15%) is far above the 5% placeholder. Either the limit moves, the risk per trade drops below 1%, or this strategy does not pass.
 2. **The independent check for order code.** The settings file still blocks general-purpose helper agents. An independent check needs one. This is an agent permission, so it needs his word before any code that can place an order is checked.
 3. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
-4. **Which Noise-Area version is "steady first".** The call notes mapped it to the version that goes flat at 15:59. He did not object; not confirmed.
+
+Decided without waiting, reversible: the retest ran on 1-minute bars with kind and harsh fills, labelled as such (he was offered the choice and raised no objection). "Steady first" was taken as the version that goes flat at 15:59.
 
 ## Where things are
 
