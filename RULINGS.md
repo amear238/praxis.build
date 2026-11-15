@@ -138,3 +138,12 @@ Left as they were, his "not now": the gap-fade retest and the voice-brief skill.
 Asked whether to restart the strategy search with the cost-of-the-trade rule built in, alongside the Noise-Area retest: "Yeah."
 
 Source: `docs/reports/2026-11-15-voice-notes-restructure.md`.
+
+## Noise-Area with a real stop (2026-11-15)
+
+Shown the retest (1 micro contract, $10,000 start, March 2021 to July 2026, stop at 1% of the balance: about $16,700 net on kind fills, $13,900 with stops filled badly, worst drop about 15% from the high point, which put the account below $10,000 in late 2021):
+
+> "thats a pathetic result"
+
+Reading, not his words: Noise-Area does not pass, and the work moves to the next candidate. The other two versions were run the same way and are no better (worst drop 15% and 21%).
+

@@ -17,7 +17,7 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-The Noise-Area retest with a real stop. First results are in (2026-11-15), on 1 micro contract, $10,000 start, March 2021 to July 2026, the version that goes flat at 15:59, stop set at 1% of the current balance:
+Nothing. The Noise-Area retest is finished. Amear called the result "pathetic" (2026-11-15); it does not pass. The results, on 1 micro contract, $10,000 start, March 2021 to July 2026, the version that goes flat at 15:59, stop set at 1% of the current balance:
 
 | Fills | Net profit | Profit factor | Worst drawdown | Largest loss |
 |---|---|---|---|---|
@@ -30,19 +30,18 @@ The Noise-Area retest with a real stop. First results are in (2026-11-15), on 1 
 - The worst drawdown is about 15%, three times the 5% placeholder kill switch.
 - 2021 and 2026 were close to flat. Most of the profit came in 2022 to 2025.
 - The Python engine reproduces all three NinjaTrader trade lists from 2026-11-01, trade for trade.
-- Code and tests: `research/noise-area-stop/`. Not yet tested on real micro-contract data.
+- The other two versions, run the same way, are no better: $17,036 with a 14.9% worst drop, and $20,435 with a 21.5% worst drop (kind fills).
+- Code and tests: `research/noise-area-stop/`. The engine and its fill models are reusable for the next candidate.
 
 ## What is next, in order
 
-1. Finish the Noise-Area retest: test it on real micro-contract data, and check real slippage on stops.
-2. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
-3. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
+1. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
+2. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
 
 ## What waits on Amear
 
-1. **The drawdown.** The strategy's worst drawdown (15%) is far above the 5% placeholder. Either the limit moves, the risk per trade drops below 1%, or this strategy does not pass.
-2. **The independent check for order code.** The settings file still blocks general-purpose helper agents. An independent check needs one. This is an agent permission, so it needs his word before any code that can place an order is checked.
-3. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+1. **The independent check for order code.** The settings file still blocks general-purpose helper agents. An independent check needs one. This is an agent permission, so it needs his word before any code that can place an order is checked.
+2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
 
 Decided without waiting, reversible: the retest ran on 1-minute bars with kind and harsh fills, labelled as such (he was offered the choice and raised no objection). "Steady first" was taken as the version that goes flat at 15:59.
 
