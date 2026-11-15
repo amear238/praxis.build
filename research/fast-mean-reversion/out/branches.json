@@ -1,0 +1,27 @@
+{
+ "A": {
+  "net": -9296.3,
+  "bar": 4000.0,
+  "pass": false,
+  "per_year_pct": -3.8,
+  "skipped": 366,
+  "unseen_net": 8425.6
+ },
+ "B": {
+  "trailing": {
+   "first_cross": "2021-09-27",
+   "closest_room": -20577.0,
+   "closest_date": "2025-05-22"
+  },
+  "shuffled": {
+   "runs": 10000,
+   "crossed": 10000,
+   "pct": 100.0,
+   "worst_5pct_drop": 29556.3,
+   "trades": 809
+  },
+  "pass": false
+ },
+ "headroom": -0.31,
+ "dropped_bars": 371
+}

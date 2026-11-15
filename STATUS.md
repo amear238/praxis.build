@@ -17,20 +17,20 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Candidates tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Headroom: profit divided by the drop in the worst 5% of shuffles; both bars together need 2 or more, at any risk size. Code and tests: `research/intraday-momentum-long/`, `research/orb-5min/`, `research/half-hour-momentum/`.
+Four candidates tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Headroom: profit divided by the drop in the worst 5% of shuffles; both bars together need 2 or more, at any risk size (reported only, never used to set risk). Code and tests: `research/intraday-momentum-long/`, `research/orb-5min/`, `research/half-hour-momentum/`, `research/fast-mean-reversion/`.
 
-| | Profit | Per year | Skipped | Survival (shuffles crossed) | Headroom |
-|---|---|---|---|---|---|
-| Candidate 1, long-only momentum, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail | 2.04 |
-| V1 to V4, tighter stops, both sides, held to close, 0.5% risk | $6,746 to $22,445 pass | 2.4% to 7.2% | 7 to 568 | 53.8% to 100% fail | |
-| Candidate 2, 5-minute opening range breakout, long and short | $8,055 pass | 2.8% | 1 | 100% fail | 0.16 |
-| Candidate 3, first half hour into the last half hour, long and short | -$22,157 fail | -10.4% | 34 | 100% fail | -0.87 |
+| | Profit | Per year | Trades | Skipped | Worst losing run | Unseen 2025-26 | Shuffles crossed | Headroom |
+|---|---|---|---|---|---|---|---|---|
+| 1, long-only momentum | $5,317 pass | 1.9% | 315 | 1,029 | 10 | $278 | 24.5% fail | 2.04 |
+| 2, 5-minute opening range breakout | $8,055 pass | 2.8% | 1,348 | 1 | 19 | -$3,763 | 100% fail | 0.16 |
+| 3, first half hour into the last | -$22,157 fail | -10.4% | 1,254 | 34 | 14 | -$3,640 | 100% fail | -0.87 |
+| 4, Carver's fast mean reversion | -$9,296 fail | -3.8% | 809 | 366 | 17 | $8,426 | 100% fail | -0.31 |
 
-None passes. Candidate 2 (Zarattini and Aziz, 2023) has almost no edge after costs: profit factor 1.02, losing runs of 19, a $20,318 worst drop, $16,829 in 2021 to 2024 and -$3,763 in the unseen 2025 to 2026. Candidate 3 (Gao, Han, Li and Zhou, 2018, with a stop added) lost in every year, before costs as well as after; a close cousin (Baltussen and others, 2021) already lost $76,010 in NinjaTrader on 2026-11-01. Candidate 1's headroom of 2.04 means at about 0.77% risk it would sit exactly on both bars; that is choosing the risk after the result, so it is not counted as a pass. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
+None passes. Candidate 1's four variations also failed survival (53.8% to 100%). Candidate 4 (Carver's Strategy 27, adapted to one trade at a time with a stop, held at most to the next day's close) lost in 2022, 2023 and 2024; 521 of 809 trades ended at the stop. Its unseen years made $8,426 from a fresh $50,000; inside the full run the balance had fallen, so 366 signals cost more than 1% and were skipped. Candidates 1 to 3 charged stop slippage in their results but sized trades on the stop distance alone, so a full stop cost slightly over 1%; candidate 4 counts it in the size, as ruled. No pass or fail changes. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
 
 ## What is next, in order
 
-1. A different route, not another published intraday rule (the voice agent's caution, borne out by candidates 2 and 3). Candidate 4: Carver's fast mean reversion, every hold closed by the end of the next trading day (the voice agent's default, his to overrule). Settings fixed before the run, same bars plus headroom. Needs a loader for the overnight bars, which the data file already holds (only the regular-hours loader exists), and a shuffle of whole trades rather than days.
+1. The research shortlist is used up: its first and third entries failed, the Carver days-to-weeks system is out (no swing trading), and the gap fade and the Asim rules are parked by Amear. Next is a fresh research pass for candidates whose published record shows profit large against losing runs after costs, judged the same way.
 2. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
 
 ## What waits on Amear
