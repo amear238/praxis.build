@@ -17,27 +17,26 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Candidate 1 (long-only intraday momentum) and four variations, tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Code and tests: `research/intraday-momentum-long/`.
+Candidates tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Headroom: profit divided by the drop in the worst 5% of shuffles; both bars together need 2 or more, at any risk size. Code and tests: `research/intraday-momentum-long/`, `research/orb-5min/`.
 
-| | Profit | Per year | Skipped | Survival (shuffles crossed) |
-|---|---|---|---|---|
-| Candidate 1, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail |
-| V1 tighter stop (day's starting level) | $19,993 pass | 6.5% | 7 | 100% fail |
-| V2 tighter stop, long and short | $22,445 pass | 7.2% | 11 | 100% fail |
-| V3 tighter stop, held to the close | $16,795 pass | 5.6% | 6 | 100% fail |
-| V4 tighter stop, 0.5% risk | $6,746 pass | 2.4% | 568 | 53.8% fail |
+| | Profit | Per year | Skipped | Survival (shuffles crossed) | Headroom |
+|---|---|---|---|---|---|
+| Candidate 1, long-only momentum, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail | 2.04 |
+| V1 to V4, tighter stops, both sides, held to close, 0.5% risk | $6,746 to $22,445 pass | 2.4% to 7.2% | 7 to 568 | 53.8% to 100% fail | |
+| Candidate 2, 5-minute opening range breakout, long and short | $8,055 pass | 2.8% | 1 | 100% fail | 0.16 |
 
-None passes. At 1% risk a trade risks $500, so four losers in a row use the whole $2,000 limit, and every version has losing runs of 6 to 12. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
+None passes. Candidate 2 (Zarattini and Aziz, 2023) has almost no edge after costs: profit factor 1.02, losing runs of 19, a $20,318 worst drop, $16,829 in 2021 to 2024 and -$3,763 in the unseen 2025 to 2026. Candidate 1's headroom of 2.04 means at about 0.77% risk it would sit exactly on both bars; that is choosing the risk after the result, so it is not counted as a pass. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
 
 ## What is next, in order
 
-1. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
+1. Candidate 3, settings fixed before the run, judged on the same bars plus headroom. Proposed: the published intraday momentum of the first half hour into the last half hour (Gao, Han, Li and Zhou, 2018), flat by the close.
 2. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
 
 ## What waits on Amear
 
 1. **The independent check for order code.** The settings file still blocks general-purpose helper agents. An independent check needs one. This is an agent permission, so it needs his word before any code that can place an order is checked.
-2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out. The voice agent suggests masking the screenshot and committing the seven.
+3. **Overnight holding:** acceptable or not. The two Carver systems on the research shortlist wait on it.
 
 Decided without waiting, reversible: the retest ran on 1-minute bars with kind and harsh fills, labelled as such (he was offered the choice and raised no objection). "Steady first" was taken as the version that goes flat at 15:59.
 

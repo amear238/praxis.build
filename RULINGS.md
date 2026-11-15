@@ -169,3 +169,13 @@ From the voice call, handed over in his paste block:
 
 The call notes (the voice agent's words, approved by his paste): survival is "you accepted my suggestion, so the account may cross the trailing loss limit in at most 5% of the shuffled orders"; the two branches stay separate; each variation reports return as a percentage a year and skipped signals; "Don't move the bars to fit a result."
 
+
+## The handoff after candidate 1 (2026-11-15)
+
+Pasted by Amear in the Claude Code session, the voice agent's handoff, the block marked for the master, verbatim:
+
+> "Candidate 1 and its four variations all passed the profit bar and failed the survival bar. Do not fix this by lowering risk per trade alone, because it cuts profit by the same factor. Search for strategies whose profit is large against their worst losing runs. Keep the bars as ruled: profit at least double the maximum drawdown, and the trailing limit crossed in at most 5% of 10,000 shuffled orders, on a 50K account with a $2,000 limit as the stand-in. Fix all settings before each run and run 2025 to 2026 only after the earlier years. Report yearly return and skipped signals for each candidate. Plain English, side by side."
+
+On the Waqar Asim strategy, his words as quoted in the handoff: "I don't want to go deeper on the same rules right now." It is parked; the Gemini report stays saved.
+
+The handoff also records, in the voice agent's words: prop firms are his ideal again, and micro contracts are not required; the 5% drawdown figure was only for a personal account. Parked with the Asim strategy: the eleven research questions, and the two Carver systems until he rules on overnight holding.

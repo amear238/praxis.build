@@ -1,0 +1,28 @@
+{
+ "A": {
+  "net": 8055.3,
+  "bar": 4000.0,
+  "pass": true,
+  "per_year_pct": 2.8,
+  "skipped": 1
+ },
+ "B": {
+  "trailing": {
+   "first_cross": "2021-03-15",
+   "closest_room": -18406.5,
+   "closest_date": "2026-07-15"
+  },
+  "shuffled": {
+   "runs": 10000,
+   "crossed": 10000,
+   "pct": 100.0,
+   "median_trading_days_to_cross": 8,
+   "trade_days": 1348
+  },
+  "pass": false
+ },
+ "headroom": {
+  "worst_5pct_drop": 49621.8,
+  "ratio": 0.16
+ }
+}
