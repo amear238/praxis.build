@@ -17,12 +17,17 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Candidate 1, long-only intraday momentum, tested 2026-11-15 under Amear's two-branch instruction (50K account, $2,000 limit as a stand-in). Code and tests: `research/intraday-momentum-long/`.
+Candidate 1 (long-only intraday momentum) and four variations, tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Code and tests: `research/intraday-momentum-long/`.
 
-- **Profit (his bar: at least $4,000):** $5,317 over March 2021 to July 2026. Pass, narrowly.
-- **Survival:** the $2,000 trailing limit was never crossed in the real order of days (closest: $602 of room, Dec 2022). With the trading days shuffled 10,000 ways, it was crossed in 24.5% of them. No pass number yet; his to set.
-- **The catch:** the stop at the lower band is far from the entry, and it grows as NQ rises: about $480 per micro contract in 2021, about $1,020 in 2026. At 1% of $50,000 ($500), 1,029 of 1,344 signals were skipped as too big to take. In the unseen years it made only 33 trades and $278.
-- Earlier, Noise-Area with a real stop: does not pass ("a pathetic result", 2026-11-15). Code: `research/noise-area-stop/`.
+| | Profit | Per year | Skipped | Survival (shuffles crossed) |
+|---|---|---|---|---|
+| Candidate 1, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail |
+| V1 tighter stop (day's starting level) | $19,993 pass | 6.5% | 7 | 100% fail |
+| V2 tighter stop, long and short | $22,445 pass | 7.2% | 11 | 100% fail |
+| V3 tighter stop, held to the close | $16,795 pass | 5.6% | 6 | 100% fail |
+| V4 tighter stop, 0.5% risk | $6,746 pass | 2.4% | 568 | 53.8% fail |
+
+None passes. At 1% risk a trade risks $500, so four losers in a row use the whole $2,000 limit, and every version has losing runs of 6 to 12. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
 
 ## What is next, in order
 

@@ -161,3 +161,11 @@ Pasted by Amear in the Claude Code session, verbatim:
 
 Reading, not his words: this brings a prop-firm account back as the test frame (a 50K stand-in), newer than the Nov 14 and Nov 15 rulings that set prop firms aside and used a personal $10,000 account. The research report it names was not found in the repo; the candidate was read as the noise-band breakout, long side only.
 
+## Pass bars for every candidate (2026-11-15)
+
+From the voice call, handed over in his paste block:
+
+> "Amear set the pass bars himself: profit at least double the prop maximum drawdown, and the trailing limit crossed in at most 5% of 10,000 shuffled orders. Propose and test variations of candidate 1, each fixed before the run, and report the results side by side in plain English."
+
+The call notes (the voice agent's words, approved by his paste): survival is "you accepted my suggestion, so the account may cross the trailing loss limit in at most 5% of the shuffled orders"; the two branches stay separate; each variation reports return as a percentage a year and skipped signals; "Don't move the bars to fit a result."
+
