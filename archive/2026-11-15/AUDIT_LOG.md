@@ -87,6 +87,9 @@
 2026-07-26T16:00:18Z Praxis_build-lnb+nj1 8e6fd1d733541739bcc68cc49529b2a2d2b0d1bc44daf78f4de3b0d111180def PASS
 2026-07-26T16:30:38Z Praxis_build-fun 3c104129fc541e0101040f94c5d1a24a4f0a2ae71d8fca20dd88adac38979848 PASS
 2026-07-26T16:43:05Z Praxis_build-3fe 6bf4130c1b3f741a26ea83ba13dbbd804062f2014204da17081e7e8d74145d88 PASS
+2026-07-26T16:51:05Z Praxis_build-o3d 48e97d6694b6ddaa7be455f17aa9d12ec4afb92a4db0a359545b68d95ab3f457 PASS
+2026-08-04T20:41:17Z Praxis_build-y9c b4e43e143b068243faf450a95ab51d3e20b99fefa076043dfbb8af9a60c416f9 PASS
+2026-08-05T01:39:55Z Praxis_build-y9c b4e43e143b068243faf450a95ab51d3e20b99fefa076043dfbb8af9a60c416f9 PASS
 2026-11-06T00:49:17Z praxis-auditor:a0cd0e903edf251a4 2e08518760bafec984ff62b1936ac1fcfdbfb9815c69cd92ee22fb87c30fccf1 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-batch
 2026-11-06T15:19:35Z praxis-auditor:a9d35d34f3b18e943 18f96a96e5cb9ebb13f5fd289a117aa40e9b8e70e35823e99a4b4f96f638d918 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-flush
 2026-11-06T16:14:40Z praxis-auditor:adc7c76cad5c2a8f4 73b136e169fef7523a0cfc95b3324249b13194e5d09336ca435accfc585e1c0b PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-vnf
@@ -98,3 +101,60 @@
 2026-11-06T22:11:13Z praxis-auditor:ae788d6ed8e8b915e da8112752a690e5e71d9bc582e917634a791771903d5bef75f83096e5683f04a PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-bridge
 2026-11-06T23:00:37Z praxis-auditor:a33210336b2e0fb9b 74bcc33c9a41a099b94469599e8590a7daacf89bcb6323386b9f2103661b9314 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-vm
 2026-11-07T00:34:24Z praxis-auditor:ad6b128bcefa79252 1a0d0244bb4436004fa5097627810ece42a0eac08c0ca9591dee3de9010ae1e5 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-eve
+2026-11-07T00:39:48Z praxis-auditor:ad9c2df231b2be749 d519f6c2351adbb5f87b56607f6358dcde18d4846a9f02c37caf759633157f29 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/8eda06af-cf5e-49ca-8017-37e3b279ea79/scratchpad/commit-idx-flush2
+2026-11-07T14:00:25Z praxis-auditor:aa1025a606f6e7bce 359a2cc12826066e265336079501e683daeab13be43f1475f9366232b84f9c18 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u1
+2026-11-07T15:16:16Z praxis-auditor:a3b55f9e648b79ac4 87666173af8cea7fd3d29a1c500397a92e036f160117b419aaf76d5a3eb913f1 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u2
+2026-11-07T15:56:05Z praxis-auditor:acfa9a72651423fcb 546d47f90cad2fe7c79f6389009a2bf37a373fde81e6d9251972d624f653b570 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u4
+2026-11-07T17:57:10Z praxis-auditor:add983ce570afe89e 8dfc9012bae95704362efc5a410788a20b749bc36e5a6e5ba72861fa4ab30276 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u3a-main
+2026-11-07T18:01:18Z praxis-auditor:a44c98521dd0151fe 61e49d7ef6751ec4470209602587545f18fd6da6a6c6ddd0653532ef5059217f PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u3a-code
+2026-11-07T20:15:28Z praxis-auditor:a17e9a884947666fe 05c20a923055faeeb65b2e907827bde3f5edca2240c29e6acfb4757a7695b7ae PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u3b1
+2026-11-07T21:45:38Z praxis-auditor:a5890563a2d8e8eac fcbdeff13919383af4ff6a8347e08e6950210bcc09522e18ce23e65bc5acd03a PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u3b2
+2026-11-07T22:11:02Z praxis-auditor:a8a6aed18af8379b8 b2b9a9519c832c4b09906175bddc3c8212ea9fe6b093a9e7833deb41bdc72902 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u5
+2026-11-07T22:13:40Z praxis-auditor:a3aac848e1b19095c 1afb7539d05ac2dc1e02823c79b1dba6344cb9f93c1d00feceee49209c653a71 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/d2d7d756-0ed5-4816-acfb-8ded37620b9d/scratchpad/commit-idx-u5
+2026-11-08T15:19:40Z praxis-auditor:a4a4cf0a478647a91 257a2af1033c12d4f3ef7326b3e4ba378aea8b6c2d6f36dd915f029d90244be5 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/dac8a676-3ed6-4fca-96a1-deecc90b3c48/scratchpad/commit-idx-u1
+2026-11-08T15:51:07Z praxis-auditor:a3d48a095c11c98e3 0ee2463139eefee41a144961dd16042a93f083dc90b7c7a3f0d89a8177c817f5 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/dac8a676-3ed6-4fca-96a1-deecc90b3c48/scratchpad/commit-idx-u1b
+2026-11-08T16:10:34Z praxis-auditor:ab9dcf2ed966fde75 a6c8344d8ba176fedc2876e1966d8435c0e97f0db55307e40861bc69e3679740 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/dac8a676-3ed6-4fca-96a1-deecc90b3c48/scratchpad/commit-idx-u6
+2026-11-09T05:53:02Z praxis-auditor:a0f7894f29e3ae126 810f3153248ee94400b4c9f0c3375b2e5b74cc2bad526031ba49ff63f1a3e9cb PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/43b18d1e-d8f0-42d0-9d7c-b7acda145c1a/scratchpad/idx-cd
+2026-11-09T06:11:54Z praxis-auditor:a6939268c75bf9793 c082f98d108b2c5d7711c3406c841ac267b7b4ef384fe68f61891b78028be777 PASS index=/private/tmp/claude-501/-Volumes-Sensidine-Praxis-build/43b18d1e-d8f0-42d0-9d7c-b7acda145c1a/scratchpad/idx-d6
+2026-11-09T10:02:24Z praxis-auditor:ac96a61603a64e02d bc8cb7cdcaccb546494537627e734cef04f7b4f69d18be18017e24005fc1dce2 PASS index=/private/tmp/idx-r6-step1b
+2026-11-09T13:51:44Z praxis-auditor:a5e3595d07fd7610d bbcaeda6b126bb1ae529633905a32ff67f1ade085ae6eed12d1ed9867ba5c550 PASS index=/private/tmp/idx-d11b
+2026-11-09T14:24:34Z praxis-auditor:a2b49cddc5b4723ec e6cdc61eaa4581cb1cd8652c69eff400c1fa58e196e7523148f7378e1cdb5923 PASS index=/private/tmp/idx-rubric2
+2026-11-09T18:35:39Z praxis-auditor:a6c9dd2fa84ca0a2b dc116d22a6bddbba597a54ac38f6c13d97c83d60d989abc9218e09cdb9f6c320 PASS index=/private/tmp/idx-vmh2
+2026-11-09T18:49:19Z praxis-auditor:a58708c34e7c5826f 05241517d6cd10475409bd9a5b1c62d2c43473d3b79c76ae24bbcb47efa7fc9b PASS index=/private/tmp/idx-c7
+2026-11-09T19:19:58Z praxis-auditor:ae807da947c4ebafc 91cb559322ecd59897037682bd5086d791da92e42ef1611602ef7708a3613ff4 PASS index=/private/tmp/idx-c7fresh
+2026-11-10T06:09:28Z praxis-auditor:acc4ca79e128e374c 6614dc180e771de1823007107405bc90b1e268cb332cf474f4095be7e9c8c3aa PASS index=/private/tmp/idx-c2
+2026-11-10T07:17:22Z praxis-auditor:a1b2e23befe81a848 efe067eca9e65c4730584d2a09bd5cbc71653c045aaff01f347c47af4b6cecec PASS index=/private/tmp/idx-d9
+2026-11-10T07:34:15Z praxis-auditor:ae22777472045b5dc 2bdd6a105052b9194084a3ef23e8fa75e37d01f7f0ab8c9d242a147fb1e0aa7d PASS index=/private/tmp/idx-hk2a
+2026-11-10T09:38:54Z praxis-auditor:a7a625b031f6adea4 960b790d08d82caa741c36608b36623f25424e314e6f8ae962e6fdaf1dd48354 PASS index=/private/tmp/idx-scrub
+2026-11-10T10:23:28Z praxis-auditor:a608fdb0aa1e8a2d8 941ba86ecedb6b71ed850686c4d903d1de0ccfc8f81d185171a6a70f4429beaf PASS index=/private/tmp/idx-hk2b
+2026-11-10T13:32:36Z praxis-auditor:a636afd36a5e83688 78452ba94d69e64277792c1d144f4d98163eee5b27230f460975be3704a14371 PASS index=/private/tmp/idx-f1f2
+2026-11-10T13:46:23Z praxis-auditor:af200b6faab46e3ad 2947b9eaff03edd4f5fe30440de8f24c475d4144848f110ad94d877776aa0594 PASS index=/private/tmp/idx-f1c
+2026-11-10T18:27:31Z praxis-auditor:ab9b7136cf38ee1f4 22e516676cf3cd11c3d17a3777ac133e005358cfc4896446a1516abcb3400773 PASS index=/private/tmp/idx-f4c1
+2026-11-11T15:57:13Z praxis-auditor:a8198a382eb2cd4c5 bbd8662b38b5da6d7e84bbfb10e1452194ce43e061f0bb71321cde79d6432cc0 PASS index=/private/tmp/idx-hermes2
+2026-11-11T18:17:50Z praxis-auditor:aca057c7945d75262 946959845229ea011ac8cd2839ba9943f4830a1cb2b4f2301ba92e24a6563b47 PASS index=/private/tmp/idx-mffu1
+2026-11-11T21:06:21Z praxis-auditor:acb10163fa387a54f 2aad4eceaa34df0e4f9275eec04400a76f42498cba6de6f37814c5257bd2ef80 PASS index=/private/tmp/idx-flush1
+2026-11-12T02:24:43Z praxis-auditor:ad0b55e62919a6f34 7fd9c1036161fb674cb8a9e7573824c17bfca047936cc8a452c9a107816f58b4 PASS index=/private/tmp/idx-n1y4
+2026-11-12T05:25:40Z praxis-auditor:af11fe1bf3451655b c773a4c17e8e87a6dfad98449aa3b25f5f8ac6650da44cfa157a65bb9de1b754 PASS index=/private/tmp/idx-u2r
+2026-11-12T06:09:50Z praxis-auditor:a6d2046ac51d2637a e268a7ebb2e1abcd2ea86464ff5bf9b668a8a269db6f9a3bab0f52c5deca3190 PASS index=/private/tmp/idx-f2b
+2026-11-12T06:14:40Z praxis-auditor:af7727ec51acc0b92 b3f564757885caf6537ac3a9887c4f0f864826a7a3bd8dd2ff554bc3c5b73ad6 PASS index=/private/tmp/idx-close
+2026-11-12T13:04:24Z praxis-auditor:a99d1688dbe29f63f 5b0ff90e5389addb03791b36eda30a5049dbbbe2a4f5b4db1122bab35230a3ea PASS index=/private/tmp/idx-flush-1301
+2026-11-12T14:09:43Z praxis-auditor:a7f5359bcaf74e85b 97d1e6b6cbcf399fe33c34672eafe88f392c10e283b11ebe3711e110cf4475dc PASS index=/private/tmp/idx-fgd2
+2026-11-12T14:12:35Z praxis-auditor:a36b228505ca0c827 7dfd0d94f115da9eb2620404ac0ad25437528e403ec4104111f0bcc5b164df94 PASS index=/private/tmp/idx-close-1411
+2026-11-12T17:27:01Z praxis-auditor:a92ed8e21d14a7944 8e602e260523c3417385a5ae40864cbcc30b6f64a91aa3fbe7aa8586fd203556 PASS index=/private/tmp/idx-fgdb
+2026-11-12T18:27:00Z praxis-auditor:a2b0e8291687cc540 2f4e18c5c6e79b98d5b4a95811d44f90ae638c4fd6cba022746aa3ebe38449f2 PASS index=/private/tmp/idx-close-1700
+2026-11-12T22:10:31Z praxis-auditor:a60312acc5df060bd d1b9cf329c40fa4bb568596e984ae17f765aeb2e7e0db9b76869fe5847a8ec07 PASS index=/private/tmp/idx-close-2101
+2026-11-13T01:16:56Z praxis-auditor:a76d58db5586abca9 e3d636ad4311202bac8de6436d8f0507fbeb3bdcdbbb7632497c763a8ccc4f4a PASS index=/private/tmp/idx-close13
+2026-11-13T05:13:44Z praxis-auditor:ace91b1fb59b1b68a 5ef19c8d0cd0fa894b88e0123e57f59ffb656326bb44c508e980d29c1afcf5ba PASS index=/private/tmp/idx-o3
+2026-11-13T06:15:14Z praxis-auditor:a5353016204203d6a 6f112afa3f5bf2abdeb241bdf9a8af88553f0e59ecf87782ae589d68d19334ce PASS index=/private/tmp/idx-flush2
+2026-11-13T09:14:26Z praxis-auditor:a3b7de88749a37b22 cc1c440ffa25530b7c4536a59ca761379363985bcfff126f42e1119884e5142b PASS index=/private/tmp/idx-c0913b
+2026-11-13T13:28:02Z praxis-auditor:a8825e4c44e7ddd02 f20576358918d725bff5f08ff7ab9ee0f6749eeeeab97ad9f0ee533676fcfe81 PASS index=/private/tmp/idx-o4b
+2026-11-13T13:43:52Z praxis-auditor:a4797abd6f144fbcc 1f4d30c0bdd9465e43e387b9ea6c18d701d6c1255d1a7e6d6c4d4b26ce7bb69a PASS index=/private/tmp/idx-flush2
+2026-11-13T17:17:52Z praxis-auditor:a054a91f88cc970b0 1f25eaec35646b832825a57f5588ddb3a50a67b55178be5ca095433a91579e59 PASS index=/private/tmp/idx-oa1c
+2026-11-13T17:37:00Z praxis-auditor:ace433dccdd9ac803 17b33c5b05e10ff97ea2a32d1507bd1701bc067a012a0ca2c893bb61cdb59c96 PASS index=/private/tmp/idx-oa2
+2026-11-13T20:36:12Z praxis-auditor:ad6d272c0511e8687 552e725e4eae0d56c1b2be213d4aea45423864786730b8624cb79063aaf1385a PASS index=/private/tmp/idx-rf
+2026-11-14T01:57:48Z praxis-auditor:af040477918891e2c 31b24cc04a3af83690f950b2a1bad236107cadd497be21c86f4b97f48ead7b62 PASS index=/private/tmp/praxis-sr/idx
+2026-11-14T02:07:52Z praxis-auditor:a8711e08a160047a9 f1d1db1ca1b747f51b0059553c01d19cfb34c3dcc0556b94c0e350556547a83c PASS index=/private/tmp/praxis-rl/idx
+2026-11-14T09:48:11Z praxis-auditor:a77cae635f0561bd8 0c40cf04de45df23818561d2cf5c8ba6e121846edeb9c7d99cecb38c27d4c202 PASS index=/private/tmp/praxis-cna/idx
+2026-11-14T10:09:20Z praxis-auditor:a928f2458180ec794 e2e4ce16210e7113945fd5117f35c8f90c77c6d1d57040dbdcdf1b4515a401c1 PASS index=/private/tmp/praxis-cf2/idx
+2026-11-14T15:48:48Z praxis-auditor:a06b2ba22823e0a7a 107ed7fe4fb25fd1d0d300a63f05c9cc7830534a4005877564561f556ef51e51 PASS index=/private/tmp/praxis-pv/idx
+2026-11-14T15:53:42Z praxis-auditor:a5157761339ef6073 213c455d7ffa9218734fd7a046422b614161c5cfdf016a1334e6b6c0013f0c25 PASS index=/private/tmp/praxis-r3f/idx
