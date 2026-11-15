@@ -1,5 +1,51 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## 2026-11-15 (interactive run 3, 17:39Z-19:13Z) — short status by praxis-master
+
+**Phase:** restructure ordered by Amear (simplify the workflow; one goal: one strategy that passes backtesting on a personal $10,000 account, then the full pipeline on a sim account in live markets). A new session does the repo work. Read `docs/reports/2026-11-15-restructure-handoff.md` first.
+**Landed:** nothing. `main` = `d9fc5f0`.
+**Done this run, not committed:** the MFFU email thread captured with names withheld and audited (the permission rule graded not met); the voice briefs for the restructure call; the safe-space rule for voice calls written into the decisions file.
+**Waiting on Amear:** whether the restructure may change agent permissions (hooks and agent files); whether the frozen fill-accuracy rule is overridden, held or retired before the Noise-Area retest.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-15 (interactive run 2, 16:18Z-17:36Z) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting), restructuring under D-2026-11-14-B. Builds paused; search loop and build loop PAUSED. F3, F4 FROZEN (F4 NOT MET).
+**Landed:** nothing. `main` = `d9fc5f0`.
+**Parked:** the Noise-Area paper read Amear ordered (`parked/Praxis_build-2l3` @ `2a1a7b4`). Both audits passed the paper quotes. The second failed only because the MFFU rep's first name appeared inside file paths in the manager report. A human resumes it. The paper, in its own words, gives no hard stop (exits at the close, the opposite band, or a moving band/VWAP stop). Nothing is decided.
+**Waiting on Amear:** what to do with the paper result; MFFU's Nov 12 answers pasted; resume or leave `2l3`, `205`, `61o`, `vn4`; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-15 (interactive run, 13:25Z-16:05Z) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting), restructuring under D-2026-11-14-B. Builds paused; search loop and build loop PAUSED. F3, F4 FROZEN (F4 NOT MET).
+**Landed:** nothing. `main` = `d9fc5f0`.
+**Parked:** Amear's 2026-11-15 rulings filing D-2026-11-15-A (`parked/Praxis_build-205` @ `199e6e6`): audit 1 failed on the master's staging of its brief, audit 2 on the manager report's evidence form; the entry passed every check. A human resumes it. The Noise-Area paper read he ordered waits on it.
+**Waiting on Amear:** "steady first" = Flat1559?; resume or leave `205`, `61o`, `vn4`; the MFFU email as an evidence file; resuming the loop (after the master's question set); D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-14 (interactive restructure run, 14:38Z-16:25Z) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting), being restructured under Amear's D-2026-11-14-B. Builds paused; the search loop is PAUSED by Amear. F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed (OBSERVED, pushed):** `a9d6b25` (Amear's nine restructure rulings plus the voice files); `d9fc5f0` (R3 recheck: four of five tested strategies have no predefined per-trade maximum loss).
+**Parked:** the voice-brief skill (`parked/Praxis_build-61o` @ `59f5ce4`). Amear approved it; both audits passed the skill and failed the manager report's evidence form. A human resumes it.
+**Waiting on Amear:** Q1-Q6 of D-2026-11-14-B (daily-cap wording, stop slippage, which balance, target account, the rest of the Floor Rule, the fate of the five strategies); resuming the search loop; `vn4`, `61o` and earlier parked items; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-14 (search loop run 1, 13:00Z) — short status by praxis-master
+
+**Phase:** Block 2 (Backtesting). Builds stay paused until three strategy contenders exist. F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed on main:** nothing (`244cfc3`).
+**Parked:** loop candidate 1, opening gap fade, tested by a Mac-side Python pre-screen. Verdict PRE-SCREEN FAIL: profit factor about 1.01 against 1.10, and at 1 MNQ the drawdown ($4,612) is above every MFFU account's limit. The numbers were confirmed by both auditors. Both audits failed on missing pasted evidence in the reports, so the work is on `parked/Praxis_build-vn4` (`afa53c6`). A human resumes it.
+**Contenders recorded:** 0 of 3.
+**Waiting on Amear:** resume or leave `vn4`; the NT8 commission set to $4.68 (hand step); earlier parked items; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## 2026-11-14 (Hermes-started run from 09:00Z) — short status by praxis-master
 
 **Phase:** Block 2 (Backtesting). Builds stay paused until three strategy contenders exist. F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
@@ -18,6 +64,14 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 - `9a18fde`: Amear's evening rulings (no peer-review screen; build pause; loop in Claude Code) and the proposed contender bar.
 **Next:** Hermes resumes at 04:00 ET. It closes this session (Amear approved) and finishes the filing, then the 4-hourly search loop starts.
 **Waiting on Amear:** the NT8 commission set to $4.68 (hand step); decisions on parked `ckh`, `diq` and `gfx`; the questions listed in HANDOFF; D2 items unchanged.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## 2026-11-13 (timer run 17:00Z) — short status by praxis-master
+
+**Phase:** unchanged — Block 2 (Backtesting). F1, F2, O1, O3, O4 PASSED; F3, F4 FROZEN (F4 NOT MET); O2 OPEN.
+**Landed (OBSERVED, pushed):** `9bf653a` where breaker #4's "cancel working entry orders" and "confirm flat before 4:10 PM ET (alert if not)" steps sit: inside the consumer's flatten command. The rule is conditional, with a stated condition that would void it. `661e073` whether a later version of the strategy may stop trading before 16:00 (for example at 11:30): by default no, every version trades the full day to the 16:00 flat; a later version may stop earlier only through its own written decision, made before it is built. Both are written plans only: the breakers are specified, not built or tested.
+**Waiting on Amear:** a decision on the parked R6 filing (`ckh`); his two MFFU questions; D2 items unchanged.
 
 Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
 

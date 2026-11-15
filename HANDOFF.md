@@ -1,3 +1,117 @@
+## Resume card — 2026-11-15 interactive run 3 (17:39Z-19:13Z) — `main` = `origin/main` = `d9fc5f0` (nothing landed); RESTRUCTURE ORDERED by Amear; read `docs/reports/2026-11-15-restructure-handoff.md` FIRST and do what it says
+
+Written by praxis-master at handoff. Amear ordered the restructure in `docs/reports/2026-11-15-voice-notes-restructure.md` (section "Instruction for the PRAXIS master: restructure"; DECISION_LOG 2026-11-15T19:09:17Z, WHO: amear) and asked for a new session to do the repo work (steps 1-3); strategy work (steps 4-6) starts after. The handoff file holds the order, the state, two open questions that are his (agent permissions before step 3; the frozen fill rule before step 4), and why step 1 did not land (MANIFEST.md lost 31 rows in the working tree: leave it out of step 1). Close this session before opening the new one: one session per working tree.
+
+## Resume card — 2026-11-15 interactive run 2 (16:18Z-17:36Z) — `main` = `origin/main` = `d9fc5f0` (nothing landed); Noise-Area paper read PARKED (`parked/Praxis_build-2l3` @ `2a1a7b4`, pushed; audit-fail-x2); SEARCH LOOP and BUILD LOOP still PAUSED; read THIS card first
+
+Written by praxis-master at park. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-15T16:23:34Z to 17:35:35Z. This card, the STATUS block and those rows are in the working tree only (park rule: session ends, no close flush).
+
+**What happened (OBSERVED):**
+- Amear answered the master's two questions (row 16:23:34Z, WHO: amear): the paper read may run now, without waiting for `205` ("Run it now"); MFFU's Nov 12 answers: "I'll paste them". He had not pasted them when the park fired.
+- Paper read unit run. Primary copy: the St. Gallen university repository PDF (SSRN returned 403), sha256 41d635d1...07ad, downloaded twice, identical; the master re-hashed it and grepped the key lines itself (row 17:07:38Z).
+- Audit attempt 1 ran out of turns with no verdict. Audit FAIL 1: S1/S2 (an "every adversary agreed" claim), S4 (the trader's name, against the master's own brief), check (a) page:line, check (f) (mis-worded by the master). Cure 1 cured all four. Audit FAIL 2: S4/(h) only. The MFFU rep's first name appears 5 times in the manager report inside pasted file paths (:46, :297, :299, :319, :409). The paper quotes passed both audits.
+- The park commit was first denied by the gate's single-session rule (another `claude -r` session, pid 7120). Amear closed it. Commit `2a1a7b4` on `parked/Praxis_build-2l3`, pushed; notify rc 0; bead notes written.
+- The paper result was told to Amear in session, labelled parked, not landed. In the paper's words: no hard stop; exits are market close, crossover to the opposite band, and (refined) "as soon as the price crosses either the curent band or the VWAP"; the base model's "Stop losses can also be triggered only on semi-hourly intervals"; refined-stop timing UNCLEAR; some rules not disclosed. Nothing decided.
+
+**Gate lesson (OBSERVED, `gate-commit.sh:114`, `:402`):** the SCRUB sed is line-based. A temp-index commit message must be single-line `-m` flags with no apostrophes, semicolons or angle brackets, or the gate denies with "shell metacharacter outside the quoted message".
+
+**Next, in order (decided by master under D1; parked items wait for Amear's word):**
+1. A human resumes `2l3` (steps in `bd show Praxis_build-2l3`): mask the rep's name at the 5 lines, re-grep all five reports for any third-party name, one audit, a gated commit to main.
+2. MFFU: Amear pastes the Nov 12 answers; capture (name and address withheld); audit the thread file `docs/reports/evidence/2026-11-15-mffu-thread-pasted-by-amear.md`. F4 stays FROZEN until graded.
+3. The exhaustive search-loop question set the master owes (notes section 3), before any loop restart.
+4. Close flush for the 2026-11-14 and 2026-11-15 working-tree rows, cards, STATUS blocks and the master's 11-15 brief.
+
+**Questions that are Amear's (listed, not answered):** what to do with the paper result (retest or not, any stop); resume or leave `2l3`, `205`, `61o`, `vn4`; which Noise-Area version is "steady"; the earlier lists in the cards below.
+
+## Resume card — 2026-11-15 interactive run (13:25Z-16:05Z) — `main` = `origin/main` = `d9fc5f0` (nothing landed today); Amear's 2026-11-15 rulings filing PARKED (`parked/Praxis_build-205` @ `199e6e6`, pushed; audit-fail-x2); SEARCH LOOP and BUILD LOOP still PAUSED; read THIS card first
+
+Written by praxis-master at park. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-15T13:30:00Z to 16:03:42Z (stamps 15:40:00Z, 15:55:00Z and 16:05:00Z are estimates, ahead of the clock; correction row 15:58:13Z; order is right). This card, the STATUS block and those rows are in the working tree only (park rule: session ended, no close flush).
+
+**What changed today (OBSERVED):**
+- Inbox check: no Telegram message since 2026-11-13 20:21 ("Halt all runs until further notice"); newest VM reply 2026-11-11; Gmail NOT read (connector ENOTFOUND; after Amear's `/mcp` reconnect no Gmail tool reached this session).
+- Master wrote voice brief `docs/reports/2026-11-15-voice-brief-open-questions.md` (untracked; for the next flush per row 13:30:00Z; its net-profit figures are UNVERIFIED).
+- Amear held the voice call. The Claude.ai Praxis channel wrote `docs/reports/2026-11-15-voice-notes-open-questions.md`. He also typed a Q6 ruling in this session (DECISION_LOG 14:37:18Z, WHO: amear): retesting depends on each strategy's source spec; FIRST confirm from Zarattini, Aziz and Barbon, "Beat the Market", whether Noise-Area has a hard stop, report the exact wording before any retest, and if a source has no stop, bring it back to him, deciding nothing.
+- Filing unit `2026-11-15-rulings-filing` (D-2026-11-15-A) PARKED as `Praxis_build-205`. Audit 1 FAIL S4/S5: the master staged its own brief against its own 13:30:00Z row (master's defect; cured). Audit 2 FAIL S1 only, on the manager report's Cure 1 section. Both audits passed the entry itself. Committed to `parked/Praxis_build-205` @ `199e6e6`, pushed; `notify.sh audit-fail-x2` rc 0; bead notes written; `bd dolt push` done; HEAD back on main via `git symbolic-ref`. The notes and the entry are NOT on main. The notes file on disk is already redacted (0 `@`); the unredacted original exists only in the session scratchpad.
+
+**Next, in order (decided by master under D1):**
+1. A human resumes `205` (steps in `bd show Praxis_build-205`): append pasted evidence for Cure 1 s2 items 4-5 and :63, or withdraw them; one audit; a gated commit to main.
+2. Then dispatch the Noise-Area paper read Amear ordered (row 14:37:18Z). It is gated on `205` landing (row 14:38:00Z).
+3. The exhaustive search-loop question set the master owes (notes section 3), before any loop restart.
+4. The MFFU email: save MFFU's exact words as an evidence file (name and address withheld), then audit. F4 stays FROZEN until then.
+5. Close flush for the 2026-11-14 and 2026-11-15 working-tree rows, cards, STATUS blocks and the master's brief.
+
+**Questions that are Amear's (listed, not answered):** whether "steady first" names Flat1559; the Q6 reading as his typed ruling refines it; what the paper says (to be brought to him); the 16 open items of D-2026-11-15-A on the park branch; resume or leave `205`, `61o`, `vn4`; the earlier list in the cards below.
+
+**Update after the park (DECISION_LOG 2026-11-15T16:16:42Z, WHO: amear):**
+- "Steady" defined in his words: steady P&L growth, with losses that are never huge and never exceed the set max-loss limit. He did NOT name a version, so which Noise-Area version is steadiest stays open.
+- Parked items `205`, `61o`, `vn4`: "not now". Do not resume them without his word.
+- **Conflict to put to him first (his, not the master's):** his Q6 ruling says to check the paper "before anything else", but the master gated the paper read on `205` landing (row 14:38:00Z), and `205` is "not now". Ask whether the paper read may run before `205` lands, or waits.
+- MFFU thread captured from his paste: `docs/reports/evidence/2026-11-15-mffu-thread-pasted-by-amear.md` (untracked, NOT audited; 0 `@`, staff names withheld). MFFU's Nov 13 reply says "Yes." to unattended automation on Evaluation and Sim Funded (Rapid, Pro, Builder) "as long as it follows the rule in your answer 1", and that T1 news trading is allowed on Builder evaluation and Sim Funded. The Nov 12 answers ("answer 1", "answer 2") are NOT in the capture. Get that text before grading F4. F4 stays FROZEN until an auditor grades it.
+
+## Resume card — 2026-11-14 interactive restructure run (14:38Z-16:25Z) — `main` = `origin/main` = `d9fc5f0`; two units landed (`a9d6b25` rulings, `d9fc5f0` R3 recheck); voice-brief skill PARKED (`parked/Praxis_build-61o` @ `59f5ce4`, pushed; audit-fail-x2); SEARCH LOOP PAUSED by Amear; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-14T14:49:30Z to 16:25:00Z. This card, the STATUS block and those rows are in the working tree only (park rule: session ended, no close flush); the next close flush on main carries them, together with the 13:02Z-13:38Z rows and card below.
+
+**What changed today (OBSERVED):**
+- Amear held a voice session on a restructure (brief `docs/reports/2026-11-14-voice-brief-pivot.md`). His nine rulings R1-R9 are filed as **D-2026-11-14-B** (`a9d6b25`). In short: search loop held; prop firms set aside for now (F4 stays FROZEN); the cost of the trade (a predefined per-trade maximum loss as a % of the account, % undecided) is the number one rule; recheck the five tested strategies; Mac Python pre-screens with NT8 for finalists; lighter evidence for research screens, full gates for anything that can place an order; max trades per session and a daily loss cap exist as rules, numbers from data; ambiguity goes back to him as a voice brief, via a skill.
+- **Search loop PAUSED** by Amear's typed word: `hermes cron pause 73d67fad7ec9`; jobs.json `enabled: False, state: paused`. Only Amear resumes it. Builds stay paused.
+- **R3 recheck filed** (`d9fc5f0`): the four NT8 strategies have no predefined per-trade maximum loss (no stop orders; Noise-Area exits at half-hour checks at market); gap fade V2 has a gap-sized stop in a Python rule only, and price ran past it on 273 of 286 stop-outs. At 1 MNQ: Noise-Area baseline largest loss -$542.40, worst day -$705.10, longest losing run 10, at most 5 trades in a session.
+- **S4 waived by Amear** for two acts only (the loop pause and the recheck dispatch, which preceded the entry): DECISION_LOG 15:43:30Z.
+- **Briefing rule, Amear 16:05:30Z:** a brief may carry one short paragraph labelled as the master's view on any question that is his; questions that are not his stay out and are decided under D1.
+- **Voice-brief skill PARKED** (`Praxis_build-61o`). The skill is APPROVED by Amear, and both audits passed the skill file itself. Both failed S1 on the manager report's evidence form (audit 2: :25 shortened command; :32-:38 trimmed grep kept standing). Committed to `parked/Praxis_build-61o` @ `59f5ce4`, pushed; `notify.sh audit-fail-x2` rc 0; bead notes written; `bd dolt push` done. HEAD returned with `git symbolic-ref HEAD refs/heads/main`. The 4 files are still untracked in the working tree (the skill is on disk at `.claude/skills/voice-brief/SKILL.md`, not on main).
+
+**Next, in order (decided by master under D1):**
+1. A human resumes `61o`: append verbatim re-runs for manager report :25 and :32-:38 (or withdraw them), one audit, a gated commit to main.
+2. The voice notes' handoff steps 4-5: make the R3 cost-of-the-trade rule the first filter of the search loop (a candidate that cannot state its cost of the trade as a % of the account is rejected before profit is looked at; every backtest reports most setups in a day, average setups per day, and worst single-day loss); write down the R5 pre-screen rule (starting from D-2026-11-14-A on `parked/Praxis_build-vn4`) and the R6 lighter research standard. These need a DECISIONS.md entry first (S4).
+3. The six open questions Q1-Q6 of D-2026-11-14-B go to Amear in the next voice brief (R9). They are listed there.
+4. Close flush for today's working-tree ledger rows, cards and STATUS blocks.
+
+**Questions that are Amear's (listed, not answered):** Q1-Q6 of D-2026-11-14-B; resume or leave `vn4` and `61o`; resume the search loop; the earlier list in the cards below.
+
+**Side notes (OBSERVED):** HEAD DECISIONS.md carries 2 email addresses in old text (lines 569 and 1188; one personal-mail domain), and the staged png's filename carries the MFFU rep's first name; both belong to bead `c2w`. The stop gate reads only the newest `docs/reports/*.md`, so it misfires when two units run in parallel. Auditor briefs must include the three-line mint contract, or no token is minted.
+
+**Brief lessons (OBSERVED this run):**
+1. Managers' long reports keep failing S1 on reformatted or shortened output. Briefs should forbid trimming pasted output and ask for raw output only.
+2. A no-verdict auditor stop at 30 turns happened twice; batching checks into few Bash calls fixed it.
+3. Write the DECISIONS.md entry before acting on a new ruling, even a direct one (S4).
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-14 search loop run 1 (13:00Z-13:40Z, `claude -p` from Hermes `praxis-search-loop`) — `main` = `origin/main` = `244cfc3`, NOTHING landed on main; candidate 1 PARKED (`parked/Praxis_build-vn4` @ `afa53c6`, pushed; audit-fail-x2); read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-14T13:02:00Z to 13:38:00Z. This card, the STATUS block and those rows are in the working tree only; the next close flush on main carries them.
+
+**Session start (OBSERVED):** `claude --version` 2.1.325; one binary, `/Users/admin/.local/bin/claude`; the other claude CLI process (pid 1353) has cwd `/Users/admin/.voice-agent/brain`; `main` = `origin/main` = `244cfc3`. D-2026-11-13-D and -E are committed (`9a18fde`). No earlier loop candidate existed.
+
+**What happened (OBSERVED):**
+- The handoff's NT8 route cannot score a NEW strategy from a Mac session: it needs the .cs compiled in NT8 and an Analyzer tab set by hand or by `satemplate` (needs Amear's OK; vm-queue results :42). Master decided under D1 (13:04:00Z row) to pre-screen in Python on the Mac first, under a new entry D-2026-11-14-A.
+- Candidate 1, opening gap fade (fade the 09:30 ET gap toward the prior 16:00 close; stop = gap size; flat 16:00; 3 variants, tuned 2021-03-08 to 2024-12-31, holdout 2025-01-01 to 2026-07-17). Result: **PRE-SCREEN FAIL**. No variant qualified in-sample (best V2, profit factor 1.013 against 1.10). V2 full period, for the record: 648 trades, +$6,737 at 1 NQ and $4.68; at 1 MNQ -$254 and a $4,612 drawdown, above every MFFU tier's ceiling (50K: $1,600). Both auditors recomputed these numbers and re-simulated the trades from raw bars with 0 mismatches.
+- Both audits FAILED rubric S1 (report claims without pasted output): six items at 13:28:00Z, seven different ones at 13:36:30Z. Park rule fired: work committed to `parked/Praxis_build-vn4` (`afa53c6`, 10 files), pushed; `notify.sh audit-fail-x2` fired (rc 0); bead `vn4` notes updated; `bd dolt push` done.
+- HEAD was put back on `main` with `git symbolic-ref HEAD refs/heads/main`, because `git switch main` refused to delete the 8 now-tracked-on-parked files. Working tree and real index unchanged (1 staged path, the old png).
+
+**On disk, untracked (working tree):** the 8 candidate files and 3 reports under `research/search-loop/c1-gap-fade/` and `docs/reports/2026-11-14-search-c1-gap-fade-*.md` (identical to the parked commit). Do not file them on main except by resuming `vn4`.
+
+**Next, in order (decided by master under D1):**
+1. A human resumes or leaves `vn4`. The strategy result is not in dispute; the cure is evidence form only: paste output for, or withdraw, each of the seven claims in DECISION_LOG 13:36:30Z. Draft D-2026-11-14-A (pre-screen authority) exists only on the parked branch.
+2. Until then the loop has no pre-screen authority on main. A loop run must not write a second pre-screen entry (that would route around the park). It may take candidate 2 only as far as the handoff's own route allows without the VM: written rules, then stop and report. Candidate ideas not yet tried: VWAP or Bollinger reversion, opening-range breakout, and the indicator families in handoff :61.
+3. Earlier items unchanged: parked `ckh`, `diq`, `gfx`; `c2w`.
+
+**Questions that are Amear's (listed, not answered):** resume or leave `vn4`; whether a Mac-side pre-screen is an acceptable first filter for the loop (D-2026-11-14-A draft); the earlier list in the cards below.
+
+**For Amear's hands:** set the NT8 commission to $4.68 round trip (2.34 on each PRAXIS row). D2 items unchanged.
+
+**Brief lessons (OBSERVED this run):**
+1. Two audits of one unit each found a fresh set of S1 gaps in long reports (263-465 lines). Brief units to keep reports short and to make the manager grep its own report for every number or "matches/copied/checked" phrase without a paste before returning.
+2. After a temp-index park commit that adds new files, `git switch main` refuses. `git symbolic-ref HEAD refs/heads/main` returns HEAD without touching files or index.
+3. The gate refuses `<` `>` in the commit message, including the attribution trailer; write the email in parentheses, as earlier commits do.
+4. The master's brief cited a line number it had not re-read (:52 for :42). Re-read every cited line before dispatch.
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
 ## Resume card — 2026-11-14 Hermes-started run (from 09:00Z) — `main` = `origin/main` = `bdb63b7` plus this close flush; first handoff step 2 is DONE (units a, b, c); BUILDS PAUSED until three strategy contenders (D-2026-11-13-D ruling 2); next is the strategy search loop; read THIS card first
 
 Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-14T09:05:00Z onward. The 02:1xZ card below was written by the previous session for a flush that did NOT land (its auditor left no verdict); this flush carries that card, its STATUS block, its ledger rows and its reports.
@@ -74,6 +188,33 @@ Written by praxis-master at close. OBSERVED = seen by the master this run. Ledge
 1. Three managers at once filled the 8-subagent limit. Two adversary or auditor spawns were refused, and one manager lost its step E. Run one manager at a time when it needs workers.
 2. Auditors have a 30-turn limit. Brief them to batch their checks into scripts.
 3. A manager's Write of its own report can be refused. The master may file the inline return verbatim, with a filer's note.
+
+F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
+
+Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+
+## Resume card — 2026-11-13 run (from 17:00Z, timer prompt) — `main` = `origin/main` = `661e073` plus this close flush; topology OPEN-A1 LANDED (`9bf653a`) and ruleset OPEN-A2 LANDED (`661e073`), both bead `fgd`; `ckh` still PARKED; read THIS card first
+
+Written by praxis-master at close. OBSERVED = seen by the master this run. Ledger detail: DECISION_LOG 2026-11-13T17:02:02Z–17:37:20Z and the close row after them. The cards below are unchanged.
+
+**Session start (OBSERVED):** `claude --version` 2.1.322; one binary on PATH `/Users/admin/.local/bin/claude`; other claude processes: 801 and 94216 (cwds outside this tree, as before) and two Claude desktop-app sessions 61386 and 61464 (bundled 2.1.321, not on PATH, cwd `/Volumes/Sensidine/MVA-Case-Local`); `main` = `origin/main` = `b64ff1a`, no drift; no Amear ruling after 2026-11-12T02:41:00Z, so `ckh` not touched.
+
+**Landed (OBSERVED, pushed):**
+- `9bf653a` entry D-2026-11-13-B (breaker #4's cancel and confirm-flat steps sit inside the consumer's FLATTEN command; CONDITIONAL with a void clause; breaker #1 gap and alert destination named) + one fresh evidence report + 2 MANIFEST rows. The cure manager returned BLOCKED on two faults in the master's brief and its cold adversary failed checks (f) and (g) on the same two; a fix manager cured them (no second adversary); then a fresh audit PASS 9 of 9. Strike on OPEN-A1 ended at 1.
+- `661e073` entry D-2026-11-13-C (OPEN-A2: every Noise-Area arm keeps the full-day window to the 16:00 ET flat; an earlier strategy stop is allowed for a later arm only through that arm's own DECISIONS entry, written before it is built and graded under S6) + evidence report + 2 MANIFEST rows. First audit PASS 10 of 10.
+- Both are written statements only. The breakers stay SPECIFIED ONLY: none built or tested.
+
+**Next, in order (decided by master under D1; one manager at a time):**
+1. Human: resume or rule on `ckh` (cure in the 2026-11-12 09:01Z card below, unchanged).
+2. Broker route: MFFU does not offer Rithmic; D-2026-11-10-B is contradicted and not re-decided. One short entry deciding under D1, or naming the D2 item if a purchase or account is involved.
+3. OPEN-T1 VM-to-webhook check (needs the VM; Amear's hands for any VM step).
+4. Rest of bead `fgd`: F-4/F-5 wait on parked `diq`; F-6 optional; F-8 not edited; residuals OPEN-F2-1 and the lockout/4:10-alert overlap.
+
+**Brief lessons (OBSERVED this run; bd memory `master-brief-rule-conflicts`):** two manager returns carried three faults in the master's own briefs: (1) a rule conflict, "no person name" vs "paste the full entry" (ruled: the rule is for third parties; the owner's name is fine); (2) not a rule conflict: a master-dictated MANIFEST row that misdescribed the edit; (3) a rule conflict, "full untrimmed diff" vs "S13 sentence once" (ruled: the once-rule counts standalone lines; diff output in a code block is fine). Test every prohibition against every required paste before dispatch, and let the manager draft MANIFEST rows. Also: an attached orchestrator-mine skill told one manager to write state files under `.claude/`; the brief forbade it and the manager followed the brief (recorded, not investigated).
+
+**Questions that are Amear's (unchanged; DECISION_LOG 2026-11-12T13:01:49Z item b):** (1) does MFFU's 2026-11-11T22:41:33Z point 4 close R6 OPEN-1; (2) should F4's bar change.
+
+**For Amear's hands (not questions):** the decision on `ckh`; D2 items unchanged (Sim-only guard change before any live path; SSH keys for a VM-to-n8n tunnel; any purchase; approved values for breakers #2/#3 once real money is at stake).
 
 F3, F4 FROZEN (F4 NOT MET). F1, F2, O1, O3, O4 PASSED. O2 OPEN.
 
