@@ -179,3 +179,15 @@ Pasted by Amear in the Claude Code session, the voice agent's handoff, the block
 On the Waqar Asim strategy, his words as quoted in the handoff: "I don't want to go deeper on the same rules right now." It is parked; the Gemini report stays saved.
 
 The handoff also records, in the voice agent's words: prop firms are his ideal again, and micro contracts are not required; the 5% drawdown figure was only for a personal account. Parked with the Asim strategy: the eleven research questions, and the two Carver systems until he rules on overnight holding.
+
+## Holding time (2026-11-15)
+
+From the voice call, handed over in his paste block:
+
+> "1. Overnight holds are allowed, as long as a broker that permits them is found."
+
+> "2. No swing trading. In his words: "No, I'm not doing swing trading." Carver's Starter System, which holds days to weeks, is out."
+
+On the longest hold, his words: "Don't give a fuck." Not his ruling: the voice agent set a default of the end of the next trading day, which he can overrule. Carver's fast mean reversion stays in only if its holds fit that limit.
+
+Also not his ruling: the voice agent's caution from the research report, that published intraday rules mostly lose their edge after costs, so if candidate 3 fails the next step is a different route, not another published intraday rule.
