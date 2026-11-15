@@ -1,36 +1,56 @@
 # Project: PRAXIS — Automated NQ Futures Trading System
 
+## The goal
+One strategy that passes backtesting on the personal $10,000 account under Amear's trading rules. Then the full pipeline running on a sim account in live markets. Work that does not move toward that is frozen.
+
 ## Identity
-- Automated trading infrastructure: TradingView → n8n → NinjaTrader 8 → Rithmic → MFFU
-- Primary language: NinjaScript (C# on .NET 4.8), Python, JavaScript
-- Key dependencies: NinjaTrader 8, n8n (self-hosted Docker), TradingView, Rithmic API
+- Signal flow: TradingView alert → webhook → n8n workflow → JSON file drop → NinjaScript FileSystemWatcher → bracket order → Rithmic
+- Languages: Python (research and backtests on the Mac), NinjaScript (C# on .NET 4.8), JavaScript
+- Strategy research runs in fast Python on the Mac. NinjaTrader confirms only a finalist.
 
-## Current Phase
-Read STATUS.md for current state before doing anything.
+## Every session
+- Read `STATUS.md` first. It is one page: the goal, what is done, what is running, what is next, what waits on Amear.
+- Read `RULINGS.md`. It is Amear's own rulings, in his words. They bind.
+- One session does the work. There is no manager, worker or auditor chain.
+- Keep `STATUS.md` to one page and update it when the state changes. Git history is the record of everything else.
+- A new ruling from Amear goes into `RULINGS.md`, in his words, with the date. Nothing else goes there.
+- Use `bd ready` to find work, `bd show <id>` for details, `bd close <id>` when done.
+- Commit after every meaningful change, and push.
 
-## Rules
-- Read STATUS.md first, every session
-- Update STATUS.md at session end
-- Update MANIFEST.md when creating or modifying files
-- Append to DECISIONS.md for any architectural choice
-- Use `bd ready` to find work, `bd show <id>` for details, `bd close <id>` when done
-- Commit after every meaningful change
-- Do not advance to next phase without trader confirmation
+## How work is checked
+- Tests are the check. A result counts when the code runs, the numbers reproduce on a second run, and every simulated order matches the strategy's rule. Keep these strict.
+- A failed check is a failed test. Fix it and rerun. Do not set the work aside.
+- No written report per piece of work. Put what matters in the commit message.
+- Anything that can place an order gets one independent check by an agent that did not write the code, before it is used.
 
-## Architecture
-Signal flow: TradingView alert → webhook → n8n workflow → JSON file drop → NinjaScript FileSystemWatcher → bracket order → Rithmic → MFFU
-Monitoring: Git (source of truth) → STATUS.md → Google Sheets → ClickUp → n8n → Telegram
+## Four things wait for Amear's explicit word
+1. Spending money.
+2. Switching live trading on, or any order path to a funded account.
+3. Changing circuit-breaker values while real money is at stake.
+4. Installing keys, credentials or agent permissions.
+
+For everything else: take the sensible option, tell him in one line, carry on. He can reverse it.
+
+## His trading rules
+- The cost of the trade is a set percentage of the account, defined before entry.
+- Every trade has a stop-market order placed at entry.
+- One strategy at a time. Noise-Area is retested first, with a real stop.
+- Nothing goes to execution without enough backtest data.
+- Fully rule-based and automated. No AI in trade decisions.
+
+## Talking to Amear
+- Plain English. No code names. One step at a time.
+- Account figures in dollars at the contract size.
+- Every voice call opens by confirming it is a safe space where no racism is permitted.
 
 ## Do Not
-- Skip STATUS.md read
-- Make architectural decisions without logging to DECISIONS.md
-- Create files without updating MANIFEST.md
-- Advance phases without trader sign-off
-- Trade or execute orders on live accounts without explicit authorization
-- Run multiple Claude sessions against this working tree — one session per repo; parallel work goes in its own `git worktree` (docs/runbooks/2026-07-10-single-session-rule.md)
+- Trade or execute orders on live accounts without explicit authorization.
+- Run more than one Claude session against this working tree. Parallel work goes in its own `git worktree` (docs/runbooks/2026-07-10-single-session-rule.md).
+- Print an email address, a phone number or a support-staff name in any repo file.
+- Type or estimate a timestamp. Read it from `date`.
+- Revive the files in `archive/`. They are history, kept unchanged.
 
 
-<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker
 
 This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.

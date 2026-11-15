@@ -4,8 +4,8 @@ TradingView → n8n → NinjaTrader 8 → Rithmic → MFFU
 
 ## Quick Links
 - **Current State:** See [STATUS.md](./STATUS.md)
-- **Decision History:** See [DECISIONS.md](./DECISIONS.md)
-- **Build Manifest:** See [MANIFEST.md](./MANIFEST.md)
+- **Amear's rulings:** See [RULINGS.md](./RULINGS.md)
+- **Older tracking files:** See [archive/2026-11-15/](./archive/2026-11-15/)
 
 ## Monitoring
 - **ClickUp:** [PRAXIS — Phase 3 Build space — link TBD]
