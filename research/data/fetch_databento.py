@@ -16,6 +16,7 @@ The API key is read from ~/.config/databento/key (outside the repo, owner-only).
 """
 import datetime as dt
 import glob
+import json
 import os
 import sys
 import time
@@ -83,12 +84,32 @@ def cost(client, m, r, s, a, b):
     raise SystemExit(f"FAILED to quote {file_name(m, r, s, a, b)}")
 
 
+WASTED = os.path.join(OUT, "failed_partway.json")
+
+
+def _wasted():
+    try:
+        return sum(json.load(open(WASTED)).values())
+    except FileNotFoundError:
+        return 0.0
+
+
+def _add_wasted(name, q):
+    d = json.load(open(WASTED)) if os.path.exists(WASTED) else {}
+    d[f"{name} #{len(d) + 1}"] = q
+    json.dump(d, open(WASTED, "w"), indent=1)
+
+
 def main():
     key = open(os.path.expanduser("~/.config/databento/key")).read().strip()
     client = db.Historical(key)
     os.makedirs(OUT, exist_ok=True)
 
     have_cost, todo = 0.0, []
+
+    def have_now():
+        return sum(cost(client, mm, rr, ss, a, b) or 0.0 for ss, rr, _ in SERIES for mm in MARKETS
+                   for a, b in on_disk(mm, rr, ss))
     for s, r, st in SERIES:
         for m in MARKETS:
             have = on_disk(m, r, s)
@@ -100,15 +121,23 @@ def main():
             print(f"skipped, contract not trading then: {file_name(*t)}", flush=True)
     todo = [t for t, q in quotes if q is not None]
     todo_cost = sum(q for _, q in quotes if q is not None)
-    print(f"on disk ${have_cost:.2f}; {len(todo)} chunks to fetch, ${todo_cost:.2f}; "
-          f"total ${have_cost + todo_cost:.2f} (cap ${CAP_USD:.2f})", flush=True)
-    if have_cost + todo_cost > CAP_USD:
+    wasted = _wasted()
+    print(f"on disk ${have_cost:.2f}; {len(todo)} chunks to fetch, ${todo_cost:.2f}; failed partway so far "
+          f"${wasted:.2f}; total ${have_cost + todo_cost + wasted:.2f} (cap ${CAP_USD:.2f})", flush=True)
+    if have_cost + todo_cost + wasted > CAP_USD:
         sys.exit("REFUSED: over the cap")
 
-    for m, r, s, a, b in todo:
+    for (m, r, s, a, b), q in zip(todo, [q for _, q in quotes if q is not None]):
         dest = os.path.join(OUT, file_name(m, r, s, a, b))
         tmp = dest + ".part"
         for attempt in range(1, 4):
+            if os.path.exists(tmp):
+                # a stream that ended early may have been billed: count it at its full quote (worst case)
+                _add_wasted(os.path.basename(dest), q)
+                os.remove(tmp)
+                todo_cost_left = sum(cost(client, *x) or 0.0 for x in todo[todo.index((m, r, s, a, b)):])
+                if have_now() + todo_cost_left + _wasted() > CAP_USD:
+                    sys.exit("REFUSED: a retry would go over the cap")
             try:
                 client.timeseries.get_range(dataset=DATASET, symbols=[f"{m}.{r}"], stype_in="continuous",
                                             schema=s, start=str(a), end=str(b), path=tmp)
