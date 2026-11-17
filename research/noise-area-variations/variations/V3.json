@@ -1,0 +1,24 @@
+{
+ "name": "V3",
+ "reason": "Tighter stop and smaller risk for survival: results improve as the stop tightens (READING.md: +0.05, +0.08, +0.16, +0.33 after costs from the widest stop to half width), and a tighter stop needs fewer dollars a contract, so $75 of risk still fits most breakouts. Rests on the same row as V2 and the full-width, day's-open and opposite-band tables for the same band. A stop of 0.35 of the width was not itself measured.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "width_frac",
+  "value": 0.35
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.15,
+ "flat_time": "15:59"
+}

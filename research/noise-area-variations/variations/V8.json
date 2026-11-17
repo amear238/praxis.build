@@ -1,0 +1,23 @@
+{
+ "name": "V8",
+ "reason": "Breakouts on any minute, for frequency: the longest stretch without one is 6 days against 7 on the half hour (tables.md, half width, 9:30 AM band, any minute, whole day, both sides: 3,006 measured, 24.6% reach twice the risk, +0.13 held to 4 PM; READING.md: +0.06 after costs, average winner 2.4 times the risk). The weakest edge on the list.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "minute",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.25,
+ "flat_time": "15:59"
+}

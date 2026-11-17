@@ -1,0 +1,23 @@
+{
+ "name": "V2",
+ "reason": "The strongest measured cell, traded as it was measured: held to the close, one entry per move outside the band, at a risk small enough for 16 losers. Rests on: tables.md, stop at half the band width, 9:30 AM band, on the half hour, whole day, both sides (607 breakouts, 31.3% reach twice the risk, +0.39 average held to 4 PM, longest stretch 7 days); READING.md: 37% winners averaging 2.6 times the risk, +0.33 after costs; at $125 about 11% skipped.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.25,
+ "flat_time": "15:59"
+}
