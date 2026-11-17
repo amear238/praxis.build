@@ -288,6 +288,29 @@ class Rules(unittest.TestCase):
         t_fresh = run([day], reentry="fresh")["trades"]
         self.assertEqual([x["entry_dt"] for x in t_fresh], [stamp(D, "10:01"), stamp(D, "11:31")])
 
+    def test_fresh_exit_bar_inside_frees_the_side(self):
+        # The long exits on the 10:30 decision bar, which closes inside the band (95): that close frees longs,
+        # and the exit's fill at 10:31 must not block them again. The 11:00 breakout is taken at 11:01.
+        marks = dict(UP, **{"10:30": (101.5, 101.5, 95, 95), "11:00": (95, 100, 95, 100),
+                            "11:01": (101, 102, 100.5, 101.5)})
+        t = run([build_day(D, marks)], reentry="fresh")["trades"]
+        self.assertEqual([(x["entry_dt"], x["reason"]) for x in t],
+                         [(stamp(D, "10:01"), "exit"), (stamp(D, "11:01"), "flat")])
+
+    def test_fresh_exit_bar_outside_keeps_the_block(self):
+        # VWAP 105 above the upper band 99: the 10:30 close of 101.5 is at or under VWAP, so the long exits,
+        # but the close is still above the band. Longs stay blocked at 11:00 (101.5) until the 11:30 close
+        # inside (95); the 12:00 breakout is taken at 12:01. Under "any" 11:00 re-enters.
+        high_vwap = bd.BandPoint(99.0, 60.0, 105.0, 79.0, 40.0)
+        marks = dict(UP, **{"11:30": (101.5, 101.5, 95, 95), "12:00": (95, 100, 95, 100),
+                            "12:01": (101, 102, 100.5, 101.5)})
+        day = build_day(D, marks)
+        t = run([day], reentry="fresh", spec=lambda date, sm: high_vwap)["trades"]
+        self.assertEqual([(x["entry_dt"], x["exit_dt"], x["reason"]) for x in t],
+                         [(stamp(D, "10:01"), stamp(D, "10:31"), "exit"), (stamp(D, "12:01"), stamp(D, "12:31"), "exit")])
+        t = run([day], reentry="any", spec=lambda date, sm: high_vwap)["trades"]
+        self.assertEqual([x["entry_dt"] for x in t][:2], [stamp(D, "10:01"), stamp(D, "11:01")])
+
     def test_trail_r_only_tightens(self):
         marks = dict(UP, **{"10:05": (101.5, 120, 101.5, 119), "10:06": (119, 119, 104, 105),
                             "10:07": (105, 105, 97, 100)})

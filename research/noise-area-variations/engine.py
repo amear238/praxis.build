@@ -29,10 +29,12 @@ Each bar of a trading day, in this order:
        Entry: long when C > upper, longs allowed and not long; short when C < lower, shorts allowed and not
        short; and only if the bar's stamp is inside entry_window (first <= T <= second, in trading-day
        order), the day has filled fewer than max_trades_per_day entries, and reentry allows it.
-       reentry "fresh": once a position on a side has exited (any reason), no entry on that side until a
-       decision bar closes inside the band (lower <= C <= upper). A decided exit's own decision bar counts
-       (its close is checked after the exit is decided); a stop bar is no decision bar. Each day starts
-       fresh, as in the measuring pass.
+       reentry "fresh": a side is blocked from the moment an exit of a position on that side is decided
+       (exit, reverse, or flat at the next open: at the bar that decides it; a stop or a flat at the last
+       bar's close: at that bar), and freed by any decision bar at or after that moment that closes inside
+       the band (lower <= C <= upper). A decided exit's own decision bar counts (its close is checked after
+       the exit is decided); the exit's fill on the next bar does not block again; a stop bar is no
+       decision bar. Each day starts fresh, as in the measuring pass.
        Size, fixed here: dist = the stop kind's distance from C (stop_distance), rounded down to a tick.
        loss_per_contract = (dist + 0.5) * 2.0 + 1.90; qty = floor(balance * risk_pct / 100 /
        loss_per_contract), with balance the realised balance at this decision bar -- on a reverse, before
@@ -307,9 +309,10 @@ class _Sim(object):
         last = globex.tradable_end(day)      # data hole: no bar after it is traded (rule in the docstring)
         bars = day.bars[:last + 1]
         for i, b in enumerate(bars):
-            # a. fills: exit first, then entry
+            # a. fills: exit first, then entry. A decided exit blocked its side when it was decided; its
+            # fill does not block again (the decision bar may already have freed the side).
             if pend_exit is not None:
-                blocked[self._close(date, b, _market(b, -self.pos.side), pend_exit)] = True
+                self._close(date, b, _market(b, -self.pos.side), pend_exit)
                 day_low = min(day_low, self.balance)
             if pend_entry is not None:
                 self._open(b, pend_entry)
@@ -330,6 +333,7 @@ class _Sim(object):
                 if pos is not None:
                     if i < last:
                         pend_exit = "flat"
+                        blocked[pos.side] = True
                     else:
                         blocked[self._close(date, b, _clamp(b.c - SLIP * pos.side, b), "flat")] = True
                         day_low = min(day_low, self.balance)
