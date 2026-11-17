@@ -1,0 +1,24 @@
+{
+ "name": "W2-room",
+ "reason": "W2 on the 150,000 frame, the same number of losers inside the limit as on the 50,000 frame (0.15% of the balance, $225 at the start). W1 with the trailing stop of V7 (three times the risk behind the best price): on 2021 to 2023 V7 won more often than V2 (37.5% against 32.2%) with the same entries, and more winners means shorter losing runs. First list on 2021 to 2023, harsh fills: V5 (one trade a day, held to the close) had the best result per trade, +0.26 of the risk, with the shortest losing run (12); V2 +0.19, V7 +0.16, V6 +0.09, V4 +0.10, V3 +0.07, V8 -0.08.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "trail_r",
+  "value": 3.0
+ },
+ "max_trades_per_day": 1,
+ "risk_pct": 0.15,
+ "flat_time": "15:59"
+}

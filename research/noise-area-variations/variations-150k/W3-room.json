@@ -1,0 +1,24 @@
+{
+ "name": "W3-room",
+ "reason": "W3 on the 150,000 frame, the same number of losers inside the limit as on the 50,000 frame (0.225% of the balance, $338 at the start). A wider stop, three quarters of the band width: on harsh fills the loss at the stop overshoots less as the stop widens (first list, 2021 to 2023: 1.26 times planned at 0.35 of the width, 1.19 at half), and wider stops win more often (measuring pass: 37% held-to-close winners at half width, 48% at full width). The average winner was 2.6 times the risk at half width and 1.3 at full width, so three quarters is the widest that may still reach 2. Risk 0.3% ($150) so one contract fits. This exact stop was not measured.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "width_frac",
+  "value": 0.75
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 1,
+ "risk_pct": 0.225,
+ "flat_time": "15:59"
+}

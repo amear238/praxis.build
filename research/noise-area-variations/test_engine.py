@@ -127,7 +127,7 @@ class Validate(unittest.TestCase):
             "trail_r 0.4": settings(exit={"kind": "trail_r", "value": 0.4}),
             "max_trades 0": settings(max_trades_per_day=0),
             "max_trades 11": settings(max_trades_per_day=11),
-            "risk_pct 0.05": settings(risk_pct=0.05),
+            "risk_pct 0.005": settings(risk_pct=0.005),
             "flat_time in the break": settings(flat_time="17:00"),
             "flat_time format": settings(flat_time="3:59"),
             "window reversed": settings(entry_window=["15:30", "09:31"]),
@@ -196,6 +196,32 @@ class Fills(unittest.TestCase):
         with mock.patch.object(bd, "day_bands", fake_bands(lambda date, sm: STD)):
             res = en.run([build_day(D, dict(UP, **{"10:15": (101.5, 101.5, 70, 75)}))], settings())
         self.assertEqual((res["fill"], res["trades"][0]["exit"]), ("harsh-stops", 70.0))
+
+    def test_midpoint_stop_fills_halfway(self):
+        # Stop 81.5, the bar's low 70: halfway is 75.75. No extra slippage.
+        t = run([build_day(D, dict(UP, **{"10:15": (101.5, 101.5, 70, 75)}))], fill="midpoint")["trades"][0]
+        self.assertEqual((t["reason"], t["exit"], t["gap"]), ("stop", 75.75, False))
+        self.assertEqual(t["net"], -587.4)                   # (75.75 - 101.5) * 22 - 20.9
+        # The bar opens below the stop, at 76.5: halfway between the open and the low, 73.25.
+        t = run([build_day(D, dict(UP, **{"10:15": (76.5, 77, 70, 75)}))], fill="midpoint")["trades"][0]
+        self.assertEqual((t["exit"], t["gap"]), (73.25, True))
+        # Halfway off the tick grid goes to the worse tick: (81.5 + 70.25) / 2 = 75.875 -> 75.75.
+        t = run([build_day(D, dict(UP, **{"10:15": (101.5, 101.5, 70.25, 75)}))], fill="midpoint")["trades"][0]
+        self.assertEqual(t["exit"], 75.75)
+        # Short: entry 48.5 at the 10:01 open, stop 68.5; high 75.25 -> (68.5 + 75.25) / 2 = 71.875 -> 72.0.
+        day = build_day(D, {"10:00": (80, 80, 50, 50), "10:01": (49, 49.5, 48, 48.5), "10:15": (48.5, 75.25, 48.5, 70)})
+        t = run([day], fill="midpoint")["trades"][0]
+        self.assertEqual((t["side"], t["reason"], t["stop_initial"], t["exit"], t["gap"]),
+                         ("short", "stop", 68.5, 72.0, False))
+        # Never better than the stop price (or the open past it), never worse than the bar's extreme.
+        for o in (101.5, 76.5):
+            day = build_day(D, dict(UP, **{"10:15": (o, max(o, 77), 70, 75)}))
+            k, m, h = [run([day], fill=f)["trades"][0]["exit"] for f in ("kind", "midpoint", "harsh-stops")]
+            self.assertTrue(h <= m <= k + en.SLIP, (h, m, k))
+
+    def test_small_risk_accepted(self):
+        en.validate(settings(risk_pct=0.05))
+        en.validate(settings(risk_pct=0.01))
 
     def test_short_mirror(self):
         marks = {"10:00": (80, 80, 50, 50), "10:01": (49, 49.5, 48, 48.5), "10:15": (48.5, 75, 48.5, 70)}
@@ -478,7 +504,7 @@ class Random(unittest.TestCase):
         changed = (self.days[:k] + [tb.copy_day(self.days[k], change_after=B.sm, factor=1.37)]
                    + [tb.copy_day(d, factor=1.37) for d in self.days[k + 1:]])
         for s in random_settings():
-            for fill in ("kind", "harsh-stops"):
+            for fill in ("kind", "harsh-stops", "midpoint"):
                 a = en.run(self.days, s, fill=fill)
                 b = en.run(changed, s, fill=fill)
                 before = [t for t in a["trades"] if t["exit_dt"] <= cut]
@@ -503,7 +529,7 @@ class Random(unittest.TestCase):
     def test_rules_hold_on_random_days(self):
         """Every trade on the random days obeys the size, stop and flat rules."""
         for s in random_settings():
-            for fill in ("kind", "harsh-stops"):
+            for fill in ("kind", "harsh-stops", "midpoint"):
                 res = en.run(self.days, s, fill=fill)
                 bal = 50000.0
                 for t in res["trades"]:

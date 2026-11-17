@@ -30,8 +30,9 @@ trade, on the day.bars[: globex.tradable_end(day) + 1] of its trading day:
     trailing rule when the exit is "trail_r": the highest high / lowest low since entry, entry bar
     included, -/+ value * dist, on the tick grid away from the price, only toward the price, from the next
     bar) fills on the first bar whose adverse extreme reaches it (kind: at the stop, or at the open when the
-    bar opens beyond it, 2 ticks against, inside the bar; harsh-stops: the bar's low / high; gap when the
-    open is beyond the stop); else on the bar stamped flat_time or later, or the day's last tradable bar,
+    bar opens beyond it, 2 ticks against, inside the bar; harsh-stops: the bar's low / high; midpoint:
+    halfway between the stop (the open when the bar opens beyond it) and the bar's low / high, to the worse
+    tick, no further slippage; gap when the open is beyond the stop); else on the bar stamped flat_time or later, or the day's last tradable bar,
     the position closes at the next bar's open (or at that last bar's close), 2 ticks against; else on a
     decision bar the exit rule ("band_or_vwap" only: long C <= max(upper, vwap), short C >= min(lower,
     vwap)) gives "exit", and the opposite signal (with that side allowed) gives "reverse", both filled at
@@ -163,6 +164,11 @@ def _replay(v, s, fill, t, i0, sign, stop):
             gap = b.o < stop if sign == 1 else b.o > stop
             if fill == "harsh-stops":
                 px = b.l if sign == 1 else b.h
+            elif fill == "midpoint":
+                ref = min(stop, b.o) if sign == 1 else max(stop, b.o)
+                worst = b.l if sign == 1 else b.h
+                half = (ref + worst) / 2.0
+                px = _floor_tick(half) if sign == 1 else _ceil_tick(half)
             else:
                 px = _inside(min(stop, b.o) - SLIP, b) if sign == 1 else _inside(max(stop, b.o) + SLIP, b)
             return "stop", i, px, gap, i - 1
@@ -444,9 +450,9 @@ def _frequency(trades, all_dates):
     return {"pass": best <= MAX_GAP_DAYS, "max_gap_trading_days": best, "gap_from": best_from, "gap_to": best_to}
 
 
-def _survival(result):
-    tr = trailing(result["days"], start=result["start"], limit=LIMIT)
-    sh = shuffled(result["days"], runs=SHUFFLE_RUNS, seed=SHUFFLE_SEED, start=result["start"], limit=LIMIT)
+def _survival(result, limit=LIMIT):
+    tr = trailing(result["days"], start=result["start"], limit=limit)
+    sh = shuffled(result["days"], runs=SHUFFLE_RUNS, seed=SHUFFLE_SEED, start=result["start"], limit=limit)
     # Exact: at most 5% of the runs cross. shuffled()'s own "pct" is rounded to 0.1 and is not used.
     return {"pass": tr["first_cross"] is None and sh["crossed"] * 100 <= SHUFFLE_PCT_MAX * sh["runs"],
             "first_cross": tr["first_cross"], "shuffle_pct": 100.0 * sh["crossed"] / sh["runs"]}
@@ -486,7 +492,7 @@ def _stats(result):
     }
 
 
-def judge(result, all_dates):
+def judge(result, all_dates, limit=LIMIT):
     """-> {"rule_check", "two_to_one", "frequency", "profit", "survival", "overall", "stats"}.
 
     rule_check: from result["rule_breaks"] (absent: a fail, breaks -1).
@@ -497,9 +503,10 @@ def judge(result, all_dates):
                 judge uses the all_dates it is given. The calendar the rule means starts at the first
                 trading day on which the variation's band exists and runs to the last day loaded (runs at
                 its start and end count); run_all.band_dates builds it.
-    profit:     pass when the net of all trades (to the cent) >= 2 * 2,000.
+    limit:      the trailing limit in dollars; 2,000 unless given (4,500 for the 150,000 frame).
+    profit:     pass when the net of all trades (to the cent) >= 2 * limit.
     survival:   trailing and shuffled (10,000 runs, seed 20261115) on result["days"] from result["start"]
-                with the 2,000 limit; pass when the real order never crosses and crossed * 100 <= 5 *
+                with the limit; pass when the real order never crosses and crossed * 100 <= 5 *
                 runs (at most 500 of 10,000). shuffle_pct = 100 * crossed / runs, unrounded.
     stats:      dollars to the cent, percentages to 0.1, R to 0.001 (worst_stop_vs_planned to 0.0001).
                 stops_over_planned counts every trade, whatever its reason, whose loss is above its
@@ -512,8 +519,8 @@ def judge(result, all_dates):
     out["two_to_one"] = _two_to_one(trades)
     out["frequency"] = _frequency(trades, all_dates)
     net = _net(trades)
-    out["profit"] = {"pass": net >= 2 * LIMIT, "net": net}
-    out["survival"] = _survival(result)
+    out["profit"] = {"pass": net >= 2 * limit, "net": net}
+    out["survival"] = _survival(result, limit)
     out["overall"] = all(out[k]["pass"] for k in ("rule_check", "two_to_one", "frequency", "profit", "survival"))
     out["stats"] = _stats(result)
     return out

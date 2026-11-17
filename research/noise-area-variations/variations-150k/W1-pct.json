@@ -1,0 +1,23 @@
+{
+ "name": "W1-pct",
+ "reason": "W1 on the 150,000 frame, the same percentage of the account as on the 50,000 frame (0.2% of the balance, $300 at the start). The best first-list variation on 2021 to 2023 at a smaller risk, for survival: $100 a trade is 20 losers of room against 16. First list on 2021 to 2023, harsh fills: V5 (one trade a day, held to the close) had the best result per trade, +0.26 of the risk, with the shortest losing run (12); V2 +0.19, V7 +0.16, V6 +0.09, V4 +0.10, V3 +0.07, V8 -0.08. Measuring pass (READING.md): at $100 about 25% of breakouts are skipped and the longest stretch stays at 7 days; below $100 it does not.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 1,
+ "risk_pct": 0.2,
+ "flat_time": "15:59"
+}

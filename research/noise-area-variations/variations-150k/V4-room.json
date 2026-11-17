@@ -1,0 +1,24 @@
+{
+ "name": "V4-room",
+ "reason": "V4 on the 150,000 frame, the same number of losers inside the limit as on the 50,000 frame (0.1875% of the balance, $281 at the start). The tighter stop of V3 at the risk of V2, to tell the effect of the stop from the effect of the risk. Rests on the same rows as V3.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "width_frac",
+  "value": 0.35
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.1875,
+ "flat_time": "15:59"
+}

@@ -1,0 +1,23 @@
+{
+ "name": "V1-pct",
+ "reason": "V1 on the 150,000 frame, the same percentage of the account as on the 50,000 frame (1% of the balance, $1500 at the start). Reference point: the original rules with a stop half the band width away at 1% risk. Rests on: tables.md, stop at half the band width, 9:30 AM band, on the half hour, whole day, both sides (607 breakouts, 31.3% reach twice the risk, +0.39 average held to 4 PM, longest stretch 7 days)",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "any",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "band_or_vwap"
+ },
+ "max_trades_per_day": 10,
+ "risk_pct": 1.0,
+ "flat_time": "15:59"
+}

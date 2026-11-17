@@ -1,0 +1,24 @@
+{
+ "name": "V7-dollars",
+ "reason": "V7 on the 150,000 frame, the same dollars a trade as on the 50,000 frame (0.083333% of the balance, $125 at the start). V2 with a trailing stop three times the risk behind the best price: 22.9% of these breakouts reach three times the risk and 10.9% reach five times (same row as V2), and some give it back before the close.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "trail_r",
+  "value": 3.0
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.083333,
+ "flat_time": "15:59"
+}

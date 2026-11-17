@@ -17,8 +17,10 @@ Each bar of a trading day, in this order:
   b. Resting stop (from the entry bar on). If the bar's adverse extreme reaches the stop (long: low <= stop;
      short: high >= stop) the stop fills. "kind": at the stop, or at the open when the bar opens already
      beyond it, 2 ticks against, kept inside the bar's range. "harsh-stops": at the bar's low (long) or high
-     (short). gap is True, on both models, when the open is already beyond the stop. Nothing else happens on
-     that bar.
+     (short). "midpoint": halfway between the stop price (the open when the bar opens already beyond it) and
+     the bar's low (long) or high (short), moved to the worse tick when halfway is off the tick grid, with
+     no further slippage. gap is True, on every model, when the open is already beyond the stop. Nothing
+     else happens on that bar.
   c. Flat. On the bar stamped flat_time or later, or on the day's last bar: an open position is closed at
      the next bar's open, 2 ticks against, when the day has a next bar; else at this bar's close, 2 ticks
      against, kept inside the bar's range. Nothing else happens on that bar (no decision, no entry).
@@ -88,7 +90,7 @@ TICK = 0.25
 SLIP = 0.5
 START = 50000.0
 MIN_STOP_POINTS = 10.0
-FILLS = ("kind", "harsh-stops")
+FILLS = ("kind", "harsh-stops", "midpoint")
 
 FIELDS = ("name", "reason", "anchor", "lookback", "band_mult", "cadence", "entry_window", "sides", "reentry",
           "stop", "exit", "max_trades_per_day", "risk_pct", "flat_time")
@@ -164,7 +166,7 @@ def validate(settings, allow_no_stop=False):
     mt = s["max_trades_per_day"]
     _need(isinstance(mt, int) and not isinstance(mt, bool) and 1 <= mt <= 10, "max_trades_per_day",
           "must be an integer from 1 to 10, got %r" % (mt,))
-    _need(_num(s["risk_pct"]) and 0.1 <= s["risk_pct"] <= 2.0, "risk_pct", "must be from 0.1 to 2.0")
+    _need(_num(s["risk_pct"]) and 0.01 <= s["risk_pct"] <= 2.0, "risk_pct", "must be from 0.01 to 2.0")
     flat_sm = _stamp_sm("flat_time", s["flat_time"])
     w = s["entry_window"]
     _need(isinstance(w, (list, tuple)) and len(w) == 2, "entry_window", "must be two 'HH:MM' stamps")
@@ -273,10 +275,20 @@ class _Sim(object):
         p = self.pos
         if p.side == 1:
             gap = b.o < p.stop
-            px = b.l if self.fill == "harsh-stops" else _clamp(min(p.stop, b.o) - SLIP, b)
+            if self.fill == "harsh-stops":
+                px = b.l
+            elif self.fill == "midpoint":
+                px = floor_tick((min(p.stop, b.o) + b.l) / 2.0)
+            else:
+                px = _clamp(min(p.stop, b.o) - SLIP, b)
         else:
             gap = b.o > p.stop
-            px = b.h if self.fill == "harsh-stops" else _clamp(max(p.stop, b.o) + SLIP, b)
+            if self.fill == "harsh-stops":
+                px = b.h
+            elif self.fill == "midpoint":
+                px = ceil_tick((max(p.stop, b.o) + b.h) / 2.0)
+            else:
+                px = _clamp(max(p.stop, b.o) + SLIP, b)
         return px, gap
 
     def _mark(self, b):

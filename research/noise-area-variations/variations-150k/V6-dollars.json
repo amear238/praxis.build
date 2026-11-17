@@ -1,0 +1,23 @@
+{
+ "name": "V6-dollars",
+ "reason": "V6 on the 150,000 frame, the same dollars a trade as on the 50,000 frame (0.083333% of the balance, $125 at the start). V2 with the original exit (back inside the band or through the average price) in place of holding to the close, to see whether the original exit keeps the 2-to-1 figure at a survivable risk. Rests on: tables.md, stop at half the band width, 9:30 AM band, on the half hour, whole day, both sides (607 breakouts, 31.3% reach twice the risk, +0.39 average held to 4 PM, longest stretch 7 days)",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "band_or_vwap"
+ },
+ "max_trades_per_day": 2,
+ "risk_pct": 0.083333,
+ "flat_time": "15:59"
+}

@@ -159,6 +159,31 @@ class Profit(unittest.TestCase):
         self.assertEqual(judged(result(tr), dates)["profit"], {"pass": True, "net": 4000.0})
 
 
+class OtherLimit(unittest.TestCase):
+    """judge(..., limit=4500): the profit bar is twice the limit, survival uses the limit."""
+
+    def test_profit_and_survival_use_the_limit(self):
+        dates = weekdays("2024-03-01", 3)
+        tr = [trade(d, 3000.0, 30.0) for d in dates]
+        tr[2] = trade(dates[2], 2999.99, 29.9999)
+        res = result(tr, start=150000.0)
+        with mock.patch.object(gates, "shuffled", return_value=shuffle(0)) as sh:
+            j = gates.judge(res, dates, limit=4500.0)
+        self.assertEqual(j["profit"], {"pass": False, "net": 8999.99})
+        sh.assert_called_once_with(res["days"], runs=10000, seed=20261115, start=150000.0, limit=4500.0)
+        tr[2] = trade(dates[2], 3000.0, 30.0)
+        res = result(tr, start=150000.0)
+        with mock.patch.object(gates, "shuffled", return_value=shuffle(0)):
+            self.assertEqual(gates.judge(res, dates, limit=4500.0)["profit"], {"pass": True, "net": 9000.0})
+        # Survival: the high after day 1 is 153,000, so the floor is 148,500.
+        res["days"][1]["low"] = 148500.0
+        with mock.patch.object(gates, "shuffled", return_value=shuffle(0)):
+            self.assertEqual(gates.judge(res, dates, limit=4500.0)["survival"]["first_cross"], dates[1])
+        res["days"][1]["low"] = 148500.01
+        with mock.patch.object(gates, "shuffled", return_value=shuffle(0)):
+            self.assertIsNone(gates.judge(res, dates, limit=4500.0)["survival"]["first_cross"])
+
+
 class Survival(unittest.TestCase):
     def test_survival_real_cross_fails(self):
         dates = weekdays("2024-03-01", 3)
@@ -317,6 +342,19 @@ class RuleCheck(unittest.TestCase):
         self.assertEqual(check(self.kind, self.days), [])
         self.assertEqual(check(self.harsh, self.days), [])
         self.assertEqual(self.harsh["trades"][1]["exit"], 70.0)
+
+    def test_midpoint_replay(self):
+        mid = te.run(self.days, fill="midpoint")
+        self.assertEqual(mid["trades"][1]["exit"], 75.75)
+        self.assertEqual(check(mid, self.days), [])
+        # A midpoint result that carries the kind or the harsh price is caught, and the other way round.
+        for px in (81.0, 70.0, 76.0):
+            bad = copy.deepcopy(mid)
+            bad["trades"][1]["exit"] = px
+            self.assertTrue([x for x in check(bad, self.days) if "exit does not match the rules" in x], px)
+        bad = copy.deepcopy(self.kind)
+        bad["fill"] = "midpoint"
+        self.assertTrue([x for x in check(bad, self.days) if "exit does not match the rules" in x])
 
     def caught(self, res, phrase, days=None, spec=None, n=None):
         breaks = check(res, days or self.days, spec)
@@ -515,7 +553,7 @@ class RuleCheck(unittest.TestCase):
                                     "10:15": (48.5, 75, 48.5, 70)})], {})]
         seen = []
         for days, over in cases:
-            for fill in ("kind", "harsh-stops"):
+            for fill in ("kind", "harsh-stops", "midpoint"):
                 res = te.run(days, fill=fill, **over)
                 seen.extend((t["side"], t["reason"], t["gap"]) for t in res["trades"])
                 self.assertEqual(check(res, days), [], (over, fill))
@@ -536,7 +574,7 @@ class RuleCheck(unittest.TestCase):
                              stop={"kind": "full_width"}, max_trades_per_day=10, band_mult=0.25)]
         reasons = set()
         for s in te.random_settings() + extra:
-            for fill in ("kind", "harsh-stops"):
+            for fill in ("kind", "harsh-stops", "midpoint"):
                 res = en.run(days, s, fill=fill)
                 reasons.update((t["reason"], t["side"]) for t in res["trades"])
                 self.assertEqual(gates.rule_check(res, days), [], (s, fill))

@@ -1,0 +1,23 @@
+{
+ "name": "V5-room",
+ "reason": "V5 on the 150,000 frame, the same number of losers inside the limit as on the 50,000 frame (0.1875% of the balance, $281 at the start). One trade a day: the first breakout of the day is most often a morning one, the best part (tables.md, half width, 9:30 AM band, half hour, morning, both sides: 370 breakouts, 38.1% reach twice the risk, +0.49 held to 4 PM), and one trade a day caps the day's loss at one stop. Whole-day window kept because the morning alone has a 10-day stretch.",
+ "anchor": "0930",
+ "lookback": 14,
+ "band_mult": 1.0,
+ "cadence": "half_hour",
+ "entry_window": [
+  "09:31",
+  "15:30"
+ ],
+ "sides": "both",
+ "reentry": "fresh",
+ "stop": {
+  "kind": "half_width"
+ },
+ "exit": {
+  "kind": "hold_to_flat"
+ },
+ "max_trades_per_day": 1,
+ "risk_pct": 0.1875,
+ "flat_time": "15:59"
+}
