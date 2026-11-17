@@ -37,6 +37,8 @@ For information, not a bar: started on a random day, the middle sizes reached +$
 
 Earlier, on the $50,000 stand-in with harsh fills: none of the twelve passed (`research/noise-area-variations/out/VERDICT.md`); candidate 1 and four variations, none passed (`research/intraday-momentum-long/`).
 
+Also checked 2026-11-17, on Amear's question about the session-sweep idea he pasted (overnight high or low taken out in the New York morning, then faded, stop past the spike, 2-to-1 target, 2021 to 2026): it loses, about $0.16 per $1 risked after costs over 1,011 trades, and the 4-hour trend filter does not rescue it. The 1.68 profit factor quoted from a vendor blog was on currencies and gold, with no costs. Measurement: `research/session-sweep/`.
+
 ## What is next, in order
 
 1. Amear's word on where the search goes now that Noise-Area has failed on both accounts. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).

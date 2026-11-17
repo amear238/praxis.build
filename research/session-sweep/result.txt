@@ -1,0 +1,12 @@
+events: 1011 of 1540 days | median risk pts: 18.25 | longs: 470
+FADE net          n=1011 win=32.8% avgR=-0.156 PF=0.79 t=-3.52 avgWinR=1.83 maxLossRun=12
+FADE gross        n=1011 win=32.8% avgR=-0.027 PF=0.96 t=-0.63 avgWinR=1.94 maxLossRun=12
+FOLLOW net        n=1011 win=34.1% avgR=-0.116 PF=0.84 t=-2.61 avgWinR=1.82 maxLossRun=18
+FADE with 4H      n= 450 win=34.7% avgR=-0.106 PF=0.86 t=-1.58 avgWinR=1.82 maxLossRun=18
+FADE against 4H   n= 556 win=31.5% avgR=-0.193 PF=0.75 t=-3.26 avgWinR=1.84 maxLossRun=14
+  2021 fade n= 148 win=30.4% avgR=-0.276 PF=0.66 t=-2.44 avgWinR=1.77 maxLossRun=12 | with4H n=  58 win=29.3% avgR=-0.318 PF=0.61 t=-1.84 avgWinR=1.67 maxLossRun=6
+  2022 fade n= 194 win=32.5% avgR=-0.154 PF=0.79 t=-1.53 avgWinR=1.84 maxLossRun=12 | with4H n=  89 win=37.1% avgR=-0.028 PF=0.96 t=-0.18 avgWinR=1.80 maxLossRun=8
+  2023 fade n= 199 win=35.7% avgR=-0.087 PF=0.88 t=-0.86 avgWinR=1.80 maxLossRun=7 | with4H n=  84 win=39.3% avgR=+0.006 PF=1.01 t=+0.03 avgWinR=1.82 maxLossRun=7
+  2024 fade n= 187 win=31.0% avgR=-0.201 PF=0.74 t=-1.96 avgWinR=1.85 maxLossRun=10 | with4H n=  90 win=30.0% avgR=-0.214 PF=0.73 t=-1.46 avgWinR=1.89 maxLossRun=10
+  2025 fade n= 180 win=29.4% avgR=-0.241 PF=0.70 t=-2.34 avgWinR=1.87 maxLossRun=11 | with4H n=  79 win=27.8% avgR=-0.295 PF=0.64 t=-1.92 avgWinR=1.88 maxLossRun=18
+  2026 fade n= 103 win=40.8% avgR=+0.112 PF=1.17 t=+0.77 avgWinR=1.87 maxLossRun=11 | with4H n=  50 win=48.0% avgR=+0.310 PF=1.54 t=+1.46 avgWinR=1.83 maxLossRun=7
