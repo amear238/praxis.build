@@ -199,3 +199,7 @@ Reading: the average winning trade must be at least twice the money risked on it
 > "Once the plan is put together, I will start this in a new chat. So just to be clear, no back testing is going to be conducted in this chat."
 
 Reading, not his words: this reopens Noise-Area after the 2026-11-15 "does not pass", for variations judged against the new bars. The design is `docs/superpowers/specs/2026-11-17-noise-area-variations-design.md`.
+
+**Approval (2026-11-17).** Shown the design and asked for his word to lift the settings block on general-purpose helper agents, for the tester and the checker:
+
+> "approve on both."

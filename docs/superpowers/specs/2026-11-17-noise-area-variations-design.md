@@ -1,6 +1,6 @@
 # Noise-Area breakout variations: design
 
-Date: 2026-11-17. Status: waiting for Amear's approval. No backtest is run until the plan made from this is started in a new session.
+Date: 2026-11-17. Status: approved by Amear ("approve on both."). No backtest is run until the plan made from this is started in a new session.
 
 ## Why
 
