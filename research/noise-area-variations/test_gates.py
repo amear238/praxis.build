@@ -63,8 +63,13 @@ def result(trades, dates=None, start=50000.0, breaks=(), skipped=()):
     return out
 
 
-def judged(res, dates, pct=0.0):
-    with mock.patch.object(gates, "shuffled", return_value={"pct": pct}):
+def shuffle(crossed, runs=10000):
+    """A stand-in result of shuffled(): its "pct" is rounded to 0.1, as the real one's is."""
+    return {"runs": runs, "crossed": crossed, "pct": round(100.0 * crossed / runs, 1)}
+
+
+def judged(res, dates, crossed=0):
+    with mock.patch.object(gates, "shuffled", return_value=shuffle(crossed)):
         return gates.judge(res, dates)
 
 
@@ -159,20 +164,29 @@ class Survival(unittest.TestCase):
         dates = weekdays("2024-03-01", 3)
         res = result([trade(d, 10.0, 0.1) for d in dates])
         res["days"][1]["low"] = res["days"][1]["start"] - 2000.0      # 50,010 high: the floor is 48,010
-        s = judged(res, dates, pct=0.0)["survival"]
+        s = judged(res, dates, crossed=0)["survival"]
         self.assertEqual(s, {"pass": False, "first_cross": dates[1], "shuffle_pct": 0.0})
         res["days"][1]["low"] = res["days"][1]["start"] - 1999.99
-        self.assertEqual(judged(res, dates, pct=0.0)["survival"], {"pass": True, "first_cross": None,
-                                                                   "shuffle_pct": 0.0})
+        self.assertEqual(judged(res, dates, crossed=0)["survival"], {"pass": True, "first_cross": None,
+                                                                     "shuffle_pct": 0.0})
 
     def test_survival_boundary(self):
         dates = weekdays("2024-03-01", 3)
         res = result([trade(d, 10.0, 0.1) for d in dates], start=10000.0)
-        with mock.patch.object(gates, "shuffled", return_value={"pct": 5.0}) as sh:
+        with mock.patch.object(gates, "shuffled", return_value=shuffle(500)) as sh:
             s = gates.judge(res, dates)["survival"]
         self.assertEqual(s, {"pass": True, "first_cross": None, "shuffle_pct": 5.0})
         sh.assert_called_once_with(res["days"], runs=10000, seed=20261115, start=10000.0, limit=2000.0)
-        self.assertEqual(judged(res, dates, pct=5.1)["survival"]["pass"], False)
+        # 501 and 502 crossings: "pct" rounds 5.02 to 5.0, the bar does not.
+        self.assertEqual(judged(res, dates, crossed=501)["survival"], {"pass": False, "first_cross": None,
+                                                                       "shuffle_pct": 5.01})
+        s = judged(res, dates, crossed=502)["survival"]
+        self.assertEqual((s["pass"], s["shuffle_pct"]), (False, 100.0 * 502 / 10000))
+        # The bar reads "crossed" and "runs", not the rounded "pct".
+        with mock.patch.object(gates, "shuffled", return_value={"runs": 200, "crossed": 10, "pct": 99.0}):
+            self.assertTrue(gates.judge(res, dates)["survival"]["pass"])
+        with mock.patch.object(gates, "shuffled", return_value={"runs": 200, "crossed": 11, "pct": 0.0}):
+            self.assertFalse(gates.judge(res, dates)["survival"]["pass"])
 
     def test_uses_the_candidate_1_functions(self):
         path = os.path.join(os.path.dirname(HERE), "intraday-momentum-long", "run.py")
@@ -201,8 +215,8 @@ class Overall(unittest.TestCase):
         self.assertTrue(j["overall"])
         self.assertEqual(j["rule_check"], {"pass": True, "breaks": 0})
 
-        def fails(res, pct=0.0):
-            j = judged(res, dates, pct)
+        def fails(res, crossed=0):
+            j = judged(res, dates, crossed)
             return [k for k in bars if not j[k]["pass"]], j["overall"]
 
         r = copy.deepcopy(res)
@@ -228,13 +242,13 @@ class Overall(unittest.TestCase):
                 t["net"] = -350.0
         r["days"] = result(r["trades"], dates)["days"]       # net 7,500 - 5,250; from 2024: 2,000 - 1,750
         self.assertEqual(fails(r), (["profit"], False))
-        self.assertEqual(fails(res, pct=5.1), (["survival"], False))
+        self.assertEqual(fails(res, crossed=501), (["survival"], False))
 
 
 class Stats(unittest.TestCase):
     def test_stats(self):
         dates = ["2023-01-03", "2023-01-04", "2023-01-05", "2024-01-02", "2024-01-03"]
-        tr = [trade(dates[0], 300.0, 3.0), trade(dates[1], -100.0, -1.0, "stop"),
+        tr = [trade(dates[0], 300.0, 3.0), trade(dates[1], -180.0, -1.8, "exit"),
               trade(dates[2], -150.0, -1.5, "stop"), trade(dates[3], 250.0, 2.5),
               trade(dates[4], -100.01, -1.0001, "stop")]
         tr[2]["gap"] = True
@@ -246,10 +260,10 @@ class Stats(unittest.TestCase):
                        {"date": dates[4], "start": 50300.0, "end": 50199.99, "low": 50199.99}]
         st = judged(res, dates)["stats"]
         self.assertEqual(st, {
-            "trades": 5, "win_pct": 40.0, "avg_winner_dollars": 275.0, "avg_loser_dollars": -116.67,
-            "avg_loser_r": -1.167, "longest_losing_run": 2, "worst_drop_dollars": 400.0, "skipped": 2,
-            "stops_over_planned": 1, "worst_stop_vs_planned": 1.5,
-            "by_year": {"2023": {"trades": 3, "net": 50.0, "win_pct": 33.3, "avg_winner_r": 3.0},
+            "trades": 5, "win_pct": 40.0, "avg_winner_dollars": 275.0, "avg_loser_dollars": -143.34,
+            "avg_loser_r": -1.433, "longest_losing_run": 2, "worst_drop_dollars": 400.0, "skipped": 2,
+            "stops_over_planned": 2, "worst_stop_vs_planned": 1.8,       # any reason; 100.01 is not over
+            "by_year": {"2023": {"trades": 3, "net": -30.0, "win_pct": 33.3, "avg_winner_r": 3.0},
                         "2024": {"trades": 2, "net": 149.99, "win_pct": 50.0, "avg_winner_r": 2.5}}})
         st = judged(result([], dates), dates)["stats"]
         self.assertEqual((st["trades"], st["win_pct"], st["avg_winner_dollars"], st["worst_stop_vs_planned"],
@@ -334,14 +348,15 @@ class RuleCheck(unittest.TestCase):
         self.assertIn(STAMP(D, "12:00"), " ".join(b))
         self.caught(self.tampered(1, exit_dt=STAMP(D2, "10:16")), "reached the stop before the exit")
         self.caught(self.tampered(1, exit_dt=STAMP(D2, "10:14")), "did not reach the stop")
-        # kind: a loss at the stop above the planned cost by more than a cent, without a gap.
+        # kind: a loss above the planned cost by more than a cent, without a gap, whatever the reason.
         t1 = self.kind["trades"][1]
-        self.caught(self.tampered(1, net=t1["net"] - 0.02), "loss at the stop above the planned cost")
+        self.caught(self.tampered(1, net=t1["net"] - 0.02), "loss above the planned cost")
         breaks = check(self.tampered(1, net=t1["net"] - 0.01), self.days)
-        self.assertFalse([x for x in breaks if "loss at the stop above" in x], breaks)
+        self.assertFalse([x for x in breaks if "loss above the planned cost" in x], breaks)
         breaks = check(self.tampered(1, net=t1["net"] - 0.02, gap=True), self.days)
-        self.assertFalse([x for x in breaks if "loss at the stop above" in x], breaks)
-        self.assertFalse([x for x in check(self.harsh, self.days) if "loss at the stop above" in x])
+        self.assertFalse([x for x in breaks if "loss above the planned cost" in x], breaks)
+        self.assertFalse([x for x in check(self.harsh, self.days) if "loss above the planned cost" in x])
+        self.caught(self.tampered(0, net=-t0["planned_cost"] - 0.02), "loss above the planned cost (reason flat)")
         # Size: qty and planned cost for the balance before the trade.
         self.caught(self.tampered(0, qty=12), "qty does not match the size rule")
         self.caught(self.tampered(0, planned_cost=t0["planned_cost"] + 0.5), "planned_cost does not match the size rule")
@@ -420,6 +435,42 @@ class RuleCheck(unittest.TestCase):
         # Without the trail the 81.5 stop is never reached: the stop exit at 10:07 breaks the rule.
         res["settings"]["exit"] = {"kind": "hold_to_flat"}
         self.caught(res, "did not reach the stop", days=days)
+
+    def test_gap_on_decided_exits(self):
+        # The 10:30 close of 95 decides the exit; the 10:31 bar opens at 80, already below the 81.5 stop.
+        days = [te.build_day(D, dict(te.UP, **{"10:30": (101.5, 101.5, 95, 95), "10:31": (80, 81, 79, 80)}))]
+        res = te.run(days, max_trades_per_day=1)
+        t = res["trades"][0]
+        self.assertEqual((t["reason"], t["exit"], t["gap"]), ("exit", 79.5, True))
+        self.assertLess(t["net"], -t["planned_cost"] - 0.01)
+        self.assertEqual(check(res, days), [])
+        bad = self.tampered(0, base=res, gap=False)
+        self.caught(bad, "exit does not match the rules", days=days)
+        self.caught(bad, "loss above the planned cost (reason exit)", days=days)
+        # A trailed stop: 120 - 20 = 100 from 10:05; the flat fill at the 16:00 open of 99 is past it (not past
+        # the initial 81.5).
+        marks = dict(te.UP, **{"10:05": (101.5, 120, 101.5, 119), "16:00": (99, 99.5, 98, 99)})
+        days = [te.build_day(D, marks)]
+        res = te.run(days, exit={"kind": "trail_r", "value": 1.0}, max_trades_per_day=1)
+        t = res["trades"][0]
+        self.assertEqual((t["reason"], t["exit"], t["gap"]), ("flat", 98.5, True))
+        self.assertEqual(check(res, days), [])
+        self.caught(self.tampered(0, base=res, gap=False), "exit does not match the rules", days=days)
+        res["settings"]["exit"] = {"kind": "hold_to_flat"}          # no trail: the open is not past 81.5
+        self.caught(res, "exit does not match the rules", days=days)
+
+    def test_entry_bar_before_flat_and_not_last(self):
+        # The entry bar (10:01) stamped at flat_time: a break, though the decision bar (10:00) is before it.
+        self.caught(self.with_settings(entry_window=["09:31", "10:00"], flat_time="10:01"),
+                    "entry at or after flat_time", n=3)
+        # The entry bar is the day's last tradable bar (a hole from 10:02 to 15:59 ends day 1 at 10:01).
+        day1 = holed(self.days[0], "10:02", "15:59")
+        self.assertEqual(g.tradable_end(day1), day1.by_sm[g.sm_of("10:01")])
+        self.caught(self.kind, "entry on the day's last tradable bar", days=[day1, self.days[1]], n=1)
+        # The engine itself places neither.
+        self.assertEqual(te.run([day1], max_trades_per_day=1)["trades"], [])
+        r = te.run(self.days, entry_window=["09:31", "10:00"], flat_time="10:01")
+        self.assertEqual(r["trades"], [])
 
     def test_stop_bar_is_no_decision_bar(self):
         days = [te.build_day(D, dict(te.UP, **{"10:30": (101, 101, 50, 55)}))]
@@ -567,6 +618,84 @@ class RunAll(unittest.TestCase):
         with mock.patch.object(bd, "day_bands", STD_BANDS), mock.patch("sys.stdout"):
             self.assertEqual(ra.run_all(plain, self.out, days=days), 2)
         self.assertFalse(os.path.exists(self.out))
+
+    def test_run_all_refuses_settings_unlike_the_commit(self):
+        days = hand_days()
+        self.write("a.json", te.settings(name="a"))
+        self.commit()
+        path = os.path.join(self.vdir, "a.json")
+
+        def porcelain():
+            return subprocess.run(["git", "status", "--porcelain", "--ignored", "--untracked-files=all"],
+                                  cwd=self.vdir, stdout=subprocess.PIPE, universal_newlines=True).stdout
+        for flag in ("--skip-worktree", "--assume-unchanged"):
+            git(self.repo, "update-index", flag, "variations/a.json")
+            self.write("a.json", te.settings(name="a", risk_pct=0.5))
+            self.assertEqual(porcelain(), "", flag)                # git status does not see the change
+            self.assertEqual(self.call(days), 2, flag)
+            self.assertFalse(os.path.exists(self.out))
+            git(self.repo, "update-index", flag.replace("--", "--no-"), "variations/a.json")
+            git(self.repo, "checkout", "--", "variations/a.json")
+        # A committed symlink to a file outside the repository.
+        outside = os.path.join(self.tmp, "outside.json")
+        with open(outside, "w") as fh:
+            json.dump(te.settings(name="a"), fh)
+        os.remove(path)
+        os.symlink(outside, path)
+        self.commit()
+        self.assertEqual(porcelain(), "")
+        self.assertEqual(self.call(days), 2)
+        self.assertFalse(os.path.exists(self.out))
+        # A name field unlike the file stem.
+        os.remove(path)
+        self.write("a.json", te.settings(name="b"))
+        self.commit()
+        self.assertEqual(self.call(days), 2)
+        self.assertFalse(os.path.exists(self.out))
+        # GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE in the environment are not used.
+        self.write("a.json", te.settings(name="a"))
+        self.commit()
+        bogus = os.path.join(self.tmp, "nowhere")
+        with mock.patch.dict(os.environ, {"GIT_DIR": bogus, "GIT_WORK_TREE": bogus, "GIT_INDEX_FILE": bogus}):
+            self.assertEqual(self.call(days), 0)
+
+    def test_run_all_clears_old_output(self):
+        days = hand_days()
+        self.write("a.json", te.settings(name="a"))
+        self.commit()
+        os.makedirs(os.path.join(self.out, "a"))
+        with open(os.path.join(self.out, "a", "stale.json"), "w") as fh:
+            fh.write("{}\n")
+        self.assertEqual(self.call(days), 0)
+        self.assertNotIn("stale.json", os.listdir(os.path.join(self.out, "a")))
+
+    def test_frequency_calendar_starts_with_the_band(self):
+        dates = weekdays("2024-03-04", 20)
+        days = [te.build_day(dt.date.fromisoformat(d), te.UP_FLAT) for d in dates]
+        first = dates[14]                          # a 14-day band: none on the first 14 days
+        spec = te.fake_bands(lambda date, sm: te.STD if date >= first else None)
+        self.write("a.json", te.settings(name="a", lookback=14))
+        self.commit()
+        with mock.patch.object(bd, "day_bands", spec), mock.patch("sys.stdout"):
+            self.assertEqual(ra.run_all(self.vdir, self.out, days=days), 0)
+        with open(os.path.join(self.out, "a", "judge.json")) as fh:
+            j = json.load(fh)
+        self.assertEqual(j["frequency"], {"pass": True, "max_gap_trading_days": 0, "gap_from": None, "gap_to": None})
+        self.assertEqual(j["stats"]["trades"], 6)
+        with open(os.path.join(self.out, "a", "harsh-stops-50000.json")) as fh:
+            res = json.load(fh)
+        self.assertEqual(sorted({t["date"] for t in res["trades"]}), dates[14:])
+        # Counted from the first loaded day, the warm-up would be a 14-day gap.
+        self.assertEqual(judged(res, dates)["frequency"]["max_gap_trading_days"], 14)
+        # A gap at the end of the calendar still counts: no trade on the last 8 days.
+        days = [te.build_day(dt.date.fromisoformat(d), te.UP_FLAT if i < 12 else {}) for i, d in enumerate(dates)]
+        spec = te.fake_bands(lambda date, sm: te.STD if date >= dates[4] else None)
+        with mock.patch.object(bd, "day_bands", spec), mock.patch("sys.stdout"):
+            self.assertEqual(ra.run_all(self.vdir, self.out, days=days), 0)
+        with open(os.path.join(self.out, "a", "judge.json")) as fh:
+            j = json.load(fh)
+        self.assertEqual(j["frequency"], {"pass": False, "max_gap_trading_days": 8, "gap_from": dates[12],
+                                          "gap_to": dates[19]})
 
     def test_run_all_writes_results(self):
         days = hand_days()

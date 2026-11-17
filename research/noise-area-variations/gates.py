@@ -13,7 +13,8 @@ trade, on the day.bars[: globex.tradable_end(day) + 1] of its trading day:
   * Entry. The entry bar is the bar stamped entry_dt; the decision bar is the tradable bar just before it.
     The decision bar has a band point, is stamped :00 or :30 when the cadence is "half_hour", is stamped
     before flat_time, and is not a bar where a stop filled. The side is allowed by `sides`; the decision
-    close is above the upper line (long) or below the lower line (short). The decision bar's stamp is
+    close is above the upper line (long) or below the lower line (short). The entry bar is stamped before
+    flat_time and is not the day's last tradable bar. The decision bar's stamp is
     inside entry_window. The trade is at most the max_trades_per_day-th of its date. The previous trade
     is closed before the entry bar and is not on the same side at the decision bar. reentry "fresh": after
     an exit on the same side the same day, a decision bar closed inside the band (lower <= C <= upper):
@@ -34,11 +35,13 @@ trade, on the day.bars[: globex.tradable_end(day) + 1] of its trading day:
     the position closes at the next bar's open (or at that last bar's close), 2 ticks against; else on a
     decision bar the exit rule ("band_or_vwap" only: long C <= max(upper, vwap), short C >= min(lower,
     vwap)) gives "exit", and the opposite signal (with that side allowed) gives "reverse", both filled at
-    the next bar's open, 2 ticks against. The trade's reason, exit_dt, exit and gap must be the replay's.
+    the next bar's open, 2 ticks against; such a decided exit has gap true when that open is already
+    beyond the stop resting there (the trailed stop included). The trade's reason, exit_dt, exit and gap
+    must be the replay's.
     Its exit is no later than the bar stamped 16:00 of its date and inside the day's tradable bars.
   * Money: net = (exit - entry) * sign * 2.0 * qty - 1.90 * qty, to the cent; r = net / planned_cost;
     balance = the realised balance after the trade, trade by trade in list order.
-  * On a "kind" result: a trade with reason "stop", gap false and a loss above planned_cost by more than
+  * On a "kind" result: a trade of any reason with gap false and a loss above planned_cost by more than
     one cent is a break.
 And the day dicts the survival bar reads: one per day given, in order; start = the previous day's end (the
 first is result["start"]); end = the realised balance after the day's trades; low = the lowest of the
@@ -94,6 +97,11 @@ def _ceil_tick(x):
 
 def _inside(x, b):
     return min(max(x, b.l), b.h)
+
+
+def _beyond(b, stop, sign):
+    """True when bar b opens already beyond the resting stop (long: open < stop; short: open > stop)."""
+    return stop is not None and (b.o < stop if sign == 1 else b.o > stop)
 
 
 def _same(a, b):
@@ -162,12 +170,12 @@ def _replay(v, s, fill, t, i0, sign, stop):
         if b.sm >= v.flat_sm or i == v.last:
             if i < v.last:
                 n = bars[i + 1]
-                return "flat", i + 1, _inside(n.o - SLIP * sign, n), False, i
+                return "flat", i + 1, _inside(n.o - SLIP * sign, n), _beyond(n, stop, sign), i
             return "flat", i, _inside(b.c - SLIP * sign, b), False, i
         p = v.bmap.get(b.sm)
+        why = None
         if p is not None and (not v.half_hour or b.dt.minute in (0, 30)):
             c = b.c
-            why = None
             if sign == 1:
                 if band_exit and c <= max(p.upper, p.vwap):
                     why = "exit"
@@ -178,9 +186,6 @@ def _replay(v, s, fill, t, i0, sign, stop):
                     why = "exit"
                 elif long_ok and c > p.upper:
                     why = "reverse"
-            if why is not None:
-                n = bars[i + 1]
-                return why, i + 1, _inside(n.o - SLIP * sign, n), False, i
         if trail is not None and stop is not None and t["dist"] is not None:
             if sign == 1:
                 new = _floor_tick(best - trail * t["dist"])
@@ -190,6 +195,9 @@ def _replay(v, s, fill, t, i0, sign, stop):
                 new = _ceil_tick(best + trail * t["dist"])
                 if new < stop:
                     stop = new
+        if why is not None:                       # filled at the next open; the stop resting there decides gap
+            n = bars[i + 1]
+            return why, i + 1, _inside(n.o - SLIP * sign, n), _beyond(n, stop, sign), i
         i += 1
 
 
@@ -245,10 +253,11 @@ def rule_check(result, days):
                % (t["stop_initial"], t["entry"], t["dist"]))
         if t["dist"] is not None and t["dist"] < MIN_STOP:
             br("dist under 10 points: %r" % (t["dist"],))
-        # kind: no loss at the stop above the planned cost, except on a gap.
-        if (fill == "kind" and t["reason"] == "stop" and not t["gap"] and t["planned_cost"] is not None
+        # kind: no loss above the planned cost, whatever the reason, except on a gap.
+        if (fill == "kind" and not t["gap"] and t["planned_cost"] is not None
                 and -t["net"] - t["planned_cost"] > CENT + EPS):
-            br("loss at the stop above the planned cost: net %r, planned %r" % (t["net"], t["planned_cost"]))
+            br("loss above the planned cost (reason %s): net %r, planned %r"
+               % (t["reason"], t["net"], t["planned_cost"]))
         # Most trades a day.
         per_date[t["date"]] = per_date.get(t["date"], 0) + 1
         if per_date[t["date"]] > s["max_trades_per_day"]:
@@ -279,8 +288,11 @@ def rule_check(result, days):
         d, e = v.bars[j], v.bars[i0]
         dstamp = v.stamp(j)
         # Decision bar.
-        if d.sm >= v.flat_sm or e.sm > v.flat_sm:
-            br("entry at or after flat_time: decided %s, flat_time %s" % (dstamp, s["flat_time"]))
+        if d.sm >= v.flat_sm or e.sm >= v.flat_sm:
+            br("entry at or after flat_time: decided %s, filled %s, flat_time %s"
+               % (dstamp, t["entry_dt"], s["flat_time"]))
+        if i0 == v.last:
+            br("entry on the day's last tradable bar: %s" % (t["entry_dt"],))
         if dstamp in v.stop_stamps:
             br("decided on a bar where a stop filled: %s" % (dstamp,))
         if v.half_hour and d.dt.minute not in (0, 30):
@@ -435,8 +447,9 @@ def _frequency(trades, all_dates):
 def _survival(result):
     tr = trailing(result["days"], start=result["start"], limit=LIMIT)
     sh = shuffled(result["days"], runs=SHUFFLE_RUNS, seed=SHUFFLE_SEED, start=result["start"], limit=LIMIT)
-    return {"pass": tr["first_cross"] is None and sh["pct"] <= SHUFFLE_PCT_MAX, "first_cross": tr["first_cross"],
-            "shuffle_pct": sh["pct"]}
+    # Exact: at most 5% of the runs cross. shuffled()'s own "pct" is rounded to 0.1 and is not used.
+    return {"pass": tr["first_cross"] is None and sh["crossed"] * 100 <= SHUFFLE_PCT_MAX * sh["runs"],
+            "first_cross": tr["first_cross"], "shuffle_pct": 100.0 * sh["crossed"] / sh["runs"]}
 
 
 def _stats(result):
@@ -451,8 +464,7 @@ def _stats(result):
     for d in result["days"]:
         drop = max(drop, high - d["low"])
         high = max(high, d["end"])
-    stops = [t for t in trades if t["reason"] == "stop" and t["planned_cost"]]
-    over = [t for t in stops if -t["net"] - t["planned_cost"] > CENT + EPS]
+    over = [t for t in trades if t["planned_cost"] and -t["net"] - t["planned_cost"] > CENT + EPS]
     by_year = {}
     for y in sorted({t["date"][:4] for t in trades}):
         ty = [t for t in trades if t["date"][:4] == y]
@@ -469,7 +481,7 @@ def _stats(result):
         "worst_drop_dollars": round(drop, 2),
         "skipped": len(result["skipped"]),
         "stops_over_planned": len(over),
-        "worst_stop_vs_planned": round(max(-t["net"] / t["planned_cost"] for t in stops), 4) if stops else None,
+        "worst_stop_vs_planned": round(max(-t["net"] / t["planned_cost"] for t in over), 4) if over else None,
         "by_year": by_year,
     }
 
@@ -482,12 +494,17 @@ def judge(result, all_dates):
                 dated LATER_FROM or later >= 2.0, and the net of the trades dated LATER_FROM or later > 0.
     frequency:  the longest run of consecutive dates of all_dates with no trade entered (a trade's date);
                 pass when <= 7. gap_from / gap_to are the run's first and last date (None when no gap).
+                judge uses the all_dates it is given. The calendar the rule means starts at the first
+                trading day on which the variation's band exists and runs to the last day loaded (runs at
+                its start and end count); run_all.band_dates builds it.
     profit:     pass when the net of all trades (to the cent) >= 2 * 2,000.
     survival:   trailing and shuffled (10,000 runs, seed 20261115) on result["days"] from result["start"]
-                with the 2,000 limit; pass when the real order never crosses and the shuffle percentage
-                is 5.0 or less.
-    stats:      dollars to the cent, percentages to 0.1, R to 0.001 (worst_stop_vs_planned to 0.0001);
-                a stop is over planned when its loss is above planned_cost by more than one cent.
+                with the 2,000 limit; pass when the real order never crosses and crossed * 100 <= 5 *
+                runs (at most 500 of 10,000). shuffle_pct = 100 * crossed / runs, unrounded.
+    stats:      dollars to the cent, percentages to 0.1, R to 0.001 (worst_stop_vs_planned to 0.0001).
+                stops_over_planned counts every trade, whatever its reason, whose loss is above its
+                planned_cost by more than one cent; worst_stop_vs_planned is the largest loss / planned_cost
+                among them (None when there is none).
     """
     rb = result.get("rule_breaks")
     out = {"rule_check": {"pass": False, "breaks": -1} if rb is None else {"pass": not rb, "breaks": len(rb)}}
