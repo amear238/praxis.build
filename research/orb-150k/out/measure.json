@@ -1,0 +1,6752 @@
+[
+ {
+  "avg_loser_r": -1.0930720900173223,
+  "avg_r": 6.394808361164928e-05,
+  "avg_winner_r": 3.3987232665428793,
+  "dd975_r": 103.11902768316567,
+  "digest": "c806272b5cb1c04d3ff02583f709021bd03bd5cdccbc2cf41ebaab5190dbaa16",
+  "full_days": 1352,
+  "headroom": 0.00039919502565080513,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-hold_to_flat",
+  "net_r": 0.04335680068869821,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -53.00367447376966,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 16.84386763326286,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 40.551722347390886,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": -0.37469140038004417,
+   "2022": 12.677053178166705,
+   "2023": -12.259004977097963
+  },
+  "net_r_long": 28.33684767649198,
+  "net_r_short": -28.293490875803283,
+  "projected_profit": 3.592755230857246,
+  "safe_dollars_per_r": 43.63889091183345,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 66.3716814159292,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 24.336283185840706
+ },
+ {
+  "avg_loser_r": -1.0922594423902676,
+  "avg_r": -0.06335262114160066,
+  "avg_winner_r": 2.466918235194407,
+  "dd975_r": 97.06293379678817,
+  "digest": "b4b77457ae7804a8ae5de4e53dc7a40c7dfb4d8e7b30156c8bd70568fd2b76cc",
+  "full_days": 1352,
+  "headroom": -0.42015309799387424,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-target_r3",
+  "net_r": -42.95307713400525,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -59.413999589030595,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 14.698484786948056,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 4.744514995033804,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": -13.763960445803336,
+   "2022": 15.70189517145231,
+   "2023": -44.89101185965422
+  },
+  "net_r_long": 8.36482940823073,
+  "net_r_short": -51.317906542235974,
+  "projected_profit": -3781.377881944868,
+  "safe_dollars_per_r": 46.361673029801885,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 62.24188790560472,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 28.908554572271388
+ },
+ {
+  "avg_loser_r": -1.0923633488495748,
+  "avg_r": -0.01701348840493806,
+  "avg_winner_r": 3.122013560869868,
+  "dd975_r": 95.8538072803805,
+  "digest": "16763be72485b372afb8fa3ff7a6797d88bcde988abd244af86f0ab74fcd5209",
+  "full_days": 1352,
+  "headroom": -0.11425636366188549,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-target_r5",
+  "net_r": -11.535145138548003,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -51.581977236435264,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 35.372318212686416,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 10.548271530388273,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": -8.023086629097783,
+   "2022": 24.750474207340226,
+   "2023": -28.262532716790446
+  },
+  "net_r_long": 14.458771807948757,
+  "net_r_short": -25.99391694649676,
+  "projected_profit": -1028.3072729569694,
+  "safe_dollars_per_r": 46.94649203486638,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 65.19174041297936,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 25.51622418879056
+ },
+ {
+  "avg_loser_r": -1.0926535256439571,
+  "avg_r": 0.008379644934061964,
+  "avg_winner_r": 3.404337375873494,
+  "dd975_r": 98.84616570979443,
+  "digest": "219a371842523fb71eccd62452aa14cc5416dfa79d84df69e8b41558933304ba",
+  "full_days": 1352,
+  "headroom": 0.054571034353786435,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-target_r10",
+  "net_r": 5.6813992652940115,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -53.00367447376966,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 30.823027599173493,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 32.21060484608553,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": -0.37469140038004417,
+   "2022": 18.235554693665602,
+   "2023": -12.179464027991546
+  },
+  "net_r_long": 28.62052881064576,
+  "net_r_short": -22.939129545351747,
+  "projected_profit": 491.1393091840779,
+  "safe_dollars_per_r": 45.52528636479124,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 66.22418879056048,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 24.48377581120944
+ },
+ {
+  "avg_loser_r": -0.6673679616915723,
+  "avg_r": -0.04067552683891339,
+  "avg_winner_r": 1.2044270639916996,
+  "dd975_r": 66.70914398644454,
+  "digest": "b972a764941fa97f46e8ae7219b82ceadab7557f9275f2eec5eb57c9c43a3bb2",
+  "full_days": 1352,
+  "headroom": -0.3925041157745119,
+  "longest_losing_run": 11,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-trail_r1",
+  "net_r": -27.578007196783275,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -34.730708672887154,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 5.616059557401307,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 3.799562339019337,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": -2.4335954989855266,
+   "2022": -6.2391575764239935,
+   "2023": -18.905254121373755
+  },
+  "net_r_long": 11.307491513383589,
+  "net_r_short": -38.885498710166864,
+  "projected_profit": -3532.537041970607,
+  "safe_dollars_per_r": 67.45701909942677,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 9.29203539823009,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 33.48082595870206
+ },
+ {
+  "avg_loser_r": -0.9523658142857833,
+  "avg_r": -0.0013439328147521763,
+  "avg_winner_r": 2.208383380014997,
+  "dd975_r": 81.08797923883097,
+  "digest": "ab2e3da1bf5338f6ba5fa4a687f96fd33215d33c311d7d6d5b6ec43596178177",
+  "full_days": 1352,
+  "headroom": -0.010668846746503863,
+  "longest_losing_run": 15,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-far_side-trail_r2",
+  "net_r": -0.9111864484019755,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -44.37748216225077,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 18.404781069548577,
+    "trades": 205
+   },
+   "mid": {
+    "net_r": 30.19310773607583,
+    "trades": 227
+   }
+  },
+  "net_r_by_year": {
+   "2021": 3.3438890955847964,
+   "2022": 13.91114952188612,
+   "2023": -18.166225065872894
+  },
+  "net_r_long": 28.78356743187494,
+  "net_r_short": -29.694753880276917,
+  "projected_profit": -96.01962071853477,
+  "safe_dollars_per_r": 55.49527861270299,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-far_side-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 31,
+  "stop_loss_above_planned_pct": 45.575221238938056,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 678,
+  "win_pct": 30.088495575221238
+ },
+ {
+  "avg_loser_r": -1.1141256257795016,
+  "avg_r": 0.0046513475280503,
+  "avg_winner_r": 5.389950676669487,
+  "dd975_r": 124.60794057952197,
+  "digest": "759738c68e82769653d400da1f3b84634da3300e88e07f62f0250ffd55885d03",
+  "full_days": 1352,
+  "headroom": 0.024312179239629732,
+  "longest_losing_run": 31,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-hold_to_flat",
+  "net_r": 3.190824404242506,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -55.82067752289562,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 17.95465470034959,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 39.25614235780413,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 9.97541727038755,
+   "2022": 8.240553832212662,
+   "2023": -15.025146698357707
+  },
+  "net_r_long": 9.140866547940641,
+  "net_r_short": -5.950042143698135,
+  "projected_profit": 218.80961315666758,
+  "safe_dollars_per_r": 36.11326837657029,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 69.09620991253644,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 17.20116618075802
+ },
+ {
+  "avg_loser_r": -1.1177951258948549,
+  "avg_r": -0.09340571288027973,
+  "avg_winner_r": 2.7433649693139284,
+  "dd975_r": 115.73998048193411,
+  "digest": "79843791efeca697b48f0c250a000ebca2a9d8dcb16311119b6474955e9d73ef",
+  "full_days": 1352,
+  "headroom": -0.5256308571914063,
+  "longest_losing_run": 17,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-target_r3",
+  "net_r": -64.07631903587189,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -54.58196535484495,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -7.171468748633334,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": -2.007015143070121,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -18.247708953490385,
+   "2022": -9.758760892989251,
+   "2023": -36.06984918939225
+  },
+  "net_r_long": -21.03461358054307,
+  "net_r_short": -43.04170545532882,
+  "projected_profit": -4730.677714722657,
+  "safe_dollars_per_r": 38.88025539024871,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 61.80758017492711,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 26.53061224489796
+ },
+ {
+  "avg_loser_r": -1.1149351606402198,
+  "avg_r": -0.09835566699544382,
+  "avg_winner_r": 4.128474859211782,
+  "dd975_r": 134.57629463618912,
+  "digest": "62a7f5a39d218bc7f0aafba3148ad67c10bf3e61303768961ddfce9743c1be0f",
+  "full_days": 1352,
+  "headroom": -0.47601609736040396,
+  "longest_losing_run": 25,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-target_r5",
+  "net_r": -67.47198755887446,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -62.561608783129955,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 7.352008132107814,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": -7.9505806434940824,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -26.093940727244497,
+   "2022": -3.58960891233364,
+   "2023": -37.78843791929632
+  },
+  "net_r_long": -11.070085052771311,
+  "net_r_short": -56.40190250610314,
+  "projected_profit": -4284.144876243636,
+  "safe_dollars_per_r": 33.43828132707332,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 67.49271137026238,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 19.387755102040817
+ },
+ {
+  "avg_loser_r": -1.1141256257795016,
+  "avg_r": 0.007684593486952369,
+  "avg_winner_r": 5.4075846319898835,
+  "dd975_r": 122.21062481852043,
+  "digest": "305fa41cb71726631645e680399cdfbe9ddbd4347797fef349e6f9ec902dbe6b",
+  "full_days": 1352,
+  "headroom": 0.04095460597109016,
+  "longest_losing_run": 31,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-target_r10",
+  "net_r": 5.271631132049325,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -50.41154361407438,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 27.534070394464436,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 29.368965035374064,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.732735321143746,
+   "2022": 8.142367155712469,
+   "2023": -18.60347134480689
+  },
+  "net_r_long": -4.718195818131938,
+  "net_r_short": 9.989826950181262,
+  "projected_profit": 368.5914537398114,
+  "safe_dollars_per_r": 36.821675747770556,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 69.09620991253644,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 17.20116618075802
+ },
+ {
+  "avg_loser_r": -0.6857656617652298,
+  "avg_r": -0.15550250754650488,
+  "avg_winner_r": 1.0300858655651726,
+  "dd975_r": 124.80798213298596,
+  "digest": "84085c6d3ed7750cb98d9044963774aa736dd4bd4a67bc4062614ce2952e1ce7",
+  "full_days": 1352,
+  "headroom": -0.8114950087251861,
+  "longest_losing_run": 13,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-trail_r1",
+  "net_r": -106.67472017690234,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -38.73864431421122,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -27.540478292313267,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": -38.20656579205209,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -14.556313398425877,
+   "2022": -40.08782042016163,
+   "2023": -52.030586358314835
+  },
+  "net_r_long": -44.2474857145668,
+  "net_r_short": -62.42723446233554,
+  "projected_profit": -7303.455078526675,
+  "safe_dollars_per_r": 36.055386226861195,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 13.70262390670554,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 30.903790087463555
+ },
+ {
+  "avg_loser_r": -0.9713263707993463,
+  "avg_r": -0.020713764378386262,
+  "avg_winner_r": 2.2569916886302503,
+  "dd975_r": 93.10865780652124,
+  "digest": "3bcf12e684960ca9ef4163af40f2892726ba76d812340b5cbcb8683e8f43565d",
+  "full_days": 1352,
+  "headroom": -0.14489713006368077,
+  "longest_losing_run": 11,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-direction-or_frac0.5-trail_r2",
+  "net_r": -14.209642363572977,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -48.527743472586074,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 11.650317325888276,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 21.100054911523827,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 9.352404471742869,
+   "2022": 9.576624343265419,
+   "2023": -33.13867117858126
+  },
+  "net_r_long": 9.406566552016184,
+  "net_r_short": -23.616208915589162,
+  "projected_profit": -1304.0741705731268,
+  "safe_dollars_per_r": 48.330629030771235,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-or_frac0.5-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 45.04373177842566,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 686,
+  "win_pct": 29.44606413994169
+ },
+ {
+  "avg_loser_r": -1.118953681853562,
+  "avg_r": 0.011288706982900059,
+  "avg_winner_r": 5.711641624592882,
+  "dd975_r": 128.94019599693252,
+  "digest": "097f2cf73babcd9bc49c02804ddf59d2f441604aa4070e97c7c84653dd2db819",
+  "full_days": 1352,
+  "headroom": 0.0577706669248236,
+  "longest_losing_run": 25,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-hold_to_flat",
+  "net_r": 7.845651353115541,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -28.08091325379134,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -13.851192727450263,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 49.77775733435714,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 31.03831159249274,
+   "2022": -6.16647530938439,
+   "2023": -17.026184929992805
+  },
+  "net_r_long": -3.644994777940516,
+  "net_r_short": 11.490646131056057,
+  "projected_profit": 519.9360023234124,
+  "safe_dollars_per_r": 34.89990041667887,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.63309352517986,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 16.546762589928058
+ },
+ {
+  "avg_loser_r": -1.1220201403035583,
+  "avg_r": -0.08089629624690571,
+  "avg_winner_r": 2.686301289272092,
+  "dd975_r": 111.83483486469342,
+  "digest": "05d67df1e08288411b95230e370107271d4eb9d8853b120664ed10357a3aea60",
+  "full_days": 1352,
+  "headroom": -0.47731275991224753,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-target_r3",
+  "net_r": -56.22292589159947,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -46.69797694395696,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -5.717446620860503,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -3.8075023267819725,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -12.156653352297154,
+   "2022": 0.811125116214924,
+   "2023": -44.87739765551724
+  },
+  "net_r_long": -17.64976656220532,
+  "net_r_short": -38.57315932939416,
+  "projected_profit": -4295.814839210228,
+  "safe_dollars_per_r": 40.23790981982004,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 59.856115107913666,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 27.33812949640288
+ },
+ {
+  "avg_loser_r": -1.1203403368762934,
+  "avg_r": -0.031758407334322114,
+  "avg_winner_r": 4.207578261938285,
+  "dd975_r": 112.79560237915267,
+  "digest": "70854f90291c53a781c8cfe6fbc3d4dcbf7d6a780b2bc79b4627d7bfe3af58f9",
+  "full_days": 1352,
+  "headroom": -0.1857881685825145,
+  "longest_losing_run": 17,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-target_r5",
+  "net_r": -22.072093097353868,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -44.24145635196251,
+    "trades": 232
+   },
+   "low": {
+    "net_r": 17.93723171285373,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 4.232131541754944,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 7.270364942453289,
+   "2022": 0.21720606809880844,
+   "2023": -29.559664107905967
+  },
+  "net_r_long": 10.253863044659337,
+  "net_r_short": -32.325956142013204,
+  "projected_profit": -1672.0935172426307,
+  "safe_dollars_per_r": 39.89517237448353,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 65.61151079136691,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 20.431654676258994
+ },
+ {
+  "avg_loser_r": -1.118953681853562,
+  "avg_r": -0.012508319171305914,
+  "avg_winner_r": 5.567824814356594,
+  "dd975_r": 131.3060111341652,
+  "digest": "403ff1d9e881fc71a86c6b15e9b3712dcf1d7715d4f98e1fa938f2e050d84016",
+  "full_days": 1352,
+  "headroom": -0.06285876629233661,
+  "longest_losing_run": 25,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-target_r10",
+  "net_r": -8.69328182405761,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -42.040666592885835,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -7.137240690201024,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 40.48462545902925,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 18.0206697795601,
+   "2022": 7.043524366737414,
+   "2023": -33.757475970355124
+  },
+  "net_r_long": -21.343436217482775,
+  "net_r_short": 12.650154393425167,
+  "projected_profit": -565.7288966310294,
+  "safe_dollars_per_r": 34.27108904711158,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.63309352517986,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 16.546762589928058
+ },
+ {
+  "avg_loser_r": -0.6791567407457528,
+  "avg_r": -0.18715692250826485,
+  "avg_winner_r": 0.941411380936968,
+  "dd975_r": 143.39908832486597,
+  "digest": "0e301a9219c6aa8390aee132b469069fc52bd424881b996fbdc3472b93d31e4e",
+  "full_days": 1352,
+  "headroom": -0.861213862748233,
+  "longest_losing_run": 14,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-trail_r1",
+  "net_r": -130.07406114324408,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -56.56909752312756,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -17.881718964928776,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -55.623244655187726,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -35.21179422769831,
+   "2022": -44.954103380016754,
+   "2023": -49.90816353552901
+  },
+  "net_r_long": -54.249623737353254,
+  "net_r_short": -75.82443740589082,
+  "projected_profit": -7750.924764734097,
+  "safe_dollars_per_r": 31.380952644590014,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 15.39568345323741,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 30.359712230215827
+ },
+ {
+  "avg_loser_r": -0.9683641431665194,
+  "avg_r": -0.07459556646309243,
+  "avg_winner_r": 2.0915824618033416,
+  "dd975_r": 110.43913951983963,
+  "digest": "e477e691a10d42f040f09406da00feb17fd409c48bec6ecbe3808d241864ab3f",
+  "full_days": 1352,
+  "headroom": -0.44569884530290443,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-direction-atr_frac0.1-trail_r2",
+  "net_r": -51.84391869184924,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -65.7192484392818,
+    "trades": 232
+   },
+   "low": {
+    "net_r": -2.097910876845148,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 15.973240624277718,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -20.34465076017927,
+   "2022": 17.08842173378532,
+   "2023": -48.58768966545529
+  },
+  "net_r_long": -18.74191423789995,
+  "net_r_short": -33.102004453949284,
+  "projected_profit": -4011.28960772614,
+  "safe_dollars_per_r": 40.746423954087454,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-direction-atr_frac0.1-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 41.8705035971223,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 695,
+  "win_pct": 29.20863309352518
+ },
+ {
+  "avg_loser_r": -1.0231992913455334,
+  "avg_r": 0.07290533131467142,
+  "avg_winner_r": 2.265114576635081,
+  "dd975_r": 62.54893718828079,
+  "digest": "73b28aa0aa49b19eb7163f809273d8e2ef25674f90f6994542d3d07c4c952c8c",
+  "full_days": 1352,
+  "headroom": 0.7801806459946935,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-hold_to_flat",
+  "net_r": 51.39825857684335,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -26.18318508728031,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 42.60632418950832,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 36.12595519011092,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 12.908394974918949,
+   "2022": 36.6553810823552,
+   "2023": 1.834482519569206
+  },
+  "net_r_long": 48.916391924054416,
+  "net_r_short": 2.4818666527889333,
+  "projected_profit": 7021.6258139522415,
+  "safe_dollars_per_r": 71.94366846641037,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 55.0354609929078,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 33.333333333333336
+ },
+ {
+  "avg_loser_r": -1.0237146372676156,
+  "avg_r": 0.0345176340342404,
+  "avg_winner_r": 2.0338827039938945,
+  "dd975_r": 61.215744296552614,
+  "digest": "05e11170c495671d9cf66140352cae6eb501b2e9c99bb96436b4aa6cfcc1730c",
+  "full_days": 1352,
+  "headroom": 0.3774276429997533,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-target_r3",
+  "net_r": 24.33493199413948,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -25.11844993944324,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 43.44987164958665,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 10.248307444659508,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 8.999104567727558,
+   "2022": 31.081676085100757,
+   "2023": -15.745848658688836
+  },
+  "net_r_long": 31.109000800854954,
+  "net_r_short": -6.774068806715475,
+  "projected_profit": 3396.8487869977794,
+  "safe_dollars_per_r": 73.51050047190914,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 54.04255319148936,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 34.60992907801418
+ },
+ {
+  "avg_loser_r": -1.0224385958949147,
+  "avg_r": 0.08173634734809278,
+  "avg_winner_r": 2.276050111674239,
+  "dd975_r": 59.46765360566992,
+  "digest": "66fcfbc0b82256e0f407942a1e88deff9696fa8457ea15c3c5cefcf5c3f42344",
+  "full_days": 1352,
+  "headroom": 0.9200051156432945,
+  "longest_losing_run": 14,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-target_r5",
+  "net_r": 57.624124880405404,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -23.94576714417308,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 50.84160018509705,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 32.80708848293796,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 14.935872938856125,
+   "2022": 32.58929330731404,
+   "2023": 10.09895863423524
+  },
+  "net_r_long": 46.68780974211087,
+  "net_r_short": 10.936315138294534,
+  "projected_profit": 8280.04604078965,
+  "safe_dollars_per_r": 75.67138985909054,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 54.8936170212766,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 33.47517730496454
+ },
+ {
+  "avg_loser_r": -1.0231992913455334,
+  "avg_r": 0.07290533131467142,
+  "avg_winner_r": 2.265114576635081,
+  "dd975_r": 62.54893718828079,
+  "digest": "73b28aa0aa49b19eb7163f809273d8e2ef25674f90f6994542d3d07c4c952c8c",
+  "full_days": 1352,
+  "headroom": 0.7801806459946935,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-target_r10",
+  "net_r": 51.39825857684335,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -26.18318508728031,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 42.60632418950832,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 36.12595519011092,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 12.908394974918949,
+   "2022": 36.6553810823552,
+   "2023": 1.834482519569206
+  },
+  "net_r_long": 48.916391924054416,
+  "net_r_short": 2.4818666527889333,
+  "projected_profit": 7021.6258139522415,
+  "safe_dollars_per_r": 71.94366846641037,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 55.0354609929078,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 33.333333333333336
+ },
+ {
+  "avg_loser_r": -0.6626142867066667,
+  "avg_r": -0.04228185424789648,
+  "avg_winner_r": 1.1079701865056124,
+  "dd975_r": 65.22552887041803,
+  "digest": "279e9ed78bb5252a7d0d5d8a51b73d2983821b83a28a546b86b7afec4d6d60db",
+  "full_days": 1352,
+  "headroom": -0.4339025824383941,
+  "longest_losing_run": 15,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-trail_r1",
+  "net_r": -29.808707244767017,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -24.07316495911276,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -20.423830290819826,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 17.855657021271718,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -0.8102684178512799,
+   "2022": 1.234054772139154,
+   "2023": -30.232493599054894
+  },
+  "net_r_long": -12.167901393989087,
+  "net_r_short": -17.640805850777934,
+  "projected_profit": -3905.123241945547,
+  "safe_dollars_per_r": 68.99139152922838,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 7.092198581560283,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 35.0354609929078
+ },
+ {
+  "avg_loser_r": -0.9159636292076639,
+  "avg_r": 0.020712292495447232,
+  "avg_winner_r": 1.9930959514121307,
+  "dd975_r": 66.37701663513195,
+  "digest": "9555b8952ef27718516a3124ad54551865c2411da34462430ca263ab3db45a3f",
+  "full_days": 1352,
+  "headroom": 0.20886528406167348,
+  "longest_losing_run": 9,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-far_side-trail_r2",
+  "net_r": 14.602166209290298,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -30.229767262869508,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 16.563152513523566,
+    "trades": 226
+   },
+   "mid": {
+    "net_r": 33.47380675885627,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -1.4356713273272588,
+   "2022": 32.169499541638864,
+   "2023": -16.131662005021305
+  },
+  "net_r_long": 13.980913603490896,
+  "net_r_short": 0.6212526057994024,
+  "projected_profit": 1879.7875565550614,
+  "safe_dollars_per_r": 67.7945504049401,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-far_side-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 6,
+  "stop_loss_above_planned_pct": 44.39716312056738,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 705,
+  "win_pct": 32.198581560283685
+ },
+ {
+  "avg_loser_r": -1.107346503632379,
+  "avg_r": 0.09157304969399438,
+  "avg_winner_r": 5.9427103569534765,
+  "dd975_r": 106.60859488867547,
+  "digest": "596c3f1cc46196c146c05101077992a90b0cb7578db6f669a41f569ed3be7d0c",
+  "full_days": 1352,
+  "headroom": 0.5610875072069451,
+  "longest_losing_run": 27,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-hold_to_flat",
+  "net_r": 63.00225818946813,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -39.69002943102514,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 37.40605816939206,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 64.07592572209911,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 10.834012021142696,
+   "2022": 72.05432311538817,
+   "2023": -19.886076947062737
+  },
+  "net_r_long": 7.976309774404453,
+  "net_r_short": 55.025948415063674,
+  "projected_profit": 5049.787564862506,
+  "safe_dollars_per_r": 42.210480352912086,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 69.76744186046511,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 17.00581395348837
+ },
+ {
+  "avg_loser_r": -1.1068995285868988,
+  "avg_r": -0.0823910607077046,
+  "avg_winner_r": 2.744804438084607,
+  "dd975_r": 112.46081335055393,
+  "digest": "78a8bbce71a6fa8a6c61d754c6217888f743d984c2dcb098642b53eb3dc7af1d",
+  "full_days": 1352,
+  "headroom": -0.4785573760454555,
+  "longest_losing_run": 13,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-target_r3",
+  "net_r": -56.68504976690077,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -42.06745922088433,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -12.364580503717391,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 1.890789029836526,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -17.034576818570894,
+   "2022": -6.550886880226263,
+   "2023": -33.09958606810361
+  },
+  "net_r_long": -27.98379812890881,
+  "net_r_short": -28.701251637991962,
+  "projected_profit": -4307.016384409099,
+  "safe_dollars_per_r": 40.01393788583901,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 61.77325581395349,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 26.598837209302324
+ },
+ {
+  "avg_loser_r": -1.10536063864455,
+  "avg_r": -0.07283313976656693,
+  "avg_winner_r": 4.235834242769378,
+  "dd975_r": 126.32368902993205,
+  "digest": "54e6392d3d370e6b018611c52003281181711f8a43e5380298275b245efc649a",
+  "full_days": 1352,
+  "headroom": -0.37661652601129025,
+  "longest_losing_run": 19,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-target_r5",
+  "net_r": -50.10920015939805,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -41.1890681518285,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 5.250809523537561,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": -9.936650260510165,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -18.948169137781044,
+   "2022": 12.236118187169748,
+   "2023": -43.39714920878676
+  },
+  "net_r_long": -26.905812014590435,
+  "net_r_short": -23.203388144807615,
+  "projected_profit": -3389.5487341016124,
+  "safe_dollars_per_r": 35.622772217598374,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 67.87790697674419,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 19.33139534883721
+ },
+ {
+  "avg_loser_r": -1.1073536995374218,
+  "avg_r": 0.07415581150430645,
+  "avg_winner_r": 5.7814475173838416,
+  "dd975_r": 108.22417185620155,
+  "digest": "01158dbbbf3f068b065297794522cdfc7c732bf7c771094ffc79e273235bd28c",
+  "full_days": 1352,
+  "headroom": 0.44758555410905193,
+  "longest_losing_run": 22,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-target_r10",
+  "net_r": 51.019198314962836,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -30.0707923072756,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 30.737901151792997,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 51.99525617846135,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 11.56115790882612,
+   "2022": 57.05941782488791,
+   "2023": -17.601377418751195
+  },
+  "net_r_long": -4.282023485857943,
+  "net_r_short": 55.30122180082078,
+  "projected_profit": 4028.2699869814674,
+  "safe_dollars_per_r": 41.58035975529747,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 69.62209302325581,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 17.151162790697676
+ },
+ {
+  "avg_loser_r": -0.6905845188193008,
+  "avg_r": -0.2034555110774513,
+  "avg_winner_r": 0.9851392678126615,
+  "dd975_r": 153.2986685034481,
+  "digest": "8248cb586043ec9415a5bf85b363d755a73c3fbca478572397d5d2e905c7f765",
+  "full_days": 1352,
+  "headroom": -0.866934359923524,
+  "longest_losing_run": 19,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-trail_r1",
+  "net_r": -139.9773916212865,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -44.774043601723456,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -46.812505537992884,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": -46.68452545678988,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -20.119211357934883,
+   "2022": -47.94522632543995,
+   "2023": -71.91295393791167
+  },
+  "net_r_long": -83.89007690271173,
+  "net_r_short": -56.08731471857478,
+  "projected_profit": -7802.409239311715,
+  "safe_dollars_per_r": 29.35446239638267,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 14.098837209302326,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 29.069767441860463
+ },
+ {
+  "avg_loser_r": -1.0091672111539898,
+  "avg_r": -0.018790312890804513,
+  "avg_winner_r": 2.2048861190586115,
+  "dd975_r": 91.73504422849628,
+  "digest": "b0174b2b21787d237c3aeeba9b2d0a909d64507a325e3aff25a528d667c82c5a",
+  "full_days": 1352,
+  "headroom": -0.13379931122324662,
+  "longest_losing_run": 18,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or5-break-or_frac0.5-trail_r2",
+  "net_r": -12.927735268873505,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -38.34385303485961,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 9.462065532502717,
+    "trades": 209
+   },
+   "mid": {
+    "net_r": 18.8978869397159,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 17.460077132206724,
+   "2022": 5.067215003789337,
+   "2023": -35.45502740486957
+  },
+  "net_r_long": -5.466829855257946,
+  "net_r_short": -7.46090541361556,
+  "projected_profit": -1204.1938010092197,
+  "safe_dollars_per_r": 49.05431765848688,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-or_frac0.5-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 23,
+  "stop_loss_above_planned_pct": 46.22093023255814,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 688,
+  "win_pct": 30.813953488372093
+ },
+ {
+  "avg_loser_r": -1.1174605854788808,
+  "avg_r": 0.03276548006606429,
+  "avg_winner_r": 5.734740847724766,
+  "dd975_r": 124.01866697020003,
+  "digest": "66c472da2d62567e2d017f5c581a2542a36bcb45be93d6cabd1fb0ba983fd8fc",
+  "full_days": 1352,
+  "headroom": 0.1748352330905491,
+  "longest_losing_run": 32,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-hold_to_flat",
+  "net_r": 22.83753960604681,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -89.24416516900386,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 48.863984491601194,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 63.217720283449445,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 20.205546239535654,
+   "2022": 10.687262285945126,
+   "2023": -8.055268919433969
+  },
+  "net_r_long": 4.629838364321135,
+  "net_r_short": 18.207701241725676,
+  "projected_profit": 1573.517097814942,
+  "safe_dollars_per_r": 36.28486025479767,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-hold_to_flat",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.4361549497848,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 16.78622668579627
+ },
+ {
+  "avg_loser_r": -1.1195171159503416,
+  "avg_r": -0.1019064136485862,
+  "avg_winner_r": 2.6332588602630103,
+  "dd975_r": 121.2474539703631,
+  "digest": "52dd6cd34f9daeea58e8977fe7b22f91dbc80a0a8b577a114508642f80310cf7",
+  "full_days": 1352,
+  "headroom": -0.5561966522641262,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-target_r3",
+  "net_r": -71.02877031306458,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -70.47366849512974,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 1.2095438536412466,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -1.764645671576093,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 2.324730250357567,
+   "2022": -29.249120130327846,
+   "2023": -44.10438043309431
+  },
+  "net_r_long": -20.350601997240652,
+  "net_r_short": -50.67816831582394,
+  "projected_profit": -5005.769870377136,
+  "safe_dollars_per_r": 37.11418139221257,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-target_r3",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 60.40172166427546,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 27.116212338593975
+ },
+ {
+  "avg_loser_r": -1.1166696445352264,
+  "avg_r": -0.08295878069166374,
+  "avg_winner_r": 4.066758212291848,
+  "dd975_r": 131.83271471049625,
+  "digest": "87ff72961860d7f535002e578e4ab0585eac7b6916d1d96fc3a3777231ff3723",
+  "full_days": 1352,
+  "headroom": -0.4164267749026796,
+  "longest_losing_run": 23,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-target_r5",
+  "net_r": -57.82227014208962,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -78.22703795507934,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 37.380401713492965,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -16.9756339005033,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -4.853949148613167,
+   "2022": -22.65180378571866,
+   "2023": -30.316517207757794
+  },
+  "net_r_long": -16.3184730095002,
+  "net_r_short": -41.50379713258942,
+  "projected_profit": -3747.840974124116,
+  "safe_dollars_per_r": 34.134167758602025,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-target_r5",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 65.71018651362984,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 19.94261119081779
+ },
+ {
+  "avg_loser_r": -1.1173985584535786,
+  "avg_r": 0.059316143358762945,
+  "avg_winner_r": 5.833195909031185,
+  "dd975_r": 113.70970202522932,
+  "digest": "e03d4d99e2e9bc2b8222f1e159c218e087c70320499ed8eed293e4930e028e05",
+  "full_days": 1352,
+  "headroom": 0.34520324144454095,
+  "longest_losing_run": 32,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-target_r10",
+  "net_r": 41.343351921057774,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -68.36318534341827,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 55.0782759572319,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 54.62826130724405,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": 25.91638094711716,
+   "2022": 19.88776015161298,
+   "2023": -4.460789177672367
+  },
+  "net_r_long": 4.6429448456778655,
+  "net_r_short": 36.70040707537991,
+  "projected_profit": 3106.8291730008686,
+  "safe_dollars_per_r": 39.57445952150647,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-target_r10",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.29268292682927,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 16.929698708751793
+ },
+ {
+  "avg_loser_r": -0.7011808064114627,
+  "avg_r": -0.2260395381140236,
+  "avg_winner_r": 0.8683616770165711,
+  "dd975_r": 168.29606598176377,
+  "digest": "1af45f201b8369ef41ed87f834e8c133d13fbc286d535d0a78465bc955cf93b6",
+  "full_days": 1352,
+  "headroom": -0.8888120367040077,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-trail_r1",
+  "net_r": -157.54955806547446,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -69.87173605219651,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -27.731070688374132,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -59.9467513249038,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -41.784021348605414,
+   "2022": -51.617896316116905,
+   "2023": -64.14764040075214
+  },
+  "net_r_long": -77.05908147610839,
+  "net_r_short": -80.49047658936607,
+  "projected_profit": -7999.308330336069,
+  "safe_dollars_per_r": 26.73859292995958,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-trail_r1",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 14.49067431850789,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 30.272596843615496
+ },
+ {
+  "avg_loser_r": -0.9736362227683911,
+  "avg_r": -0.09199025278295024,
+  "avg_winner_r": 2.038654174681865,
+  "dd975_r": 120.73998829268027,
+  "digest": "e4dd68f8990c863d15fbfade2914663fe123075229535ed9789e391ef9fa3f31",
+  "full_days": 1352,
+  "headroom": -0.5041852814356056,
+  "longest_losing_run": 13,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or5-break-atr_frac0.1-trail_r2",
+  "net_r": -64.11720618971631,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -87.13008771026804,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 3.482132831200306,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 19.530748689351434,
+    "trades": 232
+   }
+  },
+  "net_r_by_year": {
+   "2021": -13.77298903591621,
+   "2022": 4.1909416062068825,
+   "2023": -54.535158760006986
+  },
+  "net_r_long": -31.300064692361758,
+  "net_r_short": -32.81714149735455,
+  "projected_profit": -4537.66753292045,
+  "safe_dollars_per_r": 37.27017091546966,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or5-break-atr_frac0.1-trail_r2",
+   "or_minutes": 5,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 44.61979913916786,
+  "tercile_cuts": [
+   0.18170200870572262,
+   0.2535323383084577
+  ],
+  "trades": 697,
+  "win_pct": 29.26829268292683
+ },
+ {
+  "avg_loser_r": -1.030580355584294,
+  "avg_r": 0.047723327033470944,
+  "avg_winner_r": 2.167622481796907,
+  "dd975_r": 70.03034459037224,
+  "digest": "1b0fbe402af714c8e857e512873ef10e6b880d01bc6a3d87a04f90acd155993e",
+  "full_days": 1352,
+  "headroom": 0.4509661349233094,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-hold_to_flat",
+  "net_r": 33.26315894232925,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -14.089820218677511,
+    "trades": 231
+   },
+   "low": {
+    "net_r": 8.496044516125592,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 40.83154936085721,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 13.457858793849907,
+   "2022": 24.933117304585107,
+   "2023": -5.127817156105764
+  },
+  "net_r_long": 59.586185247244835,
+  "net_r_short": -26.323026304915587,
+  "projected_profit": 4058.6952143097847,
+  "safe_dollars_per_r": 64.2578588799156,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 55.81061692969871,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 33.715925394548066
+ },
+ {
+  "avg_loser_r": -1.0293836120463478,
+  "avg_r": 0.016860235509374853,
+  "avg_winner_r": 1.9110678466082436,
+  "dd975_r": 65.13130534049463,
+  "digest": "14e34762b019610c4df5660267ba2521440e4edc5c3bf9c67666ee090ee11584",
+  "full_days": 1352,
+  "headroom": 0.17130629995263028,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-target_r3",
+  "net_r": 11.751584150034272,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -19.51932657602016,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -18.331727586391313,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 52.42255377999783,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 13.02278310797295,
+   "2022": 14.573856445073783,
+   "2023": -15.845055403012463
+  },
+  "net_r_long": 35.24870069423829,
+  "net_r_short": -23.49711654420402,
+  "projected_profit": 1541.7566995736724,
+  "safe_dollars_per_r": 69.0911993314861,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 54.23242467718795,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 35.58106169296987
+ },
+ {
+  "avg_loser_r": -1.028776591483786,
+  "avg_r": 0.06586246763848953,
+  "avg_winner_r": 2.163538990977411,
+  "dd975_r": 61.72765625699957,
+  "digest": "86f0f5987260f0ba72361cd31f1685f5ede86e075e49795b5749492283a73d0b",
+  "full_days": 1352,
+  "headroom": 0.7060861471736641,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-target_r5",
+  "net_r": 45.9061399440272,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -15.946902418978096,
+    "trades": 231
+   },
+   "low": {
+    "net_r": 16.2659589105085,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 45.81800068948125,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.661492378435092,
+   "2022": 28.307341911114136,
+   "2023": 1.937305654477975
+  },
+  "net_r_long": 61.405798116878415,
+  "net_r_short": -15.49965817285121,
+  "projected_profit": 6354.775324562977,
+  "safe_dollars_per_r": 72.90087252405156,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 55.23672883787661,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 34.28981348637016
+ },
+ {
+  "avg_loser_r": -1.0301350872523647,
+  "avg_r": 0.05706746914776481,
+  "avg_winner_r": 2.180797886522594,
+  "dd975_r": 67.08052562342264,
+  "digest": "a1c83c1bfc5b73130997d35d3c1a8506e8550e84923217355a11cb9c028a44b3",
+  "full_days": 1352,
+  "headroom": 0.5629782751879006,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-target_r10",
+  "net_r": 39.77602599599207,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -13.298453312202687,
+    "trades": 231
+   },
+   "low": {
+    "net_r": 14.217544663313612,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 40.83154936085721,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 12.047975072919675,
+   "2022": 32.06450117270334,
+   "2023": -4.336450249630944
+  },
+  "net_r_long": 66.90980748153288,
+  "net_r_short": -27.13378148554081,
+  "projected_profit": 5066.804476691105,
+  "safe_dollars_per_r": 67.08355306072208,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 55.66714490674318,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 33.85939741750359
+ },
+ {
+  "avg_loser_r": -0.6398210800539049,
+  "avg_r": -0.00895818534093518,
+  "avg_winner_r": 1.1332089103289174,
+  "dd975_r": 53.114717771888806,
+  "digest": "615b5018fd02202f5a8d1bbd6e54a40a897407e8a338f4309b67dd9af943a192",
+  "full_days": 1352,
+  "headroom": -0.11161039516672841,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-trail_r1",
+  "net_r": -6.24385518263182,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -7.252944889619334,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -19.57448886969513,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 24.838604110115256,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 7.8842792504456956,
+   "2022": -3.85856123302121,
+   "2023": -10.269573200056305
+  },
+  "net_r_long": 14.50346188800465,
+  "net_r_short": -20.74731707063647,
+  "projected_profit": -1004.4935565005557,
+  "safe_dollars_per_r": 84.72228016584971,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 6.599713055954089,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 35.58106169296987
+ },
+ {
+  "avg_loser_r": -0.92089625835461,
+  "avg_r": 0.019401186302725987,
+  "avg_winner_r": 1.7324936968120423,
+  "dd975_r": 65.403036661177,
+  "digest": "b3d54ea927f1d4dd2e62025c1470f3b61b79d837202b17e65e1d894aea729c84",
+  "full_days": 1352,
+  "headroom": 0.1963043183374549,
+  "longest_losing_run": 9,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-far_side-trail_r2",
+  "net_r": 13.522626853000013,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -24.32098524626074,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -11.056137359745302,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 53.49458011851134,
+    "trades": 229
+   }
+  },
+  "net_r_by_year": {
+   "2021": 6.096706849172511,
+   "2022": 18.60952229648013,
+   "2023": -11.183602292652628
+  },
+  "net_r_long": 32.12427270177063,
+  "net_r_short": -18.601645848770616,
+  "projected_profit": 1766.738865037094,
+  "safe_dollars_per_r": 68.8041447266803,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-far_side-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 13,
+  "stop_loss_above_planned_pct": 41.75035868005739,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 697,
+  "win_pct": 35.43758967001435
+ },
+ {
+  "avg_loser_r": -1.0581079496524073,
+  "avg_r": 0.11682616733662554,
+  "avg_winner_r": 3.5951621972928587,
+  "dd975_r": 74.21922063013153,
+  "digest": "dc48db8d8be0516b8d080f7e713c980f08bf8ac3a8cc13d7d433a368bdc27e0d",
+  "full_days": 1352,
+  "headroom": 1.0476312870198137,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-hold_to_flat",
+  "net_r": 81.8951433029745,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 14.377226187968747,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 23.783979431320383,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 48.006304159697144,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 39.582906154238856,
+   "2022": 36.83763314583737,
+   "2023": 5.474604002898271
+  },
+  "net_r_long": 53.50746371797153,
+  "net_r_short": 28.38767958500297,
+  "projected_profit": 9428.681583178322,
+  "safe_dollars_per_r": 60.63119447758105,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 57.631954350927245,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 25.249643366619114
+ },
+ {
+  "avg_loser_r": -1.058099593739791,
+  "avg_r": 0.030429203305744317,
+  "avg_winner_r": 2.575513200207448,
+  "dd975_r": 69.92588034463357,
+  "digest": "cb2efff32e53ae86dbc0e39d31eadb55b6564b9ab442fad577f953a0d81bbba0",
+  "full_days": 1352,
+  "headroom": 0.2896258753692014,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-target_r3",
+  "net_r": 21.330871517326766,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 3.2507612928395826,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -1.751621016234668,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 22.65690486498917,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 30.508980156912745,
+   "2022": 20.492037146174656,
+   "2023": -29.67014578576063
+  },
+  "net_r_long": 6.377749157990104,
+  "net_r_short": 14.953122359336662,
+  "projected_profit": 2606.6328783228128,
+  "safe_dollars_per_r": 64.3538555084541,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 54.208273894436516,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 29.957203994293867
+ },
+ {
+  "avg_loser_r": -1.0574426469767693,
+  "avg_r": 0.08724288036517767,
+  "avg_winner_r": 3.3273909850817276,
+  "dd975_r": 71.10219978104583,
+  "digest": "3f54a6ac3e22d26196663635d08d0728b01c95d0b746655969e4d248be5d3645",
+  "full_days": 1352,
+  "headroom": 0.8166419372009119,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-target_r5",
+  "net_r": 61.15725913598955,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 21.471985547177223,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -2.4548736916132596,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 44.942621011613184,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 48.68452597750202,
+   "2022": 24.528387265189696,
+   "2023": -12.055654106702168
+  },
+  "net_r_long": 41.09287555861895,
+  "net_r_short": 20.064383577370602,
+  "projected_profit": 7349.7774348082075,
+  "safe_dollars_per_r": 63.28918112037926,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 56.918687589158345,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 26.105563480741797
+ },
+ {
+  "avg_loser_r": -1.0581079496524073,
+  "avg_r": 0.11913245033367734,
+  "avg_winner_r": 3.6042961203489785,
+  "dd975_r": 73.37130109887433,
+  "digest": "8ae82b1d3d1a0c0eb499329468c455cb326094ef560461c6b5f63add739eaff3",
+  "full_days": 1352,
+  "headroom": 1.0806587499995572,
+  "longest_losing_run": 19,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-target_r10",
+  "net_r": 83.51184768390782,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 14.377226187968747,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 25.184233595803452,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 48.22275437614736,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 41.68686655027847,
+   "2022": 34.61714876510399,
+   "2023": 7.207832368525366
+  },
+  "net_r_long": 49.14262578525609,
+  "net_r_short": 34.36922189865173,
+  "projected_profit": 9725.928749996016,
+  "safe_dollars_per_r": 61.33188225646771,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 57.631954350927245,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 25.249643366619114
+ },
+ {
+  "avg_loser_r": -0.6370655938638952,
+  "avg_r": -0.08010835195995204,
+  "avg_winner_r": 0.9965202913857455,
+  "dd975_r": 81.34016256938453,
+  "digest": "56adfa803bc0ff32b7440997ddd2b58c7ba9bd487c164795feabe77e83bc8238",
+  "full_days": 1352,
+  "headroom": -0.6554770363666209,
+  "longest_losing_run": 11,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-trail_r1",
+  "net_r": -56.155954723926385,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -20.740553823822317,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -23.350998074479904,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -9.041717709749477,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -9.374694663049603,
+   "2022": -18.864390078631068,
+   "2023": -27.916869982245718
+  },
+  "net_r_long": -11.166409984348498,
+  "net_r_short": -44.98954473957789,
+  "projected_profit": -5899.293327299588,
+  "safe_dollars_per_r": 55.32322358172599,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 6.562054208273895,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 34.0941512125535
+ },
+ {
+  "avg_loser_r": -0.9163135961215573,
+  "avg_r": 0.084361055834555,
+  "avg_winner_r": 2.3162805560500312,
+  "dd975_r": 59.84365183763123,
+  "digest": "bc5edc54c7c526cab1178abca06134ed05165cc6e6ff76aff4551ee9cd8c7d55",
+  "full_days": 1352,
+  "headroom": 0.9382285391839824,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-or_frac0.5-trail_r2",
+  "net_r": 59.13710014002305,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.1914903894445,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 11.762639912680935,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": 32.897104040662136,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 35.926382585952055,
+   "2022": 33.101285836428374,
+   "2023": -9.890568282357378
+  },
+  "net_r_long": 38.18872410422702,
+  "net_r_short": 20.948376035796027,
+  "projected_profit": 8444.056852655842,
+  "safe_dollars_per_r": 75.1959457990544,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-or_frac0.5-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 38.3737517831669,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 701,
+  "win_pct": 30.955777460770328
+ },
+ {
+  "avg_loser_r": -1.1035631912758888,
+  "avg_r": 0.0730428878356889,
+  "avg_winner_r": 5.778099254620399,
+  "dd975_r": 109.75355030386743,
+  "digest": "247f2cc50e3908b8d6f6c940935956b98e16ec28672cb404220720b57cdbf138",
+  "full_days": 1352,
+  "headroom": 0.4397798222788454,
+  "longest_losing_run": 26,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-hold_to_flat",
+  "net_r": 50.83784993363947,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 15.250988271743488,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 16.763485959239027,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 18.823375702656904,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 24.90339470221765,
+   "2022": 57.607627063588914,
+   "2023": -31.673171832167096
+  },
+  "net_r_long": 48.74746952128422,
+  "net_r_short": 2.090380412355242,
+  "projected_profit": 3958.0184005096085,
+  "safe_dollars_per_r": 41.000951564128414,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.96551724137932,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 17.097701149425287
+ },
+ {
+  "avg_loser_r": -1.0992574719373538,
+  "avg_r": -0.06163821440356385,
+  "avg_winner_r": 2.6621123366226347,
+  "dd975_r": 101.58503386839114,
+  "digest": "49f49de8b274d615620862d503b2fbf49944240ebc193473d349c869898c0155",
+  "full_days": 1352,
+  "headroom": -0.40095557955918704,
+  "longest_losing_run": 17,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-target_r3",
+  "net_r": -42.90019722488044,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -40.7464181012768,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -12.431713409418766,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 10.27793428581512,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.0384994559128575,
+   "2022": 2.82051273870661,
+   "2023": -49.75920941949991
+  },
+  "net_r_long": 0.1181200680954737,
+  "net_r_short": -43.018317292975915,
+  "projected_profit": -3608.6002160326834,
+  "safe_dollars_per_r": 44.29786385492563,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 59.770114942528735,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 27.586206896551722
+ },
+ {
+  "avg_loser_r": -1.1034149043982893,
+  "avg_r": -0.05145165437102603,
+  "avg_winner_r": 4.163969426673474,
+  "dd975_r": 119.04891544018469,
+  "digest": "a61a54c1c2448a8e72a313778f1d64d9d1d52fe2b0b73d6ff930539861567e93",
+  "full_days": 1352,
+  "headroom": -0.2855945018015539,
+  "longest_losing_run": 20,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-target_r5",
+  "net_r": -35.810351442234115,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -28.532955396371054,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -4.9039197433452095,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -2.373476302517872,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 0.5674645078145717,
+   "2022": 7.195529675072141,
+   "2023": -43.57334562512083
+  },
+  "net_r_long": -2.456578541097021,
+  "net_r_short": -33.35377290113709,
+  "projected_profit": -2570.350516213985,
+  "safe_dollars_per_r": 37.79958837391504,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 66.52298850574712,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 19.971264367816094
+ },
+ {
+  "avg_loser_r": -1.1036384034762716,
+  "avg_r": 0.08763041766448736,
+  "avg_winner_r": 5.80572075914013,
+  "dd975_r": 104.69064813023886,
+  "digest": "8208a067b887bcc88995ca92ebe233a668644c894e56b54ca2ed785fe3d263ed",
+  "full_days": 1352,
+  "headroom": 0.5531245504355123,
+  "longest_losing_run": 26,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-target_r10",
+  "net_r": 60.990770694483196,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 14.245645388180826,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 12.504042143644668,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": 34.241083162657695,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 54.13182643366715,
+   "2022": 43.3194882338931,
+   "2023": -36.46054397307705
+  },
+  "net_r_long": 37.235803028158536,
+  "net_r_short": 23.75496766632466,
+  "projected_profit": 4978.120953919612,
+  "safe_dollars_per_r": 42.983782031818556,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 68.82183908045977,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 17.24137931034483
+ },
+ {
+  "avg_loser_r": -0.699414007639407,
+  "avg_r": -0.2361482297351683,
+  "avg_winner_r": 0.873429804172057,
+  "dd975_r": 174.14758095910477,
+  "digest": "38aff9dba0df111f4f58962e6fbe4df47d7cd2e9611580e7052e389939a60555",
+  "full_days": 1352,
+  "headroom": -0.8960725841282918,
+  "longest_losing_run": 18,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-trail_r1",
+  "net_r": -164.35916789567713,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -68.60082321263258,
+    "trades": 233
+   },
+   "low": {
+    "net_r": -46.772663989949464,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -48.985680693095,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -40.71841302214143,
+   "2022": -58.24064841607688,
+   "2023": -65.4001064574588
+  },
+  "net_r_long": -71.36976106759455,
+  "net_r_short": -92.98940682808256,
+  "projected_profit": -8064.653257154627,
+  "safe_dollars_per_r": 25.8401522158194,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 15.086206896551724,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 29.45402298850575
+ },
+ {
+  "avg_loser_r": -0.972633609207039,
+  "avg_r": -0.05181492251847238,
+  "avg_winner_r": 2.0504315131290096,
+  "dd975_r": 103.89544591714578,
+  "digest": "64b74a214a38086b2075ee3d19c300ce36003544db401a37738e2c93a83ae864",
+  "full_days": 1352,
+  "headroom": -0.32955984018418377,
+  "longest_losing_run": 15,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or15-direction-atr_frac0.1-trail_r2",
+  "net_r": -36.06318607285678,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -37.80455217150104,
+    "trades": 233
+   },
+   "low": {
+    "net_r": 2.509042238070548,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -0.7676761394262768,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -5.863246085002399,
+   "2022": 8.668070753654304,
+   "2023": -38.868010741508684
+  },
+  "net_r_long": 3.507864460529894,
+  "net_r_short": -39.571050533386675,
+  "projected_profit": -2966.038561657654,
+  "safe_dollars_per_r": 43.31277430185579,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-direction-atr_frac0.1-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 43.53448275862069,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 696,
+  "win_pct": 30.45977011494253
+ },
+ {
+  "avg_loser_r": -0.9350075311476614,
+  "avg_r": 0.056916194617230555,
+  "avg_winner_r": 1.3995200254505187,
+  "dd975_r": 45.92502369975927,
+  "digest": "8b21222dc251598e68014f8f3d9fed44e42245b245bfb20ba1e186ce32789482",
+  "full_days": 1352,
+  "headroom": 0.8224894664125368,
+  "longest_losing_run": 9,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-hold_to_flat",
+  "net_r": 39.78442003744416,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 12.044985115451503,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 1.8353238805382395,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": 26.28641413915821,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.799849645092268,
+   "2022": 22.520397661573146,
+   "2023": 1.4641727307787449
+  },
+  "net_r_long": 41.0898958933005,
+  "net_r_short": -1.3054758558563386,
+  "projected_profit": 7402.405197712831,
+  "safe_dollars_per_r": 97.98579592292269,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 42.48927038626609,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 42.48927038626609
+ },
+ {
+  "avg_loser_r": -0.9339799008281424,
+  "avg_r": 0.07242004424540055,
+  "avg_winner_r": 1.4187744858153577,
+  "dd975_r": 42.07015861115878,
+  "digest": "dd04de82da15d1ed88dd1190d1bd90aa6864b4275ca5f2a7ccef6fd0e74b7a20",
+  "full_days": 1352,
+  "headroom": 1.1424271469503677,
+  "longest_losing_run": 9,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-target_r3",
+  "net_r": 50.62161092753498,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 11.920379992352634,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 9.03335427125128,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": 29.04944930144495,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 28.59279889584946,
+   "2022": 15.99396195297985,
+   "2023": 6.034850078705673
+  },
+  "net_r_long": 43.04479668978427,
+  "net_r_short": 7.5768142377507095,
+  "projected_profit": 10281.84432255331,
+  "safe_dollars_per_r": 106.96417956471431,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 42.34620886981402,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 42.77539341917024
+ },
+ {
+  "avg_loser_r": -0.9341149924938273,
+  "avg_r": 0.06584283612711743,
+  "avg_winner_r": 1.4114236726271134,
+  "dd975_r": 43.89323675817852,
+  "digest": "dc184b61d1239a17d1567cf66ce175fb7875012ce06a650cddfa6cd3af6ca2ed",
+  "full_days": 1352,
+  "headroom": 0.995531027049751,
+  "longest_losing_run": 9,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-target_r5",
+  "net_r": 46.02414245285508,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 12.044985115451503,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 8.075046295949166,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": 26.28641413915821,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.799849645092268,
+   "2022": 22.477459493582085,
+   "2023": 7.746833314180726
+  },
+  "net_r_long": 45.51105711202649,
+  "net_r_short": 0.513085340828586,
+  "projected_profit": 8959.77924344776,
+  "safe_dollars_per_r": 102.52148923971815,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 42.34620886981402,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 42.63233190271817
+ },
+ {
+  "avg_loser_r": -0.9350075311476614,
+  "avg_r": 0.056916194617230555,
+  "avg_winner_r": 1.3995200254505187,
+  "dd975_r": 45.92502369975927,
+  "digest": "8b21222dc251598e68014f8f3d9fed44e42245b245bfb20ba1e186ce32789482",
+  "full_days": 1352,
+  "headroom": 0.8224894664125368,
+  "longest_losing_run": 9,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-target_r10",
+  "net_r": 39.78442003744416,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 12.044985115451503,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 1.8353238805382395,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": 26.28641413915821,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.799849645092268,
+   "2022": 22.520397661573146,
+   "2023": 1.4641727307787449
+  },
+  "net_r_long": 41.0898958933005,
+  "net_r_short": -1.3054758558563386,
+  "projected_profit": 7402.405197712831,
+  "safe_dollars_per_r": 97.98579592292269,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 42.48927038626609,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 42.48927038626609
+ },
+ {
+  "avg_loser_r": -0.6365792410172346,
+  "avg_r": -0.010980662919058866,
+  "avg_winner_r": 0.9830259667258204,
+  "dd975_r": 48.274490443428945,
+  "digest": "da034ca48e9214cf82913c7add83229b5207e6b87ee6c8054f65e0193d698d04",
+  "full_days": 1352,
+  "headroom": -0.15095751555629616,
+  "longest_losing_run": 12,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-trail_r1",
+  "net_r": -7.675483380422147,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 16.53971895088092,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -16.461588327557312,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": -2.201944859603368,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 7.152066053225537,
+   "2022": -1.5950978717288793,
+   "2023": -13.232451561918806
+  },
+  "net_r_long": -0.3762352301079287,
+  "net_r_short": -7.299248150314218,
+  "projected_profit": -1358.6176400066654,
+  "safe_dollars_per_r": 93.2169342164964,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 4.434907010014306,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 38.62660944206009
+ },
+ {
+  "avg_loser_r": -0.8920395387565498,
+  "avg_r": 0.062039604191754555,
+  "avg_winner_r": 1.3686429050429918,
+  "dd975_r": 42.535194911413214,
+  "digest": "5c88d1dea923b7bddb00a02f878b7ebfe6686c44e90433f59337bb9a1f0d2d77",
+  "full_days": 1352,
+  "headroom": 0.9679757317637929,
+  "longest_losing_run": 9,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-far_side-trail_r2",
+  "net_r": 43.36568333003643,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 13.2200101707585,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -1.1598260030307737,
+    "trades": 229
+   },
+   "mid": {
+    "net_r": 31.43404957952643,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 18.850066542731668,
+   "2022": 21.393067267757022,
+   "2023": 3.1225495195477397
+  },
+  "net_r_long": 40.31854167190383,
+  "net_r_short": 3.047141658132601,
+  "projected_profit": 8711.781585874136,
+  "safe_dollars_per_r": 105.79474266832482,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-far_side-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 2,
+  "stop_loss_above_planned_pct": 37.48211731044349,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 699,
+  "win_pct": 42.20314735336195
+ },
+ {
+  "avg_loser_r": -1.066416265715394,
+  "avg_r": 0.08928864092955915,
+  "avg_winner_r": 3.5298354319760286,
+  "dd975_r": 76.30367261196947,
+  "digest": "1622c2f5fe7dbc36017395362c4b1aac3a1c0b44b1ba3a620077d0f6604eec55",
+  "full_days": 1352,
+  "headroom": 0.7688180440829073,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-hold_to_flat",
+  "net_r": 61.787739523254935,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 36.88432631647554,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 9.489510902456036,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": 21.872807942584966,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 20.007598045039668,
+   "2022": 44.07846600372897,
+   "2023": -2.298324525513704
+  },
+  "net_r_long": 37.09903288727268,
+  "net_r_short": 24.688706635982253,
+  "projected_profit": 6919.362396746166,
+  "safe_dollars_per_r": 58.97488084071725,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 58.38150289017341,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 25.14450867052023
+ },
+ {
+  "avg_loser_r": -1.0670959693793916,
+  "avg_r": -0.046879140681313054,
+  "avg_winner_r": 2.5908835407712316,
+  "dd975_r": 91.47861637023918,
+  "digest": "ebbbdfe5298a22cecee6573229810cda311fff573a747cda8ecc2a8d7ed1fe20",
+  "full_days": 1352,
+  "headroom": -0.33669204215861614,
+  "longest_losing_run": 12,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-target_r3",
+  "net_r": -32.440365351468635,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 18.60002576440305,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -40.099915766641345,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": -3.8720581222286015,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 24.721707088557842,
+   "2022": -23.466382839765853,
+   "2023": -33.69568960026063
+  },
+  "net_r_long": -19.85662984494918,
+  "net_r_short": -12.583735506519458,
+  "projected_profit": -3030.2283794275454,
+  "safe_dollars_per_r": 49.1918240410115,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 56.358381502890175,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 27.890173410404625
+ },
+ {
+  "avg_loser_r": -1.0663518630262085,
+  "avg_r": 0.05326211272090189,
+  "avg_winner_r": 3.286304716844581,
+  "dd975_r": 75.32726569542183,
+  "digest": "392a621ad6e7400892486d9689ac0f88a5c08e771b10ae0a87158535fdbe75d1",
+  "full_days": 1352,
+  "headroom": 0.46455697263499757,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-target_r5",
+  "net_r": 36.85738200286411,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 28.335653599242825,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -11.246667056500705,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": 25.67086230665075,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 31.668997206113584,
+   "2022": 20.666996139028733,
+   "2023": -15.47861134227821
+  },
+  "net_r_long": 25.243300972911637,
+  "net_r_short": 11.614081029952471,
+  "projected_profit": 4181.012753714978,
+  "safe_dollars_per_r": 59.7393249105217,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 57.947976878612714,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 25.722543352601157
+ },
+ {
+  "avg_loser_r": -1.066416265715394,
+  "avg_r": 0.09889122395877954,
+  "avg_winner_r": 3.568025015057756,
+  "dd975_r": 75.48376982498257,
+  "digest": "aa7b948b92fd7ec11652ca4148f26b287a7d059be437c16c03460ddd0a694479",
+  "full_days": 1352,
+  "headroom": 0.8607498728390519,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-target_r10",
+  "net_r": 68.43272697947545,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 36.88432631647554,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 16.098732979563547,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": 21.908573321697983,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 22.81700398563373,
+   "2022": 39.17251253971838,
+   "2023": 6.443210454123335
+  },
+  "net_r_long": 35.587110130223884,
+  "net_r_short": 32.84561684925157,
+  "projected_profit": 7746.748855551467,
+  "safe_dollars_per_r": 59.61546449566238,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 58.38150289017341,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 25.14450867052023
+ },
+ {
+  "avg_loser_r": -0.6419701627162613,
+  "avg_r": -0.11488308437341893,
+  "avg_winner_r": 0.9936543135763256,
+  "dd975_r": 99.2842581904393,
+  "digest": "433824aa4991e70a26cb68e43970067b3a0286bc5bd52b56fdceb33b94fa4da4",
+  "full_days": 1352,
+  "headroom": -0.7602361001653467,
+  "longest_losing_run": 13,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-trail_r1",
+  "net_r": -79.4990943864059,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -4.395585533667424,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -44.01601626736793,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": -28.783087889826973,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -17.685948820232085,
+   "2022": -30.10913548027268,
+   "2023": -31.70401008590113
+  },
+  "net_r_long": -31.493095316164947,
+  "net_r_short": -48.00599907024095,
+  "projected_profit": -6842.1249014881205,
+  "safe_dollars_per_r": 45.32440572168502,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 6.791907514450867,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 32.225433526011564
+ },
+ {
+  "avg_loser_r": -0.9651805197656599,
+  "avg_r": 0.012377424469458425,
+  "avg_winner_r": 2.225716166133877,
+  "dd975_r": 76.27572224522658,
+  "digest": "420931a03f6544066a9b9cc8b0a4af32c5ed032086bebd27ffbe11c9143ea720",
+  "full_days": 1352,
+  "headroom": 0.10661461745946497,
+  "longest_losing_run": 12,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-or_frac0.5-trail_r2",
+  "net_r": 8.56517773286523,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 28.137769220603214,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -9.204223900848522,
+    "trades": 222
+   },
+   "mid": {
+    "net_r": -4.747974414013955,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 14.036769534017445,
+   "2022": 13.899779874377439,
+   "2023": -19.371371675529655
+  },
+  "net_r_long": 3.1613103595870955,
+  "net_r_short": 5.403867373278135,
+  "projected_profit": 959.5315571351848,
+  "safe_dollars_per_r": 58.996491511840325,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-or_frac0.5-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 42.630057803468205,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 692,
+  "win_pct": 30.63583815028902
+ },
+ {
+  "avg_loser_r": -1.1050608426440365,
+  "avg_r": -0.05376024523632242,
+  "avg_winner_r": 5.582379068643923,
+  "dd975_r": 145.7425076638173,
+  "digest": "c1ffe84868135ce9b1f66a11110d139b0c8509332f7364c413a79dc5746cecf9",
+  "full_days": 1352,
+  "headroom": -0.24060156214617553,
+  "longest_losing_run": 19,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-hold_to_flat",
+  "net_r": -36.9332884773535,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -13.356866138565918,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -6.4370789596199955,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -17.1393433791676,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -10.393820079866417,
+   "2022": -18.32374775322622,
+   "2023": -8.215720644260866
+  },
+  "net_r_long": 19.131878284307078,
+  "net_r_short": -56.06516676166058,
+  "projected_profit": -2165.41405931558,
+  "safe_dollars_per_r": 30.876372803877526,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-hold_to_flat",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 67.39446870451238,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 15.720524017467248
+ },
+ {
+  "avg_loser_r": -1.1062353849705866,
+  "avg_r": -0.2078909185658447,
+  "avg_winner_r": 2.6800385317168836,
+  "dd975_r": 172.9024377229698,
+  "digest": "b72df0cd639648d9c493c706940a768e05cc275c90ce54bec63f9d0c31c0dcda",
+  "full_days": 1352,
+  "headroom": -0.7842559841065213,
+  "longest_losing_run": 16,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-target_r3",
+  "net_r": -142.8210610547353,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -52.0089457243715,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -46.22056123274649,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -44.59155409761734,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -30.406842179934,
+   "2022": -64.8789090683763,
+   "2023": -47.53530980642499
+  },
+  "net_r_long": -75.57861806927471,
+  "net_r_short": -67.2424429854606,
+  "projected_profit": -7058.3038569586915,
+  "safe_dollars_per_r": 26.026238029159853,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-target_r3",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 60.84425036390102,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 23.726346433770015
+ },
+ {
+  "avg_loser_r": -1.104056921880092,
+  "avg_r": -0.16616045427035794,
+  "avg_winner_r": 4.177376465397673,
+  "dd975_r": 165.9982479841749,
+  "digest": "5408792c941b62993717dd218ffdc5ad5c67564cd092847438e6a79736d563af",
+  "full_days": 1352,
+  "headroom": -0.6529014090704053,
+  "longest_losing_run": 19,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-target_r5",
+  "net_r": -114.15223208373591,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -45.42464349191192,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -33.64352974147776,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -35.08405885034619,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -5.700279051210943,
+   "2022": -80.10935840166283,
+   "2023": -28.342594630862138
+  },
+  "net_r_long": -28.312394476438133,
+  "net_r_short": -85.83983760729778,
+  "projected_profit": -5876.112681633647,
+  "safe_dollars_per_r": 27.10871984883237,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-target_r5",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 65.3566229985444,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 17.758369723435226
+ },
+ {
+  "avg_loser_r": -1.105158623186119,
+  "avg_r": -0.03663427244233811,
+  "avg_winner_r": 5.62948567920817,
+  "dd975_r": 134.21719782791607,
+  "digest": "1c561e29155571660d0aac0d4b58d6f71a20e238824cc68c200d00ddce44f4c9",
+  "full_days": 1352,
+  "headroom": -0.17803395625536875,
+  "longest_losing_run": 19,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-target_r10",
+  "net_r": -25.167745167886284,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -20.58735263740938,
+    "trades": 226
+   },
+   "low": {
+    "net_r": 2.8206950339145545,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -7.4010875643914575,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": 15.24470820596333,
+   "2022": -25.865423071487324,
+   "2023": -14.547030302362288
+  },
+  "net_r_long": 12.969630133867076,
+  "net_r_short": -38.13737530175336,
+  "projected_profit": -1602.3056062983187,
+  "safe_dollars_per_r": 33.52774512376265,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-target_r10",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 67.24890829694323,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 15.86608442503639
+ },
+ {
+  "avg_loser_r": -0.6813434757982122,
+  "avg_r": -0.22554001028673662,
+  "avg_winner_r": 0.8765519510992191,
+  "dd975_r": 163.99794634250344,
+  "digest": "df14be33e9749b87b9e188caa30faaf683c1473e3b6493cc42758aa1a95fd70d",
+  "full_days": 1352,
+  "headroom": -0.8970334244250877,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-trail_r1",
+  "net_r": -154.94598706698807,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -59.13407190224998,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -56.470749513728016,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -39.341165651010115,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -37.72522922959706,
+   "2022": -53.383234462313276,
+   "2023": -63.83752337507774
+  },
+  "net_r_long": -72.09757257919782,
+  "net_r_short": -82.84841448779027,
+  "projected_profit": -8073.300819825789,
+  "safe_dollars_per_r": 27.439367994291356,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-trail_r1",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 13.39155749636099,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 29.25764192139738
+ },
+ {
+  "avg_loser_r": -0.9630183909110983,
+  "avg_r": -0.14533748390503104,
+  "avg_winner_r": 2.02499641288235,
+  "dd975_r": 142.6552013772185,
+  "digest": "0f4ffc1d52a7b99553fe1b4dc66e87adfa8f942b504b237a4941972973596e95",
+  "full_days": 1352,
+  "headroom": -0.6645282767025127,
+  "longest_losing_run": 15,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or15-break-atr_frac0.1-trail_r2",
+  "net_r": -99.84685144275633,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -58.294929868861416,
+    "trades": 226
+   },
+   "low": {
+    "net_r": -11.307038017055074,
+    "trades": 231
+   },
+   "mid": {
+    "net_r": -30.244883556839845,
+    "trades": 230
+   }
+  },
+  "net_r_by_year": {
+   "2021": -15.110096988405521,
+   "2022": -45.143874188251225,
+   "2023": -39.59288026609959
+  },
+  "net_r_long": -43.70959526551474,
+  "net_r_short": -56.137256177241596,
+  "projected_profit": -5980.754490322614,
+  "safe_dollars_per_r": 31.544591129914686,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or15-break-atr_frac0.1-trail_r2",
+   "or_minutes": 15,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 43.959243085880644,
+  "tercile_cuts": [
+   0.27630503328272804,
+   0.383618455158113
+  ],
+  "trades": 687,
+  "win_pct": 27.365356622998544
+ },
+ {
+  "avg_loser_r": -0.9675555070540502,
+  "avg_r": 0.010708875654241997,
+  "avg_winner_r": 1.5912628969702516,
+  "dd975_r": 68.08563535036191,
+  "digest": "459c0592410485402ea0cf0c2d83d89884787ca7013bafc16a0ff8aaa36fa6e1",
+  "full_days": 1352,
+  "headroom": 0.10468226276290349,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-hold_to_flat",
+  "net_r": 7.5069218336236405,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 11.304321302625656,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -16.194386618881,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 15.455320078013884,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 2.8941513099154803,
+   "2022": 0.7199783054032051,
+   "2023": 3.892792218304955
+  },
+  "net_r_long": -18.940926650011615,
+  "net_r_short": 26.447848483635255,
+  "projected_profit": 942.1403648661313,
+  "safe_dollars_per_r": 66.09323650786905,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 47.21825962910128,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 38.23109843081313
+ },
+ {
+  "avg_loser_r": -0.9623139140168281,
+  "avg_r": 0.03322288567182476,
+  "avg_winner_r": 1.512406995847518,
+  "dd975_r": 54.33815086411921,
+  "digest": "c45ab8e359138cb0acaa08fb3deca646db81411214382cca1fa9ce31c4dfee60",
+  "full_days": 1352,
+  "headroom": 0.4069276653183186,
+  "longest_losing_run": 9,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-target_r3",
+  "net_r": 23.28924285594916,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 12.30337454543039,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -15.502124082542597,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 29.54632532119623,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 1.1392343393083146,
+   "2022": 19.11018330394206,
+   "2023": 3.039825212698784
+  },
+  "net_r_long": 4.075539040601452,
+  "net_r_short": 19.213703815347706,
+  "projected_profit": 3662.3489878648675,
+  "safe_dollars_per_r": 82.81474302011,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 45.50641940085592,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 40.22824536376605
+ },
+ {
+  "avg_loser_r": -0.9658960064711877,
+  "avg_r": 0.02564252597387424,
+  "avg_winner_r": 1.5989324483036773,
+  "dd975_r": 59.953073345952674,
+  "digest": "1f667ca6103925cbac7bacabf8646c6ac4044d996101c539b176cc75c979482c",
+  "full_days": 1352,
+  "headroom": 0.2846650000489472,
+  "longest_losing_run": 9,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-target_r5",
+  "net_r": 17.975410707685842,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 11.803103847893192,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -8.034552722925213,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 17.26519251085275,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 0.5683591362659723,
+   "2022": 9.001379863931238,
+   "2023": 8.40567170748863
+  },
+  "net_r_long": -8.935414929430328,
+  "net_r_short": 26.91082563711617,
+  "projected_profit": 2561.985000440525,
+  "safe_dollars_per_r": 75.05870423077798,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 46.932952924393724,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 38.65905848787447
+ },
+ {
+  "avg_loser_r": -0.9675555070540502,
+  "avg_r": 0.0033886343772793186,
+  "avg_winner_r": 1.572115549451032,
+  "dd975_r": 68.46111418926633,
+  "digest": "f8fa71efc5eff15c18a8252af59d64ddbaaf4c215b7f2651821b1889b5f36fe8",
+  "full_days": 1352,
+  "headroom": 0.03294317624691554,
+  "longest_losing_run": 10,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-target_r10",
+  "net_r": 2.3754326984728023,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 11.304321302625656,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -20.11933178675167,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 14.248776110733724,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 0.09479855910641846,
+   "2022": -0.4056141116584079,
+   "2023": 2.6862482510247916
+  },
+  "net_r_long": -18.940926650011615,
+  "net_r_short": 21.31635934848442,
+  "projected_profit": 296.48858622223986,
+  "safe_dollars_per_r": 65.73074442755026,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 47.21825962910128,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 38.23109843081313
+ },
+ {
+  "avg_loser_r": -0.6302775367238442,
+  "avg_r": -0.012520059206759063,
+  "avg_winner_r": 1.003865828330785,
+  "dd975_r": 51.11089473021005,
+  "digest": "7ec466510f0a0fea21a7d135b354d581c5230ad12843b5cd2cc7244773de041f",
+  "full_days": 1352,
+  "headroom": -0.1630337880053905,
+  "longest_losing_run": 14,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-trail_r1",
+  "net_r": -8.776561503938103,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 5.698499202509766,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -13.381769694457489,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 1.7679253310195235,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -0.6568781544869323,
+   "2022": -0.6845976014047698,
+   "2023": -7.4350857480464
+  },
+  "net_r_long": -8.632683325435014,
+  "net_r_short": -0.14387817850308848,
+  "projected_profit": -1467.3040920485146,
+  "safe_dollars_per_r": 88.04385099797894,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 5.706134094151213,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 37.803138373751786
+ },
+ {
+  "avg_loser_r": -0.9014115158687762,
+  "avg_r": 0.014072801019523901,
+  "avg_winner_r": 1.3905688631980038,
+  "dd975_r": 58.11061048480801,
+  "digest": "db7d0c59bb9af24d4c1cb47c4e735e3c42caddb77daf01a995098993022890ab",
+  "full_days": 1352,
+  "headroom": 0.1611795093383272,
+  "longest_losing_run": 8,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-far_side-trail_r2",
+  "net_r": 9.865033514686255,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 10.873805688425618,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -15.347300444983368,
+    "trades": 225
+   },
+   "mid": {
+    "net_r": 16.849194205695483,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -6.102526897081245,
+   "2022": 20.618231752193015,
+   "2023": -4.650671340425517
+  },
+  "net_r_long": -6.609609463404158,
+  "net_r_short": 16.47464297809041,
+  "projected_profit": 1450.6155840449449,
+  "safe_dollars_per_r": 77.43852564027779,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-far_side-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 7,
+  "stop_loss_above_planned_pct": 38.65905848787447,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 701,
+  "win_pct": 39.94293865905849
+ },
+ {
+  "avg_loser_r": -1.0206008967590627,
+  "avg_r": 0.006195712948722538,
+  "avg_winner_r": 2.34902741397212,
+  "dd975_r": 78.55188586300656,
+  "digest": "44fc7448950e9781af367771a35ef655b352e55d9a79ef577da6cd20c428971a",
+  "full_days": 1352,
+  "headroom": 0.05234540333225914,
+  "longest_losing_run": 13,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-hold_to_flat",
+  "net_r": 4.330803351157054,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 24.413273926066385,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -12.91287881187595,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -1.3810504752744734,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 2.0053201508413694,
+   "2022": 1.5757146063043599,
+   "2023": 0.7497685940113247
+  },
+  "net_r_long": -32.772455424136034,
+  "net_r_short": 37.103258775293085,
+  "projected_profit": 471.1086299903323,
+  "safe_dollars_per_r": 57.28697599759654,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 51.93133047210301,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 30.472103004291846
+ },
+ {
+  "avg_loser_r": -1.0224640376479428,
+  "avg_r": -0.025456825365583153,
+  "avg_winner_r": 2.1597644618286296,
+  "dd975_r": 81.37427430866794,
+  "digest": "6089413fb7bfeeb62bce17da15066f84771ae72e951f20bb0074a7df01021dc4",
+  "full_days": 1352,
+  "headroom": -0.20761608282268088,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-target_r3",
+  "net_r": -17.794320930542625,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 22.7959950574587,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -24.05128881681145,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -12.245624192478294,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 3.553724037681668,
+   "2022": -11.639300138032034,
+   "2023": -9.708744830192257
+  },
+  "net_r_long": -36.95155648428034,
+  "net_r_short": 19.157235553737713,
+  "projected_profit": -1868.5447454041278,
+  "safe_dollars_per_r": 55.300032328775714,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 51.359084406294706,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 31.330472103004293
+ },
+ {
+  "avg_loser_r": -1.020495543288347,
+  "avg_r": 0.021643081561602755,
+  "avg_winner_r": 2.3676667765726522,
+  "dd975_r": 72.24112613494076,
+  "digest": "c774a09eb158ddb30541621c2a8b492ed1ae107145a951b3797c3654e34b4382",
+  "full_days": 1352,
+  "headroom": 0.19882842245533683,
+  "longest_losing_run": 12,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-target_r5",
+  "net_r": 15.128514011560325,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 25.267302508086953,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -1.1905039344525514,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -3.1597432743151677,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.24607704988881,
+   "2022": -6.4451635372979315,
+   "2023": 17.327600498969446
+  },
+  "net_r_long": -19.257635011899374,
+  "net_r_short": 34.3861490234597,
+  "projected_profit": 1789.4558020980314,
+  "safe_dollars_per_r": 62.291387755976466,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 51.645207439198856,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 30.758226037195993
+ },
+ {
+  "avg_loser_r": -1.0206008967590627,
+  "avg_r": 0.0008622792213425727,
+  "avg_winner_r": 2.3315247370921264,
+  "dd975_r": 78.93329715374728,
+  "digest": "9c6ea54a03b353a9c9ca671d590777573faaab9bcf24ac36180da1d84cd2cd9a",
+  "full_days": 1352,
+  "headroom": 0.007249892294176209,
+  "longest_losing_run": 13,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-target_r10",
+  "net_r": 0.6027331757184583,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 24.413273926066385,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -16.64094898731454,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -1.3810504752744734,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 2.0053201508413694,
+   "2022": -2.1523555691342358,
+   "2023": 0.7497685940113247
+  },
+  "net_r_long": -32.772455424136034,
+  "net_r_short": 33.37518859985449,
+  "projected_profit": 65.24903064758588,
+  "safe_dollars_per_r": 57.01016126609842,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 51.93133047210301,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 30.472103004291846
+ },
+ {
+  "avg_loser_r": -0.6285162099281504,
+  "avg_r": -0.11284389146588344,
+  "avg_winner_r": 0.9524265558837997,
+  "dd975_r": 97.13250001500266,
+  "digest": "ef3e79cfa6e2f6af04a17e62227908b96c4d6679b0ec23c3571f6154aadf3fb4",
+  "full_days": 1352,
+  "headroom": -0.7710053041005511,
+  "longest_losing_run": 14,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-trail_r1",
+  "net_r": -78.87788013465253,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -15.825073326787344,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -44.904154974062436,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -16.20120293215369,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -8.618856472926923,
+   "2022": -28.369907199770594,
+   "2023": -41.88911646195501
+  },
+  "net_r_long": -49.85516506574872,
+  "net_r_short": -29.022715068903814,
+  "projected_profit": -6939.04773690496,
+  "safe_dollars_per_r": 46.32846883694901,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 6.437768240343348,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 32.61802575107296
+ },
+ {
+  "avg_loser_r": -0.9355002475271117,
+  "avg_r": -0.037702454552058534,
+  "avg_winner_r": 1.829084145818977,
+  "dd975_r": 84.67098638362472,
+  "digest": "5c8a1f5ae3b465f05721328640c58c4c09297e504942b75c4fe84f7f091b1a18",
+  "full_days": 1352,
+  "headroom": -0.29551456038449947,
+  "longest_losing_run": 15,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-or_frac0.5-trail_r2",
+  "net_r": -26.354015731888914,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 13.925026292166912,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -14.282242943501291,
+    "trades": 223
+   },
+   "mid": {
+    "net_r": -19.524404049409792,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -10.755024655937454,
+   "2022": -3.542616477273597,
+   "2023": -12.056374598677863
+  },
+  "net_r_long": -38.07807447153723,
+  "net_r_short": 11.724058739648314,
+  "projected_profit": -2659.631043460495,
+  "safe_dollars_per_r": 53.14689472981379,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-or_frac0.5-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 9,
+  "stop_loss_above_planned_pct": 39.77110157367668,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 699,
+  "win_pct": 32.474964234620884
+ },
+ {
+  "avg_loser_r": -1.107026060901753,
+  "avg_r": 0.03991694941050797,
+  "avg_winner_r": 5.471308229649562,
+  "dd975_r": 119.17760002163295,
+  "digest": "42093941f1d2f54bac1497fbade263fb813ecb7d1fa44dd6d672c79b1aa5d011",
+  "full_days": 1352,
+  "headroom": 0.22069316395324334,
+  "longest_losing_run": 23,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-hold_to_flat",
+  "net_r": 27.70236289089253,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 82.95709036648772,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -36.85999199158308,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -18.39473548401207,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 37.412641079168566,
+   "2022": 32.13800303852318,
+   "2023": -41.848281226799216
+  },
+  "net_r_long": -36.20467130069037,
+  "net_r_short": 63.9070341915829,
+  "projected_profit": 1986.2384755791902,
+  "safe_dollars_per_r": 37.75877345393066,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 65.27377521613833,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 17.435158501440924
+ },
+ {
+  "avg_loser_r": -1.1091748155940377,
+  "avg_r": -0.14907221581714142,
+  "avg_winner_r": 2.6983177800926255,
+  "dd975_r": 143.93320922714747,
+  "digest": "441f22ba45c4587154386d15b175a435fad5cd32428260ccb0dc8f46b6e12f0d",
+  "full_days": 1352,
+  "headroom": -0.6824359089968337,
+  "longest_losing_run": 20,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-target_r3",
+  "net_r": -103.45611777709614,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -4.149392057450731,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -46.96519677471787,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -52.341528944927525,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -29.97573758708009,
+   "2022": -21.674657940084565,
+   "2023": -51.805722249931485
+  },
+  "net_r_long": -76.42208740212051,
+  "net_r_short": -27.03403037497563,
+  "projected_profit": -6141.923180971503,
+  "safe_dollars_per_r": 31.26450125139882,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 58.789625360230545,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 25.21613832853026
+ },
+ {
+  "avg_loser_r": -1.1085269063657708,
+  "avg_r": -0.09647908236273796,
+  "avg_winner_r": 4.172384295574867,
+  "dd975_r": 136.75905061316064,
+  "digest": "bccf841fe64e6a80570d201ae6203ee824e626ddf4352b3b45bb1ad44e2214ad",
+  "full_days": 1352,
+  "headroom": -0.46483975075109507,
+  "longest_losing_run": 20,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-target_r5",
+  "net_r": -66.95648315974015,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 17.69187770092772,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -36.468259463212895,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -48.18010139745495,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 7.413846484047122,
+   "2022": -25.811519560596437,
+   "2023": -48.55881008319083
+  },
+  "net_r_long": -70.6981868732526,
+  "net_r_short": 3.7417037135124507,
+  "projected_profit": -4183.557756759856,
+  "safe_dollars_per_r": 32.904586422793976,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 63.976945244956774,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 19.164265129683
+ },
+ {
+  "avg_loser_r": -1.107026060901753,
+  "avg_r": 0.018863851613369707,
+  "avg_winner_r": 5.3505574042676285,
+  "dd975_r": 119.97821750288237,
+  "digest": "f87b33fca9814a0f8e2a8b22049398a6cad0f12de7ed9554263d8d628f2425f9",
+  "full_days": 1352,
+  "headroom": 0.10359866019680376,
+  "longest_losing_run": 23,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-target_r10",
+  "net_r": 13.091513019678576,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 60.52178653620897,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -31.05488534306649,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -16.37538817346386,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": 35.319628873780374,
+   "2022": 29.050113548273913,
+   "2023": -51.278229402375715
+  },
+  "net_r_long": -40.082395585117965,
+  "net_r_short": 53.173908604796544,
+  "projected_profit": 932.3879417712338,
+  "safe_dollars_per_r": 37.50680826619125,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 65.27377521613833,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 17.435158501440924
+ },
+ {
+  "avg_loser_r": -0.7337653372057356,
+  "avg_r": -0.2050370400891358,
+  "avg_winner_r": 0.8756093917368972,
+  "dd975_r": 153.2543936935018,
+  "digest": "1462303378f7db538655bc2783cd702a63a52af812fe11f0e410ff00c566a9c9",
+  "full_days": 1352,
+  "headroom": -0.8815471835228084,
+  "longest_losing_run": 13,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-trail_r1",
+  "net_r": -142.29570582186025,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -36.141723007108,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -54.435147941362324,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -51.71883487338994,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -25.009350688448162,
+   "2022": -45.95006368702454,
+   "2023": -71.33629144638755
+  },
+  "net_r_long": -115.45857776911582,
+  "net_r_short": -26.83712805274443,
+  "projected_profit": -7933.924651705275,
+  "safe_dollars_per_r": 29.362942826942298,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 18.73198847262248,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 32.85302593659942
+ },
+ {
+  "avg_loser_r": -0.9643027186605932,
+  "avg_r": -0.14901780505208415,
+  "avg_winner_r": 1.8933120795429688,
+  "dd975_r": 145.79446047645953,
+  "digest": "b3323ce0e6e767ed00e1e9457284ecd218d10334a94f13c0024f8c3dc73c80ef",
+  "full_days": 1352,
+  "headroom": -0.6734778423649116,
+  "longest_losing_run": 20,
+  "max_gap_days": 1,
+  "measured_days": 712,
+  "name": "or30-direction-atr_frac0.1-trail_r2",
+  "net_r": -103.4183567061464,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -27.72202015284722,
+    "trades": 231
+   },
+   "low": {
+    "net_r": -43.33073539737959,
+    "trades": 232
+   },
+   "mid": {
+    "net_r": -32.36560115591957,
+    "trades": 231
+   }
+  },
+  "net_r_by_year": {
+   "2021": -23.09884612289646,
+   "2022": -32.74279831489961,
+   "2023": -47.57671226835032
+  },
+  "net_r_long": -86.27307983555265,
+  "net_r_short": -17.145276870593747,
+  "projected_profit": -6061.300581284205,
+  "safe_dollars_per_r": 30.865370229389374,
+  "settings": {
+   "entry": "direction",
+   "entry_until": null,
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-direction-atr_frac0.1-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 41.930835734870314,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 694,
+  "win_pct": 28.530259365994237
+ },
+ {
+  "avg_loser_r": -0.8391343683223017,
+  "avg_r": 0.04865071890109962,
+  "avg_winner_r": 0.9864104633523082,
+  "dd975_r": 34.50870918649001,
+  "digest": "0c1c61a11ae3542401234b850033db17d8fd6a918901d4f4b7cfd5900d75ca41",
+  "full_days": 1352,
+  "headroom": 0.8312254849290999,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-hold_to_flat",
+  "net_r": 30.212096437582865,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.32630969379611,
+    "trades": 193
+   },
+   "low": {
+    "net_r": -6.820993159279807,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 19.42366583401026,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.777370189689322,
+   "2022": 19.60576702237019,
+   "2023": 5.828959225523352
+  },
+  "net_r_long": 18.70713688213032,
+  "net_r_short": 11.504959555452546,
+  "projected_profit": 7481.029364361899,
+  "safe_dollars_per_r": 130.40186393763253,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 31.884057971014492,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 48.631239935587764
+ },
+ {
+  "avg_loser_r": -0.837932501657256,
+  "avg_r": 0.05858492238523832,
+  "avg_winner_r": 0.9994843971229056,
+  "dd975_r": 32.66434637128218,
+  "digest": "3faf7dace434015647c7a562c6b173e8c05a438706d34bbd0bc6a855c5132e8d",
+  "full_days": 1352,
+  "headroom": 1.0574751954767534,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-target_r3",
+  "net_r": 36.381236801232994,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.366515547768447,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 0.5753382239014644,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 18.156268960506782,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.712305124624257,
+   "2022": 19.33203767851,
+   "2023": 12.336893998098734
+  },
+  "net_r_long": 22.63070200559595,
+  "net_r_short": 13.75053479563704,
+  "projected_profit": 9517.27675929078,
+  "safe_dollars_per_r": 137.76488740507318,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 31.723027375201287,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 48.792270531400966
+ },
+ {
+  "avg_loser_r": -0.8391343683223017,
+  "avg_r": 0.046328276165309476,
+  "avg_winner_r": 0.9816348443492432,
+  "dd975_r": 34.615527784023485,
+  "digest": "375a329c9efe721e23a2a88517aefa95be00a90c93e5b7832ec46d79139ae35f",
+  "full_days": 1352,
+  "headroom": 0.7891026204117696,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-target_r5",
+  "net_r": 28.769859498657183,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.32630969379611,
+    "trades": 193
+   },
+   "low": {
+    "net_r": -8.263230098205488,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 19.42366583401026,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.777370189689322,
+   "2022": 18.16353008344451,
+   "2023": 5.828959225523352
+  },
+  "net_r_long": 18.70713688213032,
+  "net_r_short": 10.062722616526866,
+  "projected_profit": 7101.923583705926,
+  "safe_dollars_per_r": 129.99946232444674,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 31.884057971014492,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 48.631239935587764
+ },
+ {
+  "avg_loser_r": -0.8391343683223017,
+  "avg_r": 0.04865071890109962,
+  "avg_winner_r": 0.9864104633523082,
+  "dd975_r": 34.50870918649001,
+  "digest": "0c1c61a11ae3542401234b850033db17d8fd6a918901d4f4b7cfd5900d75ca41",
+  "full_days": 1352,
+  "headroom": 0.8312254849290999,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-target_r10",
+  "net_r": 30.212096437582865,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.32630969379611,
+    "trades": 193
+   },
+   "low": {
+    "net_r": -6.820993159279807,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 19.42366583401026,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.777370189689322,
+   "2022": 19.60576702237019,
+   "2023": 5.828959225523352
+  },
+  "net_r_long": 18.70713688213032,
+  "net_r_short": 11.504959555452546,
+  "projected_profit": 7481.029364361899,
+  "safe_dollars_per_r": 130.40186393763253,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 31.884057971014492,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 48.631239935587764
+ },
+ {
+  "avg_loser_r": -0.615230723351173,
+  "avg_r": 0.01812455490940516,
+  "avg_winner_r": 0.8578540249627559,
+  "dd975_r": 32.526532086758934,
+  "digest": "f46a40d03f27c70ac3f098a7d3d1745e241bc4134118b95f667e82150c8552b6",
+  "full_days": 1352,
+  "headroom": 0.3285397259919983,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-trail_r1",
+  "net_r": 11.255348598740605,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 11.690246097216221,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 2.7110079133269664,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 1.9563886826669878,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 1.51615802658673,
+   "2022": 10.176230014300511,
+   "2023": -0.43703944214663626
+  },
+  "net_r_long": 10.33397473338683,
+  "net_r_short": 0.9213738653537744,
+  "projected_profit": 2956.857533927985,
+  "safe_dollars_per_r": 138.34859455650002,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 2.898550724637681,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 42.99516908212561
+ },
+ {
+  "avg_loser_r": -0.8203215770917118,
+  "avg_r": 0.0635250305639006,
+  "avg_winner_r": 0.9792480732497155,
+  "dd975_r": 31.33746375755633,
+  "digest": "ebcc392f66f34cc80050fc0015c1bfb7f571d7a55dcd7133d5d97a3105c7ff83",
+  "full_days": 1352,
+  "headroom": 1.1951965764263017,
+  "longest_losing_run": 8,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-far_side-trail_r2",
+  "net_r": 39.449043980182275,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.866562886849795,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 1.0479846494037126,
+    "trades": 213
+   },
+   "mid": {
+    "net_r": 20.251382374872463,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 4.45801115729592,
+   "2022": 22.224910632368395,
+   "2023": 12.76612219051796
+  },
+  "net_r_long": 24.640904648655173,
+  "net_r_short": 14.808139331527101,
+  "projected_profit": 10756.769187836715,
+  "safe_dollars_per_r": 143.59809188179517,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-far_side-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "far_side"
+   ]
+  },
+  "skipped": 1,
+  "stop_loss_above_planned_pct": 29.30756843800322,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 621,
+  "win_pct": 49.11433172302738
+ },
+ {
+  "avg_loser_r": -1.0341001916244388,
+  "avg_r": 0.05557006021308283,
+  "avg_winner_r": 2.3279979723365574,
+  "dd975_r": 64.30670664607732,
+  "digest": "80676c3ca358365e81526dfc5edba572aa1c93c597c46a58ac702499c54fd29f",
+  "full_days": 1352,
+  "headroom": 0.5037553509266404,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-hold_to_flat",
+  "net_r": 34.12001697083286,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 21.969902469773515,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 5.280321343480596,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": 14.56979313356053,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 0.36696218114769336,
+   "2022": 27.771758774393426,
+   "2023": 5.981296015291739
+  },
+  "net_r_long": -5.3869302448796175,
+  "net_r_short": 39.50694721571247,
+  "projected_profit": 4533.798158339763,
+  "safe_dollars_per_r": 69.97714911395634,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 50.6514657980456,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 32.41042345276873
+ },
+ {
+  "avg_loser_r": -1.0353454571350023,
+  "avg_r": 0.04569600571365104,
+  "avg_winner_r": 2.1405371179323334,
+  "dd975_r": 56.02685471905587,
+  "digest": "7c8749994b273732ccb59b0f0d373908bfbd5a9088cbae2212c605f775e418e6",
+  "full_days": 1352,
+  "headroom": 0.47546337754584694,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-target_r3",
+  "net_r": 28.05734750818174,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 21.29827483755698,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 18.024716562821542,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": -3.5656439162149676,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 13.59431302284065,
+   "2022": 11.639586923175186,
+   "2023": 2.8234475621659016
+  },
+  "net_r_long": 4.502264174710611,
+  "net_r_short": 23.555083333471128,
+  "projected_profit": 4279.170397912622,
+  "safe_dollars_per_r": 80.31862617605516,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 49.3485342019544,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 34.039087947882734
+ },
+ {
+  "avg_loser_r": -1.034101230653314,
+  "avg_r": 0.04615910127165576,
+  "avg_winner_r": 2.2822979883563432,
+  "dd975_r": 63.47845120190313,
+  "digest": "6d98b248d08e3c981641587a63c0deeb6853507cd71ed7bbf90881c2f0497f71",
+  "full_days": 1352,
+  "headroom": 0.42390261522668155,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-target_r5",
+  "net_r": 28.341688180796638,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 20.70891531629143,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 8.754700299189892,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": 6.578072541297099,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 1.6723222849304367,
+   "2022": 19.074865406509492,
+   "2023": 7.594500489356712
+  },
+  "net_r_long": -10.819267801242917,
+  "net_r_short": 39.16095598203955,
+  "projected_profit": 3815.1235370401337,
+  "safe_dollars_per_r": 70.8901984027154,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 50.4885993485342,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 32.57328990228013
+ },
+ {
+  "avg_loser_r": -1.0341001916244388,
+  "avg_r": 0.050665018020195615,
+  "avg_winner_r": 2.3128638220529756,
+  "dd975_r": 64.4678968470257,
+  "digest": "3af941ab1a7f8a1a9b0337878cd8a550f23a9e6160eca7a306552cd6e62ca63a",
+  "full_days": 1352,
+  "headroom": 0.45814164678578484,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-target_r10",
+  "net_r": 31.10832106440011,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 21.969902469773515,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 2.2686254370478482,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": 14.56979313356053,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": 0.36696218114769336,
+   "2022": 24.760062867960677,
+   "2023": 5.981296015291739
+  },
+  "net_r_long": -5.3869302448796175,
+  "net_r_short": 36.49525130927972,
+  "projected_profit": 4123.274821072064,
+  "safe_dollars_per_r": 69.80218403398423,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 50.6514657980456,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 32.41042345276873
+ },
+ {
+  "avg_loser_r": -0.6297695679048184,
+  "avg_r": -0.05351552120622239,
+  "avg_winner_r": 0.971225837855082,
+  "dd975_r": 59.90587073782361,
+  "digest": "6f1e999f2b42ecd2a7a0394479d1235a548c3218afc68810b90cca660e4164df",
+  "full_days": 1352,
+  "headroom": -0.52076938849277,
+  "longest_losing_run": 11,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-trail_r1",
+  "net_r": -32.85853002062055,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -9.582780797660476,
+    "trades": 193
+   },
+   "low": {
+    "net_r": -16.440905984434714,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": -1.7764210458342748,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -9.814990142201546,
+   "2022": -12.103689405195324,
+   "2023": -10.939850473223679
+  },
+  "net_r_long": -14.723016612468879,
+  "net_r_short": -18.135513408151667,
+  "projected_profit": -4686.92449643493,
+  "safe_dollars_per_r": 75.11784645772241,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 4.5602605863192185,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 35.99348534201955
+ },
+ {
+  "avg_loser_r": -0.9421705814786053,
+  "avg_r": 0.012237193691767907,
+  "avg_winner_r": 1.8351108116712012,
+  "dd975_r": 62.888655091674316,
+  "digest": "7e598cd2b648d82fc6e209bcdacb9e0d8890297bae02a50f89deb1be799580eb",
+  "full_days": 1352,
+  "headroom": 0.11343435355181847,
+  "longest_losing_run": 14,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-or_frac0.5-trail_r2",
+  "net_r": 7.5136369267454945,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": 10.979840985691498,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 15.403245413465367,
+    "trades": 206
+   },
+   "mid": {
+    "net_r": -9.74466216297066,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -8.653211391798639,
+   "2022": 15.618895900189466,
+   "2023": 0.5479524183546666
+  },
+  "net_r_long": -0.35719335187974083,
+  "net_r_short": 7.8708302786252355,
+  "projected_profit": 1020.9091819663662,
+  "safe_dollars_per_r": 71.55503633270963,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-or_frac0.5-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "or_frac",
+    0.5
+   ]
+  },
+  "skipped": 8,
+  "stop_loss_above_planned_pct": 39.413680781758956,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 614,
+  "win_pct": 34.36482084690554
+ },
+ {
+  "avg_loser_r": -1.0902655488823545,
+  "avg_r": -0.09866524919015182,
+  "avg_winner_r": 4.44086272829984,
+  "dd975_r": 136.19390769305065,
+  "digest": "47175037523e5ff289932cac65adad7dd81a68ec91937be694b0fdfcd999ece2",
+  "full_days": 1352,
+  "headroom": -0.41819305656541084,
+  "longest_losing_run": 22,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-hold_to_flat",
+  "net_r": -59.98847150761231,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -35.64935090057849,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 9.863796130385884,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -34.20291673741968,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -36.339311171749486,
+   "2022": -12.78636238241771,
+   "2023": -10.86279795344511
+  },
+  "net_r_long": -42.01863220782957,
+  "net_r_short": -17.96983929978274,
+  "projected_profit": -3763.7375090886976,
+  "safe_dollars_per_r": 33.041125526275025,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "hold_to_flat"
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-hold_to_flat",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 64.80263157894737,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 17.92763157894737
+ },
+ {
+  "avg_loser_r": -1.084275205885665,
+  "avg_r": -0.1272497182449732,
+  "avg_winner_r": 2.6697344488597587,
+  "dd975_r": 117.65885981008444,
+  "digest": "4e9f03889fc9bbfd8b70cb76afe1dad0714626251261a8fce67ad025011703c4",
+  "full_days": 1352,
+  "headroom": -0.6243131397377459,
+  "longest_losing_run": 16,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-target_r3",
+  "net_r": -77.3678286929437,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -50.97466091612636,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 5.965850230968065,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -32.359018007785416,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -42.08322539195543,
+   "2022": 8.330361363968144,
+   "2023": -43.61496466495641
+  },
+  "net_r_long": -51.71795671599435,
+  "net_r_short": -25.64987197694935,
+  "projected_profit": -5618.818257639714,
+  "safe_dollars_per_r": 38.246163589070484,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    3
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-target_r3",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 58.38815789473684,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 25.49342105263158
+ },
+ {
+  "avg_loser_r": -1.089640900846494,
+  "avg_r": -0.109207000741292,
+  "avg_winner_r": 4.005263468930966,
+  "dd975_r": 125.624523342885,
+  "digest": "c254b3b09702712b5a4d6915d5d5b5b2b458c043296564c521c149301b89cfe8",
+  "full_days": 1352,
+  "headroom": -0.5018181146809928,
+  "longest_losing_run": 22,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-target_r5",
+  "net_r": -66.39785645070553,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -37.25166753568612,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 19.848466425510182,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -48.994655340529576,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -19.144795103472735,
+   "2022": -29.37901374938691,
+   "2023": -17.874047597845884
+  },
+  "net_r_long": -49.064848326160075,
+  "net_r_short": -17.33300812454546,
+  "projected_profit": -4516.363032128935,
+  "safe_dollars_per_r": 35.82103143760797,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    5
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-target_r5",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 63.651315789473685,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 19.24342105263158
+ },
+ {
+  "avg_loser_r": -1.0902655488823545,
+  "avg_r": -0.08937421384978035,
+  "avg_winner_r": 4.49268795295072,
+  "dd975_r": 132.85814018074305,
+  "digest": "6c4842e7bafbff711e0f555a3144b09e12bc0ed66d1eebab1416f8f9b2e5dcb9",
+  "full_days": 1352,
+  "headroom": -0.38832410289716773,
+  "longest_losing_run": 22,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-target_r10",
+  "net_r": -54.33952202066645,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -33.85453088307343,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 16.484211211944846,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -36.969202349537845,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -30.74309799383727,
+   "2022": -5.212138055694292,
+   "2023": -18.384285971134886
+  },
+  "net_r_long": -43.02421337119896,
+  "net_r_short": -11.31530864946749,
+  "projected_profit": -3494.91692607451,
+  "safe_dollars_per_r": 33.87071348340496,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "target_r",
+    10
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-target_r10",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 64.80263157894737,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 17.92763157894737
+ },
+ {
+  "avg_loser_r": -0.6826180205892047,
+  "avg_r": -0.16195360702463962,
+  "avg_winner_r": 0.8768103707765864,
+  "dd975_r": 110.77413778031618,
+  "digest": "9810195bc6447c8e812ff8d6718c219c9e7021a8b8597f9514ff936aec188d52",
+  "full_days": 1352,
+  "headroom": -0.8439612919214514,
+  "longest_losing_run": 12,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-trail_r1",
+  "net_r": -98.46779307098089,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -49.43617480214205,
+    "trades": 193
+   },
+   "low": {
+    "net_r": -21.466335967706982,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -27.565282301131855,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -39.07795048849929,
+   "2022": -22.56300127504238,
+   "2023": -36.82684130743922
+  },
+  "net_r_long": -60.59624976845698,
+  "net_r_short": -37.87154330252391,
+  "projected_profit": -7595.651627293063,
+  "safe_dollars_per_r": 40.62320041636668,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    1
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-trail_r1",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 12.993421052631579,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 33.38815789473684
+ },
+ {
+  "avg_loser_r": -0.9346683153998951,
+  "avg_r": -0.13725313624687957,
+  "avg_winner_r": 1.8678081523748649,
+  "dd975_r": 120.81148379982568,
+  "digest": "978e20b69bcc24c75f2af9de702ce71d48a49ccd5661f0398d85ccd2887525fd",
+  "full_days": 1352,
+  "headroom": -0.6558195217380337,
+  "longest_losing_run": 27,
+  "max_gap_days": 2,
+  "measured_days": 712,
+  "name": "or30-break-atr_frac0.1-trail_r2",
+  "net_r": -83.44990683810278,
+  "net_r_by_or_tercile": {
+   "high": {
+    "net_r": -60.09417052145391,
+    "trades": 193
+   },
+   "low": {
+    "net_r": 6.208103061575355,
+    "trades": 214
+   },
+   "mid": {
+    "net_r": -29.56383937822426,
+    "trades": 201
+   }
+  },
+  "net_r_by_year": {
+   "2021": -42.28738683643123,
+   "2022": -5.0458504044621995,
+   "2023": -36.11666959720935
+  },
+  "net_r_long": -53.06073674433576,
+  "net_r_short": -30.38917009376702,
+  "projected_profit": -5902.375695642303,
+  "safe_dollars_per_r": 37.248114653207274,
+  "settings": {
+   "entry": "break",
+   "entry_until": "11:00",
+   "exit": [
+    "trail_r",
+    2
+   ],
+   "max_or_atr": null,
+   "name": "or30-break-atr_frac0.1-trail_r2",
+   "or_minutes": 30,
+   "reason": "measuring pass, one micro, 2021-2023",
+   "risk_pct": 1.0,
+   "sides": "both",
+   "stop": [
+    "atr_frac",
+    0.1
+   ]
+  },
+  "skipped": 0,
+  "stop_loss_above_planned_pct": 40.13157894736842,
+  "tercile_cuts": [
+   0.3576123043566637,
+   0.49043715846994534
+  ],
+  "trades": 608,
+  "win_pct": 28.45394736842105
+ }
+]
