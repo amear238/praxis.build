@@ -390,5 +390,76 @@ is subject to the master's auditor; it is not a self-grade of F4. The caveats ar
 disclosed above: the last manager edits had no adversarial re-pass; the authorising row
 is unstaged; MANIFEST.md was not updated.
 
-Note 2026-11-10 under D9 (decided by manager under D-2026-11-08-D D1): the PNG named above, docs/reports/evidence/2026-10-28-mffu-davi-reply.png, is not committed, because it shows a support representative's name-bearing address; its hashes above describe a file kept off the repo. The committed transcript has that address replaced on its line 18, so the fence hash 8e14a690... above no longer matches the committed transcript. Itemised in docs/reports/2026-11-10-d9-housekeeping-manager.md.
-Appended 2026-11-10 under D9 (S13): Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+## Audit (praxis-auditor, 2026-10-28T21:29:28Z)
+
+Independent grade of the Davi-reply filing unit: the PNG copy, the transcript, the F4 report addendum (from line 541 on), and this report. Read-only; this section is the only write. The nightly-checks paths and the carried 9-path set were not graded.
+
+### Evidence re-run by the auditor (bash, HEAD fc77f36)
+
+```
+$ shasum -a 256 <source glob> <copy>; cmp <source> <copy> && echo CMP_IDENTICAL
+15af54100ba44ddfe67dda5698c4a80ba6a93f5470c5e148cd6043dc92302992  /Users/admin/Desktop/Screenshot 2026-10-28 at 4.53.23 PM.png
+15af54100ba44ddfe67dda5698c4a80ba6a93f5470c5e148cd6043dc92302992  docs/reports/evidence/2026-10-28-mffu-davi-reply.png
+CMP_IDENTICAL
+(both 254350 bytes; source name bytes ...3533 2e32 33e2 80af 504d 2e70 6e67 = "53.23" U+202F "PM.png")
+
+$ head -n 537 <F4 report> | shasum -a 256          # worktree and index copy
+ffda2e095083802c59c951ed72da79bb978acb7cdd38e6437578b09b42c84cb1  (both; equals the manager's V4 pre-append hash)
+$ head -n 537 <F4 report> | git hash-object stdin; git cat-file -t <that>; stat of the loose object
+e8d9e728a5eaefa18d1455ac15823c09e4299318 / blob / object file mtime 2026-08-15T11:22:36
+  (independent of V4: the exact 537-line content was already in the object store on 2026-08-15)
+lines 538-540 are "", "---", "" ; line 541 is the addendum heading ; wc -l = 776 ; worktree == index
+
+$ fence (transcript lines 15-39) sha256, auditor extraction and sed 15,39p
+8e14a6904fbdcdc85cc3b264a462c3a474fa309ca26942fa7430cfbcd7932dd3 (both; equal to fence2..fence6, w3fence, advF in the scratchpad)
+
+$ addendum section C search script, re-run verbatim (own output file)
+      25
+NinjaTrader 0 | NT8 0 | Ninja 0 | Rithmic 0 | webhook 0 | n8n 0 | TradingView 0 | Tradovate 2 | API 2
+-o listing: 13:Tradovate 13:API 13:Tradovate 14:API 14:Tradovate 14:API
+control CLAUDE.md: NinjaTrader 2 | NT8 0 | Ninja 4 | Rithmic 3 | webhook 1 | n8n 4 | TradingView 3
+control STATUS.md NT8: 40
+  (identical to the pasted output at addendum lines 672-698)
+
+$ every "> " quote line after line 537, grep -Fxc against the fence
+15 of 17 = 1 (exact line); the 2 others are substrings, grep -Fc = 1 each:
+  "You are responsible for the performance and reliability of your automated system."
+  "Hi Frank — thanks for confirming, that's helpful."
+
+$ other checks
+CLAUDE.md:21 equals the addendum's quoted signal-flow line
+.claude/agents/praxis-worker.md:6  tools: Read, Grep, Glob, Bash, Write, Edit, TodoWrite
+DECISION_LOG.md:435 holds row 2026-10-28T20:54:29Z (WHO: amear, "Amear sends the follow-up himself"); index count of that row: 0
+git rev-parse HEAD: fc77f36 (no newer revision)
+```
+
+Transcript fidelity: the auditor read the full PNG (2866x930) and four zoomed crops (preview line, sender/address line, right half of bullet 1, URL line). Each of the 25 fence lines matches the image, including `Hello amear,i`, `Hi !`, `My name is Michael`, the cut-off `Does this specific is f`, `eda.daniel.david@myfundedfutures.intercom-mail.com`, and the full URL text. The glyph-level caveats (em dash vs U+2015, hyphen and apostrophe codepoints, link href) are correctly marked UNVERIFIED.
+
+### Per-criterion table
+
+| Criterion | Verdict | Evidence or gap |
+|---|---|---|
+| S1: "Every claim in a report has pasted command output, not a description of output." | PASS (spot-check scope set by the brief) | Three load-bearing claims, each with pasted output that the auditor reproduced: (1) the copy is byte-identical (V1, re-run above: same sha256, CMP_IDENTICAL); (2) the append is append-only (V4 plus V6 `ffda2e09…`, re-run above, and independently confirmed by blob e8d9e72 dated 2026-08-15); (3) only the four unit paths were added to the index (V8 and V10 name lists, 11 to 14). The addendum's section C search output was reproduced byte for byte. Unevidenced claims outside the spot-check are listed under MINOR. |
+| S2: "No component is reported at a higher level than the evidence supports. Specified ≠ implemented ≠ tested ≠ tested under failure." | PASS | The mapping verdicts are DOES NOT ADDRESS ×3 and PARTLY ADDRESSES ×1. None goes beyond what the visible text supports. Sender, date, headers, thread position, href and hidden content are all marked UNVERIFIED (addendum A, transcript lines 62-71). Non-fetch and non-email statements are labelled "On the manager's attestation", not stated as observed. The append-only check was tripped by a planted one-byte edit (V5 test 1), the wording sweep by a planted sentence (V5 test 2), and the fence cmp by a one-character change (V5 test 3). |
+| S7: "Nothing is committed while any audit box is unchecked." | PASS | HEAD is fc77f36, the same as at the start of the unit; nothing from this unit is in any revision. |
+| S8: "No question that belongs to Amear is answered on his behalf." | PASS | Row 1 (specific pattern and §3.5) leaves "general permission vs under the Tradovate sentence" to Amear, by name (S8), and says "It is not narrowed here." Row 2 and row 4 leave the "Tradovate evaluation and funded accounts" scope to Amear. Section F and the report's "Not claimed" list deny that F4 is discharged or satisfied and deny that either reading covers the NinjaTrader 8 / Rithmic path. The follow-up is recorded as Amear's to send, which matches DECISION_LOG.md:435. The auditor's sweep after line 537 for satisf…F4, "F4 is met/satisfied/cleared", "effectively", "confirms the PRAXIS", "clears F4", "green light" and "covers the PRAXIS" hit only line 767 (the negated "Not claimed" bullet). Section D quotes the conditions and states that PRAXIS is NOT assessed against them. |
+
+### BLOCKING findings
+
+None against S1, S2, S7 or S8.
+
+### MINOR findings
+
+1. **Authorising row not in the index.** DECISION_LOG.md row `2026-10-28T20:54:29Z` is in the worktree only (index count 0). The addendum (line 543) and this report cite it as the authorisation of record. The report discloses this (V9) and hands it to the master. As staged now, the evidence files and the ledger row they cite would not land together.
+2. **MANIFEST.md not updated** for the two new evidence files. This is disclosed in "Not claimed".
+3. **S1 statements in this report with no pasted output:** line 48 ("Every adversarial worker received the artifact and the criteria only, never a builder's reasoning") is an unlabelled attestation, and the worker briefs are not on disk. Lines 347-349 summarise the worker reports without quoting them; adversarial-confirm.md:144 does support the "nothing implies F4 is met" part. V1 and V6 paste output without the command lines that produced `IDENTICAL` and the hashes. V2 does not paste the hash of the baseline fence.txt. Its claim that fence.txt was "extracted right after W1" does not match the file's mtime (17:10, later than fence2.txt at 17:00). Every scratchpad fence file has the same hash, so the conclusion stands.
+4. **Line-range wording in the brief.** The brief puts the pre-existing content at lines 1-540. The artifact shows it is lines 1-537; lines 538-540 (blank, `---`, blank) are this unit's separator. The append is still append-only.
+5. Row 1 calls the general reading "the specific-vs-general gap §3.5 already recorded". The word "gap" restates §3.5's existing framing. It does not decide the reading, because the row hands that reading to Amear explicitly.
+
+### NOT CHECKED
+
+- Whether any agent opened Gmail or fetched the URL. The tool calls are not observable from the artifact, and the addendum marks this as attestation.
+- The worker reports were sampled only for verdict lines, not graded.
+- The glyph codepoints (em dash, hyphens, apostrophes) cannot be determined from pixels. The transcript marks them UNVERIFIED.
+
+Result: PASS

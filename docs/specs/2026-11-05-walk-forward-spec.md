@@ -2,7 +2,7 @@ Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippag
 
 # Walk-forward test specification — NQ Noise-Area, arms (a) and (b)
 
-**Status: DERIVED — not yet ruled on as a whole by Amear.**
+**Status: DERIVED — not yet ruled on as a whole by Amear.** **Changelog.** 2026-11-08, unit `2026-11-08-wf-spec-amendment` (dispatch DECISION_LOG `2026-11-08T16:12:00Z`, WHO: praxis-master): §6 :107, the per-tier table header :113 and the §8 gate line :156 carry A4's 80% buffer (D-2026-11-08-B, DECISIONS.md:1735–1740). The quotes at :31 and :39 are unchanged and carry a pointer at :28. Lines were edited in place; no line was added or removed.
 Derived 2026-11-05 by praxis-worker, unit `2026-11-05-r8j-phase3-import-and-wf-spec` (bead `Praxis_build-r8j`), under Amear's typed item b (quoted in §1). No design choice is added here. Anything the rulings do not fix is a numbered question in **NEEDS AMEAR** at the end, not a default.
 
 **Sources (every pointer below was taken from `grep -n` / `nl -ba` output in this session):**
@@ -25,7 +25,7 @@ Derived 2026-11-05 by praxis-worker, unit `2026-11-05-r8j-phase3-import-and-wf-s
 
 ## 1. Rulings this spec rests on (verbatim)
 
-**D-2026-11-05-A, the five items** — REPORTED BY the voice agent, pasted by Amear with "file as WHO: amear" (`DECISIONS.md:806`, `:811`); entry Status "RULED by Amear — items 1–5" (`:806`). Quoted from `:812-816`:
+**D-2026-11-05-A, the five items** — REPORTED BY the voice agent, pasted by Amear with "file as WHO: amear" (`DECISIONS.md:806`, `:811`); entry Status "RULED by Amear — items 1–5" (`:806`). Item 3 (:31) and typed item b's "DD gate = lower of 4% …" (:39) are quoted history and stay as written; the Max-DD gate in force is A4's (D-2026-11-08-B, DECISIONS.md:1735–1740), which amends item 3 (his words: "This amends D-2026-11-05-A item 3"); that it also supersedes typed item b's restatement is the editor's reading, not his words, changeable by Amear; see §6 and §8. Quoted from `:812-816`:
 - *"1. Walk-forward runs BOTH ways: (a) paper's fixed rules, nothing optimised; (b) four parameters tuned per window — lookback, noise multiplier, stop-ATR multiplier, exit policy. A stop is added to the strategy for (b) on its own branch; baseline file unchanged."*
 - *"2. Windows per spec: 252-day in-sample / 63-day out-of-sample / 63-day step."*
 - *"3. Max-DD gate base: the lower of 4% of the MFFU account size and MFFU's trailing drawdown limit. Revisit if a personal account is used."*
@@ -104,13 +104,13 @@ R-VN4-7's reading says report C's PROPOSED checklist is not adopted. This spec d
 
 ## 6. Max-drawdown gate — base and per-tier table
 
-- Original Block 2 gate wording: "Max drawdown ≤ 4% of equity" (Phase 3 spec `:82`). Item 3 rules its base: "the lower of 4% of the MFFU account size and MFFU's trailing drawdown limit. Revisit if a personal account is used." (`:814`). — RULED (D-2026-11-05-A).
+- Original Block 2 gate wording: "Max drawdown ≤ 4% of equity" (Phase 3 spec `:82`). Item 3 rules its base: "the lower of 4% of the MFFU account size and MFFU's trailing drawdown limit. Revisit if a personal account is used." (`:814`). — RULED (D-2026-11-05-A). **Amended by A4** (D-2026-11-08-B, DECISIONS.md:1735–1740, joined): "Max-DD gate = backtest max drawdown must stay below 80% of the ruled limit, i.e. below the lower of 3.2% of the MFFU account size and 80% of MFFU's trailing drawdown limit. This amends D-2026-11-05-A item 3 with a safety buffer for model error. Evaluated against every tier row; tier pick stays Q9. Closes the notes-4 DD equity-base item." (OPEN, Q9) The gate in force is A4's. The limit type and stage for the Studio Static rows and for rows whose Eval and Sim-Funded types differ are NEEDS AMEAR (ii) of D-2026-11-08-B (cf. this file's NEEDS AMEAR 12).
 - Item 5 defers the tier: "Account tier: no decision until backtest + paper results exist." (`:816`). — RULED (D-2026-11-05-A). **This spec does not choose a tier.** The table lists every tier read from MFFU's pages. → NEEDS AMEAR 11–12.
 - The imported spec's breaker list carries the figure "MFFU’s $1,500 EOD trailing drawdown" (Phase 3 spec `:102`). D-2026-11-05-A does not adopt it (`DECISIONS.md:820`). The only $1,500 limit on the pages read is Builder 50K with add-on (row below). → NEEDS AMEAR 20.
 
 **Per-tier table.** "Lower" = min(0.04 × size, MFFU limit). Arithmetic is INFERRED (deriver's arithmetic). Size and limit are REPORTED BY MFFU's page named in each row, fetched 2026-11-05 (UTC window 23:58:43Z–00:00:28Z). In the capture, the stage labels on `/plans/*` tables were INFERRED from tab order.
 
-| Plan · size | Account size | 4% of size | MFFU limit (type, stage) | Lower of the two | Grade / source |
+| Plan · size | Account size | 4% of size | MFFU limit (type, stage) | Lower of the two (item 3's ruled limit, arithmetic INFERRED as stated at :111; A4 gate: max DD below 80% of this, D-2026-11-08-B; Static rows and rows whose Eval and Sim-Funded types differ: NEEDS AMEAR (ii)) | Grade / source |
 |---|---|---|---|---|---|
 | Studio #003 · 5K | $5,000 | 0.04 × 5,000 = $200 | $250 (Static, not trailing) | min(200, 250) = **$200** | REPORTED BY MFFU's page https://help.myfundedfutures.com/en/articles/17589665-studio-plans-a-comprehensive-guide, fetched 2026-11-05 |
 | Studio #001 · 10K | $10,000 | $400 | $500 (Static) | min(400, 500) = **$400** | REPORTED BY MFFU's page https://help.myfundedfutures.com/en/articles/17589665-studio-plans-a-comprehensive-guide, fetched 2026-11-05 |
@@ -153,7 +153,7 @@ Also: Studio limits are Static, not trailing. Item 3 says "trailing drawdown lim
 Block 2, "Pass gates (non-negotiable):" (Phase 3 spec `:78`), lines `:80-85` — REPORTED BY the imported Phase 3 spec:
 - OOS profit factor ≥ 1.30
 - OOS Sharpe ≥ 1.0
-- Max drawdown ≤ 4% of equity
+- Max drawdown ≤ 4% of equity — as imported (Phase 3 spec `:82`). Gate in force: A4 (D-2026-11-08-B): "backtest max drawdown must stay below 80% of the ruled limit, i.e. below the lower of 3.2% of the MFFU account size and 80% of MFFU's trailing drawdown limit" (§6 :107). Limit type and stage for the Studio Static rows and for rows whose Eval and Sim-Funded types differ: NEEDS AMEAR (ii) of D-2026-11-08-B.
 - ≥ 250 aggregate OOS trades
 - ≥ 60% of walk-forward windows profitable
 - Walk-forward efficiency ≥ 0.50

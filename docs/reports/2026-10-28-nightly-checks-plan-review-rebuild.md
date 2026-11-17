@@ -1332,4 +1332,69 @@ disclosure: the two files need a MANIFEST row from the master).
   write path is a static read (no toggle). The problem-5 fast-forward is NOT TESTED. Whether 66n's behaviour
   exists in Praxis is UNOBSERVED.
 
-Appended 2026-11-10 under D9 (S13): Fills are optimistic; Standard resolution on 1-minute bars; 2 ticks/side slippage assumed.
+## Re-audit (praxis-auditor, 2026-10-28T21:32:09Z)
+
+Read-only. heartbeat.sh, praxis-check.sh and notify.sh were not run; build.praxis.b2data-watch was not toggled (launchctl print only). Times are UTC unless marked EDT (-04:00). Only this section was appended.
+
+### Re-captures (auditor)
+```
+hermes HEAD 4209004; plan/heartbeat.sh/praxis-check.sh: wt status empty (rc=0)
+first 32822 bytes of this report: sha256 fbdcea66faf04d20... ; head -n 523 = 32822 bytes, line 523 = "Result: FAIL"
+note: 11946 bytes (cap 12000); git diff --name-only on both unit files: 0 lines (index == wt); HEAD fc77f36; staged 14
+plan@4209004 verbatim: 8 "> **stage**, never commit. Amear commits."; 40 (under "## Global Constraints"); 29; 98; 335-341; 353; 370; 371; 401; 421-428; 457
+plan headings: Task 8 at 363, Task 9 at 396, next heading 441 -> plan:424 "Step 5 · Amear: ... by hand" is inside Task 9
+commit-gate.sh@4209004 :3 "The one script allowed to run ...", :129 comment, :295 GIT_INDEX_FILE=... git -C "$top" commit ...; config/commit-gate.conf:2 enabled=no
+STATE.md@4209004 :8-10 verbatim; praxis-check.sh:46 verbatim; heartbeat.sh:40,50,52,62 verbatim
+awk arms (programs cut from heartbeat.sh:50 and :40 at 4209004, run with awk on logs/PRAXIS_CHECK_LOG.md):
+  day 2026-10-25 have=0 | 10-26 have=2 | 10-27 have=3 | 10-28 have=3 | checks=8 ; log lines 1-2 = 07:29:43/07:31:43 -0400 SKIP
+find -newermt in b2-data: 2026-10-26 00:00 -> 0 ; 2026-07-01 -> 94 (control)
+launchctl: ai.hermes.praxis-check runs=1 last exit 0 Hour 3 Minute 0; ai.hermes.heartbeat runs=0 (never exited) Weekday 0 Hour 9; b2data-watch state=running
+ledger@4209004 :160 13:20:00-04:00 row; :172 H3 row with both quoted phrases; Praxis wt DECISION_LOG 411/412 13:20Z rows; HEAD DECISION_LOG 13:20 hits = 0
+task7 report :15, :27, :33 verbatim
+quotecheck: source extracted from this report == scratchpad mgr/quotecheck.py (diff empty); transcript_extract.py and trip.py == pasted
+  pasted source on the staged note: checked=50 matched=50 missed=0 negatives=3 neg_matched=0 uncovered=0 rc=0
+  manager trip: MISS plan:424 + 2 UNCOVERED, rc=1
+  auditor own trip (plan:8 "Amear commits." -> "Jobs commit."; plan:98 "Task 8" -> "Task 9"): MISS plan:8, MISS plan:98, 2 UNCOVERED, matched=48, rc=1
+transcript_extract.py on the first manager transcript (agent aa4853a3911c18bae): denials results=3 (20:51:17Z no-commit-guard; 21:01:09Z and 21:02:47Z gate hook); 21:01:13Z -> 9 / 8531; 21:01:40Z -> applied 11 / 10393
+note greps: excluded findings (drift|blank|OI|line 94|tar -x|-newer "$tmp") rc=1; leak (admin|/Users/|seat N|pid|token|chat id|-100|account|MFFU|rithmic|gmail|api key|secret|password) rc=1; old text (hermes-only|before Task 9|16:50|exists to confirm) rc=1
+hermes files newer than 17:13 EDT (excluding .git, worktrees): logs/LOOP_LOG.md only (loop tick)
+hermes wt: bin/commit-gate.sh and config/commit-gate.conf are modified/staged; wt conf still enabled=no; wt cited lines moved (:295 -> :330, :129 -> :136)
+```
+
+### First-audit findings
+| Finding | Verdict | Evidence |
+|---|---|---|
+| BLOCKING 1 (Task 9 Step 5 actor) | RESOLVED | Note 148/151 quote plan:8 and plan:424 verbatim (checker MATCH; auditor trip on plan:8 caught). Note 159-161: the Task 9 Step 5 commit is Amear s, by hand (plan:424; plan:8). plan:424 is inside Task 9 (headings 396/441). Conclusion still follows: the fast-forward lands in the main checkout; porcelain 80 at 17:16 EDT |
+| BLOCKING 2 (placeholders, unpasted claims) | RESOLVED | C2 blocks A-E, recap2, recap3 print each literal command before output. "still 8531" after the 2nd denial marked false as worded; "still 9" marked UNVERIFIED; the third denial is pasted and the auditor reproduced all three from the transcript |
+| BLOCKING 3 (checker not shown) | RESOLVED | Source pasted in full, identical to the script on disk; auditor re-ran it from the pasted source (50/50, rc=0) and tripped it with an independent mutation (rc=1). First-pass 26/26 marked UNVERIFIED and superseded |
+| BLOCKING 4 (66n hermes-only) | RESOLVED | C4 withdraws it by append. Note 140-145: hermes-ops bead, rule stated for "this repo", "Whether the same behaviour exists in Praxis is UNOBSERVED"; question 182-183 (a) left open |
+| MINOR 1 (Task 9 vs 8) | RESOLVED | C5.1 corrects by append; note 163/165/184 say Task 8 |
+| MINOR 2 (capture window) | RESOLVED | Note 7: 17:15-17:24 EDT; pasted dates in C2/C6 span 17:15:25-17:24:17 |
+| MINOR 3 (guard purpose) | RESOLVED | Note 105: "Our inference (the plan states no purpose for the guard)"; C5.3 grep pasted (17 hits) |
+| MINOR 4 (identifiers) | RESOLVED | Leak grep on note rc=1 (no admin, /Users/, seat, pid) |
+
+### Criteria
+| Criterion | Verdict | Evidence or gap |
+|---|---|---|
+| S1 pasted output | PASS | Every note block reproduced (above). Report correction claims carry pasted output or are marked UNVERIFIED |
+| S2 level vs evidence | PASS | 66n in Praxis UNOBSERVED; commit-gate STATIC READ, not run; watcher write paths STATIC READ; ff step NOT TESTED; heartbeat runs=0 disclosed |
+| S6 cross-block | PASS | C7 lists hermes (read-only), daemon (observe-only), transcript (read-only). Auditor: only LOOP_LOG.md changed in hermes since 17:13 EDT. New commit-gate text checked against Praxis as static read |
+| S7 nothing committed | PASS | HEAD fc77f36; both unit files staged, index == wt |
+| S8 Amear questions | PASS | Note 56-57 and 182-184 left open; every option "not chosen"; report NEEDS AMEAR 1-3 UNANSWERED (C8) |
+| S9 R3 mechanism | PASS | Note 108-109 (daemon not toggled; "only that it has the code"); note 156 commit-gate "STATIC READ, not run" |
+
+### NEW BLOCKING
+None.
+
+### NEW MINOR
+1. Note 158 cites the comment line commit-gate.sh:129 as the evidence that the script refuses Praxis; the code lines :137-138 appear only in the report (C6). The STATIC READ label holds.
+2. In the hermes working tree, bin/commit-gate.sh is modified and its cited lines have moved (:295 -> :330, :129 -> :136). The note pins these lines to 4209004, which is correct. It does not tell the recipient that the working copy differs (note line 5 covers only the plan and the two scripts).
+3. Note 172-177: "staged 11" is a snapshot at 17:16 EDT. The staged set is now 14, because the concurrent F4 unit added files (disclosed in C9). It is timestamped, so it is not false.
+
+### NOT CHECKED
+- The exchange folder: its path is not stated in the report. Writes to hermes-ops were checked; writes to the exchange folder were not.
+- The W3 adversarial report (scratchpad adversarial-note-review-3.md): not read.
+- recap*.out files vs the pasted C2 text: not diffed. The outputs were reproduced independently where it mattered.
+- MANIFEST row for the two files: routed to the master; out of this unit.
+
+Result: PASS
