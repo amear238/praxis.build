@@ -402,6 +402,50 @@ class Rules(unittest.TestCase):
         self.assertEqual([(x["entry_dt"], x["exit_dt"], x["reason"]) for x in t],
                          [(stamp(D, "10:01"), stamp(D, "14:00"), "stop"), (stamp(D, "14:31"), stamp(D, "16:00"), "flat")])
 
+    def test_no_entry_at_or_after_flat_time(self):
+        minute = dict(cadence="minute")
+        # flat_time 10:30 and no bar stamped 10:30: the 10:29 breakout's next bar (10:31) is past flat_time.
+        day = build_day(D, {"10:29": (80, 100, 80, 100), "10:31": (101, 102, 100.5, 101.5)}, last="10:32")
+        holed = g.Day(day.date)
+        for b in day.bars:
+            if b.sm != SM("10:30"):
+                holed.by_sm[b.sm] = len(holed.bars)
+                holed.bars.append(b)
+        res = run([holed], flat_time="10:30", entry_window=["09:31", "10:30"], **minute)
+        self.assertEqual((res["trades"], res["skipped"]), ([], []))
+        # A decision on the bar just before the flat bar (15:58) would fill on the flat bar: no entry.
+        res = run([build_day(D, {"15:58": (80, 100, 80, 100), "15:59": (101, 102, 100.5, 101.5)})],
+                  entry_window=["09:31", "15:59"], **minute)
+        self.assertEqual((res["trades"], res["skipped"]), ([], []))
+        # Two bars before (15:57): fills at 15:58, flattened by the 15:59 flat bar at the 16:00 open.
+        t = run([build_day(D, {"15:57": (80, 100, 80, 100), "15:58": (101, 102, 100.5, 101.5)})],
+                entry_window=["09:31", "15:59"], **minute)["trades"]
+        self.assertEqual([(x["entry_dt"], x["exit_dt"], x["reason"]) for x in t],
+                         [(stamp(D, "15:58"), stamp(D, "16:00"), "flat")])
+        # A short day ending 13:00: the 12:59 breakout's next bar is the day's last bar: no entry.
+        res = run([build_day(D, {"12:59": (80, 100, 80, 100), "13:00": (101, 102, 100.5, 101.5)}, last="13:00")],
+                  **minute)
+        self.assertEqual((res["trades"], res["skipped"]), ([], []))
+        # ... and 12:58 still trades, closed at the 13:00 close.
+        t = run([build_day(D, {"12:58": (80, 100, 80, 100), "12:59": (101, 102, 100.5, 101.5)}, last="13:00")],
+                **minute)["trades"]
+        self.assertEqual([(x["entry_dt"], x["exit_dt"], x["reason"]) for x in t],
+                         [(stamp(D, "12:59"), stamp(D, "13:00"), "flat")])
+
+    def test_gap_on_decided_exit(self):
+        # VWAP 20130 above the upper band 20099: the 10:30 close of 20110 decides the exit while the low
+        # (20105) stays above the stop (20120.5 - 20 = 20100.5). The 10:31 bar opens at 19950, beyond the stop.
+        p = bd.BandPoint(20099.0, 20060.0, 20130.0, 20079.0, 40.0)
+        marks = {"10:00": (20080, 20100, 20080, 20100), "10:01": (20120, 20122, 20119, 20121.5),
+                 "10:30": (20121.5, 20121.5, 20105, 20110), "10:31": (19950, 19960, 19940, 19950)}
+        t = run([build_day(D, marks, base=20080.0)], spec=lambda date, sm: p, max_trades_per_day=1)["trades"]
+        self.assertEqual([(x["stop_initial"], x["reason"], x["exit_dt"], x["exit"], x["gap"]) for x in t],
+                         [(20100.5, "exit", stamp(D, "10:31"), 19949.5, True)])
+        # Opening above the stop: no gap.
+        marks["10:31"] = (20108, 20109, 20101, 20105)
+        t = run([build_day(D, marks, base=20080.0)], spec=lambda date, sm: p, max_trades_per_day=1)["trades"]
+        self.assertEqual([(x["reason"], x["exit"], x["gap"]) for x in t], [("exit", 20107.5, False)])
+
     def test_day_low_marks_adverse_extreme(self):
         day1 = build_day(D, dict(UP_FLAT, **{"10:10": (101.5, 101.5, 90, 101.5)}))
         day2 = build_day(D + dt.timedelta(days=1), {})

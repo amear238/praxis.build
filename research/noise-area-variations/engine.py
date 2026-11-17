@@ -11,7 +11,9 @@ sides, reentry, stop, exit, max_trades_per_day, risk_pct, flat_time; see validat
 
 Each bar of a trading day, in this order:
   a. Fills. Orders decided on the previous bar fill at this bar's open, 2 ticks against, kept inside the
-     bar's range: an exit first, then an entry. A new position's stop rests at entry fill -/+ dist.
+     bar's range: an exit first, then an entry. A new position's stop rests at entry fill -/+ dist. A
+     decided exit (exit, reverse, flat) filled on a bar that opens already beyond the position's resting
+     stop (long: open < stop; short: open > stop) has gap True; its fill and reason are unchanged.
   b. Resting stop (from the entry bar on). If the bar's adverse extreme reaches the stop (long: low <= stop;
      short: high >= stop) the stop fills. "kind": at the stop, or at the open when the bar opens already
      beyond it, 2 ticks against, kept inside the bar's range. "harsh-stops": at the bar's low (long) or high
@@ -28,7 +30,10 @@ Each bar of a trading day, in this order:
        rule also fires) even when the new entry is then refused.
        Entry: long when C > upper, longs allowed and not long; short when C < lower, shorts allowed and not
        short; and only if the bar's stamp is inside entry_window (first <= T <= second, in trading-day
-       order), the day has filled fewer than max_trades_per_day entries, and reentry allows it.
+       order), the day has filled fewer than max_trades_per_day entries, reentry allows it, and the day's
+       next tradable bar (where it would fill) exists, is stamped before flat_time and is not the day's last
+       tradable bar. So no position is ever opened on a bar at or after flat_time or on the day's last
+       tradable bar. An entry refused for that reason is not a skip; an opposite signal still closes.
        reentry "fresh": a side is blocked from the moment an exit of a position on that side is decided
        (exit, reverse, or flat at the next open: at the bar that decides it; a stop or a flat at the last
        bar's close: at that bar), and freed by any decision bar at or after that moment that closes inside
@@ -312,7 +317,9 @@ class _Sim(object):
             # a. fills: exit first, then entry. A decided exit blocked its side when it was decided; its
             # fill does not block again (the decision bar may already have freed the side).
             if pend_exit is not None:
-                self._close(date, b, _market(b, -self.pos.side), pend_exit)
+                q = self.pos
+                gap = q.stop is not None and (b.o < q.stop if q.side == 1 else b.o > q.stop)
+                self._close(date, b, _market(b, -q.side), pend_exit, gap)
                 day_low = min(day_low, self.balance)
             if pend_entry is not None:
                 self._open(b, pend_entry)
@@ -362,8 +369,10 @@ class _Sim(object):
                     want = 1
                 elif c < p.lower and side != -1 and self.short_ok:
                     want = -1
+                # the entry would fill on the next bar: it must exist, be stamped before flat_time and not
+                # be the day's last tradable bar
                 if (want and self.win[0] <= b.sm <= self.win[1] and entries < s["max_trades_per_day"]
-                        and not (fresh and blocked[want])):
+                        and not (fresh and blocked[want]) and i + 1 < last and bars[i + 1].sm < self.flat_sm):
                     pend_entry = self._size(date, b, want, p)
             # e. the trailing stop, from the next bar
             if pos is not None and self.trail is not None and self.pos is pos:
