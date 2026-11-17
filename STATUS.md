@@ -1,6 +1,6 @@
 # PRAXIS status
 
-Last updated: 2026-11-15.
+Last updated: 2026-11-17.
 
 ## The goal
 
@@ -31,12 +31,12 @@ None passes. At 1% risk a trade risks $500, so four losers in a row use the whol
 
 ## What is next, in order
 
-1. Restart the strategy search with the cost-of-the-trade rule built in. One strategy at a time.
-2. Set the MyFundedFutures permission rule aside, and re-set the drawdown limit against the personal $10,000 account. The new figure is proposed and work carries on.
+1. Noise-Area variation search (Amear, 2026-11-17). Design and plan are written and approved; nothing has been run. Start it in a new session with the plan: `docs/superpowers/plans/2026-11-17-noise-area-variations.md`. Bars: average winner at least twice the money risked, never more than seven trading days without a trade, profit at least $4,000, the $2,000 limit crossed in at most 5% of shuffles, every order matching its rule. Task: `Praxis_build-7yq`.
+2. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
-1. **The independent check for order code.** The settings file still blocks general-purpose helper agents. An independent check needs one. This is an agent permission, so it needs his word before any code that can place an order is checked.
+1. Nothing on agents: the block on general-purpose helper agents was lifted on his word, 2026-11-17.
 2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
 
 Decided without waiting, reversible: the retest ran on 1-minute bars with kind and harsh fills, labelled as such (he was offered the choice and raised no objection). "Steady first" was taken as the version that goes flat at 15:59.
