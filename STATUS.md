@@ -39,9 +39,11 @@ Earlier, on the $50,000 stand-in with harsh fills: none of the twelve passed (`r
 
 Also checked 2026-11-17, on Amear's question about the session-sweep idea he pasted (overnight high or low taken out in the New York morning, then faded, stop past the spike, 2-to-1 target, 2021 to 2026): it loses, about $0.16 per $1 risked after costs over 1,011 trades, and the 4-hour trend filter does not rescue it. The 1.68 profit factor quoted from a vendor blog was on currencies and gold, with no costs. Measurement: `research/session-sweep/`.
 
+Opening range breakout on the same $150,000 frame, 2026-11-17: **none of 108 versions is good enough to send to the final run.** The versions with winners at least twice the risk have losing runs of 14 to 19, so the limit only allows about $61 a trade, which projects to about $9,700 over five and a half years with a shrinking edge. Verdict: `research/orb-150k/out/VERDICT.md`.
+
 ## What is next, in order
 
-1. Amear's word on where the search goes now that Noise-Area has failed on both accounts. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
+1. Amear's word on where the search goes now that Noise-Area and the opening range breakout have both failed on the $150,000 frame. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
 2. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
