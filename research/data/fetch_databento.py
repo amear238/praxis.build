@@ -50,8 +50,8 @@ def on_disk(m, r, s):
     return sorted(out)
 
 
-def missing(start, end, have):
-    """Date ranges in [start, end) not covered by `have`, split at calendar-year boundaries."""
+def missing(start, end, have, by_year=True):
+    """Date ranges in [start, end) not covered by `have`, split at calendar-year boundaries when by_year."""
     gaps, cur = [], start
     for a, b in have:
         if a > cur:
@@ -59,6 +59,8 @@ def missing(start, end, have):
         cur = max(cur, b)
     if cur < end:
         gaps.append((cur, end))
+    if not by_year:
+        return gaps
     chunks = []
     for a, b in gaps:
         while a < b:
@@ -114,7 +116,7 @@ def main():
         for m in MARKETS:
             have = on_disk(m, r, s)
             have_cost += sum(cost(client, m, r, s, a, b) or 0.0 for a, b in have)
-            todo += [(m, r, s, a, b) for a, b in missing(D(st), D(END), have)]
+            todo += [(m, r, s, a, b) for a, b in missing(D(st), D(END), have, by_year=(s == "ohlcv-1m"))]
     quotes = [(t, cost(client, *t)) for t in todo]
     for t, q in quotes:
         if q is None:
