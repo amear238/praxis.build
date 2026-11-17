@@ -17,32 +17,36 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Nothing. The Noise-Area variation search finished on 2026-11-17: **no variation passes; under the five bars Noise-Area is dead.** Full verdict in plain English: `research/noise-area-variations/out/VERDICT.md`.
+Nothing. The $150,000 rerun finished on 2026-11-17: **none of the 36 runs passes.** Full verdict in plain English: `research/noise-area-variations/out/150k/VERDICT.md`.
 
-Twelve variations were tried (a first list of eight, then the one allowed second list of four), each list locked before it was run, on a 50K stand-in account with a $2,000 trailing limit, harsh fills.
+The account, from MyFundedFutures' site: every $150,000 plan has a **$4,500** end-of-day trailing limit and a **$9,000** target (the $6,000 from the call is not there). Builder was used as the kinder plan. The same twelve variations, each at three risk sizes, list locked before the run, judged on midpoint fills.
 
-| Bar | Result across the twelve |
+| Bar | Result across the 36 |
 |---|---|
-| Every order matches its rule | 12 pass |
-| Average winner at least twice the risk | Met by all 12 (2.0 to 5.9 times), but the bar also needs a profit on 2024 to 2026 and every one lost there ($557 to $19,071) |
-| Never more than seven trading days without a trade | 1 passes (and it loses $17,852); the rest run 8 to 30 days |
-| Profit at least $4,000 | 4 pass ($4,027 to $10,029) |
-| $2,000 limit crossed in at most 5% of shuffles | 0 pass: crossed in the real order of days in all 12, and in 99.8% to 100% of shuffles |
+| Every order matches its rule | 36 pass |
+| Average winner at least twice the risk, with a profit on 2024 to 2026 | 6 pass; the other 30 lost money from 2024 on |
+| Never more than seven trading days without a trade | 5 pass (the any-minute version, and the narrower band at the two larger sizes); the rest run 8 to 29 days |
+| Profit at least $9,000 | 27 pass |
+| $4,500 limit crossed in at most 5% of shuffles | 1 passes |
 
-Why: these versions win 2 to 3.5 trades in 10, so losing runs of 14 to 29 happen, and the $2,000 limit is 13 to 20 losers at $100 to $150 a trade. A smaller risk cannot be traded on one micro contract, so signals are skipped and the seven-day rule fails. The edge measured on 2021 to 2023 did not hold on 2024 to 2026. On the personal $10,000 account almost nothing trades below 1% risk.
+Nearest miss: one trade a day with a trailing stop at $100 a trade. It survives (limit never crossed; 1.2% of shuffles) and keeps 2-to-1, and fails on profit ($8,600 against $9,000) and on 26 trading days without a trade.
 
-Checked: two independent checkers rebuilt every trade of all twelve from the raw price file with their own programs, no differences; every bar recomputed by a second script, no differences. Code and tests: `research/noise-area-variations/`.
+Why: the half-hour versions went 8 trading days without a breakout in late 2025 with nothing skipped, so the seven-day rule fails whatever the account. Small risk survives and earns too little; larger risk earns enough and crosses the limit in every shuffle. 2026 lost money in every run.
 
-Earlier, same account frame: candidate 1 (long-only intraday momentum) and four variations, none passed (`research/intraday-momentum-long/`).
+For information, not a bar: started on a random day, the middle sizes reached +$9,000 before the limit in a fifth to nearly half of cases, after about half a year.
+
+Earlier, on the $50,000 stand-in with harsh fills: none of the twelve passed (`research/noise-area-variations/out/VERDICT.md`); candidate 1 and four variations, none passed (`research/intraday-momentum-long/`).
 
 ## What is next, in order
 
-1. Rerun Noise-Area on a $150,000 MyFundedFutures evaluation frame, the plan kinder to the strategy, its rules checked on MFFU's site first. Judge on midpoint fills (halfway between the stop price and the worst price of its minute). The five bars and the 2024-to-2026 check stay. Amear's answers: `docs/reports/2026-11-17-voice-notes-where-next.md`.
+1. Amear's word on where the search goes now that Noise-Area has failed on both accounts. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
 2. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
 1. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out. Not reached on the 2026-11-17 call.
+
+Decided without waiting, reversible (2026-11-17, the $150,000 rerun): Builder as the kinder plan; each variation run at three risk sizes; the limit judged with no stopping point, as the bar was set, with MyFundedFutures' stopping point reported beside it; when a minute opens past the stop, the midpoint is taken from that open.
 
 Decided without waiting, reversible (2026-11-17 search): the price file has holes, so a day's trading stops at the first gap longer than 60 minutes; the seven-day count starts when the band first exists; the second list was used, with four variations and not eight; evening and overnight hours were measured and not traded.
 

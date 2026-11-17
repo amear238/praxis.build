@@ -1,0 +1,255 @@
+{
+ "digests": {
+  "harsh-stops": "1c24bf9e171fbfe9000ccfdbc922f2bea8f100f9e58bb4c58d4a85ed375c7fea",
+  "kind": "c1acf64c1c24ef2814138c9d11065318b40882c8ac914a5a316e3ef0813052ac",
+  "midpoint": "cd66140011434a93ab109ff18567503638a410a5e6fe4354b1812847380a9407"
+ },
+ "frequency": {
+  "gap_from": "2026-06-26",
+  "gap_to": "2026-07-15",
+  "max_gap_trading_days": 14,
+  "pass": false
+ },
+ "harsh_stops": {
+  "frequency": {
+   "gap_from": "2026-06-26",
+   "gap_to": "2026-07-15",
+   "max_gap_trading_days": 14,
+   "pass": false
+  },
+  "overall": false,
+  "profit": {
+   "net": 3304.8,
+   "pass": false
+  },
+  "rule_check": {
+   "breaks": 0,
+   "pass": true
+  },
+  "stats": {
+   "avg_loser_dollars": -118.81,
+   "avg_loser_r": -1.167,
+   "avg_winner_dollars": 320.02,
+   "by_year": {
+    "2021": {
+     "avg_winner_r": 3.354,
+     "net": 3540.0,
+     "trades": 106,
+     "win_pct": 32.1
+    },
+    "2022": {
+     "avg_winner_r": 3.896,
+     "net": 6701.8,
+     "trades": 146,
+     "win_pct": 32.9
+    },
+    "2023": {
+     "avg_winner_r": 2.851,
+     "net": 142.1,
+     "trades": 157,
+     "win_pct": 29.9
+    },
+    "2024": {
+     "avg_winner_r": 3.191,
+     "net": -2573.1,
+     "trades": 144,
+     "win_pct": 23.6
+    },
+    "2025": {
+     "avg_winner_r": 2.771,
+     "net": -1363.9,
+     "trades": 113,
+     "win_pct": 27.4
+    },
+    "2026": {
+     "avg_winner_r": 2.299,
+     "net": -3142.1,
+     "trades": 56,
+     "win_pct": 16.1
+    }
+   },
+   "longest_losing_run": 19,
+   "skipped": 322,
+   "stops_over_planned": 437,
+   "trades": 722,
+   "win_pct": 28.1,
+   "worst_drop_dollars": 11493.5,
+   "worst_stop_vs_planned": 3.3494
+  },
+  "survival": {
+   "first_cross": "2023-12-20",
+   "pass": false,
+   "shuffle_pct": 89.72
+  },
+  "two_to_one": {
+   "avg_winner_r": 3.2023681197014353,
+   "later_avg_winner_r": 2.906293132915582,
+   "later_net": -7079.1,
+   "pass": false
+  }
+ },
+ "info": {
+  "days_down_2500": 0,
+  "evaluation": {
+   "failed": 372,
+   "median_days_to_pass": 302,
+   "passed": 343,
+   "starts": 1367,
+   "unfinished": 652
+  },
+  "lock": {
+   "first_cross": null,
+   "shuffle_pct": 22.43
+  },
+  "max_qty": 5
+ },
+ "kind": {
+  "frequency": {
+   "gap_from": "2026-06-26",
+   "gap_to": "2026-07-14",
+   "max_gap_trading_days": 13,
+   "pass": false
+  },
+  "overall": false,
+  "profit": {
+   "net": 15344.3,
+   "pass": true
+  },
+  "rule_check": {
+   "breaks": 0,
+   "pass": true
+  },
+  "stats": {
+   "avg_loser_dollars": -103.57,
+   "avg_loser_r": -0.978,
+   "avg_winner_dollars": 337.31,
+   "by_year": {
+    "2021": {
+     "avg_winner_r": 3.354,
+     "net": 4831.5,
+     "trades": 106,
+     "win_pct": 32.1
+    },
+    "2022": {
+     "avg_winner_r": 3.896,
+     "net": 8895.0,
+     "trades": 146,
+     "win_pct": 32.9
+    },
+    "2023": {
+     "avg_winner_r": 2.851,
+     "net": 3259.1,
+     "trades": 157,
+     "win_pct": 29.9
+    },
+    "2024": {
+     "avg_winner_r": 3.191,
+     "net": -137.2,
+     "trades": 145,
+     "win_pct": 23.4
+    },
+    "2025": {
+     "avg_winner_r": 2.84,
+     "net": 517.1,
+     "trades": 117,
+     "win_pct": 28.2
+    },
+    "2026": {
+     "avg_winner_r": 2.509,
+     "net": -2021.2,
+     "trades": 62,
+     "win_pct": 17.7
+    }
+   },
+   "longest_losing_run": 16,
+   "skipped": 243,
+   "stops_over_planned": 0,
+   "trades": 733,
+   "win_pct": 28.2,
+   "worst_drop_dollars": 7446.7,
+   "worst_stop_vs_planned": null
+  },
+  "survival": {
+   "first_cross": "2024-02-02",
+   "pass": false,
+   "shuffle_pct": 23.02
+  },
+  "two_to_one": {
+   "avg_winner_r": 3.2115852776528597,
+   "later_avg_winner_r": 2.945937384750047,
+   "later_net": -1641.3,
+   "pass": false
+  }
+ },
+ "overall": false,
+ "profit": {
+  "net": 9971.9,
+  "pass": true
+ },
+ "rule_breaks": [],
+ "rule_check": {
+  "breaks": 0,
+  "pass": true
+ },
+ "stats": {
+  "avg_loser_dollars": -111.63,
+  "avg_loser_r": -1.066,
+  "avg_winner_dollars": 331.82,
+  "by_year": {
+   "2021": {
+    "avg_winner_r": 3.354,
+    "net": 4232.5,
+    "trades": 106,
+    "win_pct": 32.1
+   },
+   "2022": {
+    "avg_winner_r": 3.896,
+    "net": 7843.9,
+    "trades": 146,
+    "win_pct": 32.9
+   },
+   "2023": {
+    "avg_winner_r": 2.851,
+    "net": 2070.1,
+    "trades": 157,
+    "win_pct": 29.9
+   },
+   "2024": {
+    "avg_winner_r": 3.191,
+    "net": -1159.2,
+    "trades": 144,
+    "win_pct": 23.6
+   },
+   "2025": {
+    "avg_winner_r": 2.809,
+    "net": -905.9,
+    "trades": 116,
+    "win_pct": 27.6
+   },
+   "2026": {
+    "avg_winner_r": 2.509,
+    "net": -2109.5,
+    "trades": 60,
+    "win_pct": 18.3
+   }
+  },
+  "longest_losing_run": 21,
+  "skipped": 269,
+  "stops_over_planned": 410,
+  "trades": 729,
+  "win_pct": 28.3,
+  "worst_drop_dollars": 8624.0,
+  "worst_stop_vs_planned": 2.1647
+ },
+ "survival": {
+  "first_cross": "2024-01-08",
+  "pass": false,
+  "shuffle_pct": 55.58
+ },
+ "two_to_one": {
+  "avg_winner_r": 3.20857061622741,
+  "later_avg_winner_r": 2.9344222140156906,
+  "later_net": -4174.6,
+  "pass": false
+ }
+}
