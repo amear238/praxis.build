@@ -239,3 +239,15 @@ Typed by Amear in the Claude Code session, verbatim, after the recommendation to
 > "also, i no longer want to stay in nq alone. we can spread to other futures and forex as long as there is the ability to back test."
 
 Reading, not his words: the trend-follower is judged on the $150,000 MyFundedFutures frame and its bars. The search may now use other futures and forex, provided there is data to backtest them.
+
+Then asked two questions in the session. Told that MyFundedFutures closes every position by 4:10 PM ET, so a weeks-long trend-follower cannot run on that account, and asked which version to test, he chose:
+
+> "Both, side by side"
+
+Reading: a same-day trend version (flat by 4:00 PM) and a multi-week version judged on the $150,000 numbers, reported separately.
+
+Asked where data for markets beyond NQ should come from, he chose:
+
+> "Buy it from a data vendor"
+
+Reading: his yes to buying one-minute history for several markets, offered at about $20 to $100. The exact price is quoted to him before anything is charged.
