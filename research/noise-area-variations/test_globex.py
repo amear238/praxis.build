@@ -106,6 +106,41 @@ class SmallFiles(unittest.TestCase):
         days = g.load_days(path)
         self.assertEqual([b.sm for b in days[0].bars], [931, 1154, 1155])
 
+    def test_tradable_end_gap_of_exactly_60_minutes_does_not_end_the_day(self):
+        path = self.write(["20210316 093100", "20210316 103100", "20210316 103200"])
+        (day,) = g.load_days(path)
+        self.assertEqual(g.tradable_end(day), 2)
+
+    def test_tradable_end_gap_of_61_minutes_ends_the_day(self):
+        path = self.write(["20210316 093100", "20210316 103200", "20210316 103300"])
+        (day,) = g.load_days(path)
+        self.assertEqual(g.tradable_end(day), 0)
+        self.assertEqual(len(day.bars), 3)           # load_days keeps every bar; only the helper cuts
+        self.assertEqual(g.tradable_end(day, max_gap_minutes=61), 2)
+
+    def test_tradable_end_only_the_first_hole_counts(self):
+        # holes 09:32 -> 11:00 and 11:01 -> 13:00; the day's tradable bars end at 09:32
+        path = self.write(["20210316 093100", "20210316 093200", "20210316 110000", "20210316 110100",
+                           "20210316 130000"])
+        (day,) = g.load_days(path)
+        self.assertEqual(g.tradable_end(day), 1)
+
+    def test_tradable_end_hole_across_midnight(self):
+        # trading day 2021-03-16: evening 19:00 on the 15th, then 05:34 on the 16th
+        path = self.write(["20210315 185900", "20210315 190000", "20210316 053400", "20210316 053500"])
+        (day,) = g.load_days(path)
+        self.assertEqual(g.tradable_end(day), 1)
+        # 23:59 -> 00:00 is one minute, not a hole
+        path = self.write(["20210315 235900", "20210316 000000", "20210316 000100"])
+        (day,) = g.load_days(path)
+        self.assertEqual(g.tradable_end(day), 2)
+
+    def test_tradable_end_no_gap(self):
+        path = self.write(["20210316 093100", "20210316 093200", "20210316 093300", "20210317 093100"])
+        days = g.load_days(path)
+        self.assertEqual(g.tradable_end(days[0]), 2)
+        self.assertEqual(g.tradable_end(days[1]), 0)    # a one-bar day
+
     def test_range_is_by_trading_day(self):
         # The evening of the day before `start` belongs to `start`; the evening of `end` belongs to the
         # day after and is not loaded.

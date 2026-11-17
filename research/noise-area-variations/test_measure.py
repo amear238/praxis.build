@@ -239,7 +239,7 @@ class Outcomes(unittest.TestCase):
 
     def test_held_to_the_flat(self):
         # long, ref 121, half width 10 -> stop 111: never hit; best +60; last bar of the day closes at 146
-        day = make_day(0, [flat("10:00", 100), flat("10:01", 121), ("10:02", 121, 140, 112, 139),
+        day = make_day(0, [flat("15:55", 100), flat("15:56", 121), ("15:57", 121, 140, 112, 139),
                            ("15:59", 139, 181, 130, 150), ("16:00", 150, 151, 145, 146)])
         (e,) = run([day])
         s = e["stops"]["half_width"]
@@ -259,7 +259,7 @@ class Outcomes(unittest.TestCase):
     def test_short_outcome(self):
         # short, ref 79, full width 20 -> stop 99; runs to 19 (+3R), then flat at 49 (+1.5R)
         day = make_day(0, [flat("10:00", 100), flat("10:01", 79), ("10:02", 79, 98, 19, 30),
-                           ("13:00", 30, 49, 25, 49)])
+                           ("10:03", 30, 49, 25, 49)])
         (e,) = run([day])
         s = e["stops"]["full_width"]
         self.assertEqual(e["side"], "short")
@@ -272,7 +272,7 @@ class Outcomes(unittest.TestCase):
 
     def test_walk_stays_in_the_day(self):
         # the next day crashes; the event's walk ends at its own day's last bar
-        d0 = make_day(0, [flat("10:00", 100), flat("10:01", 121), flat("10:02", 121), flat("12:00", 131)])
+        d0 = make_day(0, [flat("10:00", 100), flat("10:01", 121), flat("10:02", 121), flat("10:03", 131)])
         d1 = make_day(1, [flat("10:00", 1)])
         s = run([d0, d1])[0]["stops"]["full_width"]
         self.assertEqual((s["stopped"], s["mfe_r"], s["r_at_flat"]), (False, 0.5, 0.5))
@@ -303,6 +303,50 @@ class Outcomes(unittest.TestCase):
         self.assertEqual((e["to_anchor"]["dist"], e["to_anchor"]["tight"]), (0.0, True))
 
 
+class Holes(unittest.TestCase):
+    """A hole of more than 60 minutes inside a day ends that day's tradable bars (globex.tradable_end)."""
+
+    def test_next_bar_across_a_hole_makes_no_event(self):
+        # 10:01 closes above; the next bar is 3 hours later: no entry bar, no event
+        day = make_day(0, [flat("10:00", 100), flat("10:01", 121), flat("13:01", 121), flat("13:02", 125)])
+        self.assertEqual(run([day]), [])
+
+    def test_outcome_ends_at_the_last_bar_before_a_hole(self):
+        # long, ref 121, full width 20 -> stop 101; a crash after the hole is not seen
+        day = make_day(0, [flat("10:00", 100), flat("10:01", 121), ("10:02", 121, 131, 119, 125),
+                           ("13:30", 125, 200, 50, 60), flat("13:31", 60)])
+        (e,) = run([day])
+        s = e["stops"]["full_width"]
+        self.assertEqual((s["stopped"], s["stop_time"], s["mfe_r"], s["r_at_flat"]), (False, None, 0.5, 0.2))
+
+    def test_breakout_after_a_hole_makes_no_event(self):
+        day = make_day(0, [flat("10:00", 100), flat("10:01", 100), flat("13:01", 79), flat("13:02", 70),
+                           flat("13:03", 121), flat("13:04", 100)])
+        self.assertEqual(run([day]), [])
+        self.assertEqual(run([day], cadence="half_hour"), [])
+
+    def test_a_60_minute_gap_is_not_a_hole(self):
+        day = make_day(0, [flat("10:00", 100), flat("10:01", 121), flat("11:01", 125), flat("11:02", 125)])
+        (e,) = run([day])
+        self.assertEqual((e["time"], e["entry_time"], e["ref"]), ("10:01", "11:01", 125.0))
+
+    def test_bands_still_see_the_whole_day(self):
+        day = make_day(0, [flat("10:00", 100), flat("10:01", 121), flat("10:02", 121), flat("13:00", 100)])
+        seen = []
+
+        def day_bands(days, k, anchor, lookback=14, mult=1.0):
+            seen.append([b.sm for b in days[k].bars])
+            return fake_bands()(days, k, anchor, lookback, mult)
+        with mock.patch.object(bd, "day_bands", day_bands):
+            self.assertEqual(len(ms.events([day], "0930", "minute")), 1)
+        self.assertEqual(seen, [[b.sm for b in day.bars]])
+
+    def test_calendar_keeps_a_day_with_a_hole(self):
+        days = [make_day(0, [flat("10:00", 100), flat("13:00", 100)]), make_day(1, [flat("10:00", 100)])]
+        with mock.patch.object(bd, "day_bands", fake_bands()):
+            self.assertEqual(ms.calendar(days, "0930"), [d.date for d in days])
+
+
 class Parts(unittest.TestCase):
     STAMPS = ["18:01", "02:00", "02:01", "09:30", "09:31", "11:30", "14:00", "14:01"]
     WANT = ["evening", "evening", "overnight", "overnight", "morning", "morning", "midday", "afternoon"]
@@ -314,9 +358,11 @@ class Parts(unittest.TestCase):
         self.assertEqual([p[0] for p in ms.PARTS], ["evening", "overnight", "morning", "midday", "afternoon"])
 
     def test_parts_on_events(self):
-        # a bar at each stamp above, closing above and below the 6 PM band in turn: each one is a breakout
-        bars = [flat(t, 121 if j % 2 == 0 else 79) for j, t in enumerate(self.STAMPS)] + [flat("14:02", 100)]
-        day = make_day(0, bars)
+        # a bar at each stamp above, closing above and below the 6 PM band in turn: each one is a breakout.
+        # Inside bars every half hour in between, so that no gap is a hole.
+        outside = {g.sm_of(t): (121 if j % 2 == 0 else 79) for j, t in enumerate(self.STAMPS)}
+        sms = sorted(set(outside) | set(range(30, g.sm_of("16:00") + 1, 30)))
+        day = make_day(0, [flat(sm, outside.get(sm, 100)) for sm in sms])
         evts = run([day], anchor="1800", from_sm=1)
         self.assertEqual([(e["time"], e["part"]) for e in evts], list(zip(self.STAMPS, self.WANT)))
 

@@ -13,8 +13,12 @@ Day rules:
     Saturday evening stamps (which would belong to Saturday and Sunday) and weekend daytime stamps are
     dropped: Friday evening does not exist. The real file holds a few such stray bars.
   * Holidays: there is no holiday calendar. A weekday with any bar is a trading day, even when its only
-    bars are the evening before and the early morning (a holiday with a morning halt). A weekday with no
-    bar at all does not appear.
+    bars are the evening before and the early morning. A weekday with no bar at all does not appear.
+  * Holes: the file has holes inside trading days, where bars are missing for hours (for example a jump
+    from 00:00 to 20:00, or from 19:00 to 05:34). A hole is missing data, not a holiday or a halt that the
+    loader recognises. load_days keeps every bar regardless (the band needs them all);
+    tradable_end(day) says where a day's tradable bars end: the last bar before the day's first gap of
+    more than 60 minutes between consecutive bars. Prices taken across a hole are not real fills.
   * Half days: there is no cut. Every bar up to the last one in the file is kept (the RTH loader in
     scripts/wf/oracle/market.py drops bars past its NinjaTrader cut; this loader does not).
   * `start` and `end` bound the trading-day date, both inclusive: the evening before `start` is loaded
@@ -73,6 +77,18 @@ def sm_of(hhmm):
     if not (0 <= hh < 24 and 0 <= mm < 60):
         raise ValueError("not a time: %r" % (hhmm,))
     return _sm(hh, mm)
+
+
+def tradable_end(day, max_gap_minutes=60):
+    """-> the index in day.bars of the last bar before the day's first gap of MORE than max_gap_minutes
+    minutes between consecutive bars (by Bar.dt); len(day.bars) - 1 when there is no such gap (0 for a
+    one-bar day). A gap of exactly max_gap_minutes does not end the day."""
+    limit = _dt.timedelta(minutes=max_gap_minutes)
+    bars = day.bars
+    for i in range(1, len(bars)):
+        if bars[i].dt - bars[i - 1].dt > limit:
+            return i - 1
+    return len(bars) - 1
 
 
 def load_days(path, start="2021-03-08", end="2026-07-17"):

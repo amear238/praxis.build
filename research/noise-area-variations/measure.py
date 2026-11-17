@@ -5,8 +5,12 @@ Places no trades and keeps no account. Works on globex.Day lists (globex.py) and
 bands.py, built with lookback 14 and multiplier 1.0. sm is globex's session minute (18:01 is sm 1, 09:31
 is sm 931, 16:00 is sm 1320). Stamps mark the END of the minute.
 
+Tradable bars: for every purpose except the band, a day is day.bars[: globex.tradable_end(day) + 1], its
+bars up to the first hole of more than 60 minutes (a data hole; see globex.py). The band is still built
+from every bar of every day, and the trading-day calendar keeps every day.
+
 Breakouts (events(days, anchor, cadence)):
-  * Decision bars: every bar of the day that has a band point ("minute"), or only the bars stamped :00 and
+  * Decision bars: every tradable bar of the day that has a band point ("minute"), or only the bars stamped :00 and
     :30 that have one ("half_hour"); in both cases only bars stamped at or before 15:59.
   * Side at a decision bar: "long" when its close is above the band's upper line, "short" when below the
     lower line, inside when lower <= close <= upper.
@@ -14,7 +18,7 @@ Breakouts (events(days, anchor, cadence)):
     same day (the day starts as if inside). So one excursion is one event; it ends when a decision bar
     closes inside, or when one closes straight through to the other side, which is a new event of that
     side. Each day starts fresh.
-  * A decision bar with no next bar in its day makes no event (there is no entry bar).
+  * A decision bar with no next tradable bar in its day makes no event (there is no entry bar).
   * The reference entry price `ref` is the open of the next bar (the entry bar), no slippage.
   * Stop distances, in points, from the band at the decision bar, signed in the direction of risk:
       half_width = width / 2; full_width = width;
@@ -23,7 +27,7 @@ Breakouts (events(days, anchor, cadence)):
     A distance below MIN_STOP_POINTS (10.0), zero and negative included, is tight; a tight stop has no
     outcome (its outcome fields are None).
   * Outcome walk for each stop that is not tight: stop = ref - dist (long) or ref + dist (short). From the
-    entry bar itself to the day's last bar (at or before 16:00), in order: if the bar's adverse extreme
+    entry bar itself to the day's last tradable bar (at or before 16:00), in order: if the bar's adverse extreme
     reaches the stop (long: low <= stop; short: high >= stop) the event is stopped there and that bar's
     favourable move is not counted; otherwise the best favourable move so far (long: high - ref; short:
     ref - low; never below 0) is updated. mfe_r = best move / dist; reached_N = mfe_r >= N;
@@ -182,7 +186,7 @@ def events(days, anchor, cadence, first_date=None):
         bmap = bands.day_bands(days, k, anchor, LOOKBACK, MULT)
         if not bmap:
             continue
-        bars = day.bars
+        bars = day.bars[: globex.tradable_end(day) + 1]   # the band above used every bar
         state = "inside"
         for i, b in enumerate(bars):
             p = bmap.get(b.sm)
