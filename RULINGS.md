@@ -229,3 +229,13 @@ Typed by Amear in the Claude Code session, verbatim, after being told a neural-n
 > "as far as the ai decision stuff it can pass as long as it is back tested"
 
 Reading, not his words: this replaces the 2026-11-15 "no AI in trade decisions" line. A model that makes or filters trade decisions is allowed if it passes the same backtest bars as any rule-based strategy. The trading rules still hold: cost of the trade set before entry, stop-market order at entry, fully automated.
+
+## Trend-following on the $150,000 frame, and more markets (2026-11-17)
+
+Typed by Amear in the Claude Code session, verbatim, after the recommendation to test a trend-follower with a hard stop at entry before any neural network:
+
+> "lets test your recomendation on the 150k account."
+
+> "also, i no longer want to stay in nq alone. we can spread to other futures and forex as long as there is the ability to back test."
+
+Reading, not his words: the trend-follower is judged on the $150,000 MyFundedFutures frame and its bars. The search may now use other futures and forex, provided there is data to backtest them.
