@@ -42,7 +42,7 @@ Earlier, same account frame: candidate 1 (long-only intraday momentum) and four 
 
 ## What waits on Amear
 
-1. **Where next, now that Noise-Area is dead under these bars.** The $2,000 limit, the seven-day rule and a 2-to-1 strategy pull against each other on one micro contract: a strategy that wins 3 in 10 needs room for 20 or more losers. The choices are a different strategy, or different bars or account frame. His call.
+1. **Where next, now that Noise-Area is dead under these bars.** The $2,000 limit, the seven-day rule and a 2-to-1 strategy pull against each other on one micro contract: a strategy that wins 3 in 10 needs room for 20 or more losers. The choices are a different strategy, or different bars or account frame. His call. The brief for the voice call: `docs/reports/2026-11-17-voice-brief-where-next.md`.
 2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
 
 Decided without waiting, reversible (2026-11-17 search): the price file has holes, so a day's trading stops at the first gap longer than 60 minutes; the seven-day count starts when the band first exists; the second list was used, with four variations and not eight; evening and overnight hours were measured and not traded.
