@@ -66,7 +66,7 @@ On a design with no known maximum loss: "Then that's not compatible." Asked whet
 
 > "I'm currently committing to um, uh, non-discretionary trading, which is fully automated"
 
-On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions.
+On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions. (Changed 2026-11-17: AI is allowed if backtested. See "AI in trade decisions" below.)
 
 **Numbers that are not set yet.** They come from backtest data.
 
@@ -221,3 +221,11 @@ On which plan: "Whichever one would give a would would would uh, favor the strat
 **Profit on 2024 to 2026 alone stays a bar.** "Yes, keep it, man."
 
 **Next strategy.** "Noise area is going to be tested again. With the uh, account size"
+
+## AI in trade decisions (2026-11-17)
+
+Typed by Amear in the Claude Code session, verbatim, after being told a neural-network strategy was out under the no-AI ruling:
+
+> "as far as the ai decision stuff it can pass as long as it is back tested"
+
+Reading, not his words: this replaces the 2026-11-15 "no AI in trade decisions" line. A model that makes or filters trade decisions is allowed if it passes the same backtest bars as any rule-based strategy. The trading rules still hold: cost of the trade set before entry, stop-market order at entry, fully automated.

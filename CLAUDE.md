@@ -36,7 +36,7 @@ For everything else: take the sensible option, tell him in one line, carry on. H
 - Every trade has a stop-market order placed at entry.
 - One strategy at a time. Noise-Area is retested first, with a real stop.
 - Nothing goes to execution without enough backtest data.
-- Fully rule-based and automated. No AI in trade decisions.
+- Fully automated. AI in trade decisions is allowed only if it is backtested like any other strategy (ruling of 2026-11-17).
 
 ## Talking to Amear
 - Plain English. No code names. One step at a time.
