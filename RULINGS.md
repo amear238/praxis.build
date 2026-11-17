@@ -169,3 +169,33 @@ From the voice call, handed over in his paste block:
 
 The call notes (the voice agent's words, approved by his paste): survival is "you accepted my suggestion, so the account may cross the trailing loss limit in at most 5% of the shuffled orders"; the two branches stay separate; each variation reports return as a percentage a year and skipped signals; "Don't move the bars to fit a result."
 
+
+## Noise-Area variations and the 2-to-1 bar (2026-11-17)
+
+Typed by Amear in the Claude Code session, verbatim:
+
+> "last time i was here i realized that there is no trading stratagty that could be encoded and have a high hit rate. i would like fo ryou use superpoers top come upo with a plan to use a variation of the noise area break out stratagy for back testing. the origonal spec is to be used as starting point for variations but not the end all be all. if it follows mffus rules for market availabily or session availability that it can be tried. the minimum return i would persute is 2:1 R:R if it shows that it less than 2R the stratagy is dead or a variation must be tried."
+
+**What 2-to-1 means.** Offered three readings (a fixed target at twice the risk; the average winner at least twice the risk; the average winner at least twice the average loser), he answered:
+
+> "2."
+
+Reading: the average winning trade must be at least twice the money risked on it. Winners run; no fixed target is required.
+
+**Frequency.**
+
+> "Another variable to introduce is that the trade frequency must meet the seven day trading rule which means that there must be at least one set up within seven trading days to comply with the proper firms, trading rules"
+
+**How the search is run.** Offered three ways, the third being a measuring pass first and then a short list of variations fixed before any is run:
+
+> "I can go with three. However, since we are focused on the one strategy, we don't really need to stick with the one at a time. I mentioned the one at a time specifically for like testing different strategies."
+
+**Agents.**
+
+> "I would like to have some sort of multi-agent setup for this, ideally, so that one agent is testing and one orchestrator can check if it meets the criteria."
+
+**Where it runs.**
+
+> "Once the plan is put together, I will start this in a new chat. So just to be clear, no back testing is going to be conducted in this chat."
+
+Reading, not his words: this reopens Noise-Area after the 2026-11-15 "does not pass", for variations judged against the new bars. The design is `docs/superpowers/specs/2026-11-17-noise-area-variations-design.md`.
