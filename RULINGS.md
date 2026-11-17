@@ -203,3 +203,21 @@ Reading, not his words: this reopens Noise-Area after the 2026-11-15 "does not p
 **Approval (2026-11-17).** Shown the design and asked for his word to lift the settings block on general-purpose helper agents, for the tester and the checker:
 
 > "approve on both."
+
+## Where next after Noise-Area (2026-11-17)
+
+From the voice call on the brief `docs/reports/2026-11-17-voice-brief-where-next.md`. Full notes: `docs/reports/2026-11-17-voice-notes-where-next.md`.
+
+**The account.**
+
+> "No, I want it to get rerun on a $150,000 MFFU account. Uh, evaluation rules."
+
+On which plan: "Whichever one would give a would would would uh, favor the strategy". Reading, not his words: a $150,000 MyFundedFutures evaluation on the plan kinder to the strategy, its rules checked on MFFU's site before the run. This is newer than the 2026-11-14 and 2026-11-15 rulings that set prop firms aside.
+
+**The bars stay.** "Why would I want to change any of them?"
+
+**Fills.** "So then let's uh, test it with the average fill." / "The average one, which is in between." Reading: a stop fills at the midpoint between its price and the worst price of its minute, in place of the harsh model.
+
+**Profit on 2024 to 2026 alone stays a bar.** "Yes, keep it, man."
+
+**Next strategy.** "Noise area is going to be tested again. With the uh, account size"

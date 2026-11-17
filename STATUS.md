@@ -37,13 +37,12 @@ Earlier, same account frame: candidate 1 (long-only intraday momentum) and four 
 
 ## What is next, in order
 
-1. Amear decides where the search goes (see below). Nothing is queued.
+1. Rerun Noise-Area on a $150,000 MyFundedFutures evaluation frame, the plan kinder to the strategy, its rules checked on MFFU's site first. Judge on midpoint fills (halfway between the stop price and the worst price of its minute). The five bars and the 2024-to-2026 check stay. Amear's answers: `docs/reports/2026-11-17-voice-notes-where-next.md`.
 2. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
-1. **Where next, now that Noise-Area is dead under these bars.** The $2,000 limit, the seven-day rule and a 2-to-1 strategy pull against each other on one micro contract: a strategy that wins 3 in 10 needs room for 20 or more losers. The choices are a different strategy, or different bars or account frame. His call. The brief for the voice call: `docs/reports/2026-11-17-voice-brief-where-next.md`.
-2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+1. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out. Not reached on the 2026-11-17 call.
 
 Decided without waiting, reversible (2026-11-17 search): the price file has holes, so a day's trading stops at the first gap longer than 60 minutes; the seven-day count starts when the band first exists; the second list was used, with four variations and not eight; evening and overnight hours were measured and not traded.
 
