@@ -68,8 +68,19 @@ def missing(start, end, have):
 
 
 def cost(client, m, r, s, a, b):
-    return client.metadata.get_cost(dataset=DATASET, symbols=[f"{m}.{r}"], stype_in="continuous",
-                                    schema=s, start=str(a), end=str(b))
+    """Quoted dollars for one chunk, or None when the contract did not trade then (e.g. RTY before mid-2017)."""
+    for attempt in range(1, 6):
+        try:
+            return client.metadata.get_cost(dataset=DATASET, symbols=[f"{m}.{r}"], stype_in="continuous",
+                                            schema=s, start=str(a), end=str(b))
+        except db.BentoClientError as e:
+            if "symbology_invalid_request" in str(e):
+                return None
+            raise
+        except db.BentoServerError as e:
+            print(f"  quote retry {attempt} {file_name(m, r, s, a, b)}: {e}", flush=True)
+            time.sleep(5 * attempt)
+    raise SystemExit(f"FAILED to quote {file_name(m, r, s, a, b)}")
 
 
 def main():
@@ -81,9 +92,14 @@ def main():
     for s, r, st in SERIES:
         for m in MARKETS:
             have = on_disk(m, r, s)
-            have_cost += sum(cost(client, m, r, s, a, b) for a, b in have)
+            have_cost += sum(cost(client, m, r, s, a, b) or 0.0 for a, b in have)
             todo += [(m, r, s, a, b) for a, b in missing(D(st), D(END), have)]
-    todo_cost = sum(cost(client, *t) for t in todo)
+    quotes = [(t, cost(client, *t)) for t in todo]
+    for t, q in quotes:
+        if q is None:
+            print(f"skipped, contract not trading then: {file_name(*t)}", flush=True)
+    todo = [t for t, q in quotes if q is not None]
+    todo_cost = sum(q for _, q in quotes if q is not None)
     print(f"on disk ${have_cost:.2f}; {len(todo)} chunks to fetch, ${todo_cost:.2f}; "
           f"total ${have_cost + todo_cost:.2f} (cap ${CAP_USD:.2f})", flush=True)
     if have_cost + todo_cost > CAP_USD:
