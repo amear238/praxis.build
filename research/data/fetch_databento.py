@@ -23,7 +23,7 @@ JOBS = [  # (schema, rank, start)
     ("ohlcv-1d", "v.1", "2010-06-06"),
 ]
 CAP_USD = 125.00
-OUT = os.environ.get("PRAXIS_MARKET_DATA", "/Volumes/Sensidine/praxis-data/databento")
+OUT = os.environ.get("PRAXIS_MARKET_DATA", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "market-data", "databento"))
 DATASET = "GLBX.MDP3"
 
 

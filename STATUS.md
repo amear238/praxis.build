@@ -43,7 +43,7 @@ Opening range breakout on the same $150,000 frame, 2026-11-17: **none of 108 ver
 
 ## What is next, in order
 
-1. Trend-following, two versions side by side on the $150,000 frame: same-day (flat by 4:00 PM) and multi-week. Markets beyond NQ, on bought one-minute data. Data: 1-minute bars for 11 markets from 2018 and daily bars from 2010, bought from Databento on the free credit ($122.16), saved outside the repo at `/Volumes/Sensidine/praxis-data/databento` by `research/data/fetch_databento.py`.
+1. Trend-following, two versions side by side on the $150,000 frame: same-day (flat by 4:00 PM) and multi-week. Markets beyond NQ, on bought one-minute data. Data: 1-minute bars for 11 markets from 2018 and daily bars from 2010, bought from Databento on the free credit ($122.16), saved, not committed, at `market-data/databento` (git-ignored) by `research/data/fetch_databento.py`.
 2. Earlier: Amear's word on where the search goes now that Noise-Area and the opening range breakout have both failed on the $150,000 frame. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
 3. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 

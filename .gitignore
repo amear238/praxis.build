@@ -24,3 +24,6 @@ signals/*.json
 # under here cites a DECLARED LOCAL-ONLY artifact — it will not resolve for
 # anyone who clones this repo, by design, not by accident.
 .claude/agent-memory/
+
+# bought market data (Databento), never committed
+market-data/
