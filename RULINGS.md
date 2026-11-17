@@ -251,3 +251,9 @@ Asked where data for markets beyond NQ should come from, he chose:
 > "Buy it from a data vendor"
 
 Reading: his yes to buying one-minute history for several markets, offered at about $20 to $100. The exact price is quoted to him before anything is charged.
+
+**What data to buy (2026-11-17).** Offered the broad set (1-minute bars for eleven markets from 2018 plus daily bars from 2010, $122.16, inside the $125 free credit) against the broad set plus a year of second-by-second NQ and ES data for scalping ($224.67), with the advice to buy only the broad set and hold his extra $125 until a scalping strategy is chosen:
+
+> "Okay, I have been overruled by your advice."
+
+Reading: buy the broad set only, $122.16 of free credit. No money of his is spent. The extra $125 waits until a scalping candidate needs data.
