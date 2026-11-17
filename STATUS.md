@@ -17,29 +17,35 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 
 ## What is running
 
-Candidate 1 (long-only intraday momentum) and four variations, tested 2026-11-15 against Amear's bars on a 50K account with a $2,000 trailing limit (stand-in). Profit bar: at least $4,000. Survival bar: limit crossed in at most 5% of 10,000 shuffled orders. Code and tests: `research/intraday-momentum-long/`.
+Nothing. The Noise-Area variation search finished on 2026-11-17: **no variation passes; under the five bars Noise-Area is dead.** Full verdict in plain English: `research/noise-area-variations/out/VERDICT.md`.
 
-| | Profit | Per year | Skipped | Survival (shuffles crossed) |
-|---|---|---|---|---|
-| Candidate 1, stop at lower band | $5,317 pass | 1.9% | 1,029 | 24.5% fail |
-| V1 tighter stop (day's starting level) | $19,993 pass | 6.5% | 7 | 100% fail |
-| V2 tighter stop, long and short | $22,445 pass | 7.2% | 11 | 100% fail |
-| V3 tighter stop, held to the close | $16,795 pass | 5.6% | 6 | 100% fail |
-| V4 tighter stop, 0.5% risk | $6,746 pass | 2.4% | 568 | 53.8% fail |
+Twelve variations were tried (a first list of eight, then the one allowed second list of four), each list locked before it was run, on a 50K stand-in account with a $2,000 trailing limit, harsh fills.
 
-None passes. At 1% risk a trade risks $500, so four losers in a row use the whole $2,000 limit, and every version has losing runs of 6 to 12. Earlier: Noise-Area with a real stop does not pass ("a pathetic result").
+| Bar | Result across the twelve |
+|---|---|
+| Every order matches its rule | 12 pass |
+| Average winner at least twice the risk | Met by all 12 (2.0 to 5.9 times), but the bar also needs a profit on 2024 to 2026 and every one lost there ($557 to $19,071) |
+| Never more than seven trading days without a trade | 1 passes (and it loses $17,852); the rest run 8 to 30 days |
+| Profit at least $4,000 | 4 pass ($4,027 to $10,029) |
+| $2,000 limit crossed in at most 5% of shuffles | 0 pass: crossed in the real order of days in all 12, and in 99.8% to 100% of shuffles |
+
+Why: these versions win 2 to 3.5 trades in 10, so losing runs of 14 to 29 happen, and the $2,000 limit is 13 to 20 losers at $100 to $150 a trade. A smaller risk cannot be traded on one micro contract, so signals are skipped and the seven-day rule fails. The edge measured on 2021 to 2023 did not hold on 2024 to 2026. On the personal $10,000 account almost nothing trades below 1% risk.
+
+Checked: two independent checkers rebuilt every trade of all twelve from the raw price file with their own programs, no differences; every bar recomputed by a second script, no differences. Code and tests: `research/noise-area-variations/`.
+
+Earlier, same account frame: candidate 1 (long-only intraday momentum) and four variations, none passed (`research/intraday-momentum-long/`).
 
 ## What is next, in order
 
-1. Noise-Area variation search (Amear, 2026-11-17). Design and plan are written and approved; nothing has been run. Start it in a new session with the plan: `docs/superpowers/plans/2026-11-17-noise-area-variations.md`. Bars: average winner at least twice the money risked, never more than seven trading days without a trade, profit at least $4,000, the $2,000 limit crossed in at most 5% of shuffles, every order matching its rule. Task: `Praxis_build-7yq`.
+1. Amear decides where the search goes (see below). Nothing is queued.
 2. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
-1. Nothing on agents: the block on general-purpose helper agents was lifted on his word, 2026-11-17.
+1. **Where next, now that Noise-Area is dead under these bars.** The $2,000 limit, the seven-day rule and a 2-to-1 strategy pull against each other on one micro contract: a strategy that wins 3 in 10 needs room for 20 or more losers. The choices are a different strategy, or different bars or account frame. His call.
 2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
 
-Decided without waiting, reversible: the retest ran on 1-minute bars with kind and harsh fills, labelled as such (he was offered the choice and raised no objection). "Steady first" was taken as the version that goes flat at 15:59.
+Decided without waiting, reversible (2026-11-17 search): the price file has holes, so a day's trading stops at the first gap longer than 60 minutes; the seven-day count starts when the band first exists; the second list was used, with four variations and not eight; evening and overnight hours were measured and not traded.
 
 ## Where things are
 
