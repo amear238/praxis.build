@@ -32,7 +32,12 @@ Per trade figures are in units of the money risked on the trade.
 
 ## The checks
 
-(Filled in after the independent rule check.)
+- The engine (`retest.py`) was written test first: 12 tests, beside candidate 1's 29 + 32 + 7, all passing.
+- The rule check was written by a separate agent from the amendment alone, without seeing the engine (17 new tests, 88 in all, all passing; 21 faults planted in candidate 2's rule, one at a time, all caught). Its seven new readings, R21 to R27, are in `rule_check.py`.
+- It then replayed every trade of every measured setting, with the kind and harsh fills on all-kinds-at-once and the account on two sizes: 470,619 trades, no break (`check_all.json`). Run on 2026-11-18, alone, in about two minutes.
+- On the real Nasdaq trades of all-kinds-at-once, stop 0.2, target 5 (1,265 trades), five faults planted one at a time were each caught: one exit moved a tick, one trade deleted, one break stamped a minute late, one trade's side flipped, one armed level deleted.
+- The measurement reproduces byte for byte on a second run, run alone (`measure.json` and `MEASURE.md`).
+- The first trade was read by hand against the raw minutes: Nasdaq, 2 January 2018, the 6,500 round number above the 6,440.50 open. The quarter hour ending 10:59 closed at 6,500.50, a tick through, so the level broke. The 11:02 minute traded a tick under 6,500 and the long filled at 6,500. Stop 6,490.25 (0.2 of the 49.21 daily range, 9.75 points), target 6,548.75. Neither was reached (low 6,497.50, high 6,523.25), and the trade closed at 3:55 PM at 6,519.75, the open less two ticks.
 
 ## What this does not show
 
