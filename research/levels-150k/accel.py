@@ -8,7 +8,7 @@ per_contract(mk, settings, fill, dates=None) -> {"trades", "armed"} at one contr
   the exit stop alike. armed[date] = retest's list (kind, side, level = R, stop).
   15-minute bars from 9:30 as retest's; a level's break bar is the first, starting 9:30 to 14:45, that closes
   one tick or more beyond R in its direction. Its trigger E = the bar's high + one tick (long), its low - one
-  tick (short), over all the bar's minutes. The entry rests from the next minute in S(D) after the bar's last
+  tick (short), over all the bar's minutes, raw (never rounded to the tick). The entry rests from the next minute in S(D) after the bar's last
   minute to the last minute stamped before 15:00. On each of those minutes, in order: (1) the open at or beyond
   the stop cancels it; (2) the trigger met (long: high >= E): spent when a position is open on this minute (its
   entry minute to its exit minute), otherwise it may fill; (3) the stop reached (long: low <= stop) cancels it.
@@ -131,7 +131,7 @@ def _sim_day(mk, day, armed, settings, fill, spec, market):
             for a in live:
                 if a["broken"] is None and _beyond(b.close, a["level"] + a["side"] * tick, a["side"], eps):
                     a["broken"] = b.ts
-                    a["trig"] = fade._rt(q_hi + tick if a["side"] == 1 else q_lo - tick, tick)
+                    a["trig"] = q_hi + tick if a["side"] == 1 else q_lo - tick        # raw, never rounded (R40)
                     a["start"] = i + 1
     if pos is not None:            # the entry minute was S(D)'s last minute: it counts only at its fill
         b = m[day.end - 1]

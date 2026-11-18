@@ -48,6 +48,11 @@ class Entry(unittest.TestCase):
                     (10, 30, 132, 133.25, 131, 133), FLAT])
         self.assertEqual([(x["trigger"], x["entry_ts"], x["entry"]) for x in t], [(133.25, t9(10, 30), 133.25)])
 
+    def test_the_trigger_is_the_raw_high_plus_a_tick_never_rounded(self):
+        # the check's reading R40: a high off the tick grid gives a trigger off it too
+        t = trades([OPEN, (10, 14, 129, 131.125, 129, 131), (10, 20, 131, 131.375, 130.5, 131), FLAT])
+        self.assertEqual([(x["trigger"], x["entry"]) for x in t], [(131.375, 131.5)])
+
     def test_no_break_no_entry(self):
         self.assertEqual(trades([OPEN, (10, 14, 129, 131, 129, 130.0), (10, 20, 130, 135, 129.5, 134), FLAT]), [])
 
