@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Tests for rule_check.py, the independent replay of candidate 1 of the levels plan (PLAN.md, "Candidate 1: fade
-the first touch of a marked level. The exact rule"). Every expected level and trade below was worked out by hand
-from the written rule; the working is in the comments. Each rule gets the right engine output, which must pass
-clean, and a deliberately wrong one, which must be caught.
+"""Tests for rule_check.py, the independent replay of candidates 1, 2 and 3 of the levels plan (PLAN.md, "Candidate
+1: fade the first touch of a marked level. The exact rule" and the two amendments of 2026-11-18). Every expected
+level and trade below was worked out by hand from the written rule; the working is in the comments. Each rule
+gets the right engine output, which must pass clean, and a deliberately wrong one, which must be caught.
 
 Unless a test says otherwise: tick 1, $10 a point, $2 commission, 1 tick slippage, market NQ (round-number step
 100). Every daily bar has a range of 10, so ATR = 10. With k = 0.2, d = 2 and the 2 x ATR band is 20: a level
@@ -1137,6 +1137,428 @@ class Candidate2Tests(Case2):
         self.assertTrue(any("break_ts" in x for x in b), b)
 
 
+# ---------------------------------------------------------------------------------------------- candidate 3
+# Value area traversal (the amendment of 2026-11-18). The prior session is three minutes: 70-89 (volume 40, so 2 a
+# price), 90-110 (volume 210, 10 a price) and 111-130 (volume 40, 2 a price). Total 290, 70% = 203. The point of
+# control ties over 90-110 and goes to the session's midpoint, 100. The area grows by ties on both sides: 91-109
+# holds 190 (< 203), 90-110 holds 210 (>= 203). So VAH 110 and VAL 90.
+# P0 85 (below VAL): a long, N 90, F 110, k 0.2 -> d 2, stop 88. P0 115 (above VAH): a short, N 110, F 90, stop
+# 112. Inside means a 30-minute close from 91 to 109. Unless a test says otherwise: P0 85, k 0.2, m 0.
+def va_prior(day="2024-03-04", iid=1):
+    return [m(f"{day} 10:00", 80, 89, 70, 80, iid=iid, v=40), m(f"{day} 10:01", 100, 110, 90, 100, iid=iid, v=210),
+            m(f"{day} 10:02", 120, 130, 111, 120, iid=iid, v=40)]
+
+
+def day3(p0, *rows, day="2024-03-05", prev="2024-03-04", iid=1):
+    """The prior session, then D's 9:30 minute (opening at p0, flat), then D's rows (HH:MM, o, h, l, c)."""
+    return va_prior(prev, iid) + [m(f"{day} 09:30", p0, p0, p0, p0, iid=iid)] + [
+        m(f"{day} {t}", o, h, l, c, iid=iid) for t, o, h, l, c in rows]
+
+
+def mirror(mins):
+    """Every price p becomes 200 - p. The prior session's profile is symmetric about 100, so VAH stays 110 and
+    VAL 90: a long day becomes the same short day."""
+    return [Bar(b.ts, b.iid, 200 - b.open, 200 - b.low, 200 - b.high, 200 - b.close, b.volume) for b in mins]
+
+
+def st3(k=0.2, mrr=0):
+    return {"name": f"VA-k{k}-m{mrr}", "kind": "VA", "k": k, "min_rr": mrr, "atr_days": 14}
+
+
+def arm3(side, N, F, stop):
+    return {"kind": "VA", "side": side, "level": float(N), "far": float(F), "stop": float(stop)}
+
+
+def trade3(side, N, F, stop, entry, setup_at, entry_at, exit_at, exit_, reason, worst, gap=False,
+           day="2024-03-05", market="NQ"):
+    return {"market": market, "date": day, "kind": "VA", "level": float(N), "side": side,
+            "entry_ts": ts(f"{day} {entry_at}"), "entry": float(entry), "stop": float(stop),
+            "dist": float((entry - stop) * side), "target": float(F), "setup_ts": ts(f"{day} {setup_at}"),
+            "exit_ts": ts(f"{day} {exit_at}"), "exit": float(exit_), "reason": reason, "gap": gap,
+            "points": float((exit_ - entry) * side), "worst": float(worst)}
+
+
+LONG3 = {"2024-03-05": [arm3(1, 90, 110, 88)]}
+SHORT3 = {"2024-03-05": [arm3(-1, 110, 90, 112)]}
+SPEC_SLIP2 = dict(SPEC, slip_ticks=2)
+PAIR94 = (("09:59", 85, 91, 85, 91), ("10:29", 91, 94, 91, 94))     # bars 9:30 and 10:00 close 91 and 94: C 94
+FLAT = (("15:55", 100, 101, 99, 100), ("16:00", 100, 100, 100, 100))  # a long still open is sold at 100 - 1 = 99
+
+
+class Case3(Case):
+    def breaks(self, g, minutes, settings, rolls=(), fill=None, market=None, spec=None, daily_=None):
+        return rc.check_market3(g, minutes, self.daily_ if daily_ is None else daily_, list(rolls),
+                                spec or self.spec, settings, fill or self.fill, market or self.market)
+
+
+class Candidate3Tests(Case3):
+    # V1. The 9:30 bar (9:30, 9:59) closes 91 and the 10:00 bar (10:29) 94: both inside, the pair, C 94, setup_ts
+    # 10:29. The entry minute is 10:30: open 94 + 1 slippage = 95, under its high 96. dist 95 - 88 = 7. No stop
+    # (lows 93 and 95). 11:00's high 111 = F + 1 tick: target at 110, points 15. worst: the entry minute's low
+    # 93 - 95 = -2.
+    V1 = day3(85, *PAIR94, ("10:30", 94, 96, 93, 95), ("11:00", 95, 111, 95, 110), ("16:00", 110, 110, 110, 110))
+    V1_TRADE = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "11:00", 110, "target", -2)
+
+    def test_basic_long(self):
+        self.clean(got([self.V1_TRADE], LONG3), self.V1, st3())
+        self.caught(got([dict(self.V1_TRADE, exit=109.0)], LONG3), "exit", self.V1, st3())
+        self.caught(got([], LONG3), "missing", self.V1, st3())
+        # worst counted from the fill only, the entry minute's low left out: 95 - 95 = 0
+        self.caught(got([dict(self.V1_TRADE, worst=0.0)], LONG3), "worst", self.V1, st3())
+        # target at the near edge, or the trade's level as the far edge
+        self.caught(got([dict(self.V1_TRADE, target=90.0)], LONG3), "target", self.V1, st3())
+        self.caught(got([dict(self.V1_TRADE, level=110.0)], LONG3), "extra", self.V1, st3())
+
+    def test_setup_ts_is_the_second_bars_last_minute(self):
+        self.caught(got([dict(self.V1_TRADE, setup_ts=ts("2024-03-05 10:00"))], LONG3), "setup_ts", self.V1, st3())
+        self.caught(got([dict(self.V1_TRADE, setup_ts=ts("2024-03-05 09:59"))], LONG3), "setup_ts", self.V1, st3())
+        g = got([self.V1_TRADE], LONG3)
+        del g["trades"][0]["setup_ts"]
+        self.caught(g, "field setup_ts missing", self.V1, st3())
+
+    def test_basic_short_mirrors(self):
+        # 10:30 opens 106, high 107, low 104: sold at 106 - 1 = 105. dist 112 - 105 = 7. 11:00's low 89 = F - 1
+        # tick: target at 90, points 15. worst: the highest high held, 107: -2.
+        mins = mirror(self.V1)
+        right = trade3(-1, 110, 90, 112, 105, "10:29", "10:30", "11:00", 90, "target", -2)
+        self.clean(got([right], SHORT3), mins, st3())
+        self.caught(got([dict(right, entry=107.0)], SHORT3), "entry", mins, st3())     # slippage added, not taken
+        self.caught(got([trade3(1, 110, 90, 112, 105, "10:29", "10:30", "11:00", 90, "target", -2)], SHORT3),
+                    "missing", mins, st3())
+
+    def test_side_from_p0_needs_a_full_tick_beyond_the_edge(self):
+        # P0 111: a short. 89: a long. 110 and 90 (on an edge), 100 (inside) and 110.5 / 89.5 (half a tick
+        # beyond, P0 being raw): no set-up. No pair on any of these days (one bar before 3:00 PM).
+        for p0, armed in ((111, SHORT3), (89, LONG3), (110, {}), (90, {}), (100, {}), (110.5, {}), (89.5, {})):
+            with self.subTest(p0=p0):
+                mins = day3(p0, ("16:00", p0, p0, p0, p0))
+                self.clean(got([], armed), mins, st3())
+                if armed:
+                    self.caught(got(), "missing", mins, st3())
+                else:
+                    self.caught(got([], SHORT3 if p0 > 100 else LONG3), "extra", mins, st3())
+
+    def test_inside_is_a_full_tick_from_each_edge(self):
+        # Bars close 90 (on VAL), 91 (inside), 110 (on VAH), 109 (inside), 105 (inside): the pair is 11:00 and
+        # 11:30, C 105, setup_ts 11:59. 12:00 opens 105: entry 106. 12:30's high 111: target 110. worst 104 - 106.
+        mins = day3(85, ("09:59", 85, 90, 85, 90), ("10:29", 90, 92, 90, 91), ("10:59", 91, 110, 91, 110),
+                    ("11:29", 110, 110, 108, 109), ("11:59", 109, 109, 104, 105), ("12:00", 105, 106, 104, 106),
+                    ("12:30", 106, 111, 106, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 106, "11:59", "12:00", "12:30", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        # VAL counted inside: the pair is 9:30 and 10:00, entry on the next minute in the data, 10:59 (open 91,
+        # bought at 92); target at 12:30. worst: the lowest low held, 104 (11:59): -12.
+        wrong = trade3(1, 90, 110, 88, 92, "10:29", "10:59", "12:30", 110, "target", -12)
+        self.caught(got([wrong], LONG3), "setup_ts", mins, st3())
+        # VAH counted inside: the pair is 10:00 and 10:30, and its entry minute 11:29 opens at F: no trade
+        self.caught(got([], LONG3), "missing", mins, st3())
+        # Exactly one tick above VAL is inside: closes 91 and 91 make the pair, C 91. 10:30 opens 91: entry 92.
+        mins = day3(85, ("09:59", 85, 91, 85, 91), ("10:29", 91, 92, 90, 91), ("10:30", 91, 92, 90, 92),
+                    ("11:00", 92, 111, 92, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 92, "10:29", "10:30", "11:00", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([], LONG3), "missing", mins, st3())
+
+    def test_a_half_tick_close_is_not_rounded_inside(self):
+        # Bars close 90.5 (half a tick above VAL: not inside, R6), 92 and 93: the pair is 10:00 and 10:30, setup_ts
+        # 10:59. 11:00 opens 93: entry 94. Target at 11:30. A close rounded half up to 91 would make the pair
+        # 9:30 and 10:00 (setup_ts 10:29).
+        mins = day3(85, ("09:59", 85, 91, 85, 90.5), ("10:29", 90.5, 92, 90, 92), ("10:59", 92, 93, 92, 93),
+                    ("11:00", 93, 94, 92, 94), ("11:30", 94, 111, 94, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 94, "10:59", "11:00", "11:30", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([dict(right, setup_ts=ts("2024-03-05 10:29"))], LONG3), "setup_ts", mins, st3())
+
+    def test_a_bars_close_is_its_last_minutes_close(self):
+        # The 9:30 bar holds 9:40 (close 91) and 9:59 (close 89): it closes 89, outside. The 10:00 bar holds 10:10
+        # (92) and 10:29 (93); the 10:30 bar 10:59 (94): the pair is 10:00 and 10:30, setup_ts 10:59. 11:00 opens
+        # 94: entry 95. Target at 11:30. worst 93 - 95. Quarter-hour bars would pair 10:00-10:14 and 10:15-10:29
+        # (setup_ts 10:29); a bar's first close would pair 9:30 and 10:00.
+        mins = day3(85, ("09:40", 85, 91, 85, 91), ("09:59", 91, 91, 89, 89), ("10:10", 89, 92, 89, 92),
+                    ("10:29", 92, 93, 92, 93), ("10:59", 93, 94, 93, 94), ("11:00", 94, 95, 93, 95),
+                    ("11:30", 95, 111, 95, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 95, "10:59", "11:00", "11:30", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([dict(right, setup_ts=ts("2024-03-05 10:29"))], LONG3), "setup_ts", mins, st3())
+
+    # Bars close 94, 95, 92, 92 (all inside). k 0.4: d 4, stop 86.
+    FIRST = day3(85, ("09:59", 85, 94, 85, 94), ("10:29", 94, 96, 94, 95), ("10:59", 95, 95, 92, 92),
+                 ("11:29", 92, 93, 91, 92), ("11:30", 92, 94, 92, 93), ("12:00", 93, 111, 93, 110),
+                 ("16:00", 110, 110, 110, 110))
+
+    def test_only_the_first_pair_counts(self):
+        # m 3. The first pair (9:30, 10:00), C 95: reward 15, risk 95 - 86 = 9, 15 < 27: no trade. The next pair
+        # (10:00, 10:30), C 92, would pass (18 = 3 x 6), but only the first pair counts: no trade at all.
+        armed = {"2024-03-05": [arm3(1, 90, 110, 86)]}
+        self.clean(got([], armed), self.FIRST, st3(0.4, 3))
+        wrong = trade3(1, 90, 110, 86, 93, "10:59", "11:29", "12:00", 110, "target", -2)
+        self.caught(got([wrong], armed), "extra", self.FIRST, st3(0.4, 3))
+
+    def test_three_inside_bars_give_the_first_two(self):
+        # m 0, k 0.2. The pair is (9:30, 10:00), setup_ts 10:29, not (10:00, 10:30). The next minute in the data
+        # is 10:59: open 95 + 1 = 96 is above its high 95, so bought at 95. Target at 12:00. worst: the lowest
+        # low held, 91 (11:29): -4.
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:59", "12:00", 110, "target", -4)
+        self.clean(got([right], LONG3), self.FIRST, st3())
+        self.caught(got([dict(right, setup_ts=ts("2024-03-05 10:59"))], LONG3), "setup_ts", self.FIRST, st3())
+
+    def test_a_half_hour_with_no_minute_leaves_no_gap(self):
+        # No minute from 10:00 to 10:29. The bars 9:30 (close 91) and 10:30 (10:59, close 93) are consecutive in
+        # the series: the pair, C 93. 11:00 opens 93: entry 94 (its high). Flat at 15:55: 99. worst 92 - 94.
+        mins = day3(85, ("09:59", 85, 91, 85, 91), ("10:59", 91, 93, 91, 93), ("11:00", 93, 94, 92, 94), *FLAT)
+        right = trade3(1, 90, 110, 88, 94, "10:59", "11:00", "15:55", 99, "flat", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([], LONG3), "missing", mins, st3())          # read as two bars that are not consecutive
+
+    def test_the_second_bar_starts_at_or_before_200_pm(self):
+        # The 1:30 bar closes 91 (13:59). The 2:00 bar's only minute is 14:10 (close 93). It starts at 2:00 on the
+        # clock, so it can be the second bar: C 93, setup_ts 14:10. The next minute, 14:30, opens 93: entry 94.
+        # Flat 99. worst 93 - 94.
+        mins = day3(85, ("13:59", 85, 91, 85, 91), ("14:10", 91, 93, 91, 93), ("14:30", 93, 94, 93, 94), *FLAT)
+        right = trade3(1, 90, 110, 88, 94, "14:10", "14:30", "15:55", 99, "flat", -1)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([], LONG3), "missing", mins, st3())          # the bar's start read as its first minute
+        # The 1:30 bar closes 89 (outside), the 2:00 bar 91 and the 2:30 bar (14:40) 93: that pair's second bar
+        # starts at 2:30 PM, too late. Its next minute, 15:00, is past the entry window as well (R31): an engine
+        # with neither limit would buy there.
+        mins = day3(85, ("13:59", 85, 89, 85, 89), ("14:29", 89, 91, 89, 91), ("14:40", 91, 93, 91, 93),
+                    ("15:00", 93, 94, 93, 94), *FLAT)
+        self.clean(got([], LONG3), mins, st3())
+        wrong = trade3(1, 90, 110, 88, 94, "14:40", "15:00", "15:55", 99, "flat", -1)
+        self.caught(got([wrong], LONG3), "extra", mins, st3())
+
+    def filter_day(self, c):
+        """Bars close 91 and c: the pair, C = c. 10:30 opens c: entry c + 1. 11:00's high 111: target 110."""
+        return day3(85, ("09:59", 85, 91, 85, 91), ("10:29", 91, c, 91, c), ("10:30", c, c + 1, c - 1, c + 1),
+                    ("11:00", c + 1, 111, c + 1, 110), ("16:00", 110, 110, 110, 110))
+
+    def test_reward_to_risk_filter_at_m_0_2_and_3_with_the_equal_case(self):
+        # k 0.4: stop 86. reward = 110 - C, risk = C - 86.
+        #   C 94: 16 and 8, ratio 2.    C 93: 17 and 7, ratio 2.43.    C 92: 18 and 6, ratio 3.
+        armed = {"2024-03-05": [arm3(1, 90, 110, 86)]}
+        for c, mrr, taken in ((94, 0, True), (94, 2, True), (94, 3, False), (93, 2, True), (93, 3, False),
+                              (92, 3, True), (92, 2, True)):
+            with self.subTest(c=c, m=mrr):
+                mins = self.filter_day(c)
+                right = trade3(1, 90, 110, 86, c + 1, "10:29", "10:30", "11:00", 110, "target", -2)
+                if taken:
+                    self.clean(got([right], armed), mins, st3(0.4, mrr))
+                    self.caught(got([], armed), "missing", mins, st3(0.4, mrr))
+                else:
+                    self.clean(got([], armed), mins, st3(0.4, mrr))
+                    self.caught(got([right], armed), "extra", mins, st3(0.4, mrr))
+
+    def test_filter_uses_the_signal_close_not_the_fill(self):
+        # C 94, m 2: taken (16 = 2 x 8). On the fill, 95, it would be 15 against 9: refused. Mirrored for the
+        # short: C 106, stop 114, reward 106 - 90 = 16, risk 8.
+        mins = self.filter_day(94)
+        right = trade3(1, 90, 110, 86, 95, "10:29", "10:30", "11:00", 110, "target", -2)
+        self.clean(got([right], {"2024-03-05": [arm3(1, 90, 110, 86)]}), mins, st3(0.4, 2))
+        right = trade3(-1, 110, 90, 114, 105, "10:29", "10:30", "11:00", 90, "target", -2)
+        self.clean(got([right], {"2024-03-05": [arm3(-1, 110, 90, 114)]}), mirror(mins), st3(0.4, 2))
+        self.caught(got([], {"2024-03-05": [arm3(-1, 110, 90, 114)]}), "missing", mirror(mins), st3(0.4, 2))
+
+    def test_entry_fill_takes_slippage_and_stays_inside_the_minute(self):
+        # Two ticks of slippage. 10:30 opens 94, high 97: bought at 96 (dist 8, worst 93 - 96 = -3).
+        mins = day3(85, *PAIR94, ("10:30", 94, 97, 93, 95), ("11:00", 95, 111, 95, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 96, "10:29", "10:30", "11:00", 110, "target", -3)
+        self.clean(got([right], LONG3), mins, st3(), spec=SPEC_SLIP2)
+        for wrong_entry in (95, 94):                                     # one slippage, none
+            wrong = trade3(1, 90, 110, 88, wrong_entry, "10:29", "10:30", "11:00", 110, "target", 93 - wrong_entry)
+            self.caught(got([wrong], LONG3), "entry", mins, st3(), spec=SPEC_SLIP2)
+        # High 95: 94 + 2 = 96 is above it, so bought at 95. Mirrored: sold at 105 (its low), not 104.
+        mins = day3(85, *PAIR94, ("10:30", 94, 95, 93, 95), ("11:00", 95, 111, 95, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "11:00", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3(), spec=SPEC_SLIP2)
+        wrong = trade3(1, 90, 110, 88, 96, "10:29", "10:30", "11:00", 110, "target", -3)
+        self.caught(got([wrong], LONG3), "entry", mins, st3(), spec=SPEC_SLIP2)
+        right = trade3(-1, 110, 90, 112, 105, "10:29", "10:30", "11:00", 90, "target", -2)
+        self.clean(got([right], SHORT3), mirror(mins), st3(), spec=SPEC_SLIP2)
+        wrong = trade3(-1, 110, 90, 112, 104, "10:29", "10:30", "11:00", 90, "target", -3)
+        self.caught(got([wrong], SHORT3), "entry", mirror(mins), st3(), spec=SPEC_SLIP2)
+
+    def test_no_trade_when_the_entry_minute_opens_at_the_stop_or_the_far_edge(self):
+        # Pair C 94. The entry minute at 10:30 opens at the stop 88, below it, at F 110 or above it: no trade.
+        for o, h, l, c in ((88, 89, 87, 88), (87, 88, 86, 87), (110, 111, 109, 110), (111, 112, 110, 111)):
+            with self.subTest(open=o):
+                mins = day3(85, *PAIR94, ("10:30", o, h, l, c), *FLAT)
+                self.clean(got([], LONG3), mins, st3())
+                wrong = trade3(1, 90, 110, 88, min(o + 1, h), "10:29", "10:30", "15:55", 99, "flat", l - min(o + 1, h))
+                self.caught(got([wrong], LONG3), "extra", mins, st3())
+        # One tick inside each: open 89 (bought at 90, its high; worst 89 - 90) and open 109 (bought at 109, its
+        # high; flat at 99, so worst -10). Both trade.
+        for o, h, l, c, entry, worst in ((89, 90, 89, 90, 90, -1), (109, 109, 108, 109, 109, -10)):
+            with self.subTest(open=o):
+                mins = day3(85, *PAIR94, ("10:30", o, h, l, c), *FLAT)
+                right = trade3(1, 90, 110, 88, entry, "10:29", "10:30", "15:55", 99, "flat", worst)
+                self.clean(got([right], LONG3), mins, st3())
+                self.caught(got([], LONG3), "missing", mins, st3())
+
+    def test_a_fill_beyond_the_far_edge_still_trades_to_its_target(self):
+        # Two ticks of slippage. 10:30 opens 109 (one tick short of F): bought at 111, above F (R34). The target
+        # stays 110: 10:31's high 111 fills it at 110, a loss of 1. worst 108 - 111 = -3.
+        mins = day3(85, *PAIR94, ("10:30", 109, 112, 108, 111), ("10:31", 111, 111, 110, 110),
+                    ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 111, "10:29", "10:30", "10:31", 110, "target", -3)
+        self.clean(got([right], LONG3), mins, st3(), spec=SPEC_SLIP2)
+        self.caught(got([], LONG3), "missing", mins, st3(), spec=SPEC_SLIP2)
+
+    def test_entry_minute_is_the_next_in_the_data_and_before_300_pm(self):
+        # The 2:00 bar's last minute is 14:29 (C 94). The next minute in the data is 15:00: too late, no trade.
+        mins = day3(85, ("13:59", 85, 91, 85, 91), ("14:29", 91, 94, 91, 94), ("15:00", 94, 96, 93, 95), *FLAT)
+        self.clean(got([], LONG3), mins, st3())
+        wrong = trade3(1, 90, 110, 88, 95, "14:29", "15:00", "15:55", 99, "flat", -2)
+        self.caught(got([wrong], LONG3), "extra", mins, st3())
+        # The next minute is 14:59: it trades.
+        mins = day3(85, ("13:59", 85, 91, 85, 91), ("14:29", 91, 94, 91, 94), ("14:59", 94, 96, 93, 95), *FLAT)
+        right = trade3(1, 90, 110, 88, 95, "14:29", "14:59", "15:55", 99, "flat", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([], LONG3), "missing", mins, st3())
+        # No minute from 10:30 to 10:44: the next minute in the data is 10:45, and the entry is there.
+        mins = day3(85, *PAIR94, ("10:45", 94, 96, 93, 95), ("11:00", 95, 111, 95, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:45", "11:00", 110, "target", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([], LONG3), "missing", mins, st3())
+
+    def test_stop_checked_on_the_entry_minute(self):
+        # 10:30 opens 94 (above the stop, so no gap), bought at 95, and its low 87 reaches the stop 88: stopped on
+        # the entry minute, reference 88. Midpoint (88 + 87) / 2 = 87.5 -> 87. worst 87 - 95 = -8.
+        mins = day3(85, *PAIR94, ("10:30", 94, 95, 87, 88), ("10:31", 88, 95, 88, 95), ("16:00", 95, 95, 95, 95))
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "10:30", 87, "stop", -8)
+        self.clean(got([right], LONG3), mins, st3())
+        # the stop counted only from the next minute: 10:31 (low 88), midpoint 88
+        wrong = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "10:31", 88, "stop", -8)
+        self.caught(got([wrong], LONG3), "exit_ts", mins, st3())
+        self.caught(got([dict(right, gap=True)], LONG3), "gap", mins, st3())
+        # Mirrored: the short sold at 105 at 10:30, whose high 113 reaches the stop 112 on that minute. Midpoint
+        # (112 + 113) / 2 = 112.5, up to 113. worst (113 - 105) x -1 = -8. Counted from 10:31: 112.
+        right = trade3(-1, 110, 90, 112, 105, "10:29", "10:30", "10:30", 113, "stop", -8)
+        self.clean(got([right], SHORT3), mirror(mins), st3())
+        wrong = trade3(-1, 110, 90, 112, 105, "10:29", "10:30", "10:31", 112, "stop", -8)
+        self.caught(got([wrong], SHORT3), "exit_ts", mirror(mins), st3())
+
+    def test_stop_fills_and_a_gap_after_entry(self):
+        # Entry 95 at 10:30. 10:31 opens 92, low 84: reference 88. Midpoint 86, kind 87, harsh 84. worst -11.
+        mins = day3(85, *PAIR94, ("10:30", 94, 96, 93, 95), ("10:31", 92, 92, 84, 85), ("16:00", 85, 85, 85, 85))
+        for fill, x in (("midpoint", 86), ("kind", 87), ("harsh-stops", 84)):
+            with self.subTest(fill=fill):
+                right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "10:31", x, "stop", -11)
+                self.clean(got([right], LONG3), mins, st3(), fill=fill)
+        # 10:31 opens 86, below the stop: a gap, reference 86. Midpoint (86 + 84) / 2 = 85.
+        mins = day3(85, *PAIR94, ("10:30", 94, 96, 93, 95), ("10:31", 86, 87, 84, 85), ("16:00", 85, 85, 85, 85))
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "10:31", 85, "stop", -11, gap=True)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([dict(right, gap=False, exit=86.0, points=-9.0)], LONG3), "gap", mins, st3())
+
+    def test_target_not_on_the_entry_minute_and_only_a_tick_through(self):
+        # 10:30 opens 105: bought at 106. Its high 112 is past F + 1, but not on the entry minute. 10:31's high
+        # 110 only touches F. 10:32's high 111: target at 110. worst: 10:30's low 105 - 106 = -1.
+        mins = day3(85, *PAIR94, ("10:30", 105, 112, 105, 111), ("10:31", 109, 110, 107, 108),
+                    ("10:32", 108, 111, 108, 110), ("16:00", 110, 110, 110, 110))
+        right = trade3(1, 90, 110, 88, 106, "10:29", "10:30", "10:32", 110, "target", -1)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([dict(right, exit_ts=ts("2024-03-05 10:30"))], LONG3), "exit_ts", mins, st3())
+        self.caught(got([dict(right, exit_ts=ts("2024-03-05 10:31"))], LONG3), "exit_ts", mins, st3())
+
+    def test_flat_at_355_pm_before_the_stop(self):
+        # Entry 95 at 10:30. 15:55 opens 96 with a low of 85, through the stop: flat first, at 96 - 1 = 95. worst:
+        # 10:30's low 93 -> -2; the flat minute only at its fill.
+        mins = day3(85, *PAIR94, ("10:30", 94, 96, 93, 95), ("15:54", 96, 97, 95, 96), ("15:55", 96, 96, 85, 86),
+                    ("16:00", 86, 86, 86, 86))
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "15:55", 95, "flat", -2)
+        self.clean(got([right], LONG3), mins, st3())
+        self.caught(got([trade3(1, 90, 110, 88, 95, "10:29", "10:30", "15:55", 86, "stop", -2)], LONG3), "reason",
+                    mins, st3())
+        self.caught(got([dict(right, worst=-10.0)], LONG3), "worst", mins, st3())
+
+    # 2024-07-03 halts at 13:00. The 18:00 minute belongs to the next session.
+    def test_early_close(self):
+        armed = {"2024-07-03": [arm3(1, 90, 110, 88)]}
+        rows = (("10:30", 94, 96, 93, 95), ("12:59", 96, 97, 95, 96))
+        mins = day3(85, *PAIR94, *rows, day="2024-07-03", prev="2024-07-02") + [
+            m("2024-07-03 18:00", 96, 99, 80, 98)]
+        # Bought at 95 at 10:30, never stopped or at target: closed at 12:59's close, 96. worst -2.
+        right = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "12:59", 96, "flat", -2, day="2024-07-03")
+        self.clean(got([right], armed), mins, st3())
+        # the 18:00 reopen read as part of the day: stopped there
+        wrong = trade3(1, 90, 110, 88, 95, "10:29", "10:30", "18:00", 84, "stop", -15, day="2024-07-03")
+        self.caught(got([wrong], armed), "exit_ts", mins, st3())
+        # The pair's second bar is the last before the halt (12:30 bar, 12:59). The next minute in the data is
+        # 18:00, after 3:00 PM on D: no trade.
+        mins = day3(85, ("12:29", 85, 91, 85, 91), ("12:59", 91, 94, 91, 94), day="2024-07-03",
+                    prev="2024-07-02") + [m("2024-07-03 18:00", 94, 96, 93, 95)]
+        self.clean(got([], armed), mins, st3())
+        wrong = trade3(1, 90, 110, 88, 95, "12:59", "18:00", "18:00", 95, "flat", -2, day="2024-07-03")
+        self.caught(got([wrong], armed), "extra", mins, st3())
+
+    def test_armed_list(self):
+        # A set-up with no pair is still listed. An empty list for a date is the same as the date left out.
+        mins = day3(85, ("16:00", 85, 85, 85, 85))
+        self.clean(got([], LONG3), mins, st3())
+        self.clean(got([], dict(LONG3, **{"2024-03-04": []})), mins, st3())
+        self.caught(got(), "armed level VA long at 90 far 110 stop 88 missing", mins, st3())
+        self.caught(got([], {"2024-03-05": [arm3(1, 90, 90, 88)]}), "missing", mins, st3())           # far = N
+        self.caught(got([], {"2024-03-05": [arm3(1, 90, 110, 88)] * 2}), "extra", mins, st3())
+        self.caught(got([], dict(LONG3, **{"2024-03-04": [arm3(1, 90, 110, 88)]})), "extra", mins, st3())
+        g = got([], LONG3)
+        del g["armed"]["2024-03-05"][0]["far"]
+        self.caught(g, "unreadable armed record", mins, st3())
+
+    def test_no_atr_no_setup(self):
+        # 13 daily bars before 03-05: no ATR, so no set-up and no trade. With 14 the basic day trades.
+        self.clean(got(), self.V1, st3(), daily_=daily("2024-02-21", "2024-03-04"))
+        self.caught(got([self.V1_TRADE], LONG3), "extra", self.V1, st3(), daily_=daily("2024-02-21", "2024-03-04"))
+        self.clean(got([self.V1_TRADE], LONG3), self.V1, st3(), daily_=daily("2024-02-20", "2024-03-04"))
+
+    def test_value_area_joined_across_a_roll(self):
+        # The prior session is contract 1, D contract 2; the roll (gap +5) is stamped 19:00 on 03-04. VA moves to
+        # 95-115: P0 85 is a long, N 95, F 115, stop 93. With a gap of None the prior session cannot be joined:
+        # no value area, no set-up.
+        mins = va_prior("2024-03-04", 1) + [m("2024-03-05 09:30", 85, 85, 85, 85, iid=2),
+                                            m("2024-03-05 16:00", 85, 85, 85, 85, iid=2)]
+        roll = [Roll(uts("2024-03-05 00:00"), 1, 2, 5.0)]
+        self.clean(got([], {"2024-03-05": [arm3(1, 95, 115, 93)]}), mins, st3(), rolls=roll)
+        self.caught(got([], LONG3), "missing", mins, st3(), rolls=roll)
+        none_gap = [Roll(uts("2024-03-05 00:00"), 1, 2, None)]
+        self.clean(got(), mins, st3(), rolls=none_gap)
+        self.caught(got([], LONG3), "extra", mins, st3(), rolls=none_gap)
+
+    def test_a_value_area_of_one_price_has_no_inside(self):
+        # The prior session is one minute at 100: VAH = VAL = 100. P0 105: a short, N 100, F 100, stop 102. Bars
+        # close at 100, on both edges: never inside, so no trade, but the set-up is listed.
+        mins = [m("2024-03-04 10:00", 100, 100, 100, 100, v=10), m("2024-03-05 09:30", 105, 105, 105, 105),
+                m("2024-03-05 09:59", 105, 105, 100, 100), m("2024-03-05 10:29", 100, 100, 100, 100),
+                m("2024-03-05 10:30", 100, 100, 100, 100), m("2024-03-05 16:00", 100, 100, 100, 100)]
+        armed = {"2024-03-05": [arm3(-1, 100, 100, 102)]}
+        self.clean(got([], armed), mins, st3())
+        wrong = trade3(-1, 100, 100, 102, 99, "10:29", "10:30", "16:00", 100, "flat", -1)
+        self.caught(got([wrong], armed), "extra", mins, st3())
+
+    def test_bad_settings_and_fill(self):
+        self.assertTrue(self.breaks(got([self.V1_TRADE], LONG3), self.V1, st3(), fill="soft"))
+        with self.assertRaises(ValueError):
+            rc.replay_market3(self.V1, DAILY, [], SPEC, st("VP"), "midpoint", "NQ")
+        with self.assertRaises(ValueError):
+            rc.replay_market3(self.V1, DAILY, [], SPEC, st3(0.2, -1), "midpoint", "NQ")
+
+    def test_account_sizes_on_the_slipped_distance_and_carries_setup_ts(self):
+        # V1's trade: dist 7 (it carries the entry's slippage). Loss for one (7 + 1) x 10 + 2 = 82; 1 % of
+        # $10,000 = 100 -> 1 contract, planned 82. Net 15 x 10 - 2 = 148. Day low 10,000 + (-2 x 10 - 2) = 9,978.
+        per = {"NQ": {"trades": [self.V1_TRADE]}}
+        right = {"start": 10000.0, "trades": [dict(self.V1_TRADE, qty=1, planned_cost=82.0, net=148.0,
+                                                   balance_start=10000.0)],
+                 "skipped": [], "days": [{"date": "2024-03-05", "start": 10000.0, "end": 10148.0, "low": 9978.0}]}
+        self.assertEqual(rc.check_account(right, per, {"NQ": SPEC}, 1.0, 10000.0), [])
+        wrong = copy.deepcopy(right)
+        wrong["trades"][0]["setup_ts"] += 60 * NS
+        b = rc.check_account(wrong, per, {"NQ": SPEC}, 1.0, 10000.0)
+        self.assertTrue(any("setup_ts" in x for x in b), b)
+        wrong = copy.deepcopy(right)
+        wrong["trades"][0]["planned_cost"] = 72.0                       # sized on C's distance, 6, not the fill's
+        b = rc.check_account(wrong, per, {"NQ": SPEC}, 1.0, 10000.0)
+        self.assertTrue(any("planned_cost" in x for x in b), b)
+
+
 # ---------------------------------------------------------------------------------------------- a random market
 class RandomMarketTests(unittest.TestCase):
     """Twenty days of random-walk minutes, every kind: the replay must run end to end, agree with itself, find
@@ -1266,6 +1688,119 @@ class RandomMarketTests(unittest.TestCase):
         a = self.replay(s)
         rc.clear_cache()
         self.assertEqual(self.replay(s), a)
+
+
+class RandomMarket3Tests(unittest.TestCase):
+    """Three months of random-walk minutes built for candidate 3: each 9:30 open gaps 15 to 60 points from the last
+    close, and the day session drifts back toward the evening's start, so the open is often outside the prior
+    value area and price often comes back in. ATR 60 (d 6, 12 or 24 points). A roll on 03-14. The replay must
+    run end to end, agree with itself, meet the rule's invariants on every trade, and catch any single changed
+    field."""
+
+    @classmethod
+    def setUpClass(cls):
+        rnd = random.Random(20261118)
+        mins, p, iid = [], 10000.0, 1
+        t, end = uts("2024-01-07 23:00"), uts("2024-04-06 00:00")
+        rolls, sd, anchor = [], {}, p
+        while t < end:
+            wall = datetime.fromtimestamp(t // NS, NY)
+            if wall.weekday() == 5 or (wall.weekday() == 4 and wall.hour >= 17) or \
+                    (wall.weekday() == 6 and wall.hour < 18) or wall.hour == 17:
+                t += 60 * NS
+                continue
+            if t == uts("2024-03-14 00:00"):           # a roll to contract 2, 8 PM EDT, gap +12.5
+                rolls.append(Roll(t, 1, 2, 12.5))
+                iid, p, anchor = 2, p + 12.5, anchor + 12.5
+            hour = t // (3600 * NS)
+            if hour not in sd:
+                sd[hour] = rnd.choice((0.5, 1.0, 1.5, 2.5))
+            hm = (wall.hour, wall.minute)
+            if hm == (18, 0):
+                anchor = p
+            o = p
+            if hm == (9, 30):
+                o = round((p + rnd.choice((-1, 1)) * rnd.uniform(15, 60)) * 4) / 4
+            drift = 0.01 * (anchor - o) if (9, 30) <= hm < (16, 0) else 0.0
+            c = round((o + drift + rnd.gauss(0, sd[hour])) * 4) / 4
+            h = max(o, c) + rnd.choice((0, 0.25, 0.5, 1.0))
+            lo = min(o, c) - rnd.choice((0, 0.25, 0.5, 1.0))
+            mins.append(Bar(t, iid, o, h, lo, c, rnd.randint(1, 50)))
+            p = c
+            t += 60 * NS
+        cls.mins, cls.rolls = mins, rolls
+        cls.daily = daily("2023-12-01", "2024-04-30", lo=9970.0, hi=10030.0)        # ATR 60
+        cls.spec = {"pv": 2.0, "tick": 0.25, "comm": 1.9, "slip_ticks": 2, "max_qty": 90}
+
+    def test_candidate_3_runs_agrees_with_itself_and_trades(self):
+        at = {b.ts: i for i, b in enumerate(self.mins)}
+        tick, eps, n, reasons, filtered = 0.25, 1e-9, 0, set(), False
+        base = {}
+        for k in (0.1, 0.2, 0.4):
+            for mrr in (0, 2, 3):
+                for fill in rc.FILLS:
+                    s = st3(k, mrr)
+                    g = rc.replay_market3(self.mins, self.daily, self.rolls, self.spec, s, fill, "NQ")
+                    self.assertEqual(rc.check_market3(g, self.mins, self.daily, self.rolls, self.spec, s, fill,
+                                                      "NQ"), [], (k, mrr, fill))
+                    for d, a in g["armed"].items():
+                        self.assertEqual(len(a), 1, d)
+                    self.assertEqual(g["armed"], base.setdefault(("armed", k), g["armed"]))   # m arms nothing
+                    n += len(g["trades"])
+                    base.setdefault((k, fill), len(g["trades"]))
+                    filtered |= 0 < len(g["trades"]) < base[(k, fill)]
+                    for t in g["trades"]:
+                        reasons.add(t["reason"])
+                        (a,) = g["armed"][t["date"]]
+                        self.assertEqual((a["side"], a["level"], a["far"], a["stop"]),
+                                         (t["side"], t["level"], t["target"], t["stop"]))
+                        i = at[t["setup_ts"]]
+                        self.assertEqual(self.mins[i + 1].ts, t["entry_ts"])           # the next minute
+                        c = self.mins[i].close
+                        lo, hi = sorted((a["level"], a["far"]))
+                        self.assertTrue(lo + tick - eps <= c <= hi - tick + eps, (c, lo, hi))
+                        self.assertGreaterEqual(abs(t["target"] - c), mrr * abs(c - t["stop"]) - eps)
+                        sw = datetime.fromtimestamp(t["setup_ts"] // NS, NY)
+                        self.assertLessEqual((sw.hour, sw.minute // 30 * 30), (14, 0))
+                        ew = datetime.fromtimestamp(t["entry_ts"] // NS, NY)
+                        self.assertLess((ew.hour, ew.minute), (15, 0))
+                        self.assertGreater(t["dist"], 0)
+                        self.assertAlmostEqual(t["dist"], (t["entry"] - t["stop"]) * t["side"])
+                        if t["reason"] == "target":
+                            self.assertEqual(t["exit"], t["target"])
+        self.assertGreater(n, 200)
+        self.assertEqual(reasons, {"stop", "target", "flat"})
+        self.assertTrue(filtered)
+
+    def test_candidate_3_any_changed_field_is_caught(self):
+        s = st3(0.2, 0)
+        g = rc.replay_market3(self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+        self.assertGreater(len(g["trades"]), 20)
+        rnd = random.Random(9)
+        for _ in range(40):
+            h = copy.deepcopy(g)
+            t = rnd.choice(h["trades"])
+            f = rnd.choice(("entry", "stop", "dist", "target", "exit", "points", "worst", "entry_ts", "exit_ts",
+                            "setup_ts", "reason", "gap", "kind"))
+            if f.endswith("_ts"):
+                t[f] += 60 * NS
+            elif f == "reason":
+                t[f] = "stop" if t[f] != "stop" else "flat"
+            elif f == "gap":
+                t[f] = not t[f]
+            elif f == "kind":
+                t[f] = "VP"
+            else:
+                t[f] += 0.25
+            b = rc.check_market3(h, self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+            self.assertTrue(any(f"{f} is" in x for x in b), (f, b))
+
+    def test_candidate_3_reproduces_on_a_second_run_and_from_a_cold_cache(self):
+        s = st3(0.1, 2)
+        a = rc.replay_market3(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ")
+        self.assertEqual(rc.replay_market3(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ"), a)
+        rc.clear_cache()
+        self.assertEqual(rc.replay_market3(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ"), a)
 
 
 if __name__ == "__main__":
