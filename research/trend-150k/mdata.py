@@ -7,7 +7,7 @@ records: length u8 (14, in 4-byte words), rtype u8, publisher u16, instrument_id
 (nanoseconds UTC, the bar's START), open, high, low, close i64 (price * 1e9), volume u64. The metadata
 (symbol maps) is not needed: each record carries its contract's instrument_id.
 
-read_dbn(path) -> [Bar]. series(market, schema, rank, root) -> the series' chunks merged, sorted by ts; a stamp
+read_dbn(path) -> [Bar]. trading_days(daily) merges the weekend stubs of UTC-day daily bars into Monday. series(market, schema, rank, root) -> the series' chunks merged, sorted by ts; a stamp
 present twice must be identical, else ValueError (a data error is never silently resolved).
 
 back_adjust(front, second) -> ([Adj], [Roll]). A roll is a bar whose front contract differs from the previous
@@ -33,6 +33,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "mar
 _REC = struct.Struct("<BBHIQqqqqQ")
 _OHLCV_RTYPES = {0x20, 0x21, 0x22, 0x23, 0x24}
 _SCALE = 1e9
+DAY_NS = 86400 * 1_000_000_000
 
 
 def read_dbn(path):
@@ -62,6 +63,26 @@ def series(market, schema, rank, root=ROOT):
                 raise ValueError(f"{market} {rank} {schema}: two different bars at ts {b.ts}")
             by_ts[b.ts] = b
     return [by_ts[t] for t in sorted(by_ts)]
+
+
+def trading_days(bars):
+    """Daily bars are cut by UTC day, so Sunday evening's first hours (and any Saturday stub) arrive as their own
+    bar. Each weekend bar is merged into the next bar when that bar is the same contract (open from the weekend
+    bar, high / low across both, close and stamp from the weekday bar, volumes added), else dropped."""
+    out, carry = [], None
+    for b in bars:
+        weekday = (b.ts // DAY_NS + 3) % 7          # 1970-01-01 was a Thursday: 0 = Monday
+        if weekday >= 5:
+            carry = b if carry is None or carry.iid != b.iid else Bar(
+                carry.ts, b.iid, carry.open, max(carry.high, b.high), min(carry.low, b.low), b.close,
+                carry.volume + b.volume)
+            continue
+        if carry is not None and carry.iid == b.iid:
+            b = Bar(b.ts, b.iid, carry.open, max(carry.high, b.high), min(carry.low, b.low), b.close,
+                    carry.volume + b.volume)
+        carry = None
+        out.append(b)
+    return out
 
 
 def back_adjust(front, second):

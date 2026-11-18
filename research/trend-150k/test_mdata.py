@@ -100,5 +100,25 @@ class AdjustTests(unittest.TestCase):
         self.assertEqual(rolls, [mdata.Roll(2 * DAY, 1, 5, None)])
 
 
+class WeekendTests(unittest.TestCase):
+    # 1970-01-04 was a Sunday: day index 3. Day 4 is Monday.
+    def test_sunday_bar_merges_into_monday(self):
+        sun = mdata.Bar(3 * DAY, 1, 100.0, 103.0, 99.0, 101.0, 5)
+        mon = mdata.Bar(4 * DAY, 1, 101.0, 102.0, 97.0, 98.0, 50)
+        tue = mdata.Bar(5 * DAY, 1, 98.0, 99.0, 96.0, 97.0, 40)
+        self.assertEqual(mdata.trading_days([sun, mon, tue]),
+                         [mdata.Bar(4 * DAY, 1, 100.0, 103.0, 97.0, 98.0, 55), tue])
+
+    def test_sunday_bar_of_another_contract_is_dropped(self):
+        sun = mdata.Bar(3 * DAY, 1, 100.0, 103.0, 99.0, 101.0, 5)
+        mon = mdata.Bar(4 * DAY, 2, 111.0, 112.0, 107.0, 108.0, 50)
+        self.assertEqual(mdata.trading_days([sun, mon]), [mon])
+
+    def test_weekday_bars_unchanged_and_saturday_merges_too(self):
+        sat = mdata.Bar(2 * DAY, 1, 100.0, 100.0, 100.0, 100.0, 1)
+        mon = mdata.Bar(4 * DAY, 1, 100.0, 101.0, 99.0, 100.0, 1)
+        self.assertEqual(mdata.trading_days([sat, mon]), [mdata.Bar(4 * DAY, 1, 100.0, 101.0, 99.0, 100.0, 2)])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)
