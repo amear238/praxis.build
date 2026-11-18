@@ -128,3 +128,29 @@ Written after candidate 1 failed at the gate (`out/VERDICT.md`: every version lo
 **The break.** The first 15-minute bar of D, from the one starting at 9:30 to the one starting at 2:45 PM, that closes at least one tick beyond R in the direction s (long: close >= R + one tick). A break is recorded whether or not a position is open. A level not broken by the bar starting at 2:45 PM never trades.
 
 **The retest entry.** A resting limit at R, from the first minute after the break bar's last minute to the last minute stamped before 3:00 PM. A long fills on the first such minute whose low is at least one tick below R, at R exactly. A short mirrors with the high. One position per market at a time. A broken level whose fill condition is met while a position is open, or on the minute a trade exits, is spent with no trade. When one minute meets the fill condition of two broken levels, the one whose R is nearer the minute's open fills (ties: the one nearer P0, then the long), and the other is spent. The stop is checked on the entry minute, the target from the next minute, as in candidate 1. The target is R + s x T x the stop distance.
+
+## Amendment, 2026-11-18: candidate 3, value area traversal (the "80% rule"). The exact rule
+
+Written after candidate 2 failed at the gate (`out/c2/VERDICT.md`: all 72 versions lost money on the eleven markets together; its check was clean on 470,619 trades), and before any candidate 3 code or result. From "Candidate 1 ... The exact rule" these hold unless this section changes them: the clock, the traded contract and the roll shift, P0, ATR and d, the VP kind (the prior session's value area, its top VAH and its bottom VAL), the stop fills, the target fill, the flat exit at 3:55 PM, the early close, the money and the day records. So do the independent check's readings R1 to R20 in `rule_check.py`. Not used: the other six kinds and ALL, candidate 1's arming filters and merge, and the target multiple T. The bars, the market sets and the pre-run gate are unchanged; the grid is new (below).
+
+The value area is candidate 1's, built from the whole prior session's volume. The classic 80% rule uses the day session's time at each price. This is decided before any result, and it keeps the level the independent check has already replayed.
+
+**The set-up side.** No ATR, no P0, or no VP levels on D: no set-up. P0 at least one tick above VAH: side s = -1 (short), near edge N = VAH, far edge F = VAL. P0 at least one tick below VAL: s = +1 (long), N = VAL, F = VAH. Otherwise no set-up. At most one trade a market a day.
+
+**30-minute bars.** On the clock, from 9:30. Each holds the minutes of S(D) stamped in one half hour of D: 9:30 to before 10:00, 10:00 to before 10:30, and so on. A bar's close is the close of its last minute. A half hour with no minute has no bar, and "consecutive" counts bars in that series.
+
+**Inside.** A bar closes inside when its close is at least one tick above VAL and at least one tick below VAH.
+
+**The signal.** The first two consecutive bars of D that both close inside, the second starting at or before 2:00 PM. Only that first pair counts: if it gives no trade (below), D has no trade. C is the second bar's close.
+
+**The stop and the filter.** Stop = N - s x d (long: VAL - d; short: VAH + d). Planned reward = |F - C|, planned risk = |C - stop|. With the minimum reward-to-risk m, the trade is taken only when the planned reward is at least m times the planned risk (m = 0: always).
+
+**Entry.** A market order filled on the next minute in the data after the second bar's last minute, if that minute is stamped before 3:00 PM (else no trade). Long: the fill is the minute's open plus one slippage, at most its high. Short: the open less one slippage, at least its low. No trade when that minute opens at or beyond the stop (long: open <= stop) or at or beyond the far edge (long: open >= F). Stop distance = |entry - stop|, so it carries the entry's slippage. Target = F.
+
+**Exits.** Candidate 1's, from the entry minute: flat at 3:55 PM, then the stop (checked on the entry minute too), then the target from the next minute (long: a high at least one tick above F, filled at F exactly), then the early close. The three stop fills are candidate 1's.
+
+**Grid.** k (0.1, 0.2, 0.4) x m (0, 2, 3): 9 settings, each measured on all eleven markets and on the stable set and judged by the same gate.
+
+**What each record holds.** A trade: market, date, kind "VA", level = N, side, entry_ts, entry, stop, dist, target = F, setup_ts (the stamp of the second bar's last minute), and candidate 1's exit fields. Each trading date's "armed" list holds the set-up (s, N, F, stop) when D has one, whether or not it trades; otherwise it is empty.
+
+**What this adds to "What this cannot show".** A market order fills at the next minute's open plus slippage; the real fill can be worse in a fast minute. The planned reward-to-risk uses the signal bar's close; sizing uses the actual fill, which in live trading is known only after the order. On most days the two differ by a tick or less.
