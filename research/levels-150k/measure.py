@@ -21,8 +21,11 @@ full_days the calendar's length from 2018-01-01 to the data's end, headroom = pr
 
 Gate (plan step 3): average winner >= 2R, max_gap <= 7 and projected_profit >= 9,000.
 
-Run: python3 -I -B research/levels-150k/measure.py [1|2] (candidate; one worker per market). Candidate 1 writes
-out/, candidate 2 out/c2/. Standard library only.
+Candidate 3 (value area traversal, traverse.py) has its own grid: k in (0.1, 0.2, 0.4) x min_rr in (0, 2, 3), 9
+settings; the same R, market sets, portfolio figures and gate.
+
+Run: python3 -I -B research/levels-150k/measure.py [1|2|3] (candidate; one worker per market). Candidate 1 writes
+out/, candidate N out/cN/. Standard library only.
 """
 import importlib.util
 import json
@@ -38,6 +41,7 @@ for p in (_HERE, _TREND):
 import fade  # noqa: E402
 import levels  # noqa: E402
 import retest  # noqa: E402
+import traverse  # noqa: E402
 import specs as specs_mod  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("trend_measure", os.path.join(_TREND, "measure.py"))
@@ -48,8 +52,9 @@ FIRST, END = "2018-01-01", "2023-12-31"
 YEARS = ("2018", "2019", "2020", "2021", "2022", "2023")
 LIMIT, TARGET = 4500.0, 9000.0
 KINDS = levels.KINDS + ("ALL",)
-ENGINES = {"1": fade, "2": retest}
-TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)"}
+ENGINES = {"1": fade, "2": retest, "3": traverse}
+TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)",
+          "3": "Candidate 3 (value area traversal)"}
 CAND = "1"
 
 
@@ -57,7 +62,10 @@ def out_dir(cand):
     return os.path.join(_HERE, "out") if cand == "1" else os.path.join(_HERE, "out", "c" + cand)
 
 
-def grid():
+def grid(cand=None):
+    if (cand or CAND) == "3":
+        return [{"name": "VA-k%g-m%d" % (k, m), "kind": "VA", "k": k, "min_rr": m, "atr_days": 14}
+                for k in (0.1, 0.2, 0.4) for m in (0, 2, 3)]
     return [{"name": "%s-k%g-T%s" % (kd, k, "none" if t is None else t), "kind": kd, "k": k, "target": t,
              "atr_days": 14} for kd in KINDS for k in (0.1, 0.2, 0.4) for t in (3, 5, None)]
 
@@ -125,7 +133,7 @@ def _work(market):
     window = {d.date for d in mk.days if FIRST <= d.date <= END}
     full = sorted(d.date for d in mk.days if d.date >= FIRST)
     eng = ENGINES[CAND]
-    out = {s["name"]: r_rows(eng.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid()}
+    out = {s["name"]: r_rows(eng.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid(CAND)}
     return market, out, sorted(window), full
 
 
@@ -134,7 +142,7 @@ def summarise(results):
     full_days = len(set().union(*[set(f) for _, _, _, f in results]))
     all_m = [m for m in specs_mod.MARKETS if any(r[0] == m for r in results)]
     out = []
-    for s in grid():
+    for s in grid(CAND):
         by_m = {m: o[s["name"]] for m, o, _, _ in results}
         row = {"name": s["name"], "settings": s, "all": portfolio(by_m, all_m, calendar, full_days),
                "by_market": {m: portfolio(by_m, [m], calendar, full_days) for m in all_m}}
@@ -173,7 +181,7 @@ def markdown(rows):
           "least $9,000): %s." % ("passed by " + ", ".join("%s (%s)" % p for p in passed) if passed
                                    else "**no setting passes, on either market set**"), ""]
     allrows = sorted(rows, key=lambda r: -(r["all"]["net_r"]))
-    md += ["## All eleven markets (all 72 settings, by net R)", ""] + HEAD
+    md += ["## All eleven markets (all %d settings, by net R)" % len(rows), ""] + HEAD
     md += [_line(r["name"], r["all"]) for r in allrows] + [""]
     st = sorted([r for r in rows if r["stable"]], key=lambda r: -(r["stable"]["projected_profit"] or -1e18))
     md += ["## Stable markets (net R above 0 in 2018-2020 and in 2021-2023), %d settings have a set" % len(st), ""]
@@ -181,6 +189,14 @@ def markdown(rows):
     best = allrows[0]
     md += ["## By market, %s" % best["name"], ""] + HEAD
     md += [_line(m, p) for m, p in best["by_market"].items()] + [""]
+    if CAND == "3":
+        md += ["## Net R a trade by setting and market", "",
+               "| Setting | " + " | ".join(specs_mod.MARKETS) + " |", "|---|" + "---:|" * len(specs_mod.MARKETS)]
+        for r in rows:
+            md.append("| %s | %s |" % (r["name"], " | ".join(
+                _f(r["by_market"][m]["net_r"] / r["by_market"][m]["trades"] if r["by_market"][m]["trades"] else None, 3)
+                for m in specs_mod.MARKETS)))
+        return md + [""]
     md += ["## Net R a trade by kind and market, k 0.2, T 3", "",
            "| Kind | " + " | ".join(specs_mod.MARKETS) + " |", "|---|" + "---:|" * len(specs_mod.MARKETS)]
     for kd in KINDS:

@@ -4,8 +4,9 @@ run against every trade of every measured setting of candidate 1: 72 settings x 
 2018-01-01 to 2023-12-31, midpoint fills, plus the kind and harsh fills on every setting with ALL; then the
 account check on two risk sizes for every k and target of ALL. Writes out/check_all.json; exit 1 on any break.
 
-Run: python3 -I -B research/levels-150k/check_all.py [1|2] (candidate 2 uses rule_check.check_market2 and writes
-out/c2/). Standard library only.
+Run: python3 -I -B research/levels-150k/check_all.py [1|2|3] (candidate N uses rule_check.check_marketN and writes
+out/cN/). Candidate 3 has 9 settings, all of one kind, so every one gets the kind and harsh fills and the account
+check. Standard library only.
 """
 import json
 import multiprocessing
@@ -27,16 +28,21 @@ import specs as specs_mod  # noqa: E402
 CAND = "1"
 
 
+def _full(s):
+    """The settings that also get the kind and harsh fills and the account check."""
+    return s["kind"] in ("ALL", "VA")
+
+
 def _work(market):
     sp = specs_mod.SPECS[market]
     data = specs_mod.load(market)
     mk = levels.Market(data["minutes"], data["daily"], data["rolls"], sp, market)
     window = {d.date for d in mk.days if measure.FIRST <= d.date <= measure.END}
     out, pcs, n = {}, {}, 0
-    jobs = [(s, "midpoint") for s in measure.grid()]
-    jobs += [(s, f) for s in measure.grid() if s["kind"] == "ALL" for f in ("kind", "harsh-stops")]
+    jobs = [(s, "midpoint") for s in measure.grid(CAND)]
+    jobs += [(s, f) for s in measure.grid(CAND) if _full(s) for f in ("kind", "harsh-stops")]
     eng = measure.ENGINES[CAND]
-    check = rule_check.check_market if CAND == "1" else rule_check.check_market2
+    check = getattr(rule_check, "check_market" if CAND == "1" else "check_market" + CAND)
     for s, fill in jobs:
         got = eng.per_contract(mk, s, fill, dates=window)
         n += len(got["trades"])
@@ -44,7 +50,7 @@ def _work(market):
                    first=measure.FIRST, last=measure.END)
         if br:
             out["%s/%s" % (s["name"], fill)] = br[:50] + (["... %d more" % (len(br) - 50)] if len(br) > 50 else [])
-        if s["kind"] == "ALL" and fill == "midpoint":
+        if _full(s) and fill == "midpoint":
             pcs[s["name"]] = got["trades"]
     return market, out, n, pcs
 
@@ -59,8 +65,8 @@ def main(argv=None):
     breaks = {m: b for m, b, _, _ in res if b}
     trades = sum(n for _, _, n, _ in res)
     acct = {}
-    for s in measure.grid():
-        if s["kind"] != "ALL":
+    for s in measure.grid(CAND):
+        if not _full(s):
             continue
         by_m = {m: pcs[s["name"]] for m, _, _, pcs in res}
         for risk in (0.05, 0.5):
