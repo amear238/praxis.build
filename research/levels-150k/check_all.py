@@ -4,7 +4,8 @@ run against every trade of every measured setting of candidate 1: 72 settings x 
 2018-01-01 to 2023-12-31, midpoint fills, plus the kind and harsh fills on every setting with ALL; then the
 account check on two risk sizes for every k and target of ALL. Writes out/check_all.json; exit 1 on any break.
 
-Run: python3 -I -B research/levels-150k/check_all.py. Standard library only.
+Run: python3 -I -B research/levels-150k/check_all.py [1|2] (candidate 2 uses rule_check.check_market2 and writes
+out/c2/). Standard library only.
 """
 import json
 import multiprocessing
@@ -23,7 +24,7 @@ import measure  # noqa: E402
 import rule_check  # noqa: E402
 import specs as specs_mod  # noqa: E402
 
-OUT = os.path.join(_HERE, "out")
+CAND = "1"
 
 
 def _work(market):
@@ -34,11 +35,13 @@ def _work(market):
     out, pcs, n = {}, {}, 0
     jobs = [(s, "midpoint") for s in measure.grid()]
     jobs += [(s, f) for s in measure.grid() if s["kind"] == "ALL" for f in ("kind", "harsh-stops")]
+    eng = measure.ENGINES[CAND]
+    check = rule_check.check_market if CAND == "1" else rule_check.check_market2
     for s, fill in jobs:
-        got = fade.per_contract(mk, s, fill, dates=window)
+        got = eng.per_contract(mk, s, fill, dates=window)
         n += len(got["trades"])
-        br = rule_check.check_market(got, data["minutes"], data["daily"], data["rolls"], sp, s, fill, market,
-                                     first=measure.FIRST, last=measure.END)
+        br = check(got, data["minutes"], data["daily"], data["rolls"], sp, s, fill, market,
+                   first=measure.FIRST, last=measure.END)
         if br:
             out["%s/%s" % (s["name"], fill)] = br[:50] + (["... %d more" % (len(br) - 50)] if len(br) > 50 else [])
         if s["kind"] == "ALL" and fill == "midpoint":
@@ -46,7 +49,11 @@ def _work(market):
     return market, out, n, pcs
 
 
-def main():
+def main(argv=None):
+    global CAND
+    argv = sys.argv[1:] if argv is None else argv
+    CAND = argv[0] if argv else "1"
+    OUT = measure.out_dir(CAND)
     with multiprocessing.get_context("fork").Pool(len(specs_mod.MARKETS)) as pool:
         res = pool.map(_work, specs_mod.MARKETS)
     breaks = {m: b for m, b, _, _ in res if b}

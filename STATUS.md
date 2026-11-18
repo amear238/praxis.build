@@ -21,26 +21,26 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 | Noise-Area, 12 variations at 3 sizes (2026-11-17) | none of 36 passes; nearest: $8,600 profit and 26 days with no trade | `research/noise-area-variations/out/150k/VERDICT.md` |
 | Opening range breakout, 108 versions (2026-11-17) | none worth a final run; safe size about $61 a trade | `research/orb-150k/out/VERDICT.md` |
 | Session sweep, Amear's pasted idea (2026-11-17) | loses about $0.16 per $1 risked after costs | `research/session-sweep/` |
-| **Trend-following, 11 markets, same-day and multi-week (2026-11-18)** | **neither worth a final run.** Same-day: 0 of 72 versions make money. Multi-week: best projects to $6,738 against $9,000, average winner 0.66 of the risk against 2; every version meeting the seven-day bar loses | `research/trend-150k/out/VERDICT.md` |
+| Trend-following, 11 markets, same-day and multi-week (2026-11-18) | neither worth a final run. Same-day: 0 of 72 versions make money. Multi-week: best projects to $6,738 against $9,000, average winner 0.66 of the risk against 2 | `research/trend-150k/out/VERDICT.md` |
+| **Marked levels, candidate 1: fade the first touch (2026-11-18)** | **fails before the full run.** Seven kinds of level (prior day, overnight, prior week, hourly swings, round numbers, volume levels, supply and demand zones) and all at once, 72 versions on 11 markets: every one loses, even before costs. Price kept going through levels more often than it bounced | `research/levels-150k/out/VERDICT.md` |
 
-The trend build's checks: a rule check written by a separate agent from the plan alone found three faults in the engines and one in itself, all fixed test first. It then replayed all 108 measured settings with no break (about 1.29 million trades). The measurement reproduces byte for byte. 113 tests across the folder.
+Candidate 1's checks: a rule check written by a separate agent from the plan alone (71 tests) set 20 literal readings; the engine adopted them test first, and the check then replayed 779,621 trades with no break. The measurement reproduces byte for byte. Published record searched first: no level method shows profit after costs (`research/levels-150k/PLAN.md`).
 
 Earlier, on the $50,000 stand-in: none of Noise-Area's twelve passed; candidate 1 and four variations, none passed.
 
 ## What is running
 
-Nothing.
+Nothing. Candidate 2's measuring pass ran once: no version passes the gate (`research/levels-150k/out/c2/MEASURE.md`; draft verdict beside it, not yet committed). Its independent rule check is written and merged (88 tests). Two runs were stopped by Claude Code for low memory on 2026-11-18, because they ran at the same time: the check against every candidate 2 trade (`check_all.py 2`) and the second measuring run for the byte-for-byte comparison. Run them one at a time, then commit the verdict.
 
 ## What is next, in order
 
-1. **The fresh research pass, widened by the 2026-11-18 ruling** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). The new shape: Amear marks levels or zones on 15-minute or longer charts outside trading hours; the automation places every entry, stop-market order and exit during the session. The aim includes learning the marking well enough to automate it later.
-   - What the pass looks for: level-based methods on 15-minute-plus charts with a published record where the profit is large compared with the losing runs, after costs. Examples to weigh: prior day or week high and low, the overnight range, swing highs and lows, the prior session's volume profile (value area, point of control), supply and demand zones, round numbers. Any of the eleven markets already bought. The four failures share one squeeze: winners at least twice the risk come with long losing runs, so the $4,500 limit allows too little size to reach $9,000. A candidate must ease that.
-   - The backtest problem, decided without waiting, reversible. His hand marks cannot be replayed on 2018 to 2026. So each candidate's marking is first written as a mechanical rule a computer can draw, and that rule is backtested on the five bars like any strategy. Then Amear marks past days blind (charts cut off at the session's start, without the outcome). His marks are compared with the rule's, to see whether the backtest stands for what he would do. Execution rules (entry trigger at a level, stop beyond the zone, target, size) are fixed in code either way.
-   - Write the pass's plan with the bars locked before any result, as `research/trend-150k/PLAN.md` was. Reuse: `research/trend-150k/mdata.py` and `specs.py` for the bars and the eleven markets, `rule_check.py`'s method (an independent check written from the plan), `measure.py`'s R-based measuring and safe-size projection, and `full_run.py` with the noise-area judge at the $4,500 limit.
-   - Fewer trades on 15-minute-plus charts put the seven-day bar at risk; spreading across markets helps.
-   - Later, only for a finalist: the signal path takes his marks as a levels file read by the NinjaScript watcher, the same file-drop design as now.
+1. **The widened research pass** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). Plan with the bars locked: `research/levels-150k/PLAN.md`. The candidates, in the order fixed before any result, one at a time:
+   - 1, fade the first touch of a marked level: failed (above).
+   - **2, break and retest**: a level closed through on the 15-minute chart, then the first return to it, traded with the break. Exact rule in the plan's amendment; engine `retest.py`. Next: read the measuring pass (`out/c2/MEASURE.md`) against the gate (average winner at least 2R, never more than 7 trading days without a trade, projected at least $9,000); run the check against every measured trade (`check_all.py`, to be pointed at candidate 2 once the check is merged).
+   - 3, value area traversal (the "80% rule"); 4, acceleration through a level. Each one's exact rule is written into the plan only after the one before fails.
+   - A version that passes the gate goes on a locked list (at most 12), then the full run 2018 to 2026 on the five bars, then Amear's blind marking check: 40 past market-days, charts cut at 9:30, his marks against the rule's. His marks drive orders only if they match at 80% both ways; otherwise the rule's levels do.
 2. Before any final run on micros: confirm MyFundedFutures lists every micro used.
-3. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
+3. Results for the stop-distance versions and candidates 2 to 4 of the old shortlist sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
