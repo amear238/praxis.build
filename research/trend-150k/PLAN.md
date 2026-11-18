@@ -72,3 +72,25 @@ Both have the same core: **the direction of the recent trend sets the side, a st
 - 1-minute and daily bars make fills look better than live, more so for stops on daily bars (B).
 - Version B is not tradable on MyFundedFutures as it stands; a pass would mean the edge exists, not that the account can run it.
 - The data starts in 2018 for A. That covers before Covid, the crash, the 2022 rate shock and now, but not a long history.
+
+## Amendment, 2026-11-18, before any result
+
+Written after the engines and before any backtest has run. Nothing here was chosen from a result.
+
+**Risk per trade, replacing "split equally across the markets".** Each trade risks the set percentage of the account's realised balance on its own; the percentage is not divided by the number of markets open. Reason: a split makes one trade's cost depend on how many other markets happen to be open, while his rule is that the cost of each trade is set before its entry. Consequence: with eleven markets, up to eleven times the set risk can be open at once, so the risk size on the locked list is set from the portfolio's losing days in the measuring pass, not from one market's losing run.
+
+**Size cap.** At most 90 micro contracts in one trade (the $150,000 plans' limit); at most 9 for the 10-year note and 30-year bond, which have no micro. The cap is per trade; the most contracts open at once across markets is reported beside the result.
+
+**The exact rule, for both versions and for the independent check.**
+
+Common. Ticks, dollars a point and commissions are the table above. Slippage on a market order: 1 tick for the four currencies and the 10-year note, 2 ticks for the rest (the 30-year bond included). A market-order fill is the bar's open plus slippage against the trade, kept inside that bar's high and low. Size: risk = realised balance x risk % / 100; loss for one contract = (stop distance + one slippage) x dollars a point + one commission; contracts = that risk divided by the loss for one contract, rounded down, at most the cap; under one contract, the trade is skipped and listed. Net of a trade = (exit - entry) x side x dollars a point x contracts - commission x contracts, to the cent. Average daily range (ATR) = the mean of high minus low over the 14 daily bars ending at the decision bar (back-adjusted, which leaves each range unchanged). Stop distance = stop multiple x ATR, rounded down to the tick, at least one tick. Signal = sign of (back-adjusted close at the decision bar minus back-adjusted close L daily bars earlier); no trade when they are equal; none until L earlier bars and 14 bars exist.
+
+Stop fills, long (short mirrors with the high and the tick above). If the bar opens at or below the stop it is a gap, and the reference price is the open; else if the low reaches the stop the reference is the stop. Kind: reference minus one slippage, not below the low. Midpoint (judged): halfway between the reference and the low, rounded down to the tick. Harsh: the low.
+
+Trail (trail multiple t, or none). After a bar that did not stop the trade, the stop moves to the best price since entry (the highest high for a long, the lowest low for a short, the entry bar included) minus t x the trade's stop distance, rounded to the tick away from the price, and only if that is closer to the price than the stop already is. The moved stop acts from the next bar.
+
+**A. Same-day** (1-minute bars, actual front-month prices; times are New York time; a daily bar's date is its UTC date, and the signal and ATR read the last daily bar dated before the trading day). Entry: the first minute starting at or after the entry time (09:35 or 10:00) and before 15:55, at its open. Each minute from the entry minute on: a minute starting at or after 15:55 closes the trade at its open (reason "flat"); else the stop is checked; else the trail moves. If the minutes end before 15:55 the trade closes at the last minute's close. Size from the realised balance at the start of the day (every market is flat overnight). One trade per market per day.
+
+**B. Multi-week** (daily bars, UTC days, weekend stubs merged into Monday; the engine trades the back-adjusted prices, so a position is rolled at the front-to-second gap, and each roll held through costs one commission and two slippages a contract). At each day's close, a market not stopped that day: open and the signal flips, exit at the next open and enter the other side there (exit only, when the new side is under one contract); open otherwise, trail; flat with a signal, enter at the next open. The stop is checked on every bar from the entry bar, the open first (a gap) then the range. Size from the realised balance at the decision. The data's last bar closes any open trade at its close (reason "end").
+
+**Day records**, for the trailing limit and the shuffles. A: start, end, and the low = start + the sum of every trade's worst open loss that day, all at once. B: end = realised balance plus every open trade marked at the close, its commission already taken; low = realised balance plus every open trade at its bar's adverse extreme, all at once.
