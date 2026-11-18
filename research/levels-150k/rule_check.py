@@ -17,11 +17,17 @@ check_market2(...) and replay_market2(...), the same arguments, do candidate 2, 
     "Amendment, 2026-11-18: candidate 2, break and retest. The exact rule", read at commit c105ac1). Its
     "armed" holds (kind, s, R, stop); each trade has level = R and break_ts, the stamp of the break bar's last
     minute. check_account serves both candidates (the money rules are the same).
+check_market3(...) and replay_market3(...), the same arguments, do candidate 3, "value area traversal" (PLAN.md,
+    "Amendment, 2026-11-18: candidate 3, value area traversal", read at commit 911bd1c). settings = {"name",
+    "kind": "VA", "k", "min_rr", "atr_days"}. Its "armed" holds (kind "VA", s, level = N, far = F, stop); each
+    trade has level = N, target = F and setup_ts, the stamp of the second signal bar's last minute.
+    check_account serves all three candidates.
 
 Trades are matched by (date, side, level), so a wrong entry minute shows as a differing field. The armed sets
-are compared date by date as multisets of (kind, side, level, stop); a date with an empty list is the same as a
-date left out. Prices are equal within a millionth of a tick. Money is computed exactly (rationals) and the
-engine's figure must lie within half a cent of the exact value, so either rounding of an exact half cent passes
+are compared date by date as multisets of (kind, side, level, stop), with far added for candidate 3; a date
+with an empty list is the same as a date left out. Prices are equal within a millionth of a tick. Money is
+computed exactly (rationals) and the engine's figure must lie within half a cent of the exact value, so either
+rounding of an exact half cent passes
 and a cent off fails; a net must also be a whole number of cents. The realised balance is carried with the
 engine's net wherever that net passes, so one disputed half cent never cascades into every later balance.
 
@@ -141,6 +147,54 @@ R26. Ties go first to the R nearer the minute's open, then to the level nearer P
 R27. The exits, worst and the money are candidate 1's (R16 to R20), with entry R and target R + s x T x the stop
      distance. A trade's level is R and its kind is the armed level's kind.
 
+Candidate 3, value area traversal. R1 to R20 hold unless one below changes them. R21 to R27 do not apply.
+
+R28. The set-up. VAH and VAL are the VP kind's top and bottom (R12), drawn on S(previous trading date) joined to
+     D's traded contract (R4, R5). The point of control plays no part. P0 is raw (R6). The set-up is a short when
+     P0 >= VAH + 1 tick and a long when P0 <= VAL - 1 tick, within a millionth of a tick. A P0 between the
+     edges, on one, or only half a tick beyond one (6E, 6A and 6J data) is no set-up. There is no set-up without
+     ATR (R7), without a previous trading date, or when one minute of that session cannot be joined (R5). d is
+     R7's. N, F and the stop are on the tick grid. A value area of one or two prices still sets up, though no
+     close can then be inside it.
+R29. 30-minute bars are half hours on the New York clock (:00 and :30; the UTC half hours are the same, the offset
+     being whole hours), holding D's minutes from 9:30. Only bars starting 9:30 to 2:00 PM can be in the pair, so
+     only minutes before 2:30 PM are read for it. A bar starts at its half hour on the clock, not at its first
+     minute: a 2:00 PM bar whose first minute is 2:10 PM can be the second bar. A bar's close is its last
+     minute's own close, unrounded (R6). A half hour with no minute leaves no gap in the series.
+R30. Inside: VAL + 1 tick <= close <= VAH - 1 tick, within a millionth of a tick. A close on VAL or VAH is not
+     inside.
+R31. The pair is at the first i in the bar series where bars i and i + 1 both close inside and bar i + 1 starts at
+     or before 2:00 PM. Three inside bars in a row give the first two. A lone inside bar does not spoil the day.
+     The first bar may be the one starting 9:30. Once the pair is found, no later pair is looked at, whether it
+     is the filter, the entry minute or that minute's open that stops the trade. A bar holds every minute of its
+     half hour, so a second bar starting at 2:30 PM leaves its next minute at or after 3:00 PM. The 2:00 PM limit
+     and the 3:00 PM entry window (R33) therefore never disagree on a trade. The limit is kept as written.
+R32. The filter: reward = |F - C| and risk = |C - stop|, with C the second bar's raw close, never the fill. The
+     trade is taken when reward >= m x risk, within a millionth of a tick, so the equal case is taken. m = 0
+     always takes it.
+R33. The entry minute is the minute right after the second bar's last minute in the data, whatever its stamp.
+     There is no trade when there is no such minute, or when it is stamped at or after 3:00 PM on D. A gap in
+     the data, an early close or the end of the data can make it a minute of the next session, which is after
+     3:00 PM on D: no trade. A minute stamped before 3:00 PM on D is always in S(D).
+R34. The entry fill: a long at min(open + slip, high), a short at max(open - slip, low), raw prices. There is no
+     trade when a long's entry minute opens at or below the stop or at or above F (a short: at or above the
+     stop, or at or below F), within a millionth of a tick. The fill after slippage may still lie at or beyond
+     F (an open one tick short of F with two ticks of slippage). The trade is then taken, its target stays F,
+     and a target exit fills at F for a loss or for nothing.
+R35. A trade: kind "VA", level N, target F, entry the fill, stop N - s x d, dist (entry - stop) x s (off the tick
+     grid when the fill is), and setup_ts, the stamp of the second bar's last minute.
+R36. The exits and worst are R16 to R18 with entry = the fill and target = F. The stop counts from the entry minute.
+     That minute never opens at or beyond the stop (R34), so it is never a gap stop. The target counts from the
+     next minute (long: high >= F + 1 tick, filled at F). Then flat at 3:55 PM, and the early close at S(D)'s
+     last minute. worst counts the entry minute's whole low (a short: its high), though the fill came at its
+     open (R18).
+R37. "armed" holds one record for each trading date with a set-up, {"kind": "VA", "side", "level": N, "far": F,
+     "stop"}, whatever became of the pair. It is compared as a multiset of (kind, side, level, far, stop) on the
+     tick grid.
+R38. Settings: kind "VA", k, min_rr (m, any number >= 0; the grid uses 0, 2 and 3) and atr_days (14 if absent).
+     No target multiple is read. check_account compares setup_ts wherever a trade carries one, as it does
+     break_ts.
+
 Standard library only. Python 3.14, run with python3 -I -B.
 """
 import bisect
@@ -186,6 +240,7 @@ class _NoJoin(Exception):
 # brk = the index of the break bar's last minute (candidate 2); order = its place in candidate 1's arming.
 _Lv = namedtuple("_Lv", "kind side L stop dist near brk order", defaults=(None, 0))
 QUARTER_NS = 900 * NS
+HALF_NS = 1800 * NS
 
 
 # ------------------------------------------------------------------------------------------------ the clock
@@ -265,7 +320,7 @@ class _Prep:
         self.dday = [a.bar.ts // DAY_NS for a in daily]
         self.drng = [a.adj_high - a.adj_low for a in daily]
         self._shift, self._groups, self._levels, self._chains, self._ctx = {}, {}, {}, {}, {}
-        self._quarters = {}
+        self._clock = {}
 
     # -------------------------------------------------------------------------------------- prices on the grid
     def _rt(self, p):
@@ -545,19 +600,23 @@ class _Prep:
                 for n in range(math.ceil(lo_p / step), math.floor(hi_p / step) + 1)]
 
     # -------------------------------------------------------------------------------------- the trading minutes
-    def quarters(self, D):
-        """Candidate 2's 15-minute bars of D, the ones starting 9:30 to 2:45 PM (R22): the index of each bar's
-        last minute, in time order. They hold exactly D's minutes stamped from 9:30 to before 3:00 PM."""
-        q = self._quarters.get(D)
+    def clock_bars(self, D, width):
+        """D's bars on the clock, `width` ns wide, from 9:30: the index of each bar's last minute, in time order.
+        They hold exactly D's minutes stamped from 9:30 to before 3:00 PM (R22, R29)."""
+        q = self._clock.get((D, width))
         if q is None:
             i930, i1500 = self.tinfo[D][3], self.tinfo[D][4]
             q, i = [], i930
             while i < i1500:
-                e = bisect.bisect_left(self.ts, (self.ts[i] // QUARTER_NS + 1) * QUARTER_NS, i, i1500)
+                e = bisect.bisect_left(self.ts, (self.ts[i] // width + 1) * width, i, i1500)
                 q.append(e - 1)
                 i = e
-            self._quarters[D] = q
+            self._clock[(D, width)] = q
         return q
+
+    def quarters(self, D):
+        """Candidate 2's 15-minute bars of D, the ones starting 9:30 to 2:45 PM (R22)."""
+        return self.clock_bars(D, QUARTER_NS)
 
     def chains(self, D):
         """Next strictly lower low and next strictly higher high of each minute from the P0 minute on."""
@@ -724,15 +783,46 @@ def _touches2(prep, D, armed):
     return out
 
 
-def _trade_day(prep, D, touches, t_mult, fill, slip, market):
-    """The day's trades from [(fill-condition minute, armed level)]: one position at a time, spent levels, the
-    nearer-the-open rule, then the exits."""
+def _exit(prep, D, f, side, entry, stop, target, fill, slip):
+    """Candidate 1's exits for a position entered at `entry` on minute f (prices in points; target None = no
+    target): flat at 3:55 PM, the stop from f, the target from f + 1, the early close (R16 to R18).
+    -> (exit minute, exit price, reason, gap, worst)."""
     tick, eps = prep.tick, prep.tick * _EPS
     _s0, s1, _i900, i930, _i1500, i1555 = prep.tinfo[D]
-    O, H, L, C, TS = prep.o, prep.h, prep.l, prep.c, prep.ts
+    O, H, L, C = prep.o, prep.h, prep.l, prep.c
     nl, nh = prep.chains(D)
     flat = i1555 if i1555 < s1 else None
     lim = s1 if flat is None else flat
+    if side > 0:
+        s = _first(L, nl, i930, f, stop + eps, lim, True)
+        g = lim if target is None else _first(H, nh, i930, f + 1, target + tick - eps, lim, False)
+    else:
+        s = _first(H, nh, i930, f, stop - eps, lim, False)
+        g = lim if target is None else _first(L, nl, i930, f + 1, target - tick + eps, lim, True)
+    gap = False
+    if s < lim and s <= g:
+        x, reason = s, "stop"
+        px, gap = _stop_fill(O[x], H[x], L[x], stop, side, slip, tick, fill)
+    elif g < lim:
+        x, reason, px = g, "target", target
+    elif flat is not None:
+        x, reason = flat, "flat"
+        px = min(max(O[x] - side * slip, L[x]), H[x])
+    else:
+        x, reason, px = s1 - 1, "flat", C[s1 - 1]
+    held_to = x if reason == "flat" else x + 1      # a flat exit's minute counts only at its fill
+    worst = (px - entry) * side if reason == "flat" else _INF
+    if held_to > f:
+        ext = min(L[f:held_to]) if side > 0 else max(H[f:held_to])
+        worst = min(worst, (ext - entry) * side)
+    return x, px, reason, gap, worst
+
+
+def _trade_day(prep, D, touches, t_mult, fill, slip, market):
+    """The day's trades from [(fill-condition minute, armed level)]: one position at a time, spent levels, the
+    nearer-the-open rule, then the exits."""
+    tick = prep.tick
+    O, TS = prep.o, prep.ts
     touches = sorted(touches, key=lambda x: x[0])
     out, busy, q = [], -1, 0
     while q < len(touches):
@@ -747,28 +837,7 @@ def _trade_day(prep, D, touches, t_mult, fill, slip, market):
         a = min(group, key=lambda g: (round(abs(g.L - op), 6), round(g.near, 6), -g.side, g.order))
         side, entry, stop = a.side, a.L * tick, a.stop * tick
         target = None if t_mult is None else (a.L + side * t_mult * a.dist) * tick
-        if side > 0:
-            s = _first(L, nl, i930, f, stop + eps, lim, True)
-            g = lim if target is None else _first(H, nh, i930, f + 1, target + tick - eps, lim, False)
-        else:
-            s = _first(H, nh, i930, f, stop - eps, lim, False)
-            g = lim if target is None else _first(L, nl, i930, f + 1, target - tick + eps, lim, True)
-        gap = False
-        if s < lim and s <= g:
-            x, reason = s, "stop"
-            px, gap = _stop_fill(O[x], H[x], L[x], stop, side, slip, tick, fill)
-        elif g < lim:
-            x, reason, px = g, "target", target
-        elif flat is not None:
-            x, reason = flat, "flat"
-            px = min(max(O[x] - side * slip, L[x]), H[x])
-        else:
-            x, reason, px = s1 - 1, "flat", C[s1 - 1]
-        held_to = x if reason == "flat" else x + 1      # a flat exit's minute counts only at its fill
-        worst = (px - entry) * side if reason == "flat" else _INF
-        if held_to > f:
-            ext = min(L[f:held_to]) if side > 0 else max(H[f:held_to])
-            worst = min(worst, (ext - entry) * side)
+        x, px, reason, gap, worst = _exit(prep, D, f, side, entry, stop, target, fill, slip)
         t = {"market": market, "date": _iso(D), "kind": a.kind, "level": entry, "side": side,
              "entry_ts": TS[f], "entry": entry, "stop": stop, "dist": a.dist * tick, "target": target,
              "exit_ts": TS[x], "exit": px, "reason": reason, "gap": gap,
@@ -790,14 +859,17 @@ def _settings(settings):
     return (KINDS if kind == "ALL" else (kind,)), float(settings["k"]), t, int(settings.get("atr_days", 14))
 
 
+def _window(first, last):
+    return (-_INF if first is None else _dayno(first)), (_INF if last is None else _dayno(last))
+
+
 def _replay(arm, touches, minutes, daily, rolls, spec, settings, fill, market, first, last):
     if fill not in FILLS:
         raise ValueError(f"fill {fill!r} is not one of {FILLS}")
     kinds, k, t_mult, n_atr = _settings(settings)
     prep = _prep(minutes, daily, rolls, spec, market)
     tick, slip = prep.tick, spec["slip_ticks"] * float(spec["tick"])
-    lo = -_INF if first is None else _dayno(first)
-    hi = _INF if last is None else _dayno(last)
+    lo, hi = _window(first, last)
     trades, armed_out = [], {}
     for D in prep.trading:
         if not lo <= D <= hi:
@@ -820,6 +892,105 @@ def replay_market2(minutes, daily, rolls, spec, settings, fill, market, first=No
     """Candidate 2 (break and retest), the same shape: "armed" holds (kind, s, R, stop) and each trade has
     level = R and break_ts."""
     return _replay(_arm2, _touches2, minutes, daily, rolls, spec, settings, fill, market, first, last)
+
+
+# ------------------------------------------------------------------------------------------------ candidate 3
+def _settings3(settings):
+    """(k, m, atr_days) of a candidate 3 setting (R38)."""
+    if settings.get("kind") != "VA":
+        raise ValueError(f"candidate 3 takes kind 'VA', not {settings.get('kind')!r}")
+    m = float(settings["min_rr"])
+    if not m >= 0:
+        raise ValueError(f"min_rr {settings['min_rr']!r} is not a number >= 0")
+    return float(settings["k"]), m, int(settings.get("atr_days", 14))
+
+
+def _setup3(prep, D, k, n_atr):
+    """D's set-up (R28): (s, N, F, stop) in ticks, or None."""
+    atr = prep.atr(D, n_atr)
+    if atr is None:
+        return None
+    vp = {seq: L for L, _zone, seq in prep.levels(D, "VP", n_atr)}
+    if not vp:
+        return None
+    vah, val = vp[0], vp[2]
+    p0 = prep.p0(D) / prep.tick
+    if p0 >= vah + 1 - _EPS:
+        s, N, F = -1, vah, val
+    elif p0 <= val - 1 + _EPS:
+        s, N, F = 1, val, vah
+    else:
+        return None
+    return s, N, F, N - s * _d_ticks(atr, k, prep.tick)
+
+
+def _signal3(prep, D, val, vah):
+    """The index of the second bar's last minute of D's first inside pair (R29 to R31), or None."""
+    tick, eps = prep.tick, prep.tick * _EPS
+    lo_in, hi_in = (val + 1) * tick - eps, (vah - 1) * tick + eps
+    C, TS = prep.c, prep.ts
+    t1400 = _ny_ns(D, 14, 0)
+    bars = prep.clock_bars(D, HALF_NS)
+    for a, b in zip(bars, bars[1:]):
+        if TS[b] // HALF_NS * HALF_NS > t1400:          # the second bar starts after 2:00 PM
+            return None
+        if lo_in <= C[a] <= hi_in and lo_in <= C[b] <= hi_in:
+            return b
+    return None
+
+
+def _trade3(prep, D, setup, m, fill, slip, market):
+    """D's trade from its set-up (R29 to R36), or None."""
+    s, N, F, stop = setup
+    tick, eps = prep.tick, prep.tick * _EPS
+    O, H, L, C, TS = prep.o, prep.h, prep.l, prep.c, prep.ts
+    sig = _signal3(prep, D, min(N, F), max(N, F))
+    if sig is None:
+        return None
+    c = C[sig] / tick
+    if abs(F - c) < m * abs(c - stop) - _EPS:          # the filter, on the signal close (R32)
+        return None
+    f = sig + 1                                         # the next minute in the data (R33)
+    if f >= prep.tinfo[D][4]:
+        return None
+    o, stop_px, far = O[f], stop * tick, F * tick
+    if s > 0:
+        if o <= stop_px + eps or o >= far - eps:
+            return None
+        entry = min(o + slip, H[f])
+    else:
+        if o >= stop_px - eps or o <= far + eps:
+            return None
+        entry = max(o - slip, L[f])
+    x, px, reason, gap, worst = _exit(prep, D, f, s, entry, stop_px, far, fill, slip)
+    return {"market": market, "date": _iso(D), "kind": "VA", "level": N * tick, "side": s,
+            "entry_ts": TS[f], "entry": entry, "stop": stop_px, "dist": (entry - stop_px) * s, "target": far,
+            "setup_ts": TS[sig], "exit_ts": TS[x], "exit": px, "reason": reason, "gap": gap,
+            "points": (px - entry) * s, "worst": worst}
+
+
+def replay_market3(minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 3 (value area traversal), the rule's own per_contract output for one market: "armed" holds one
+    (kind "VA", s, N, F, stop) a date with a set-up, and each trade has level = N, target = F and setup_ts."""
+    if fill not in FILLS:
+        raise ValueError(f"fill {fill!r} is not one of {FILLS}")
+    k, m, n_atr = _settings3(settings)
+    prep = _prep(minutes, daily, rolls, spec, market)
+    tick, slip = prep.tick, spec["slip_ticks"] * float(spec["tick"])
+    lo, hi = _window(first, last)
+    trades, armed_out = [], {}
+    for D in prep.trading:
+        if not lo <= D <= hi:
+            continue
+        setup = _setup3(prep, D, k, n_atr)
+        if setup is None:
+            continue
+        s, N, F, stop = setup
+        armed_out[_iso(D)] = [{"kind": "VA", "side": s, "level": N * tick, "far": F * tick, "stop": stop * tick}]
+        t = _trade3(prep, D, setup, m, fill, slip, market)
+        if t is not None:
+            trades.append(t)
+    return {"trades": trades, "armed": armed_out}
 
 
 # ------------------------------------------------------------------------------------------------ comparing
@@ -897,24 +1068,26 @@ def _compare_trades(breaks, market, mine, theirs, tick, tol, fields, keyf):
         _field_breaks(breaks, _trade_label(market, t["date"], t["side"], t["level"]), t, tk[k], fields, tol)
 
 
-def _compare_armed(breaks, market, mine, theirs, tick, tol):
+_ARM_WORD = {"level": "at", "far": "far", "stop": "stop"}
+
+
+def _compare_armed(breaks, market, mine, theirs, tick, tol, pfields=("level", "stop")):
     if not isinstance(theirs, dict):
         breaks.append(f"{market}: armed is not a dict of dates")
         return
     for d in sorted(set(mine) | set(theirs)):
-        m = Counter((a["kind"], a["side"], round(a["level"] / tick), round(a["stop"] / tick))
-                    for a in mine.get(d, []))
+        m = Counter((a["kind"], a["side"]) + tuple(round(a[f] / tick) for f in pfields) for a in mine.get(d, []))
         t = Counter()
         for a in theirs.get(d, []) or []:
             try:
-                t[(a["kind"], a["side"], _tick_key(a["level"], tick, tol), _tick_key(a["stop"], tick, tol))] += 1
+                t[(a["kind"], a["side"]) + tuple(_tick_key(a[f], tick, tol) for f in pfields)] += 1
             except (KeyError, TypeError):
                 breaks.append(f"{market} {d}: unreadable armed record {a!r}")
 
         def say(x):
-            lv = x[2] * tick if isinstance(x[2], int) else x[2][1]
-            st = x[3] * tick if isinstance(x[3], int) else x[3][1]
-            return f"{x[0]} {_NAME.get(x[1], x[1])} at {_fmt(lv)} stop {_fmt(st)}"
+            px = " ".join(f"{_ARM_WORD[f]} {_fmt(v * tick if isinstance(v, int) else v[1])}"
+                          for f, v in zip(pfields, x[2:]))
+            return f"{x[0]} {_NAME.get(x[1], x[1])} {px}"
         for x in sorted((m - t).elements(), key=str):
             breaks.append(f"{market} {d}: armed level {say(x)} missing (the rule arms it)")
         for x in sorted((t - m).elements(), key=str):
@@ -940,13 +1113,25 @@ def check_market2(got, minutes, daily, rolls, spec, settings, fill, market, firs
     return _check(got, mine, spec, market, _T2_FIELDS)
 
 
-def _check(got, mine, spec, market, fields):
+_T3_FIELDS = _T_FIELDS + (("setup_ts", "eq"),)
+
+
+def check_market3(got, minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 3 (value area traversal): breaks between the engine's per_contract output and the rule's
+    replay."""
+    if fill not in FILLS:
+        return [f"fill {fill!r} is not one of {FILLS}"]
+    mine = replay_market3(minutes, daily, rolls, spec, settings, fill, market, first, last)
+    return _check(got, mine, spec, market, _T3_FIELDS, ("level", "far", "stop"))
+
+
+def _check(got, mine, spec, market, fields, armed_fields=("level", "stop")):
     tick = float(spec["tick"])
     tol = tick * _EPS
     breaks = []
     if not isinstance(got, dict):
         return [f"{market}: the engine's output is not a dict"]
-    _compare_armed(breaks, market, mine["armed"], got.get("armed", {}), tick, tol)
+    _compare_armed(breaks, market, mine["armed"], got.get("armed", {}), tick, tol, armed_fields)
     _compare_trades(breaks, market, mine["trades"], got.get("trades", []), tick, tol, fields,
                     lambda t: (t["date"], t["side"], _tick_key(t["level"], tick, tol)))
     return breaks
@@ -1080,7 +1265,7 @@ def check_account(result, per_contract_by_market, specs_by_market, risk_pct, sta
         m, t = mk[k], by_key[k]
         label = f"account: trade {k[0]} {k[1]} entered {k[2]}"
         tol = float(specs_by_market[k[0]]["tick"]) * _EPS
-        extra = (("break_ts", "eq"),) if "break_ts" in m else ()          # candidate 2's trades carry it
+        extra = tuple((f, "eq") for f in ("break_ts", "setup_ts") if f in m)     # candidates 2 and 3
         _field_breaks(breaks, label, m, t, _A_PRICE_FIELDS + extra + (("qty", "eq"),), tol)
         for f in ("planned_cost", "net"):
             if f not in t:
