@@ -1,0 +1,662 @@
+{
+ "6A": {
+  "cost_ticks": 3.9,
+  "days": 1453,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.2475,
+    "net_ticks": -3.6525,
+    "right": 0.4779,
+    "trades": 701
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.5408,
+    "net_ticks": -3.3592,
+    "right": 0.5115,
+    "trades": 1433
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 0.8217,
+    "net_ticks": -3.0783,
+    "right": 0.5437,
+    "trades": 732
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.3037,
+    "net_ticks": -3.5963,
+    "right": 0.468,
+    "trades": 703
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.4118,
+    "net_ticks": -3.4882,
+    "right": 0.5,
+    "trades": 1440
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 0.5149,
+    "net_ticks": -3.3851,
+    "right": 0.5305,
+    "trades": 737
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.3612,
+    "net_ticks": -3.5388,
+    "right": 0.4846,
+    "trades": 551
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.5892,
+    "net_ticks": -3.3108,
+    "right": 0.5185,
+    "trades": 1138
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 0.8032,
+    "net_ticks": -3.0968,
+    "right": 0.5503,
+    "trades": 587
+   }
+  }
+ },
+ "6B": {
+  "cost_ticks": 5.04,
+  "days": 1456,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.1681,
+    "net_ticks": -4.8719,
+    "right": 0.5,
+    "trades": 714
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.8833,
+    "net_ticks": -4.1567,
+    "right": 0.5249,
+    "trades": 1448
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 1.579,
+    "net_ticks": -3.461,
+    "right": 0.549,
+    "trades": 734
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.2935,
+    "net_ticks": -4.7465,
+    "right": 0.4874,
+    "trades": 712
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 1.0934,
+    "net_ticks": -3.9466,
+    "right": 0.5239,
+    "trades": 1445
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 1.8704,
+    "net_ticks": -3.1696,
+    "right": 0.5593,
+    "trades": 733
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.2774,
+    "net_ticks": -4.7626,
+    "right": 0.5034,
+    "trades": 584
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 1.2014,
+    "net_ticks": -3.8386,
+    "right": 0.5379,
+    "trades": 1162
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 2.1349,
+    "net_ticks": -2.9051,
+    "right": 0.5727,
+    "trades": 578
+   }
+  }
+ },
+ "6E": {
+  "cost_ticks": 3.52,
+  "days": 1458,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.4489,
+    "net_ticks": -3.0711,
+    "right": 0.5084,
+    "trades": 714
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.7481,
+    "net_ticks": -2.7719,
+    "right": 0.5327,
+    "trades": 1453
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 1.0372,
+    "net_ticks": -2.4828,
+    "right": 0.5562,
+    "trades": 739
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.2232,
+    "net_ticks": -3.2968,
+    "right": 0.4887,
+    "trades": 710
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.7602,
+    "net_ticks": -2.7598,
+    "right": 0.5211,
+    "trades": 1447
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 1.2775,
+    "net_ticks": -2.2425,
+    "right": 0.5522,
+    "trades": 737
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.4523,
+    "net_ticks": -3.0677,
+    "right": 0.5046,
+    "trades": 545
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.9608,
+    "net_ticks": -2.5592,
+    "right": 0.5419,
+    "trades": 1135
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 1.4305,
+    "net_ticks": -2.0895,
+    "right": 0.5763,
+    "trades": 590
+   }
+  }
+ },
+ "6J": {
+  "cost_ticks": 3.52,
+  "days": 1457,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.3617,
+    "net_ticks": -3.1583,
+    "right": 0.4803,
+    "trades": 712
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.5735,
+    "net_ticks": -2.9465,
+    "right": 0.5069,
+    "trades": 1448
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 0.7785,
+    "net_ticks": -2.7415,
+    "right": 0.5326,
+    "trades": 736
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.2914,
+    "net_ticks": -3.2286,
+    "right": 0.4851,
+    "trades": 707
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.448,
+    "net_ticks": -3.072,
+    "right": 0.5073,
+    "trades": 1441
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 0.5988,
+    "net_ticks": -2.9212,
+    "right": 0.5286,
+    "trades": 734
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.4156,
+    "net_ticks": -3.1044,
+    "right": 0.4831,
+    "trades": 563
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.6351,
+    "net_ticks": -2.8849,
+    "right": 0.5135,
+    "trades": 1151
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 0.8452,
+    "net_ticks": -2.6748,
+    "right": 0.5425,
+    "trades": 588
+   }
+  }
+ },
+ "CL": {
+  "cost_ticks": 5.9,
+  "days": 1391,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.0217,
+    "net_ticks": -5.8783,
+    "right": 0.4552,
+    "trades": 692
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 1.133,
+    "net_ticks": -4.767,
+    "right": 0.4788,
+    "trades": 1391
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 2.2332,
+    "net_ticks": -3.6668,
+    "right": 0.5021,
+    "trades": 699
+   },
+   "S2/2018-2020": {
+    "edge_ticks": -0.5043,
+    "net_ticks": -6.4043,
+    "right": 0.4754,
+    "trades": 690
+   },
+   "S2/2018-2023": {
+    "edge_ticks": -1.5468,
+    "net_ticks": -7.4468,
+    "right": 0.4661,
+    "trades": 1388
+   },
+   "S2/2021-2023": {
+    "edge_ticks": -2.5774,
+    "net_ticks": -8.4774,
+    "right": 0.457,
+    "trades": 698
+   },
+   "S3/2018-2020": {
+    "edge_ticks": -0.3019,
+    "net_ticks": -6.2019,
+    "right": 0.4558,
+    "trades": 520
+   },
+   "S3/2018-2023": {
+    "edge_ticks": -0.25,
+    "net_ticks": -6.15,
+    "right": 0.4665,
+    "trades": 1044
+   },
+   "S3/2021-2023": {
+    "edge_ticks": -0.1985,
+    "net_ticks": -6.0985,
+    "right": 0.4771,
+    "trades": 524
+   }
+  }
+ },
+ "ES": {
+  "cost_ticks": 5.52,
+  "days": 1431,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 3.6271,
+    "net_ticks": -1.8929,
+    "right": 0.5226,
+    "trades": 708
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 3.1025,
+    "net_ticks": -2.4175,
+    "right": 0.5179,
+    "trades": 1425
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 2.5844,
+    "net_ticks": -2.9356,
+    "right": 0.5132,
+    "trades": 717
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.3729,
+    "net_ticks": -5.1471,
+    "right": 0.4859,
+    "trades": 708
+   },
+   "S2/2018-2023": {
+    "edge_ticks": -0.8405,
+    "net_ticks": -6.3605,
+    "right": 0.48,
+    "trades": 1423
+   },
+   "S2/2021-2023": {
+    "edge_ticks": -2.042,
+    "net_ticks": -7.562,
+    "right": 0.4741,
+    "trades": 715
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 2.5527,
+    "net_ticks": -2.9673,
+    "right": 0.5065,
+    "trades": 541
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 1.5057,
+    "net_ticks": -4.0143,
+    "right": 0.5,
+    "trades": 1058
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 0.4101,
+    "net_ticks": -5.1099,
+    "right": 0.4932,
+    "trades": 517
+   }
+  }
+ },
+ "GC": {
+  "cost_ticks": 5.9,
+  "days": 1453,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.315,
+    "net_ticks": -5.585,
+    "right": 0.5056,
+    "trades": 708
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.0014,
+    "net_ticks": -5.8986,
+    "right": 0.4903,
+    "trades": 1444
+   },
+   "S1/2021-2023": {
+    "edge_ticks": -0.3003,
+    "net_ticks": -6.2003,
+    "right": 0.4755,
+    "trades": 736
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 1.3248,
+    "net_ticks": -4.5752,
+    "right": 0.5262,
+    "trades": 705
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.6519,
+    "net_ticks": -5.2481,
+    "right": 0.5062,
+    "trades": 1442
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 0.0081,
+    "net_ticks": -5.8919,
+    "right": 0.4871,
+    "trades": 737
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 1.0914,
+    "net_ticks": -4.8086,
+    "right": 0.5247,
+    "trades": 547
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.4548,
+    "net_ticks": -5.4452,
+    "right": 0.5013,
+    "trades": 1117
+   },
+   "S3/2021-2023": {
+    "edge_ticks": -0.1561,
+    "net_ticks": -6.0561,
+    "right": 0.4789,
+    "trades": 570
+   }
+  }
+ },
+ "NQ": {
+  "cost_ticks": 7.8,
+  "days": 1431,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 10.7924,
+    "net_ticks": 2.9924,
+    "right": 0.5302,
+    "trades": 713
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 9.5115,
+    "net_ticks": 1.7115,
+    "right": 0.5227,
+    "trades": 1429
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 8.236,
+    "net_ticks": 0.436,
+    "right": 0.5154,
+    "trades": 716
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 8.7885,
+    "net_ticks": 0.9885,
+    "right": 0.5336,
+    "trades": 714
+   },
+   "S2/2018-2023": {
+    "edge_ticks": -4.2979,
+    "net_ticks": -12.0979,
+    "right": 0.5035,
+    "trades": 1430
+   },
+   "S2/2021-2023": {
+    "edge_ticks": -17.3478,
+    "net_ticks": -25.1478,
+    "right": 0.4735,
+    "trades": 716
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 12.6844,
+    "net_ticks": 4.8844,
+    "right": 0.5413,
+    "trades": 545
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 3.2331,
+    "net_ticks": -4.5669,
+    "right": 0.5172,
+    "trades": 1077
+   },
+   "S3/2021-2023": {
+    "edge_ticks": -6.4492,
+    "net_ticks": -14.2492,
+    "right": 0.4925,
+    "trades": 532
+   }
+  }
+ },
+ "RTY": {
+  "cost_ticks": 7.8,
+  "days": 1431,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 2.2367,
+    "net_ticks": -5.5633,
+    "right": 0.4818,
+    "trades": 714
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 2.9441,
+    "net_ticks": -4.8559,
+    "right": 0.4948,
+    "trades": 1431
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 3.6485,
+    "net_ticks": -4.1515,
+    "right": 0.5077,
+    "trades": 717
+   },
+   "S2/2018-2020": {
+    "edge_ticks": -0.0969,
+    "net_ticks": -7.8969,
+    "right": 0.4747,
+    "trades": 712
+   },
+   "S2/2018-2023": {
+    "edge_ticks": -3.2871,
+    "net_ticks": -11.0871,
+    "right": 0.4713,
+    "trades": 1428
+   },
+   "S2/2021-2023": {
+    "edge_ticks": -6.4595,
+    "net_ticks": -14.2595,
+    "right": 0.4679,
+    "trades": 716
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 1.3426,
+    "net_ticks": -6.4574,
+    "right": 0.473,
+    "trades": 537
+   },
+   "S3/2018-2023": {
+    "edge_ticks": -0.3103,
+    "net_ticks": -8.1103,
+    "right": 0.4794,
+    "trades": 1070
+   },
+   "S3/2021-2023": {
+    "edge_ticks": -1.9756,
+    "net_ticks": -9.7756,
+    "right": 0.4859,
+    "trades": 533
+   }
+  }
+ },
+ "ZB": {
+  "cost_ticks": 4.16,
+  "days": 1434,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.2277,
+    "net_ticks": -3.9323,
+    "right": 0.4809,
+    "trades": 707
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.4145,
+    "net_ticks": -3.7455,
+    "right": 0.4809,
+    "trades": 1416
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 0.6008,
+    "net_ticks": -3.5592,
+    "right": 0.481,
+    "trades": 709
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.4009,
+    "net_ticks": -3.7591,
+    "right": 0.4684,
+    "trades": 696
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.3575,
+    "net_ticks": -3.8025,
+    "right": 0.4701,
+    "trades": 1404
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 0.315,
+    "net_ticks": -3.845,
+    "right": 0.4718,
+    "trades": 708
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.3678,
+    "net_ticks": -3.7922,
+    "right": 0.488,
+    "trades": 541
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.4814,
+    "net_ticks": -3.6786,
+    "right": 0.4888,
+    "trades": 1074
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 0.5966,
+    "net_ticks": -3.5634,
+    "right": 0.4897,
+    "trades": 533
+   }
+  }
+ },
+ "ZN": {
+  "cost_ticks": 2.32,
+  "days": 1434,
+  "results": {
+   "S1/2018-2020": {
+    "edge_ticks": 0.2443,
+    "net_ticks": -2.0757,
+    "right": 0.4871,
+    "trades": 700
+   },
+   "S1/2018-2023": {
+    "edge_ticks": 0.4583,
+    "net_ticks": -1.8617,
+    "right": 0.4939,
+    "trades": 1403
+   },
+   "S1/2021-2023": {
+    "edge_ticks": 0.6714,
+    "net_ticks": -1.6486,
+    "right": 0.5007,
+    "trades": 703
+   },
+   "S2/2018-2020": {
+    "edge_ticks": 0.4979,
+    "net_ticks": -1.8221,
+    "right": 0.4893,
+    "trades": 699
+   },
+   "S2/2018-2023": {
+    "edge_ticks": 0.4485,
+    "net_ticks": -1.8715,
+    "right": 0.4819,
+    "trades": 1407
+   },
+   "S2/2021-2023": {
+    "edge_ticks": 0.3997,
+    "net_ticks": -1.9203,
+    "right": 0.4746,
+    "trades": 708
+   },
+   "S3/2018-2020": {
+    "edge_ticks": 0.4741,
+    "net_ticks": -1.8459,
+    "right": 0.4981,
+    "trades": 540
+   },
+   "S3/2018-2023": {
+    "edge_ticks": 0.5868,
+    "net_ticks": -1.7332,
+    "right": 0.5009,
+    "trades": 1094
+   },
+   "S3/2021-2023": {
+    "edge_ticks": 0.6968,
+    "net_ticks": -1.6232,
+    "right": 0.5036,
+    "trades": 554
+   }
+  }
+ }
+}

@@ -82,3 +82,13 @@ The grid of the measuring pass: three signals (S1, S2, S3) × four stops (k = 0.
 - Fills on 1-minute bars. A market order at 3:30 and at 4:00 PM is filled at the minute's open plus slippage. At the close the real queue can be better or worse.
 - The dealers' option positions are not in our data, so the days the paper finds strongest cannot be picked out.
 - The paper's figures run to May 2020. Ours run from 2018, mostly after it.
+
+## The pre-screen's result, 2026-11-18 (`out/PRESCREEN.md`)
+
+The drop rule does not fire, so the full method runs, on the grid and markets fixed above, unchanged. What it shows, 2018 to 2023, no stop:
+
+- Only the Nasdaq on the rest-of-day signal (S1) clears costs: 9.5 ticks before costs a trade, against a round trip of 7.8, so +1.7 ticks after, positive in both halves (10.8 and 8.2). That is the one market the paper's figures pointed to before any data was read.
+- Every other market and signal loses after costs. The S&P and the Russell are positive before costs on S1 (3.1 and 2.9 ticks) but below their costs (5.5 and 7.8). Bonds and currencies are positive before costs on all three signals, by under 1.2 ticks, against costs of 2.3 to 5.0. Crude and gold have no edge before costs.
+- The first-half-hour signal (S2) loses on the Nasdaq in 2021 to 2023 (-17.4 ticks before costs).
+
+Checked: 17 tests, 16 faults planted in the pre-screen and all caught; the first two Nasdaq days of 2018 read by hand against the raw minutes; a second run byte for byte the same.
