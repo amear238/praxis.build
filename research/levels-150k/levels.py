@@ -15,21 +15,25 @@ Market(minutes, daily, rolls, spec, market) prepares one market:
 Clock (New York wall clock, from zoneinfo). Session date = the calendar date of the wall-clock stamp plus 7
 hours. Trading date = a session date with a minute stamped 9:30 to before 15:55.
 
-Shift. For day D the traded contract Y is the contract of D's first minute at or after 9:30. Walking the daily
-rolls stamped at or before that minute from the newest back, starting at Y: a roll into the current contract
-adds its gap and moves to its old contract; the first time a contract is reached, its shift is the gaps added
-so far. A roll with gap None ends the walk. A minute of a contract with no shift is unjoinable; a level that
-needs it is not drawn that day. Shifted prices are rounded to the tick.
+Shift. For day D the traded contract T is the contract of D's first minute at or after 9:30 (its minutes are
+used unmoved). A run of minutes of another contract walks the daily rolls stamped after its first minute and at
+or before D's 9:30 minute, following its contract (a roll whose old contract is the current one adds its gap and
+moves to its new one) until T is reached. A roll with gap None, or never reaching T: unjoinable, and a kind that
+needs any unjoinable minute draws nothing that day. Prices drawn into levels are rounded to the nearest tick,
+half up (within a millionth of a tick). Volume is split exactly (fractions).
 
-Hourly bars: each holds the minutes stamped in one wall-clock hour (a repeated hour at the change to winter
-time is one bar). A bar holding two contracts is a data error (ValueError); the bought data changes contract
-only on the hour.
+Hourly bars: each holds the minutes stamped in one UTC hour. A bar holding two contracts is a data error
+(ValueError); the bought data changes contract only on the hour. SW needs 5 prior trading dates, SD 10.
+
+Readings of the plan follow the independent check's (rule_check.py, R1 to R20) where they differ.
 
 Standard library only. Run tests with python3 -I -B.
 """
 import bisect
 import datetime as dt
+import math
 from collections import namedtuple
+from fractions import Fraction
 from zoneinfo import ZoneInfo
 
 ET = ZoneInfo("America/New_York")
@@ -74,11 +78,12 @@ def session_date(ts):
 
 
 def rnd(x, tick):
-    return round(x / tick) * tick
+    """The nearest tick; within a millionth of a tick of halfway rounds up."""
+    return math.floor(x / tick + 0.5 + 1e-6) * tick
 
 
 class Day(object):
-    __slots__ = ("date", "ordinal", "iid", "p0", "atr", "f", "end", "levels", "shift")
+    __slots__ = ("date", "ordinal", "iid", "p0", "atr", "f", "end", "levels", "kmax")
 
     def __repr__(self):
         return "Day(%s iid=%s p0=%s atr=%s)" % (self.date, self.iid, self.p0, self.atr)
@@ -104,11 +109,16 @@ class Market(object):
                 self.sessions[s][1] = i + 1
             else:
                 self.sessions[s] = [i, i + 1]
+        self.rolls = sorted(rolls, key=lambda r: r.ts)
+        self.roll_ts = [r.ts for r in self.rolls]
+        self.run_start = [i for i in range(n) if i == 0 or minutes[i].iid != minutes[i - 1].iid]
+        self.run_end = self.run_start[1:] + [n]
+        self.run_iid = [minutes[i].iid for i in self.run_start]
+        self.run_k = [bisect.bisect_right(self.roll_ts, minutes[i].ts) for i in self.run_start]
+        self._shifts = {}
         self._hourly()
         self.daily_ord = [a.bar.ts // NS // 86400 + EPOCH_ORD for a in daily]
         self.daily = daily
-        self.rolls = sorted(rolls, key=lambda r: r.ts)
-        self.roll_ts = [r.ts for r in self.rolls]
         trading = []
         for s, (i0, i1) in self.sessions.items():
             f = next((i for i in range(i0, i1) if cal[i] == s and OPEN_MIN <= mod[i]), None)
@@ -121,19 +131,20 @@ class Market(object):
     # ------------------------------------------------------------------------------------------ hourly bars
     def _hourly(self):
         m = self.minutes
-        bars = []          # [key, i0, i1, iid, high, low, close, sess]
+        bars = []          # [UTC hour, i0, i1, run, high, low, close, sess]
         for i, b in enumerate(m):
-            key = (self.cal[i], self.mod[i] // 60)
+            key = b.ts // (3600 * NS)
             if bars and bars[-1][0] == key:
                 hb = bars[-1]
-                if hb[3] != b.iid:
+                if m[hb[1]].iid != b.iid:
                     raise ValueError("%s: hourly bar %s holds two contracts" % (self.market, key))
                 hb[2] = i + 1
                 hb[4] = max(hb[4], b.high)
                 hb[5] = min(hb[5], b.low)
                 hb[6] = b.close
             else:
-                bars.append([key, i, i + 1, b.iid, b.high, b.low, b.close, self.sess[i]])
+                bars.append([key, i, i + 1, bisect.bisect_right(self.run_start, i) - 1, b.high, b.low, b.close,
+                             self.sess[i]])
         self.hbars = bars
         self.hbar_i0 = [hb[1] for hb in bars]
         self.hb_by_sess = {}
@@ -145,34 +156,53 @@ class Market(object):
                 self.hb_by_sess[s] = [j, j + 1]
 
     # ------------------------------------------------------------------------------------------ shift
-    def _shift_map(self, iid, at_ts):
-        out, cur, acc = {iid: 0.0}, iid, 0.0
-        k = bisect.bisect_right(self.roll_ts, at_ts)
-        for r in reversed(self.rolls[:k]):
-            if r.new_iid != cur:
+    def _sh(self, r, day):
+        """The shift joining run r to the day's traded contract: walk the rolls stamped after the run's first
+        minute and at or before the day's 9:30 minute, following the run's contract, until the traded contract
+        is reached. None: unjoinable."""
+        c, T = self.run_iid[r], day.iid
+        if c == T:
+            return 0.0
+        key = (r, T, day.kmax)
+        if key in self._shifts:
+            return self._shifts[key]
+        cur, add, res = c, 0.0, None
+        for roll in self.rolls[self.run_k[r]:day.kmax]:
+            if roll.old_iid != cur:
                 continue
-            if r.gap is None:
+            if roll.gap is None:
                 break
-            acc += r.gap
-            cur = r.old_iid
-            if cur not in out:
-                out[cur] = acc
-        return out
+            add += roll.gap
+            cur = roll.new_iid
+            if cur == T:
+                res = add
+                break
+        self._shifts[key] = res
+        return res
 
-    def _hl(self, i0, i1, shift):
-        """Shifted (high, low) of minutes [i0, i1); None when empty or a minute is unjoinable."""
+    def _runs(self, a, b):
+        if a >= b:
+            return
+        r = bisect.bisect_right(self.run_start, a) - 1
+        while r < len(self.run_start) and self.run_start[r] < b:
+            yield r, max(a, self.run_start[r]), min(b, self.run_end[r])
+            r += 1
+
+    def _hl(self, i0, i1, day):
+        """Shifted (high, low) of minutes [i0, i1), each on the tick grid; None when empty or unjoinable."""
         hi = lo = None
-        m = self.minutes
-        for i in range(i0, i1):
-            s = shift.get(m[i].iid)
+        m, tick = self.minutes, self.tick
+        for r, a, b in self._runs(i0, i1):
+            s = self._sh(r, day)
             if s is None:
                 return None
-            h, l = m[i].high + s, m[i].low + s
+            h = rnd(max(x.high for x in m[a:b]) + s, tick)
+            l = rnd(min(x.low for x in m[a:b]) + s, tick)
             hi = h if hi is None or h > hi else hi
             lo = l if lo is None or l < lo else lo
         if hi is None:
             return None
-        return rnd(hi, self.tick), rnd(lo, self.tick)
+        return hi, lo
 
     # ------------------------------------------------------------------------------------------ one day
     def _day(self, k, s, f, end):
@@ -183,8 +213,8 @@ class Market(object):
         j = bisect.bisect_left(self.daily_ord, s)
         d.atr = (sum(a.adj_high - a.adj_low for a in self.daily[j - ATR_DAYS:j]) / ATR_DAYS
                  if j >= ATR_DAYS else None)
-        shift = self._shift_map(d.iid, m[f].ts)
-        d.shift = shift
+        d.kmax = bisect.bisect_right(self.roll_ts, m[f].ts)
+        shift = d
         lv = {}
         prev = self.trading[k - 1] if k >= 1 else None
         i0 = self.sessions[s][0]
@@ -243,37 +273,39 @@ class Market(object):
                 out.append(Level("RN", p, "round", None))
         return out
 
-    def _vp(self, i0, i1, shift):
+    def _vp(self, i0, i1, day):
         tick, m = self.tick, self.minutes
         rows = []
-        for i in range(i0, i1):
-            s = shift.get(m[i].iid)
-            if s is None:
+        for r, a, b in self._runs(i0, i1):
+            sh = self._sh(r, day)
+            if sh is None:
                 return None
-            rows.append((round((m[i].low + s) / tick), round((m[i].high + s) / tick), m[i].volume))
+            for x in m[a:b]:
+                rows.append((int(math.floor((x.low + sh) / tick + 0.5 + 1e-6)),
+                             int(math.floor((x.high + sh) / tick + 0.5 + 1e-6)), x.volume))
         if not rows:
             return None
         base = min(r[0] for r in rows)
         top = max(r[1] for r in rows)
-        diff = [0.0] * (top - base + 2)
+        diff = [Fraction(0)] * (top - base + 2)
         for lo, hi, v in rows:
-            share = v / (hi - lo + 1)
+            share = Fraction(v, hi - lo + 1)
             diff[lo - base] += share
             diff[hi - base + 1] -= share
-        vol, run = [], 0.0
+        vol, run = [], Fraction(0)
         for x in diff[:-1]:
             run += x
             vol.append(run)
         total = sum(v for _, _, v in rows)
         if total <= 0:
             return None
-        mid = (base + top) / 2.0
+        mid2 = base + top                                        # twice the midpoint, in ticks
         best = max(vol)
         cands = [k for k, v in enumerate(vol) if v == best]
-        poc = min(cands, key=lambda k: (abs(k + base - mid), k))
+        poc = min(cands, key=lambda k: (abs(2 * (k + base) - mid2), k))
         a = b = poc
-        area = vol[poc]
-        while area < VA_SHARE * total - 1e-9 * total:
+        area, need = vol[poc], Fraction(7, 10) * total
+        while area < need:
             up = vol[b + 1] if b + 1 < len(vol) else None
             dn = vol[a - 1] if a - 1 >= 0 else None
             if up is None and dn is None:
@@ -288,16 +320,18 @@ class Market(object):
                 b += 1
                 a -= 1
                 area += up + dn
-        return [Level("VP", rnd((b + base) * tick, tick), "vah", None),
-                Level("VP", rnd((poc + base) * tick, tick), "poc", None),
-                Level("VP", rnd((a + base) * tick, tick), "val", None)]
+        return [Level("VP", (b + base) * tick, "vah", None),
+                Level("VP", (poc + base) * tick, "poc", None),
+                Level("VP", (a + base) * tick, "val", None)]
 
     # ------------------------------------------------------------------------------------------ hourly kinds
-    def _window(self, k, s, f, n_dates, shift):
+    def _window(self, k, s, f, n_dates, day):
         """-> (pattern bars [(g, high, low, close)], late) or None when a bar is unjoinable. Pattern bars: the
         hourly bars of the n_dates trading dates before s and of S(s) up to the bar ending 9:00. late(g) ->
         (max high, min low) of every minute after global bar g and before 9:30 on s (shifted); (None, None)
         when one of them is unjoinable."""
+        if k < n_dates:
+            return None
         i0 = self.sessions[s][0]
         i9 = next(i for i in range(i0, f + 1) if self.cal[i] == s and self.mod[i] >= 9 * 60)
         g9 = bisect.bisect_right(self.hbar_i0, i9) - 1          # the bar holding the first minute from 9:00
@@ -314,11 +348,11 @@ class Market(object):
         pat = []
         for g in g_idx:
             hb = self.hbars[g]
-            sh = shift.get(hb[3])
+            sh = self._sh(hb[3], day)
             if sh is None:
                 return None
             pat.append((g, rnd(hb[4] + sh, tick), rnd(hb[5] + sh, tick), rnd(hb[6] + sh, tick)))
-        hl_tail = self._hl(i9, f, shift) if i9 < f else None
+        hl_tail = self._hl(i9, f, day) if i9 < f else None
         if i9 < f and hl_tail is None:
             return None
         g_first = g_idx[0]
@@ -328,9 +362,9 @@ class Market(object):
         suf_l[n] = hl_tail[1] if hl_tail else float("inf")
         for x in range(n - 1, -1, -1):
             hb = self.hbars[g_first + x]
-            sh = shift.get(hb[3])
+            sh = self._sh(hb[3], day)
             if sh is None:
-                bad[x], suf_h[x], suf_l[x] = True, suf_h[x + 1], suf_l[x + 1]
+                return None
             else:
                 bad[x] = bad[x + 1]
                 suf_h[x] = max(suf_h[x + 1], rnd(hb[4] + sh, tick))

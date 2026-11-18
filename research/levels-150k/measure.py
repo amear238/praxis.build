@@ -21,7 +21,8 @@ full_days the calendar's length from 2018-01-01 to the data's end, headroom = pr
 
 Gate (plan step 3): average winner >= 2R, max_gap <= 7 and projected_profit >= 9,000.
 
-Run: python3 -I -B research/levels-150k/measure.py (one worker per market). Standard library only.
+Run: python3 -I -B research/levels-150k/measure.py [1|2] (candidate; one worker per market). Candidate 1 writes
+out/, candidate 2 out/c2/. Standard library only.
 """
 import importlib.util
 import json
@@ -46,7 +47,13 @@ FIRST, END = "2018-01-01", "2023-12-31"
 YEARS = ("2018", "2019", "2020", "2021", "2022", "2023")
 LIMIT, TARGET = 4500.0, 9000.0
 KINDS = levels.KINDS + ("ALL",)
-OUT = os.path.join(_HERE, "out")
+ENGINES = {"1": fade}
+TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)"}
+CAND = "1"
+
+
+def out_dir(cand):
+    return os.path.join(_HERE, "out") if cand == "1" else os.path.join(_HERE, "out", "c" + cand)
 
 
 def grid():
@@ -116,7 +123,8 @@ def _work(market):
     mk = levels.Market(data["minutes"], data["daily"], data["rolls"], sp, market)
     window = {d.date for d in mk.days if FIRST <= d.date <= END}
     full = sorted(d.date for d in mk.days if d.date >= FIRST)
-    out = {s["name"]: r_rows(fade.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid()}
+    eng = ENGINES[CAND]
+    out = {s["name"]: r_rows(eng.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid()}
     return market, out, sorted(window), full
 
 
@@ -156,8 +164,8 @@ HEAD = ["| Setting | Markets | Trades | Win % | Avg winner R | Net R | Gross R |
 
 def markdown(rows):
     passed = [(r["name"], k) for r in rows for k in ("all", "stable") if r["gate"][k]]
-    md = ["# Candidate 1 measuring pass, 2018-01-01 to 2023-12-31", "",
-          "Fade the first touch of a marked level (PLAN.md). Midpoint fills, every figure in R (the money one trade "
+    md = ["# %s: measuring pass, 2018-01-01 to 2023-12-31" % TITLES[CAND], "",
+          "PLAN.md. Midpoint fills, every figure in R (the money one trade "
           "risks), every market at the same risk, the portfolio's day lows summed at once. Sorted by projected "
           "profit at the size that keeps the $4,500 limit crossed in no more than 1 shuffle in 40.", "",
           "**Gate** (average winner at least 2R, never more than 7 trading days without a trade, projected profit at "
@@ -182,7 +190,11 @@ def markdown(rows):
     return md + [""]
 
 
-def main():
+def main(argv=None):
+    global CAND
+    argv = sys.argv[1:] if argv is None else argv
+    CAND = argv[0] if argv else "1"
+    OUT = out_dir(CAND)
     os.makedirs(OUT, exist_ok=True)
     with multiprocessing.get_context("fork").Pool(len(specs_mod.MARKETS)) as pool:
         results = pool.map(_work, specs_mod.MARKETS)

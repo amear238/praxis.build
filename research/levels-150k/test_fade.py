@@ -137,6 +137,10 @@ class Exits(unittest.TestCase):
         t = trades([OPEN, (10, 0, 95, 95, 89.75, 92), (12, 59, 93, 93, 91, 92.5)])[0]
         self.assertEqual((t["reason"], t["exit"], t["exit_ts"]), ("flat", 92.5, ts(2024, 1, 9, 12, 59)))
 
+    def test_an_early_close_on_the_entry_minute_counts_only_the_fill(self):
+        t = trades([OPEN, (10, 0, 95, 95, 89.75, 92)])[0]
+        self.assertEqual((t["reason"], t["exit"], t["worst"]), ("flat", 92.0, 2.0))
+
     def test_points_and_worst(self):
         t = trades([OPEN, (10, 0, 95, 95, 89.75, 92), (11, 0, 92, 93, 88, 92), (15, 55, 93, 99, 80, 93)])[0]
         self.assertEqual((t["points"], t["worst"]), (2.5, -2.0))           # exit 92.5; lows 89.75, 88; fill 92.5
@@ -173,6 +177,13 @@ class Spent(unittest.TestCase):
         mk = with_levels([OPEN, (10, 0, 100, 100, 89.0, 95), (15, 55, 98, 98, 98, 98)], ON96)
         t = fade.per_contract(mk, s, "midpoint", dates={"2024-01-09"})["trades"]
         self.assertEqual([(x["kind"], x["entry"]) for x in t], [("ON", 96.0)])
+
+    def test_equally_near_the_open_the_nearer_p0_fills(self):
+        s = dict(S, kind="ALL")
+        mk = with_levels([OPEN, (10, 0, 96, 96, 92.75, 95), (15, 55, 98, 98, 98, 98)],
+                         {"PD": [L("PD", 93.0, "low")], "SW": [L("SW", 99.0, "swing_low")]})
+        t = fade.per_contract(mk, s, "midpoint", dates={"2024-01-09"})["trades"]
+        self.assertEqual([(x["kind"], x["entry"]) for x in t], [("SW", 99.0)])
 
     def test_after_a_stop_the_next_level_can_fill(self):
         s = dict(S, kind="ALL")
@@ -223,6 +234,11 @@ class Account(unittest.TestCase):
         r = fade.account(by_m, self.SPECS, 0.1, 150000.0)
         self.assertEqual([t["balance_start"] for t in r["trades"]],
                          [150000.0, 150000.0, round(150000.0 + 2 * r["trades"][0]["net"], 2)])
+
+    def test_markets_go_in_the_input_order(self):
+        by_m = {"ES": [pc("ES", "2024-01-09", 5, 1, 50.0, 51.0, 2.0, 0.0)],
+                "NQ": [pc("NQ", "2024-01-09", 1, 1, 100.0, 101.0, 10.0, 0.0)]}
+        self.assertEqual([t["market"] for t in fade.account(by_m, self.SPECS, 0.1)["trades"]], ["ES", "NQ"])
 
     def test_digest_is_stable(self):
         by_m = {"NQ": [pc("NQ", "2024-01-09", 1, 1, 100.0, 110.0, 10.0, -4.0)]}

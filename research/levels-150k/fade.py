@@ -15,7 +15,7 @@ per_contract(mk, settings, fill, dates=None) -> {"trades": [...], "armed": {date
   Each minute of S(D) from the first at or after 9:30:
   - flat (no position): a minute stamped before 15:00 whose low is at least one tick below an armed long level
     (high one tick above a short's) trades through it. Of the levels traded through, the one nearest the
-    minute's open fills (ties as in arm), at the level exactly; the others are spent. The stop is checked on
+    minute's open fills (ties: the one nearer P0, then the long), at the level exactly; the others are spent. The stop is checked on
     the entry minute; the target is not.
   - in a position, in order: (1) a minute stamped at or after 15:55 closes at its open, one slippage against,
     inside the minute (reason "flat"); (2) the stop: long, open <= stop is a gap (reference the open), else
@@ -28,9 +28,9 @@ per_contract(mk, settings, fill, dates=None) -> {"trades": [...], "armed": {date
   minute; a flat exit's minute counts only at its fill.
 
 account(per_contract_by_market, specs, risk_pct, start) -> {"start", "trades", "skipped", "days", "digest"}.
-  Dates ascending, markets in specs order, trades by entry_ts. Every trade of a date is sized from the realised
+  Dates ascending, markets in the input's key order, trades by entry_ts. Every trade of a date is sized from the realised
   balance at the start of that date: risk = balance x risk_pct / 100; loss a contract = (dist + slip) x pv +
-  comm; qty = floor(risk / that), at most max_qty; under one contract: skipped. planned_cost = qty x loss a
+  comm; qty = floor(risk / that) computed exactly (fractions), at most max_qty; under one contract: skipped. planned_cost = qty x loss a
   contract; net = (exit - entry) x side x pv x qty - comm x qty; both to the cent. Day {date, start, end, low}
   for each date with a trade: low = start + the sum of (worst x pv - comm) x qty, never above min(start, end).
 
@@ -39,6 +39,7 @@ Standard library only. Run tests with python3 -I -B.
 import hashlib
 import json
 import math
+from fractions import Fraction
 
 import levels as lv_mod
 
@@ -139,7 +140,7 @@ def _sim_day(mk, day, armed, settings, fill, spec, market):
             hit = [n for n, a in enumerate(live) if not spent[n] and _through(b, a, tick, eps)]
             if not hit:
                 continue
-            hit.sort(key=lambda n: (abs(b.open - live[n]["level"]), KIND_ORDER[live[n]["kind"]], live[n]["level"]))
+            hit.sort(key=lambda n: (abs(b.open - live[n]["level"]), abs(live[n]["level"] - day.p0), -live[n]["side"]))
             for n in hit:
                 spent[n] = True
             a = live[hit[0]]
@@ -180,9 +181,9 @@ def _sim_day(mk, day, armed, settings, fill, spec, market):
         pos = None
         if t >= lv_mod.FLAT_MIN:
             break
-    if pos is not None:            # only when the entry minute was S(D)'s last minute
+    if pos is not None:            # only when the entry minute was S(D)'s last minute: it counts only at the fill
         b = m[day.end - 1]
-        trades.append(_close(pos, b, b.close, "flat", False, min(worst, (b.close - pos["entry"]) * pos["side"])))
+        trades.append(_close(pos, b, b.close, "flat", False, (b.close - pos["entry"]) * pos["side"]))
     return trades
 
 
@@ -205,12 +206,17 @@ def per_contract(mk, settings, fill, dates=None):
     return {"trades": trades, "armed": armed}
 
 
+def _fq(x):
+    """x to a billionth, exactly."""
+    return Fraction(round(x * 1e9), 10 ** 9)
+
+
 def _cents(x):
     return round(x + 0.0, 2)
 
 
 def account(per_contract_by_market, specs, risk_pct, start=150000.0):
-    order = {m: n for n, m in enumerate(specs)}
+    order = {m: n for n, m in enumerate(per_contract_by_market)}
     rows = sorted((t for ts in per_contract_by_market.values() for t in ts),
                   key=lambda t: (t["date"], order[t["market"]], t["entry_ts"]))
     bal = start
@@ -225,7 +231,9 @@ def account(per_contract_by_market, specs, risk_pct, start=150000.0):
             sp = specs[t["market"]]
             slip = sp["slip_ticks"] * sp["tick"]
             lpc = (t["dist"] + slip) * sp["pv"] + sp["comm"]
-            qty = min(int(math.floor(day_start * risk_pct / 100.0 / lpc + 1e-9)), sp["max_qty"])
+            exact = ((_fq(t["dist"]) + _fq(slip)) * Fraction(repr(float(sp["pv"]))) + Fraction(repr(float(sp["comm"]))))
+            qty = min(int(math.floor(Fraction(round(day_start * 100), 100) * Fraction(repr(float(risk_pct))) / 100
+                                     / exact)), sp["max_qty"])
             if qty < 1:
                 skipped.append({"market": t["market"], "date": date, "entry_ts": t["entry_ts"],
                                 "reason": "under one contract"})
