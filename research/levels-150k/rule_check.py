@@ -21,7 +21,11 @@ check_market3(...) and replay_market3(...), the same arguments, do candidate 3, 
     "Amendment, 2026-11-18: candidate 3, value area traversal", read at commit 911bd1c). settings = {"name",
     "kind": "VA", "k", "min_rr", "atr_days"}. Its "armed" holds (kind "VA", s, level = N, far = F, stop); each
     trade has level = N, target = F and setup_ts, the stamp of the second signal bar's last minute.
-    check_account serves all three candidates.
+check_market4(...) and replay_market4(...), the same arguments, do candidate 4, "acceleration through a level"
+    (PLAN.md, "Amendment, 2026-11-18: candidate 4, acceleration through a level", read at commit 61db1e6).
+    settings = {"name", "kind", "k", "target": 3, "atr_days"}. Its "armed" is candidate 2's (kind, s, R, stop);
+    each trade has level = R, break_ts and trigger = E, the price of the stop order to enter.
+    check_account serves all four candidates.
 
 Trades are matched by (date, side, level), so a wrong entry minute shows as a differing field. The armed sets
 are compared date by date as multisets of (kind, side, level, stop), with far added for candidate 3; a date
@@ -195,6 +199,65 @@ R38. Settings: kind "VA", k, min_rr (m, any number >= 0; the grid uses 0, 2 and 
      No target multiple is read. check_account compares setup_ts wherever a trade carries one, as it does
      break_ts.
 
+Candidate 4, acceleration through a level. R1 to R23 hold. R27 holds with entry = the entry stop's fill (R46) and
+target = entry + s x 3 x the stop distance (R47). R24 to R26 (candidate 2's retest) are replaced by R40 to R45.
+R28 to R38 do not apply.
+
+R39. The armed set, its order, "armed", R and the stop are candidate 2's (R21): a line's R is the level and its
+     stop R - s x d; a zone's R is its far edge and its stop d beyond its near edge. The break and break_ts are
+     R23's, on R22's bars, whatever any position or entry is doing.
+R40. The trigger E: long, the highest raw high over every minute of the break bar, plus one tick; short, the
+     lowest raw low, minus one tick. Not the last minute's extreme and not the close. E is raw, never rounded to
+     the grid (R6), so on data carrying half ticks of the traded contract (6E, 6A, 6J) it can lie half a tick
+     off the grid. A trade's trigger field is E.
+R41. The window: from the next minute in the data after the break bar's last minute to the last minute stamped
+     before 3:00 PM on D, then the entry lapses. The break bar's own minutes never act on its entry: none can
+     meet E, which lies beyond their extreme, and one reaching the stop cancels nothing, the order not yet
+     resting. A break on the bar starting 2:45 PM leaves no minute (as R24), and nor does any break whose next
+     minute is at or after 3:00 PM.
+R42. The three steps, for one entry on one minute, in the amendment's order. Long: step 1, open <= stop; step 2,
+     high >= E; step 3, low <= stop. Short: open >= stop, low <= E, high >= stop. Each is within a millionth of
+     a tick, so an open exactly at the stop cancels, a high exactly at E triggers, and a low exactly at the stop
+     with E unmet cancels. An entry's fate is fixed on the first minute of its window where any step acts. As the
+     open lies inside the minute's range, that is the first minute whose high meets E or whose low reaches the
+     stop. A minute that meets E and reaches the stop, but opens above the stop, triggers (step 2 comes before
+     step 3) and is then stopped on that same minute (R48).
+R43. Steps 1 and 3 act whatever else is going on: a resting entry is cancelled by its stop while another position
+     is open, too. A cancelled, spent or lapsed entry leaves no record; it shows only in "armed".
+R44. A position is open from its entry minute to its exit minute, both included (R15). An entry whose trigger is
+     met on such a minute is spent, on the exit minute as well, whatever the exit. A level broken while a
+     position is open has its entry resting from the minute after its break bar like any other (R23); it fills
+     when its deciding minute (R42) comes after the exit minute.
+R45. Ties: only the entries whose step 2 is met on one minute while no position is open are in it. One cancelled
+     by step 1 on that minute is not. The key is |E - open|, then |R - open|, then |R - P0|, then the long, then
+     candidate 1's arming order (R14). Each distance is absolute and in ticks, compared within a millionth of a
+     tick, so an open beyond E counts its distance past E. Entries of one side broken by the same bar share E,
+     so R decides. A long and a short can never be met on one minute: each long's stop lies above P0 and each
+     short's below (candidate 1 arms a level only more than d from P0), so whichever side breaks later closes
+     its break bar beyond the other side's stop, and that cancels or fills the other first. "Then the long" is
+     therefore never reached; it is kept as written. Equal E, equal R and one side occur when a zone's far edge
+     lies on a line level more than d from the zone's near edge; candidate 1's arming order decides.
+R46. The entry fill is the exit stop's fill turned round (R20's arithmetic). Long: the reference is the open when
+     the open >= E (within a millionth of a tick), else E. Midpoint (reference + high) / 2 rounded up to the
+     tick; kind min(reference + slip, high); harsh the high. Short: the open when it is <= E; (reference + low)
+     / 2 rounded down; max(reference - slip, low); the low. Raw prices. An open exactly at E fills the same
+     either way.
+R47. The trade: entry = the fill; stop = candidate 2's; dist = (entry - stop) x s, unrounded, so it carries the
+     fill; target = entry + s x 3 x dist, rounded to the nearest tick as R6 rounds. With a fill on the grid the
+     target is already on it, and with half-tick data 4 x entry - 3 x stop is too, so the rounding only removes
+     float noise. level = R, kind = the armed level's kind.
+R48. The exits and worst are R16 to R18 from the entry minute: the stop checked on the entry minute (never a gap
+     there, by step 1), the target from the next minute (high >= target + 1 tick, filled at the target), flat at
+     3:55 PM, the early close at S(D)'s last minute. worst counts the entry minute's whole adverse extreme (a
+     long: its low, though the fill came at or above E), as R36.
+R49. fill sets the entry stop's fill and the exit stop's fill together.
+R50. Trades are matched by (date, side, R) as in candidate 2. Two entries with one R and one side share E and
+     their window, so at most one of them trades (the other loses the tie or is cancelled first) and the key
+     stays unique.
+R51. Settings: kind (the seven and ALL), k, target (3; absent is read as 3; anything else is refused) and
+     atr_days (14 if absent).
+R52. check_account compares trigger, as a price within a millionth of a tick, wherever a trade carries one.
+
 Standard library only. Python 3.14, run with python3 -I -B.
 """
 import bisect
@@ -236,8 +299,8 @@ class _NoJoin(Exception):
     """A minute the kind needs cannot be joined to the traded contract (R4, R5)."""
 
 
-# An armed level, prices in ticks. L = the entry price (candidate 1: the level; candidate 2: R); near = |L - P0|;
-# brk = the index of the break bar's last minute (candidate 2); order = its place in candidate 1's arming.
+# An armed level, prices in ticks. L = the level (candidate 1) or R (candidates 2 and 4); near = |L - P0|;
+# brk = the index of the break bar's last minute (candidates 2 and 4); order = its place in candidate 1's arming.
 _Lv = namedtuple("_Lv", "kind side L stop dist near brk order", defaults=(None, 0))
 QUARTER_NS = 900 * NS
 HALF_NS = 1800 * NS
@@ -764,17 +827,22 @@ def _touches1(prep, D, armed):
     return out
 
 
+def _break(prep, D, a):
+    """Candidates 2 and 4: the index of the last minute of a's break bar, the first 15-minute bar closing a tick
+    beyond R in the direction s (R22, R23), or None."""
+    tick, eps, C = prep.tick, prep.tick * _EPS, prep.c
+    if a.side > 0:
+        x = (a.L + 1) * tick - eps
+        return next((j for j in prep.quarters(D) if C[j] >= x), None)
+    x = (a.L - 1) * tick + eps
+    return next((j for j in prep.quarters(D) if C[j] <= x), None)
+
+
 def _touches2(prep, D, armed):
     """Candidate 2: each armed level's break bar (R22, R23), then its first retest minute after it (R24, R25)."""
-    tick, eps, C = prep.tick, prep.tick * _EPS, prep.c
     out = []
     for a in armed:
-        if a.side > 0:
-            x = (a.L + 1) * tick - eps
-            brk = next((j for j in prep.quarters(D) if C[j] >= x), None)
-        else:
-            x = (a.L - 1) * tick + eps
-            brk = next((j for j in prep.quarters(D) if C[j] <= x), None)
+        brk = _break(prep, D, a)
         if brk is None:
             continue
         f = _fill_minute(prep, D, a, brk + 1)
@@ -863,7 +931,7 @@ def _window(first, last):
     return (-_INF if first is None else _dayno(first)), (_INF if last is None else _dayno(last))
 
 
-def _replay(arm, touches, minutes, daily, rolls, spec, settings, fill, market, first, last):
+def _replay(arm, touches, minutes, daily, rolls, spec, settings, fill, market, first, last, day=_trade_day):
     if fill not in FILLS:
         raise ValueError(f"fill {fill!r} is not one of {FILLS}")
     kinds, k, t_mult, n_atr = _settings(settings)
@@ -879,7 +947,7 @@ def _replay(arm, touches, minutes, daily, rolls, spec, settings, fill, market, f
             continue
         armed_out[_iso(D)] = [{"kind": a.kind, "side": a.side, "level": a.L * tick, "stop": a.stop * tick}
                               for a in armed]
-        trades.extend(_trade_day(prep, D, touches(prep, D, armed), t_mult, fill, slip, market))
+        trades.extend(day(prep, D, touches(prep, D, armed), t_mult, fill, slip, market))
     return {"trades": trades, "armed": armed_out}
 
 
@@ -991,6 +1059,90 @@ def replay_market3(minutes, daily, rolls, spec, settings, fill, market, first=No
         if t is not None:
             trades.append(t)
     return {"trades": trades, "armed": armed_out}
+
+
+# ------------------------------------------------------------------------------------------------ candidate 4
+def _settings4(settings):
+    """Candidate 4's target is fixed at 3 (R51): absent or 3 is read as 3, anything else is refused."""
+    t = settings.get("target", 3)
+    if isinstance(t, bool) or t != 3:
+        raise ValueError(f"candidate 4's target is 3 times the risk, not {t!r}")
+    return dict(settings, target=3)
+
+
+def _touches4(prep, D, armed):
+    """Candidate 4: each armed entry's break bar (R22, R23), its trigger E (R40) and the minute its trigger is
+    met first in its window, before any cancel (R41 to R43). -> [(minute, armed entry with brk, E in points)]."""
+    tick, eps = prep.tick, prep.tick * _EPS
+    i930, i1500 = prep.tinfo[D][3], prep.tinfo[D][4]
+    O, H, L = prep.o, prep.h, prep.l
+    nl, nh = prep.chains(D)
+    q = prep.quarters(D)
+    out = []
+    for a in armed:
+        brk = _break(prep, D, a)
+        if brk is None:
+            continue
+        p = bisect.bisect_left(q, brk)
+        b0 = q[p - 1] + 1 if p else i930                    # the break bar's first minute
+        stop, w = a.stop * tick, brk + 1                    # the window opens on the next minute in the data
+        if a.side > 0:
+            E = max(H[b0:brk + 1]) + tick
+            hit = _first(H, nh, i930, w, E - eps, i1500, False)         # step 2: high >= E
+            cut = _first(L, nl, i930, w, stop + eps, i1500, True)       # steps 1 and 3: low <= stop
+            beyond = hit < i1500 and O[hit] <= stop + eps
+        else:
+            E = min(L[b0:brk + 1]) - tick
+            hit = _first(L, nl, i930, w, E + eps, i1500, True)
+            cut = _first(H, nh, i930, w, stop - eps, i1500, False)
+            beyond = hit < i1500 and O[hit] >= stop - eps
+        if hit >= i1500 or cut < hit or beyond:            # lapsed, cancelled by step 3, cancelled by step 1
+            continue
+        out.append((hit, a._replace(brk=brk), E))
+    return out
+
+
+def _tie4(op, g):
+    """The tie key of g = (armed entry, E) on a minute opening at op, in ticks (R45)."""
+    a, E = g
+    return (round(abs(E - op), 6), round(abs(a.L - op), 6), round(a.near, 6), -a.side, a.order)
+
+
+def _trade_day4(prep, D, touches, t_mult, fill, slip, market):
+    """Candidate 4's trades from [(trigger minute, armed entry, E)]: one position at a time, spent entries and the
+    tie, the entry stop's fill, then candidate 1's exits (R44 to R48)."""
+    tick = prep.tick
+    O, H, L, TS = prep.o, prep.h, prep.l, prep.ts
+    touches = sorted(touches, key=lambda x: x[0])
+    out, busy, q = [], -1, 0
+    while q < len(touches):
+        f = touches[q][0]
+        group = []
+        while q < len(touches) and touches[q][0] == f:
+            group.append(touches[q][1:])
+            q += 1
+        if f <= busy:                       # triggered while a position is open, or on its exit minute: spent
+            continue
+        op = O[f] / tick
+        a, E = min(group, key=lambda g: _tie4(op, (g[0], g[1] / tick)))
+        side, stop = a.side, a.stop * tick
+        entry = _stop_fill(O[f], H[f], L[f], E, -side, slip, tick, fill)[0]     # a stop order, turned (R46)
+        dist = (entry - stop) * side
+        target = prep._rt(entry + side * t_mult * dist) * tick
+        x, px, reason, gap, worst = _exit(prep, D, f, side, entry, stop, target, fill, slip)
+        out.append({"market": market, "date": _iso(D), "kind": a.kind, "level": a.L * tick, "side": side,
+                    "entry_ts": TS[f], "entry": entry, "stop": stop, "dist": dist, "target": target,
+                    "break_ts": TS[a.brk], "trigger": E, "exit_ts": TS[x], "exit": px, "reason": reason,
+                    "gap": gap, "points": (px - entry) * side, "worst": worst})
+        busy = x
+    return out
+
+
+def replay_market4(minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 4 (acceleration through a level), the rule's own per_contract output for one market: "armed" is
+    candidate 2's (kind, s, R, stop) and each trade has level = R, break_ts and trigger = E."""
+    return _replay(_arm2, _touches4, minutes, daily, rolls, spec, _settings4(settings), fill, market, first, last,
+                   _trade_day4)
 
 
 # ------------------------------------------------------------------------------------------------ comparing
@@ -1123,6 +1275,18 @@ def check_market3(got, minutes, daily, rolls, spec, settings, fill, market, firs
         return [f"fill {fill!r} is not one of {FILLS}"]
     mine = replay_market3(minutes, daily, rolls, spec, settings, fill, market, first, last)
     return _check(got, mine, spec, market, _T3_FIELDS, ("level", "far", "stop"))
+
+
+_T4_FIELDS = _T_FIELDS + (("break_ts", "eq"), ("trigger", "px"))
+
+
+def check_market4(got, minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 4 (acceleration through a level): breaks between the engine's per_contract output and the rule's
+    replay."""
+    if fill not in FILLS:
+        return [f"fill {fill!r} is not one of {FILLS}"]
+    mine = replay_market4(minutes, daily, rolls, spec, settings, fill, market, first, last)
+    return _check(got, mine, spec, market, _T4_FIELDS)
 
 
 def _check(got, mine, spec, market, fields, armed_fields=("level", "stop")):
@@ -1265,7 +1429,8 @@ def check_account(result, per_contract_by_market, specs_by_market, risk_pct, sta
         m, t = mk[k], by_key[k]
         label = f"account: trade {k[0]} {k[1]} entered {k[2]}"
         tol = float(specs_by_market[k[0]]["tick"]) * _EPS
-        extra = tuple((f, "eq") for f in ("break_ts", "setup_ts") if f in m)     # candidates 2 and 3
+        extra = tuple((f, "eq") for f in ("break_ts", "setup_ts") if f in m)     # candidates 2, 3 and 4
+        extra += (("trigger", "px"),) if "trigger" in m else ()                 # candidate 4 (R52)
         _field_breaks(breaks, label, m, t, _A_PRICE_FIELDS + extra + (("qty", "eq"),), tol)
         for f in ("planned_cost", "net"):
             if f not in t:

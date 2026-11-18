@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Tests for rule_check.py, the independent replay of candidates 1, 2 and 3 of the levels plan (PLAN.md, "Candidate
-1: fade the first touch of a marked level. The exact rule" and the two amendments of 2026-11-18). Every expected
+"""Tests for rule_check.py, the independent replay of candidates 1 to 4 of the levels plan (PLAN.md, "Candidate
+1: fade the first touch of a marked level. The exact rule" and the three amendments of 2026-11-18). Every expected
 level and trade below was worked out by hand from the written rule; the working is in the comments. Each rule
 gets the right engine output, which must pass clean, and a deliberately wrong one, which must be caught.
 
@@ -1559,6 +1559,419 @@ class Candidate3Tests(Case3):
         self.assertTrue(any("planned_cost" in x for x in b), b)
 
 
+# ---------------------------------------------------------------------------------------------- candidate 4
+# Acceleration through a level (the amendment of 2026-11-18). The armed set is candidate 2's (ARMED2 on 03-05: a
+# long R 110 stop 108 and a short R 90 stop 92). When a 15-minute bar closes a tick beyond R, a stop order to
+# enter rests at E, a tick beyond the break bar's extreme, from the next minute to the last minute before 3:00
+# PM. Each minute, per entry: (1) an open at or beyond the stop cancels; (2) else a high >= E (long) triggers;
+# (3) else a low reaching the stop cancels. The entry fills like an exit stop turned round: midpoint (judged)
+# halfway from the reference (E, or a gapping open) to the high, rounded up. Target = entry + 3 x |entry - stop|.
+def st4(kind, k=0.2):
+    return {"name": f"{kind}-k{k}-T3", "kind": kind, "k": k, "target": 3, "atr_days": 14}
+
+
+def trade4(day, kind, side, R, stop, entry, E, break_at, entry_at, exit_at, exit_, reason, worst, gap=False):
+    """A candidate 4 trade: dist = (entry - stop) x side, target = entry + side x 3 x dist (on the tick grid)."""
+    dist = (entry - stop) * side
+    return {"market": "NQ", "date": day, "kind": kind, "level": float(R), "side": side,
+            "entry_ts": ts(f"{day} {entry_at}"), "entry": float(entry), "stop": float(stop), "dist": float(dist),
+            "target": float(entry + side * 3 * dist), "break_ts": ts(f"{day} {break_at}"), "trigger": float(E),
+            "exit_ts": ts(f"{day} {exit_at}"), "exit": float(exit_), "reason": reason, "gap": gap,
+            "points": float((exit_ - entry) * side), "worst": float(worst)}
+
+
+class Case4(Case):
+    def breaks(self, g, minutes, settings, rolls=(), fill=None, market=None, spec=None, daily_=None, first=None,
+               last=None):
+        return rc.check_market4(g, minutes, self.daily_ if daily_ is None else daily_, list(rolls),
+                                spec or self.spec, settings, fill or self.fill, market or self.market, first, last)
+
+
+FLAT4 = (("15:55", 120, 121, 119, 120), ("16:00", 120, 120, 120, 120))     # a long still open is sold at 119
+# The 9:30 bar: 9:30 (P0, high 101), 9:35 (high 113) and 9:44 (close 111 = R + 1 tick): the break, break_ts
+# 9:44. The bar's high is 113, over all its minutes, so E = 114 (not 112 from the last minute's high 111).
+BRK4 = (("09:35", 101, 113, 101, 106), ("09:44", 106, 111, 106, 111))
+
+
+class Candidate4Tests(Case4):
+    # C1. 9:50's high 113 is under E. 10:00 (open 112, high 117) triggers: the reference is E 114, the midpoint
+    # (114 + 117) / 2 = 115.5 rounds up to 116. Stop 108, dist 8, target 116 + 24 = 140. Flat at 119. worst:
+    # 10:00's low 111 - 116 = -5 (the flat minute counts only at its fill). points 3.
+    C1 = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 112, 117, 111, 116), *FLAT4)
+    C1_TRADE = trade4("2024-03-05", "PD", 1, 110, 108, 116, 114, "09:44", "10:00", "15:55", 119, "flat", -5)
+
+    def test_trigger_is_a_tick_beyond_the_whole_break_bars_high(self):
+        self.assertEqual(self.C1_TRADE["target"], 140.0)
+        self.clean(got([self.C1_TRADE], ARMED2), self.C1, st4("PD"))
+        # E from the last minute's high (112): triggered at 9:50, reference 112, midpoint 113
+        g = got([dict(self.C1_TRADE, entry_ts=ts("2024-03-05 09:50"), trigger=112.0, entry=113.0, dist=5.0,
+                      target=128.0, points=6.0, worst=-3.0)], ARMED2)
+        self.caught(g, "entry_ts", self.C1, st4("PD"))
+        self.caught(got([dict(self.C1_TRADE, trigger=113.0)], ARMED2), ": trigger is 113", self.C1, st4("PD"))
+        g = got([dict(self.C1_TRADE, break_ts=ts("2024-03-05 09:30"))], ARMED2)    # the bar's start
+        self.caught(g, "break_ts", self.C1, st4("PD"))
+
+    def test_armed_list_is_candidate_2s_whether_or_not_it_breaks(self):
+        # the short R 90 never breaks; it is listed all the same
+        self.caught(got([self.C1_TRADE], {"2024-03-05": ARMED2["2024-03-05"][:1]}), "PD short at 90 stop 92 missing",
+                    self.C1, st4("PD"))
+        self.caught(got([self.C1_TRADE], PD_ARMED), "missing", self.C1, st4("PD"))     # candidate 1's own set
+        # a date with nothing armed: an empty list and a date left out are the same
+        mins = PRIOR + [m("2024-03-05 16:00", 100, 100, 100, 100)]
+        self.clean(got([], dict(ARMED2, **{"2024-03-04": []})), mins, st4("PD"))
+
+    def test_each_entry_fill_and_a_gap_open_beyond_e(self):
+        # 10:00 opens 112 under E 114, high 117: midpoint 116, kind 114 + 1 = 115, harsh 117. worst 111 - entry.
+        for fill, x in (("midpoint", 116), ("kind", 115), ("harsh-stops", 117)):
+            with self.subTest(fill=fill):
+                t = trade4("2024-03-05", "PD", 1, 110, 108, x, 114, "09:44", "10:00", "15:55", 119, "flat", 111 - x)
+                self.clean(got([t], ARMED2), self.C1, st4("PD"), fill=fill)
+        # the midpoint rounded down (115) instead of up
+        t = trade4("2024-03-05", "PD", 1, 110, 108, 115, 114, "09:44", "10:00", "15:55", 119, "flat", -4)
+        self.caught(got([t], ARMED2), ": entry is 115", self.C1, st4("PD"))
+        # 10:00 opens 116, beyond E: the reference is the open. Midpoint (116 + 119) / 2 = 117.5 -> 118; kind 117;
+        # harsh 119. From E instead: midpoint 117, kind 115.
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 116, 119, 111, 118), *FLAT4)
+        for fill, x, wrong in (("midpoint", 118, 117), ("kind", 117, 115), ("harsh-stops", 119, None)):
+            with self.subTest(fill=fill, gap=True):
+                t = trade4("2024-03-05", "PD", 1, 110, 108, x, 114, "09:44", "10:00", "15:55", 119, "flat", 111 - x)
+                self.clean(got([t], ARMED2), mins, st4("PD"), fill=fill)
+                if wrong is not None:
+                    t = trade4("2024-03-05", "PD", 1, 110, 108, wrong, 114, "09:44", "10:00", "15:55", 119, "flat",
+                               111 - wrong)
+                    self.caught(got([t], ARMED2), ": entry is", mins, st4("PD"), fill=fill)
+
+    def test_a_short_mirrors_with_the_low_rounded_down(self):
+        # 9:44 closes 89 = 90 - 1 tick: the short breaks; the bar's low 88 gives E 87. 9:50's low 88 is above E.
+        # 10:00 (open 88, low 84) triggers: reference 87; midpoint (87 + 84) / 2 = 85.5 -> 85; kind 86; harsh 84.
+        # Its high 89 is under the stop 92. Flat at 15:55: 80 + 1 = 81. worst: 10:00's high 89 -> entry - 89.
+        mins = day5(("09:44", 95, 95, 88, 89), ("09:50", 89, 90, 88, 89), ("10:00", 88, 89, 84, 85),
+                    ("15:55", 80, 81, 79, 80), ("16:00", 80, 80, 80, 80))
+        for fill, x in (("midpoint", 85), ("kind", 86), ("harsh-stops", 84)):
+            with self.subTest(fill=fill):
+                t = trade4("2024-03-05", "PD", -1, 90, 92, x, 87, "09:44", "10:00", "15:55", 81, "flat", x - 89)
+                self.clean(got([t], ARMED2), mins, st4("PD"), fill=fill)
+        t = trade4("2024-03-05", "PD", -1, 90, 92, 86, 87, "09:44", "10:00", "15:55", 81, "flat", -3)
+        self.caught(got([t], ARMED2), ": entry is 86", mins, st4("PD"))                 # rounded up
+        t = trade4("2024-03-05", "PD", -1, 90, 92, 85, 89, "09:44", "10:00", "15:55", 81, "flat", -4)
+        self.caught(got([t], ARMED2), ": trigger is 89", mins, st4("PD"))              # E from the high side
+
+    def test_window_opens_the_minute_after_the_break_bar(self):
+        # The 9:30 bar closes 104 (its 9:44 high 116 breaks nothing: closes decide). The 9:45 bar (9:46, 9:59)
+        # closes 111: the break, E = its own high 112 + 1 = 113, not the previous bar's 116 + 1. Both its minutes
+        # dip to or below the stop 108 (lows 106, 107), but the order is not resting yet. 10:05 triggers:
+        # reference 113, midpoint (113 + 114) / 2 = 113.5 -> 114. dist 6. worst 110 - 114 = -4.
+        mins = day5(("09:44", 101, 116, 101, 104), ("09:46", 106, 110, 106, 109), ("09:59", 109, 112, 107, 111),
+                    ("10:05", 111, 114, 110, 113), *FLAT4)
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 114, 113, "09:59", "10:05", "15:55", 119, "flat", -4)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))      # cancelled inside the break bar, or E 117
+
+    def test_the_break_needs_a_close_a_full_tick_beyond_r_on_either_side(self):
+        # Long: the 9:30 bar closes 110 = R (high 115): no break. The 9:45 bar closes 111: E = its high 112 + 1.
+        # 10:05 triggers: midpoint 113.5 -> 114; worst 110 - 114 = -4. Had 9:44 broken, E would be 116 and nothing
+        # after it reaches 116.
+        mins = day5(("09:44", 105, 115, 105, 110), ("09:50", 110, 111, 109, 110), ("09:59", 110, 112, 109, 111),
+                    ("10:05", 111, 114, 110, 113), *FLAT4)
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 114, 113, "09:59", "10:05", "15:55", 119, "flat", -4)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))
+        # Short: the 9:30 bar closes 90 = R (low 85): no break. The 9:45 bar closes 89: E = its low 88 - 1 = 87.
+        # 10:05 triggers: midpoint 86.5 -> 86; flat 81; worst (90 - 86) x -1 = -4. A break at 9:44 gives E 84.
+        mins = day5(("09:44", 95, 95, 85, 90), ("09:50", 90, 91, 89, 90), ("09:59", 90, 91, 88, 89),
+                    ("10:05", 89, 90, 86, 87), ("15:55", 80, 81, 79, 80), ("16:00", 80, 80, 80, 80))
+        right = trade4("2024-03-05", "PD", -1, 90, 92, 86, 87, "09:59", "10:05", "15:55", 81, "flat", -4)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))
+
+    def test_a_high_exactly_at_e_triggers(self):
+        # 10:00's high 114 is E exactly: it triggers. Reference 114, midpoint 114; dist 6. worst 111 - 114 = -3.
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 112, 114, 111, 113), *FLAT4)
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 114, 114, "09:44", "10:00", "15:55", 119, "flat", -3)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))      # a high above E required
+
+    def test_an_open_at_the_stop_cancels_though_the_minute_meets_e(self):
+        # 10:00 opens at the stop 108 exactly, high 115 >= E 114: step 1 cancels. 10:30 meets E: nothing rests.
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 108, 115, 108, 114),
+                    ("10:30", 114, 118, 113, 117), *FLAT4)
+        self.clean(got([], ARMED2), mins, st4("PD"))
+        # step 2 first: filled at 10:00 (reference 114, midpoint 115) and stopped there (108)
+        t = trade4("2024-03-05", "PD", 1, 110, 108, 115, 114, "09:44", "10:00", "10:00", 108, "stop", -7)
+        self.caught(got([t], ARMED2), "extra", mins, st4("PD"))
+        # the cancel ignored: filled at 10:30 (reference 114, midpoint 116)
+        t = trade4("2024-03-05", "PD", 1, 110, 108, 116, 114, "09:44", "10:30", "15:55", 119, "flat", -3)
+        self.caught(got([t], ARMED2), "extra", mins, st4("PD"))
+
+    def test_the_stop_reached_before_the_trigger_cancels(self):
+        # 10:00's low 108 reaches the stop exactly and its high 113 is under E 114: step 3 cancels. 10:30 meets E.
+        rows = (("10:30", 112, 118, 112, 117),) + FLAT4
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 111, 113, 108, 109), *rows)
+        filled = trade4("2024-03-05", "PD", 1, 110, 108, 116, 114, "09:44", "10:30", "15:55", 119, "flat", -4)
+        self.clean(got([], ARMED2), mins, st4("PD"))
+        self.caught(got([filled], ARMED2), "extra", mins, st4("PD"))
+        # a low one tick above the stop cancels nothing: 10:30 fills (reference 114, midpoint 116)
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 111, 113, 109, 110), *rows)
+        self.clean(got([filled], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))
+
+    def test_a_minute_meeting_e_and_the_stop_fills_then_stops(self):
+        # 10:00 opens 110 (above the stop), high 116 >= E, low 106 <= the stop: step 2 comes first, so it fills
+        # (reference 114, midpoint 115), then the stop is checked on the entry minute: reference 108 (no gap, the
+        # open is above it), midpoint (108 + 106) / 2 = 107. worst 106 - 115 = -9.
+        mins = day5(*BRK4, ("09:50", 111, 113, 110, 112), ("10:00", 110, 116, 106, 107),
+                    ("10:30", 112, 118, 112, 117), *FLAT4)
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 115, 114, "09:44", "10:00", "10:00", 107, "stop", -9)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))       # step 3 before step 2: cancelled
+        self.caught(got([dict(right, gap=True)], ARMED2), ": gap is True", mins, st4("PD"))
+
+    def test_a_long_is_cancelled_by_its_stop_before_a_short_can_break(self):
+        # The long breaks at 9:44 (E 113). 10:00 falls to 100: the long's stop 108 is reached, E unmet: cancelled.
+        # 10:14 closes 89: the short breaks, E = the 10:00 bar's low 88 - 1 = 87. 10:20 triggers: reference 87,
+        # midpoint (87 + 86) / 2 = 86.5 -> 86; dist 6. 10:30 stops it: reference 92, midpoint (92 + 93) / 2 =
+        # 92.5 -> 93. 10:40 would trigger the long, had it not been cancelled. worst (93 - 86) x -1 = -7.
+        mins = day5(("09:44", 105, 112, 105, 111), ("10:00", 111, 112, 100, 101), ("10:14", 95, 95, 88, 89),
+                    ("10:20", 89, 90, 86, 87), ("10:30", 88, 93, 88, 92), ("10:40", 100, 114, 100, 113),
+                    ("16:00", 113, 113, 113, 113))
+        short = trade4("2024-03-05", "PD", -1, 90, 92, 86, 87, "10:14", "10:20", "10:30", 93, "stop", -7)
+        self.clean(got([short], ARMED2), mins, st4("PD"))
+        long_ = trade4("2024-03-05", "PD", 1, 110, 108, 114, 113, "09:44", "10:40", "16:00", 113, "flat", 0)
+        self.caught(got([short, long_], ARMED2), "extra", mins, st4("PD"))
+
+    # The 3:00 PM lapse. 14:44 closes the 2:30 bar at 111: broken, E = 112.
+    def test_last_entry_minute_is_1459(self):
+        # 14:59 triggers: reference 112, midpoint 112.5 -> 113. dist 5. worst 110 - 113 = -3.
+        mins = day5(("14:44", 105, 111, 105, 111), ("14:59", 111, 113, 110, 112), *FLAT4)
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 113, 112, "14:44", "14:59", "15:55", 119, "flat", -3)
+        self.clean(got([right], ARMED2), mins, st4("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st4("PD"))
+
+    def test_the_entry_lapses_at_300_pm(self):
+        mins = day5(("14:44", 105, 111, 105, 111), ("14:50", 111, 111, 110, 111), ("15:00", 111, 113, 110, 112),
+                    *FLAT4)
+        self.clean(got([], ARMED2), mins, st4("PD"))
+        t = trade4("2024-03-05", "PD", 1, 110, 108, 113, 112, "14:44", "15:00", "15:55", 119, "flat", -3)
+        self.caught(got([t], ARMED2), "extra", mins, st4("PD"))
+
+    def test_a_break_on_the_bar_starting_1445_gives_no_entry(self):
+        # 14:59 closes the 2:45 bar at 111: broken, but its next minute, 15:00, is past the window.
+        mins = day5(("14:59", 105, 111, 105, 111), ("15:00", 111, 113, 110, 112), *FLAT4)
+        self.clean(got([], ARMED2), mins, st4("PD"))
+        t = trade4("2024-03-05", "PD", 1, 110, 108, 113, 112, "14:59", "15:00", "15:55", 119, "flat", -3)
+        self.caught(got([t], ARMED2), "extra", mins, st4("PD"))
+
+    def test_dist_and_the_3r_target_from_the_fill_not_on_the_entry_minute(self):
+        # Kind fill. 9:44 breaks, E 112. 10:00 triggers: reference 112, kind 113. dist 113 - 108 = 5, target
+        # 113 + 15 = 128. 10:00's high 130 is past the target, but no target on the entry minute. 10:01's high 128
+        # only touches it; 10:02's high 129 is a tick through: target at 128. worst 110 - 113 = -3.
+        mins = day5(("09:44", 105, 111, 105, 111), ("10:00", 111, 130, 110, 125), ("10:01", 125, 128, 124, 127),
+                    ("10:02", 127, 129, 126, 128), ("16:00", 128, 128, 128, 128))
+        right = trade4("2024-03-05", "PD", 1, 110, 108, 113, 112, "09:44", "10:00", "10:02", 128, "target", -3)
+        self.assertEqual((right["dist"], right["target"]), (5.0, 128.0))
+        self.clean(got([right], ARMED2), mins, st4("PD"), fill="kind")
+        self.caught(got([dict(right, exit_ts=ts("2024-03-05 10:00"))], ARMED2), "exit_ts", mins, st4("PD"),
+                    fill="kind")
+        self.caught(got([dict(right, exit_ts=ts("2024-03-05 10:01"))], ARMED2), "exit_ts", mins, st4("PD"),
+                    fill="kind")
+        # candidate 2's target, R + 3 x |R - stop| = 116, and the distance from E (4)
+        self.caught(got([dict(right, target=116.0)], ARMED2), ": target is 116", mins, st4("PD"), fill="kind")
+        self.caught(got([dict(right, dist=4.0)], ARMED2), ": dist is 4", mins, st4("PD"), fill="kind")
+
+    def test_early_close(self):
+        # 2024-07-03 halts at 13:00; 18:00 is the next session. k 0.4, d 4: the long R 110 has stop 106. 9:44
+        # breaks, E 112; 10:00 triggers (midpoint 113, dist 7). 12:59's low 107 is above the stop; the trade
+        # closes at its close 114, reason flat. worst: 10:00's low 110 -> -3; the exit minute only at its fill.
+        mins = [m("2024-07-02 10:00", 100, 110, 90, 100), m("2024-07-03 09:30", 100, 101, 99, 100),
+                m("2024-07-03 09:44", 105, 111, 105, 111), m("2024-07-03 10:00", 111, 113, 110, 112),
+                m("2024-07-03 12:59", 115, 116, 107, 114), m("2024-07-03 18:00", 114, 115, 100, 101)]
+        armed = {"2024-07-03": [arm("PD", 1, 110, 106), arm("PD", -1, 90, 94)]}
+        right = trade4("2024-07-03", "PD", 1, 110, 106, 113, 112, "09:44", "10:00", "12:59", 114, "flat", -3)
+        self.clean(got([right], armed), mins, st4("PD", 0.4))
+        # the 18:00 reopen taken as part of the day: stopped there (midpoint of 106 and 100 = 103)
+        g = got([dict(right, exit_ts=ts("2024-07-03 18:00"), exit=103.0, reason="stop", points=-10.0, worst=-13.0)],
+                armed)
+        self.caught(g, "exit_ts", mins, st4("PD", 0.4))
+
+    SD_BARS = KindTests.SD_BARS
+
+    def test_zone_r_at_the_far_edge_stop_beyond_the_near_edge_and_e_met_exactly(self):
+        # KindTests' demand zone 100 to 103 (P0 110) is candidate 2's short: R = the far edge 100, stop = the near
+        # edge 103 + d = 105. 9:44 closes 99: broken; the 9:30 bar's low 98 gives E 97. 9:50's low 97 meets E
+        # exactly: reference 97 (the open 99 is above it), midpoint 97. dist 8, target 73. Flat 90 + 1 = 91.
+        # worst: 9:50's high 100 -> (100 - 97) x -1 = -3.
+        mins = sorted(KindTests.sd(self) + [
+            m("2024-03-15 09:44", 103, 104, 98, 99), m("2024-03-15 09:50", 99, 100, 97, 98),
+            m("2024-03-15 15:55", 90, 91, 89, 90)], key=lambda b: b.ts)
+        armed = {"2024-03-15": [arm("SD", -1, 100, 105)]}
+        right = trade4("2024-03-15", "SD", -1, 100, 105, 97, 97, "09:44", "09:50", "15:55", 91, "flat", -3)
+        self.clean(got([right], armed), mins, st4("SD"))
+        self.caught(got([], armed), "missing", mins, st4("SD"))         # a trigger needing a low below E
+        # R at the near edge 103 (the stop 105 kept)
+        g = got([dict(right, level=103.0)], {"2024-03-15": [arm("SD", -1, 103, 105)]})
+        self.caught(g, "missing", mins, st4("SD"))
+        # the stop d beyond the far edge (102): dist 5, target 82
+        g = got([dict(right, stop=102.0, dist=5.0, target=82.0)], {"2024-03-15": [arm("SD", -1, 100, 102)]})
+        self.caught(g, ": stop is 102", mins, st4("SD"))
+
+    # BASE4, k 0.4 (d 4). S(03-04) is 112 / 97 with a volume spike at 100, so its volume levels sit at P0; ON
+    # (03-05 9:00) is 106 / 98. Candidate 1 shorts ON 106 (6 from P0) and PD 112 (12; 6 from ON's); PD 97 and
+    # ON 98 are within d. Candidate 4: longs ON R 106 stop 102 (arming order 0) and PD R 112 stop 108 (order 1).
+    BASE4 = [m("2024-03-04 10:00", 100, 112, 97, 100, v=1), m("2024-03-04 10:01", 100, 100, 100, 100, v=1000),
+             m("2024-03-05 09:00", 100, 106, 98, 100), m("2024-03-05 09:30", 100, 101, 99, 100)]
+    ARMED4 = {"2024-03-05": [arm("ON", 1, 106, 102), arm("PD", 1, 112, 108)]}
+    # ON breaks on the 9:30 bar with a spike: high 125, close 108 >= 107, so E_ON = 126. PD breaks on the 9:45
+    # bar (9:59 closes 113, high 114): E_PD = 115.
+    SPIKE4 = (("09:35", 101, 125, 101, 107), ("09:44", 107, 108, 106, 108), ("09:59", 108, 114, 108, 113))
+
+    def all4(self, *rows):
+        return self.BASE4 + [m(f"2024-03-05 {t}", o, h, l, c) for t, o, h, l, c in rows]
+
+    def test_all_arms_the_base(self):
+        self.clean(got([], self.ARMED4), self.all4(("16:00", 100, 100, 100, 100)), st4("ALL", 0.4))
+
+    def test_a_level_broken_while_a_position_is_open_still_rests_and_fills_after_the_exit(self):
+        # Kind fill. 9:44 closes 108: ON breaks, E 109. 9:50 (open 108, high 140) fills ON: reference 109, kind
+        # 110; dist 8, target 134 (not on the entry minute, though its high is 140). 9:59 closes the 9:45 bar at
+        # 113 while ON is open: PD breaks, E = that bar's high 140 + 1 = 141. 10:10's high 136 takes ON's target
+        # 134; PD's 141 is not met. 10:30 (high 142) fills PD: reference 141, kind 142; dist 34. Flat at 149.
+        # ON's worst: lows 108, 111, 129 -> -2. PD's: 137 - 142 = -5.
+        mins = self.all4(("09:44", 101, 108, 101, 108), ("09:50", 108, 140, 108, 112), ("09:59", 112, 114, 111, 113),
+                         ("10:10", 130, 136, 129, 135), ("10:30", 138, 142, 137, 141), ("15:55", 150, 151, 149, 150),
+                         ("16:00", 150, 150, 150, 150))
+        on = trade4("2024-03-05", "ON", 1, 106, 102, 110, 109, "09:44", "09:50", "10:10", 134, "target", -2)
+        pd = trade4("2024-03-05", "PD", 1, 112, 108, 142, 141, "09:59", "10:30", "15:55", 149, "flat", -5)
+        self.clean(got([on, pd], self.ARMED4), mins, st4("ALL", 0.4), fill="kind")
+        self.caught(got([on], self.ARMED4), "missing", mins, st4("ALL", 0.4), fill="kind")
+
+    def test_an_entry_triggered_while_a_position_is_open_is_spent(self):
+        # 10:00 fills PD (reference 115, midpoint 115.5 -> 116; dist 8). 10:05 meets ON's E 126 while PD is open:
+        # ON is spent. 10:10 stops PD (reference 108, midpoint 107.5 -> 107); its low 107 is above ON's stop 102.
+        # 10:30 meets ON's E again: no trade. PD's worst: lows 110, 117, 107 -> -9.
+        mins = self.all4(*self.SPIKE4, ("10:00", 113, 116, 110, 115), ("10:05", 118, 127, 117, 120),
+                         ("10:10", 112, 113, 107, 108), ("10:30", 115, 127, 115, 126), ("16:00", 126, 126, 126, 126))
+        pd = trade4("2024-03-05", "PD", 1, 112, 108, 116, 115, "09:59", "10:00", "10:10", 107, "stop", -9)
+        self.clean(got([pd], self.ARMED4), mins, st4("ALL", 0.4))
+        on = trade4("2024-03-05", "ON", 1, 106, 102, 127, 126, "09:44", "10:30", "16:00", 126, "flat", -12)
+        self.caught(got([pd, on], self.ARMED4), "extra", mins, st4("ALL", 0.4))
+
+    def test_an_entry_triggered_on_a_trades_exit_minute_is_spent(self):
+        # As above, but 10:05 stays under ON's E, and 10:10 both stops PD and meets ON's E: on the exit minute,
+        # so ON is spent. 10:30 meets it again: no trade.
+        mins = self.all4(*self.SPIKE4, ("10:00", 113, 116, 110, 115), ("10:05", 116, 120, 115, 118),
+                         ("10:10", 112, 127, 107, 108), ("10:30", 115, 127, 115, 126), ("16:00", 126, 126, 126, 126))
+        pd = trade4("2024-03-05", "PD", 1, 112, 108, 116, 115, "09:59", "10:00", "10:10", 107, "stop", -9)
+        self.clean(got([pd], self.ARMED4), mins, st4("ALL", 0.4))
+        for at in ("10:10", "10:30"):
+            on = trade4("2024-03-05", "ON", 1, 106, 102, 127, 126, "09:44", at, "16:00", 126, "flat", -12)
+            self.caught(got([pd, on], self.ARMED4), "extra", mins, st4("ALL", 0.4))
+
+    def test_tie_goes_to_the_e_nearer_the_open_before_the_r(self):
+        # 10:00 opens 124 and its high 127 meets both: ON's E 126 is 2 from the open, PD's 115 is 9. ON fills,
+        # though PD's R (12 away) is nearer the open than ON's (18). ON: reference 126, midpoint 126.5 -> 127;
+        # dist 25. Flat at 129. worst 120 - 127 = -7.
+        mins = self.all4(*self.SPIKE4, ("10:00", 124, 127, 120, 126), ("15:55", 130, 131, 129, 130),
+                         ("16:00", 130, 130, 130, 130))
+        on = trade4("2024-03-05", "ON", 1, 106, 102, 127, 126, "09:44", "10:00", "15:55", 129, "flat", -7)
+        self.clean(got([on], self.ARMED4), mins, st4("ALL", 0.4))
+        # PD by its R: reference = the open 124 (beyond its E), midpoint 125.5 -> 126
+        pd = trade4("2024-03-05", "PD", 1, 112, 108, 126, 115, "09:59", "10:00", "15:55", 129, "flat", -6)
+        self.caught(got([pd], self.ARMED4), "missing", mins, st4("ALL", 0.4))
+
+    def test_tie_in_one_break_bar_goes_to_the_r_nearer_the_open_then_nearer_p0(self):
+        # 9:44 closes 113: ON and PD break on the same bar, so both have E = its high 114 + 1 = 115.
+        # Open 110: PD's R is 2 away, ON's 4: PD fills (reference 115, midpoint 116; dist 8). worst 110 - 116.
+        # Open 109: both R are 3 away; ON's R is 6 from P0, PD's 12: ON fills (midpoint 116; dist 14).
+        for op, kind, R, stop in ((110, "PD", 112, 108), (109, "ON", 106, 102)):
+            with self.subTest(open=op):
+                mins = self.all4(("09:44", 101, 114, 101, 113), ("10:00", op, 116, op, 115), *FLAT4)
+                right = trade4("2024-03-05", kind, 1, R, stop, 116, 115, "09:44", "10:00", "15:55", 119, "flat",
+                               op - 116)
+                self.clean(got([right], self.ARMED4), mins, st4("ALL", 0.4))
+                other = [a for a in self.ARMED4["2024-03-05"] if a["kind"] != kind][0]
+                wrong = trade4("2024-03-05", other["kind"], 1, other["level"], other["stop"], 116, 115, "09:44",
+                               "10:00", "15:55", 119, "flat", op - 116)
+                self.caught(got([wrong], self.ARMED4), "missing", mins, st4("ALL", 0.4))
+
+    def test_an_entry_cancelled_by_its_open_is_not_in_the_tie(self):
+        # PD's 9:45 break bar has high 113: E_PD 114. 10:00 opens 108, at PD's stop: PD is cancelled (step 1),
+        # though its E (6 from the open) is nearer than ON's 126 (18). ON alone fills: reference 126, midpoint
+        # 126.5 -> 127. worst 108 - 127 = -19.
+        mins = self.all4(("09:35", 101, 125, 101, 107), ("09:44", 107, 108, 106, 108), ("09:59", 108, 113, 108, 113),
+                         ("10:00", 108, 127, 108, 126), ("15:55", 130, 131, 129, 130), ("16:00", 130, 130, 130, 130))
+        on = trade4("2024-03-05", "ON", 1, 106, 102, 127, 126, "09:44", "10:00", "15:55", 129, "flat", -19)
+        self.clean(got([on], self.ARMED4), mins, st4("ALL", 0.4))
+        # PD in the tie and winning it: reference 114, midpoint 120.5 -> 121, stopped on its entry minute at 108
+        pd = trade4("2024-03-05", "PD", 1, 112, 108, 121, 114, "09:59", "10:00", "10:00", 108, "stop", -13)
+        self.caught(got([pd], self.ARMED4), "missing", mins, st4("ALL", 0.4))
+
+    # A full tie: a demand zone's far edge on a round number. Ten trading dates, one 10:00 minute each: 03-04 is
+    # the base (103 / 100, range 3), 03-05 the impulse (140 / 102, range 38, close 138), then eight at 137 / 133.
+    # A60 = 73 / 10 = 7.3: the base is <= 3.65, the impulse >= 14.6. Nothing after the impulse trades into the
+    # zone. On 03-18 (P0 112) every other level is beyond the 2 x ATR band (133 and up) or absent, except RN 100.
+    # Candidate 1 arms SD 103 (stop 100 - 2 = 98; order 0) and RN 100 (3 from 103; stop 98; order 1). Candidate
+    # 4: two shorts with R 100: SD stop 105, RN stop 102.
+    FULL = ([m("2024-03-04 10:00", 101, 103, 100, 102), m("2024-03-05 10:00", 102, 140, 102, 138)] +
+            [m(f"2024-03-{d:02d} 10:00", 135, 137, 133, 135) for d in (6, 7, 8, 11, 12, 13, 14, 15)] +
+            [m("2024-03-18 09:30", 112, 113, 111, 112)])
+    FULL_ARMED = {"2024-03-18": [arm("SD", -1, 100, 105), arm("RN", -1, 100, 102)]}
+
+    def test_full_tie_goes_to_candidate_1s_arming_order(self):
+        # 9:44 closes 99: both break on one bar, E = its low 98 - 1 = 97. 9:50 (open 99, low 96) meets both: E,
+        # R and P0 are equally far for both, both short. SD fills, first in candidate 1's arming: reference 97,
+        # midpoint 96.5 -> 96; dist 9, target 69. Flat at 15:55: 90 + 1 = 91. worst: 9:50's high 100 -> -4.
+        mins = self.FULL + [m("2024-03-18 09:44", 105, 106, 98, 99), m("2024-03-18 09:50", 99, 100, 96, 97),
+                            m("2024-03-18 15:55", 90, 91, 89, 90), m("2024-03-18 16:00", 90, 90, 90, 90)]
+        right = trade4("2024-03-18", "SD", -1, 100, 105, 96, 97, "09:44", "09:50", "15:55", 91, "flat", -4)
+        one = {"first": "2024-03-18", "last": "2024-03-18"}
+        self.clean(got([right], self.FULL_ARMED), mins, st4("ALL"), **one)
+        rn = trade4("2024-03-18", "RN", -1, 100, 102, 96, 97, "09:44", "09:50", "15:55", 91, "flat", -4)
+        self.caught(got([rn], self.FULL_ARMED), ": kind is 'RN', rule says 'SD'", mins, st4("ALL"), **one)
+
+    def test_tie_key_order_and_the_long_before_the_short(self):
+        # A long and a short can never be met on one minute (R45), so "then the long" is checked on the key
+        # itself: equal distances from the open, equal distances from P0, the short first in the arming.
+        op = 100.0
+        lng = rc._Lv("PD", 1, 104, 102, 2, 4, None, 1)
+        sht = rc._Lv("PD", -1, 96, 98, 2, 4, None, 0)
+        self.assertIs(min(((lng, 106.0), (sht, 94.0)), key=lambda g: rc._tie4(op, g))[0], lng)
+        # each earlier part of the key outranks the later ones
+        a = rc._Lv("ON", 1, 104, 102, 2, 4, None, 0)
+        self.assertIs(min(((a, 107.0), (lng, 106.0)), key=lambda g: rc._tie4(op, g))[0], lng)       # E
+        b = rc._Lv("ON", 1, 105, 103, 2, 5, None, 0)
+        self.assertIs(min(((b, 106.0), (lng, 106.0)), key=lambda g: rc._tie4(op, g))[0], lng)       # R
+        c = rc._Lv("ON", 1, 96, 94, 2, 3, None, 2)
+        self.assertIs(min(((lng, 106.0), (c, 106.0)), key=lambda g: rc._tie4(op, g))[0], c)         # P0
+
+    def test_bad_settings_and_fill(self):
+        mins = self.C1
+        self.assertTrue(self.breaks(got([self.C1_TRADE], ARMED2), mins, st4("PD"), fill="soft"))
+        for t in (5, None, 0):
+            with self.subTest(target=t), self.assertRaises(ValueError):
+                rc.replay_market4(mins, DAILY, [], SPEC, dict(st4("PD"), target=t), "midpoint", "NQ")
+        s = st4("PD")
+        del s["target"]
+        self.assertEqual(rc.replay_market4(mins, DAILY, [], SPEC, s, "midpoint", "NQ")["trades"], [self.C1_TRADE])
+
+    def test_account_sizes_on_the_fills_distance_and_carries_trigger(self):
+        # C1's trade: dist 8. Loss for one (8 + 1) x 10 + 2 = 92; 1 % of $10,000 = 100 -> 1 contract, planned 92.
+        # Net 3 x 10 - 2 = 28. Day low 10,000 + (-5 x 10 - 2) = 9,948.
+        per = {"NQ": {"trades": [self.C1_TRADE]}}
+        right = {"start": 10000.0, "trades": [dict(self.C1_TRADE, qty=1, planned_cost=92.0, net=28.0,
+                                                   balance_start=10000.0)],
+                 "skipped": [], "days": [{"date": "2024-03-05", "start": 10000.0, "end": 10028.0, "low": 9948.0}]}
+        self.assertEqual(rc.check_account(right, per, {"NQ": SPEC}, 1.0, 10000.0), [])
+        for f, v in (("trigger", 115.0), ("break_ts", right["trades"][0]["break_ts"] + 60 * NS)):
+            wrong = copy.deepcopy(right)
+            wrong["trades"][0][f] = v
+            b = rc.check_account(wrong, per, {"NQ": SPEC}, 1.0, 10000.0)
+            self.assertTrue(any(f"{f} is" in x for x in b), (f, b))
+        wrong = copy.deepcopy(right)
+        wrong["trades"][0]["planned_cost"] = 96.0       # sized on |R - stop| = 2: (2 + 1) x 10 + 2 = 32, 3 of them
+        b = rc.check_account(wrong, per, {"NQ": SPEC}, 1.0, 10000.0)
+        self.assertTrue(any("planned_cost" in x for x in b), b)
+
+
 # ---------------------------------------------------------------------------------------------- a random market
 class RandomMarketTests(unittest.TestCase):
     """Twenty days of random-walk minutes, every kind: the replay must run end to end, agree with itself, find
@@ -1688,6 +2101,81 @@ class RandomMarketTests(unittest.TestCase):
         a = self.replay(s)
         rc.clear_cache()
         self.assertEqual(self.replay(s), a)
+
+    def test_candidate_4_runs_agrees_with_itself_and_keeps_the_rule(self):
+        """Every kind, k and fill: the check passes its own replay, and every trade meets the rule read straight
+        off the minutes: E a tick beyond the break bar's extreme, no minute of the window before the entry
+        meeting E or reaching the stop, the entry minute opening inside the stop, the fill at or beyond E inside
+        the minute, the entry before 3:00 PM and the target 3 x the fill's distance."""
+        tick, eps, Q = 0.25, 1e-9, 900 * NS
+        idx = {b.ts: i for i, b in enumerate(self.mins)}
+        seen, reasons = set(), set()
+        for kind in rc.KINDS + ("ALL",):
+            for k in (0.1, 0.2, 0.4):
+                for fill in rc.FILLS:
+                    s = st4(kind, k)
+                    g = rc.replay_market4(self.mins, self.daily, self.rolls, self.spec, s, fill, "NQ")
+                    self.assertEqual(rc.check_market4(g, self.mins, self.daily, self.rolls, self.spec, s, fill,
+                                                      "NQ"), [], (kind, k, fill))
+                    if g["trades"]:
+                        seen.add(kind)
+                    for t in g["trades"]:
+                        sd = t["side"]
+                        reasons.add(t["reason"])
+                        a = {(x["kind"], x["side"], x["level"], x["stop"]) for x in g["armed"][t["date"]]}
+                        self.assertIn((t["kind"], sd, t["level"], t["stop"]), a)
+                        b, e = idx[t["break_ts"]], idx[t["entry_ts"]]
+                        self.assertGreaterEqual((self.mins[b].close - t["level"]) * sd, tick - eps)
+                        q0 = t["break_ts"] // Q * Q
+                        bar = [x for x in self.mins[b - 15:b + 1] if x.ts >= q0]
+                        ext = max(x.high for x in bar) if sd > 0 else min(x.low for x in bar)
+                        self.assertAlmostEqual(t["trigger"], ext + sd * tick)
+                        for x in self.mins[b + 1:e]:            # nothing decided the entry earlier
+                            self.assertLess((x.high if sd > 0 else -x.low), sd * t["trigger"] - eps)
+                            self.assertGreater((x.low if sd > 0 else -x.high), sd * t["stop"] + eps)
+                        y = self.mins[e]
+                        self.assertGreater((y.open - t["stop"]) * sd, eps)
+                        self.assertGreaterEqual(((y.high if sd > 0 else y.low) - t["trigger"]) * sd, -eps)
+                        self.assertGreaterEqual((t["entry"] - t["trigger"]) * sd, -eps)
+                        self.assertTrue(y.low - eps <= t["entry"] <= y.high + eps)
+                        wall = datetime.fromtimestamp(t["entry_ts"] // NS, NY)
+                        self.assertLess((wall.hour, wall.minute), (15, 0))
+                        self.assertAlmostEqual(t["dist"], (t["entry"] - t["stop"]) * sd)
+                        self.assertAlmostEqual(t["target"], t["entry"] + sd * 3 * t["dist"])
+                        if t["reason"] == "target":
+                            self.assertAlmostEqual(t["points"], 3 * t["dist"])
+        self.assertEqual(seen, set(rc.KINDS) | {"ALL"})
+        self.assertEqual(reasons, {"stop", "target", "flat"})
+
+    def test_candidate_4_any_changed_field_is_caught(self):
+        s = st4("ALL", 0.1)
+        g = rc.replay_market4(self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+        self.assertGreater(len(g["trades"]), 10)
+        rnd = random.Random(10)
+        for _ in range(40):
+            h = copy.deepcopy(g)
+            t = rnd.choice(h["trades"])
+            f = rnd.choice(("entry", "stop", "dist", "target", "exit", "points", "worst", "entry_ts", "exit_ts",
+                            "break_ts", "trigger", "reason", "gap", "kind"))
+            if f.endswith("_ts"):
+                t[f] += 60 * NS
+            elif f == "reason":
+                t[f] = "stop" if t[f] != "stop" else "flat"
+            elif f == "gap":
+                t[f] = not t[f]
+            elif f == "kind":
+                t[f] = "ON" if t[f] != "ON" else "PD"
+            else:
+                t[f] += 0.25
+            b = rc.check_market4(h, self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+            self.assertTrue(any(f"{f} is" in x for x in b), (f, b))
+
+    def test_candidate_4_reproduces_on_a_second_run_and_from_a_cold_cache(self):
+        s = st4("ALL", 0.2)
+        a = rc.replay_market4(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ")
+        self.assertEqual(rc.replay_market4(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ"), a)
+        rc.clear_cache()
+        self.assertEqual(rc.replay_market4(self.mins, self.daily, self.rolls, self.spec, s, "kind", "NQ"), a)
 
 
 class RandomMarket3Tests(unittest.TestCase):
