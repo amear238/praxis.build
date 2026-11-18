@@ -85,13 +85,13 @@ The grid of the measuring pass: three signals (S1, S2, S3) × four stops (k = 0.
 
 ## The pre-screen's result, 2026-11-18 (`out/PRESCREEN.md`)
 
-The drop rule does not fire, so the full method runs, on the grid and markets fixed above, unchanged. What it shows, 2018 to 2023, no stop:
+The drop rule does not fire, so the full method runs, on the grid and markets fixed above, unchanged. What it shows, 2018 to 2023, no stop (figures after the independent check's readings C1, C5 and C6 were taken into the pre-screen; see `out/VERDICT.md`):
 
-- Only the Nasdaq on the rest-of-day signal (S1) clears costs: 9.5 ticks before costs a trade, against a round trip of 7.8, so +1.7 ticks after, positive in both halves (10.8 and 8.2). That is the one market the paper's figures pointed to before any data was read.
-- Every other market and signal loses after costs. The S&P and the Russell are positive before costs on S1 (3.1 and 2.9 ticks) but below their costs (5.5 and 7.8). Bonds and currencies are positive before costs on all three signals, by under 1.2 ticks, against costs of 2.3 to 5.0. Crude and gold have no edge before costs.
-- The first-half-hour signal (S2) loses on the Nasdaq in 2021 to 2023 (-17.4 ticks before costs).
+- Only the Nasdaq on the rest-of-day signal (S1) clears costs: 9.0 ticks before costs a trade, against a round trip of 7.8, so +1.2 ticks after, positive in both halves (10.1 and 7.9). That is the one market the paper's figures pointed to before any data was read.
+- Every other market and signal loses after costs. The S&P and the Russell are positive before costs on S1 (3.0 ticks each) but below their costs (5.5 and 7.8). Bonds and currencies are positive before costs on all three signals, by under 1.3 ticks, against costs of 2.3 to 5.0. Crude and gold have at most 1.2 ticks before costs, against 5.9.
+- The first-half-hour signal (S2) loses on the Nasdaq in 2021 to 2023 (-19.2 ticks before costs).
 
-Checked: 17 tests, 16 faults planted in the pre-screen and all caught; the first two Nasdaq days of 2018 read by hand against the raw minutes; a second run byte for byte the same.
+Checked: 19 tests, 16 faults planted in the pre-screen and all caught; the first two Nasdaq days of 2018 read by hand against the raw minutes; a second run byte for byte the same.
 
 ## Amendment, 2026-11-18, before any engine code: the fills, the size, and what each trade records
 

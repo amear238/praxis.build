@@ -26,8 +26,9 @@ Work that does not move toward that is frozen: MyFundedFutures follow-up, the He
 | **Marked levels, candidate 2: break and retest (2026-11-18)** | **fails before the full run.** All 72 versions lose on the eleven markets together; before costs the best is 0.02 of the risk a trade ahead, and costs take it. The nearest (all kinds, Nasdaq alone) misses all three tests narrowly: average winner 1.65 of the risk against 2, 8 days with no trade against 7, $8,403 against $9,000 | `research/levels-150k/out/c2/VERDICT.md` |
 | **Marked levels, candidate 3: value area traversal, the "80% rule" (2026-11-18)** | **fails before the full run.** Price reached the far edge in 35% of trades, not 80%. The 3 versions with no filter lose, before costs too; asking for 2 or 3 to 1 leaves winners at 0.46 to 1.25 of the risk and weeks with no trade. Nearest (Nasdaq alone): $10,117 projected, but winners 1.51 of the risk and 84 days with no trade | `research/levels-150k/out/c3/VERDICT.md` |
 | **Marked levels, candidate 4: acceleration through a level (2026-11-18)** | **fails before the full run.** A stop order one tick past the 15-minute bar that closes through a level, target 3 times the risk: 23 of 24 versions lose, even before costs; only 2.4% of trades reach the target, two in three close at 3:55 PM, winners 0.46 to 1.17 of the risk. Nearest (all kinds, Nasdaq alone): 7 days with no trade, but winners 1.03 of the risk and $8,005 | `research/levels-150k/out/c4/VERDICT.md` |
+| **Momentum into the close (2026-11-18)** | **fails before the full run.** The one family the published record left standing (the day's move so far predicts the last half hour; Baltussen and others, 2021): buy or sell 30 minutes before the close, flat at the close. All 12 versions lose on all 11 markets, 131 of 132 even before commissions. Tight stops give winners over twice the risk but are hit 90% of the time; wide stops leave winners at 0.4 of the risk. The Nasdaq, the one market whose edge before costs beats its costs, still loses at every setting | `research/close-momentum-150k/out/VERDICT.md` |
 
-Checks on candidates 1 to 4: each rule check was written by a separate agent from the plan alone. The checks replayed every trade with no break: 779,621 trades for candidate 1, 470,619 for 2, 28,599 for 3, 141,289 for 4. Every measurement reproduces byte for byte, and planted faults in real trades were caught. Published record searched first: no level method shows profit after costs (`research/levels-150k/PLAN.md`).
+Checks: each rule check was written by a separate agent from the plan alone. The checks replayed every trade with no break: 779,621 trades for levels candidate 1, 470,619 for 2, 28,599 for 3, 141,289 for 4, 516,900 for momentum into the close. Every measurement reproduces byte for byte, and planted faults in real trades were caught. Published record searched first: no level method shows profit after costs (`research/levels-150k/PLAN.md`).
 
 Earlier, on the $50,000 stand-in: none of Noise-Area's twelve passed; candidate 1 and four variations, none passed.
 
@@ -37,16 +38,19 @@ Nothing. Run the heavy jobs one at a time: two at once ran the machine out of me
 
 ## What is next, in order
 
-1. **The widened research pass** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). The marked-levels plan is finished: all four candidates, fixed in order before any result, failed at the gate (`research/levels-150k/PLAN.md`). The blind marking check was never reached, because no version passed.
-   - **Next: choose the next family before any code.** In all four level candidates and in trend-following, the versions that trade often enough for the 7-day bar win on average less than twice the risk. A written search of the published record comes first, for a method with profit after costs that can meet all three gate bars at once. One option already on the task list, parked in the old agent chain with a design but no code: the drift before scheduled announcements (task `Praxis_build-ckh`). Alone it trades too rarely for the 7-day bar.
+1. **The widened research pass** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). The marked-levels plan is finished, and the published-record search of 2026-11-18 (`research/close-momentum-150k/PLAN.md`) left one family standing, momentum into the close, which has now failed too.
+   - **Next: decide where the search goes.** Across every family tried, the versions that trade often enough for the 7-day bar win on average less than twice the risk, and the published intraday edges are smaller than our costs. Ruled out by the record: the drift before Fed and other announcements (gone after 2015, or its side not knowable), the overnight drift (flat 2021-2025), the Treasury auction cycle (needs a hold of days). No family left in that search meets all the bars at once.
 2. Before any final run on micros: confirm MyFundedFutures lists every micro used.
 3. Results for the stop-distance versions and candidates 2 to 4 of the old shortlist sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
-1. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+1. **Where the search goes next.** The paths left need his word: his own bars (winners at twice the risk; even without that bar, no version has met the 7-day bar and $9,000 at once), buying finer data for order-flow or scalping ideas (spending), or his own hand marks tested directly (his time). Recommended: a short voice brief on those three.
+2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
 
 Decided without waiting, reversible (2026-11-18, his ruling): "mark out the charts or spreads" is read as marking levels on price charts. Trading one market against another (a spread) is not in the pass unless he says so.
+
+Decided without waiting, reversible (2026-11-18, momentum into the close): its stock index trades close at 4:00 PM, not 3:55 PM, because the effect is measured to the 4:00 PM close; still ten minutes before MyFundedFutures' 4:10 PM close.
 
 Decided without waiting, reversible (2026-11-18, candidate 4): his midpoint fill ruling ("the average one, which is in between") is read as covering a stop order that enters a trade, not only one that exits.
 
