@@ -9,15 +9,38 @@ Run: ~/.venvs/databento/bin/python research/data/fetch_daily_batch.py [--resume]
 """
 import glob
 import os
-import shutil
+import struct
 import sys
 import time
+import zipfile
+from compression import zstd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import databento as db  # noqa: E402
 import fetch_databento as f  # noqa: E402
 
 SCHEMA, START = "ohlcv-1d", "2010-06-06"
+
+
+def _join(paths, dest):
+    """One DBN file from several of one symbol: the first file's header, then every file's records, by stamp."""
+    head, recs = None, []
+    for p in paths:
+        raw = zstd.decompress(open(p, "rb").read())
+        if raw[:3] != b"DBN":
+            sys.exit(f"STOPPED: not DBN: {p}")
+        (mlen,) = struct.unpack_from("<I", raw, 4)
+        if head is None:
+            head = raw[:8 + mlen]
+        body = raw[8 + mlen:]
+        if len(body) % 56:
+            sys.exit(f"STOPPED: partial records in {p}")
+        recs += [body[i:i + 56] for i in range(0, len(body), 56)]
+    recs.sort(key=lambda b: struct.unpack_from("<Q", b, 8)[0])
+    tmp = dest + ".part"
+    with open(tmp, "wb") as fh:
+        fh.write(zstd.compress(head + b"".join(recs)))
+    os.replace(tmp, dest)
 
 
 def main():
@@ -46,7 +69,8 @@ def main():
             print(f"resuming {jid} ({r}: {', '.join(syms)})", flush=True)
         else:
             job = client.batch.submit_job(dataset=f.DATASET, symbols=[f"{m}.{r}" for m in syms], schema=SCHEMA,
-                                          start=START, end=f.END, stype_in="continuous", split_symbols=True)
+                                          start=START, end=f.END, stype_in="continuous", split_symbols=True,
+                                          split_duration="none")
             jid = job["id"]
             print(f"submitted {jid} ({r}: {', '.join(syms)})", flush=True)
         while True:
@@ -59,16 +83,29 @@ def main():
             time.sleep(15)
         keep = os.path.join(f.OUT, f"batch-{jid}")   # paid data: a kept folder, never a temporary one
         os.makedirs(keep, exist_ok=True)
-        client.batch.download(job_id=jid, output_dir=keep)
+        for attempt in range(1, 8):   # a finished job's files download again at no charge
+            try:
+                for z in glob.glob(os.path.join(keep, "**", "*.zip"), recursive=True):
+                    os.remove(z)
+                client.batch.download(job_id=jid, output_dir=keep)
+                break
+            except db.BentoError as e:
+                print(f"  download retry {attempt}: {e}", flush=True)
+                time.sleep(15 * attempt)
+        else:
+            sys.exit(f"FAILED: could not download job {jid}")
+        for z in glob.glob(os.path.join(keep, "**", "*.zip"), recursive=True):
+            with zipfile.ZipFile(z) as zf:
+                zf.extractall(os.path.dirname(z))
         files = [p for p in glob.glob(os.path.join(keep, "**", "*.dbn.zst"), recursive=True)]
         for m in syms:
-            hit = [p for p in files if f"{m}.{r}" in os.path.basename(p)]
-            if len(hit) != 1:
-                sys.exit(f"STOPPED: expected one file for {m}.{r} in {keep}, found "
-                         f"{[os.path.basename(p) for p in files]} (files kept; rename by hand)")
+            hit = sorted(p for p in files if os.path.basename(p).endswith(f".{m}.{r}.dbn.zst"))
+            if not hit:
+                sys.exit(f"STOPPED: no file for {m}.{r} in {keep} (files kept)")
             dest = os.path.join(f.OUT, f.file_name(m, r, SCHEMA, START, f.END))
-            shutil.move(hit[0], dest)
-            print(f"saved {os.path.basename(dest)} ({os.path.getsize(dest) / 1e6:.2f} MB)", flush=True)
+            _join(hit, dest)
+            print(f"saved {os.path.basename(dest)} from {len(hit)} file(s) "
+                  f"({os.path.getsize(dest) / 1e6:.2f} MB)", flush=True)
     print("done", flush=True)
 
 
