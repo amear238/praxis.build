@@ -23,9 +23,12 @@ Gate (plan step 3): average winner >= 2R, max_gap <= 7 and projected_profit >= 9
 
 Candidate 3 (value area traversal, traverse.py) has its own grid: k in (0.1, 0.2, 0.4) x min_rr in (0, 2, 3), 9
 settings; the same R, market sets, portfolio figures and gate. Candidate 4 (acceleration through a level, accel.py):
-the eight kinds x k in (0.1, 0.2, 0.4), the target fixed at 3: 24 settings.
+the eight kinds x k in (0.1, 0.2, 0.4), the target fixed at 3: 24 settings. Candidate 5 (momentum into the close,
+research/close-momentum-150k/closemom.py, its own PLAN.md): signal in (S1, S2, S3) x k in (0.025, 0.05, 0.1, 0.2),
+12 settings; run on every day and kept from 2018-01-01 to 2023-12-31 by date, as its check replays them; written
+to research/close-momentum-150k/out/.
 
-Run: python3 -I -B research/levels-150k/measure.py [1|2|3|4] (candidate; one worker per market). Candidate 1 writes
+Run: python3 -I -B research/levels-150k/measure.py [1|2|3|4|5] (candidate; one worker per market). Candidate 1 writes
 out/, candidate N out/cN/. Standard library only.
 """
 import importlib.util
@@ -36,7 +39,8 @@ import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _TREND = os.path.join(os.path.dirname(_HERE), "trend-150k")
-for p in (_HERE, _TREND):
+_CLOSE = os.path.join(os.path.dirname(_HERE), "close-momentum-150k")
+for p in (_HERE, _TREND, _CLOSE):
     if p not in sys.path:
         sys.path.append(p)
 import fade  # noqa: E402
@@ -44,6 +48,7 @@ import levels  # noqa: E402
 import retest  # noqa: E402
 import traverse  # noqa: E402
 import accel  # noqa: E402
+import closemom  # noqa: E402
 import specs as specs_mod  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("trend_measure", os.path.join(_TREND, "measure.py"))
@@ -54,13 +59,16 @@ FIRST, END = "2018-01-01", "2023-12-31"
 YEARS = ("2018", "2019", "2020", "2021", "2022", "2023")
 LIMIT, TARGET = 4500.0, 9000.0
 KINDS = levels.KINDS + ("ALL",)
-ENGINES = {"1": fade, "2": retest, "3": traverse, "4": accel}
+ENGINES = {"1": fade, "2": retest, "3": traverse, "4": accel, "5": closemom}
 TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)",
-          "3": "Candidate 3 (value area traversal)", "4": "Candidate 4 (acceleration through a level)"}
+          "3": "Candidate 3 (value area traversal)", "4": "Candidate 4 (acceleration through a level)",
+          "5": "Momentum into the close"}
 CAND = "1"
 
 
 def out_dir(cand):
+    if cand == "5":
+        return os.path.join(_CLOSE, "out")
     return os.path.join(_HERE, "out") if cand == "1" else os.path.join(_HERE, "out", "c" + cand)
 
 
@@ -68,6 +76,9 @@ def grid(cand=None):
     if (cand or CAND) == "3":
         return [{"name": "VA-k%g-m%d" % (k, m), "kind": "VA", "k": k, "min_rr": m, "atr_days": 14}
                 for k in (0.1, 0.2, 0.4) for m in (0, 2, 3)]
+    if (cand or CAND) == "5":
+        return [{"name": "%s-k%g" % (sg, k), "signal": sg, "k": k, "atr_days": 14}
+                for sg in ("S1", "S2", "S3") for k in (0.025, 0.05, 0.1, 0.2)]
     if (cand or CAND) == "4":
         return [{"name": "%s-k%g-T3" % (kd, k), "kind": kd, "k": k, "target": 3, "atr_days": 14}
                 for kd in KINDS for k in (0.1, 0.2, 0.4)]
@@ -138,7 +149,11 @@ def _work(market):
     window = {d.date for d in mk.days if FIRST <= d.date <= END}
     full = sorted(d.date for d in mk.days if d.date >= FIRST)
     eng = ENGINES[CAND]
-    out = {s["name"]: r_rows(eng.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid(CAND)}
+    if CAND == "5":
+        out = {s["name"]: r_rows([t for t in eng.per_contract(mk, s, "midpoint")["trades"]
+                                  if FIRST <= t["date"] <= END], sp) for s in grid(CAND)}
+    else:
+        out = {s["name"]: r_rows(eng.per_contract(mk, s, "midpoint", dates=window)["trades"], sp) for s in grid(CAND)}
     return market, out, sorted(window), full
 
 
@@ -194,7 +209,7 @@ def markdown(rows):
     best = allrows[0]
     md += ["## By market, %s" % best["name"], ""] + HEAD
     md += [_line(m, p) for m, p in best["by_market"].items()] + [""]
-    if CAND == "3":
+    if CAND in ("3", "5"):
         md += ["## Net R a trade by setting and market", "",
                "| Setting | " + " | ".join(specs_mod.MARKETS) + " |", "|---|" + "---:|" * len(specs_mod.MARKETS)]
         for r in rows:

@@ -101,6 +101,16 @@ class Grid(unittest.TestCase):
                          [(0.1, 3, 14), (0.2, 3, 14), (0.4, 3, 14)])
         self.assertIs(measure.ENGINES["4"].__name__, "accel")
 
+    def test_twelve_settings_for_candidate_5_written_beside_its_plan(self):
+        g = measure.grid("5")
+        self.assertEqual([s["name"] for s in g], ["%s-k%g" % (sg, k) for sg in ("S1", "S2", "S3")
+                                                   for k in (0.025, 0.05, 0.1, 0.2)])
+        self.assertEqual({(s["signal"], s["atr_days"]) for s in g if s["k"] == 0.05},
+                         {("S1", 14), ("S2", 14), ("S3", 14)})
+        self.assertIs(measure.ENGINES["5"].__name__, "closemom")
+        self.assertTrue(measure.out_dir("5").endswith(os.path.join("close-momentum-150k", "out")))
+        self.assertTrue(measure.out_dir("4").endswith(os.path.join("levels-150k", "out", "c4")))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)
