@@ -32,21 +32,21 @@ HALVES = (("2018-2020", FIRST, dt.date(2020, 12, 31).toordinal()), ("2021-2023",
 
 def index_days(minutes, o, c):
     """{date ordinal: {minute of day: bar}} for the bars of the minutes the rule reads, New York weekdays only,
-    plus the set of trading days (weekdays with any bar stamped in [O, C))."""
+    the trading days (New York weekdays with minute bars in them), and each date's set of contracts."""
     # A margin either side of what the rule reads, so price_at and last_before alone set the windows.
     want = set(range(o + 20, o + 35)) | set(range(c - 40, c - 20)) | set(range(c - 5, c + 10))
-    days, trading = {}, set()
+    days, trading, iids = {}, set(), {}
     for b in minutes:
         w = levels._wall(b.ts)
         d = w // 86400 + levels.EPOCH_ORD
         if dt.date.fromordinal(d).weekday() >= 5:
             continue
         m = (w % 86400) // 60
-        if o <= m < c:
-            trading.add(d)
+        trading.add(d)
+        iids.setdefault(d, set()).add(b.iid)
         if m in want:
             days.setdefault(d, {})[m] = b
-    return days, sorted(trading)
+    return days, sorted(trading), iids
 
 
 def price_at(day, t):
@@ -67,9 +67,11 @@ def last_before(day, t):
     return None
 
 
-def trades(minutes, o, c):
-    """[(date ordinal, {signal: side or 0}, entry price, exit price)] for every day with a trade possible."""
-    days, trading = index_days(minutes, o, c)
+def trades(minutes, o, c, tick=None):
+    """[(date ordinal, {signal: side or 0}, entry price, exit price)] for every day with a trade possible.
+    A side needs the signal more than eps = tick x 1e-6 away from Y (no tick: exactly away)."""
+    eps = tick * 1e-6 if tick else 0.0
+    days, trading, iids_by_day = index_days(minutes, o, c)
     out = []
     for k in range(1, len(trading)):
         d, prev = trading[k], trading[k - 1]
@@ -79,13 +81,12 @@ def trades(minutes, o, c):
         s1b, s2b = last_before(today, c - 30), last_before(today, o + 30)
         if yb is None or eb is None or xb is None:
             continue
-        iids = {yb.iid, eb.iid, xb.iid} | {b.iid for b in (s1b, s2b) if b is not None}
-        if len(iids) != 1:
+        if iids_by_day[d] != {yb.iid}:
             continue
         y = yb.open
 
         def side(b):
-            if b is None or b.close == y:
+            if b is None or abs(b.close - y) <= eps:
                 return 0
             return 1 if b.close > y else -1
         a, b = side(s1b), side(s2b)
@@ -126,7 +127,7 @@ def main(argv=None):
         sp = specs_mod.SPECS[m]
         data = specs_mod.load(m)
         o, c = HOURS[m]
-        rows = trades(data["minutes"], o, c)
+        rows = trades(data["minutes"], o, c, sp["tick"])
         ct = cost_ticks(sp)
         allres[m] = {"cost_ticks": round(ct, 4), "days": len([r for r in rows if FIRST <= r[0] <= END]),
                      "results": summarise(rows, sp["tick"], ct)}

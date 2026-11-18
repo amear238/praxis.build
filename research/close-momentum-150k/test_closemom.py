@@ -177,11 +177,26 @@ class Signals(unittest.TestCase):
         self.assertEqual(run(yday() + today(exit_=None)), [])
         self.assertEqual(run(yday() + today(entry=None)), [])
 
-    def test_the_trading_day_before_skips_days_with_no_bar_in_o_to_c(self):
+    def test_a_weekday_with_any_bar_is_a_trading_day(self):
+        # PLAN.md: "a New York weekday with minute bars in it" (the check's C1, C2). Wednesday has only an evening
+        # bar: it is the trading day before Thursday, it has no price at C, so Thursday has no Y and no trade.
         thu = dt.date(2019, 3, 7)
-        wed_late = [bar(WED, C + 1, 150.0)]
-        t, = run(yday(TUE) + wed_late + today(thu), daily=daily_before(thu))
+        wed_evening = [bar(WED, 18 * 60, 150.0)]
+        self.assertEqual(run(yday(TUE) + wed_evening + today(thu), daily=daily_before(thu)), [])
+        t, = run(yday(TUE) + today(thu), daily=daily_before(thu))   # no Wednesday bars: Tuesday is the day before
         self.assertEqual((t["date"], t["y"]), ("2019-03-07", 100.0))
+
+    def test_a_contract_change_in_the_evening_of_the_day_means_no_trade(self):
+        # PLAN.md rule 2, "that bar and today's bars" (the check's C5): every bar dated d, the evening included.
+        evening = [bar(TUE, 19 * 60, 102.0, iid=2)]
+        self.assertEqual(run(yday() + today(extra=evening)), [])
+        same = [bar(TUE, 19 * 60, 102.0, iid=1)]
+        self.assertEqual(len(run(yday() + today(extra=same))), 1)
+
+    def test_within_eps_of_y_is_equal(self):
+        # The amendment: eps = tick x 1e-6 in every comparison (the check's C6).
+        self.assertEqual(run(yday() + today(s1=100.0 + 0.25 * 1e-7)), [])
+        self.assertEqual(len(run(yday() + today(s1=100.0 + 0.25 * 1e-5))), 1)
 
     def test_weekend_bars_do_not_make_a_trading_day(self):
         fri, mon = dt.date(2019, 3, 1), dt.date(2019, 3, 4)

@@ -103,13 +103,25 @@ class Rule(unittest.TestCase):
         self.assertEqual([r[0] for r in rows], [mon.toordinal()])
         self.assertEqual(rows[0][1]["S1"], -1)
 
-    def test_yesterday_is_the_previous_trading_day_not_the_previous_date_with_bars(self):
-        # Wednesday has bars only after C, none in [O, C): not a trading day, so Thursday's yesterday is Tuesday.
+    def test_a_weekday_with_any_bar_is_a_trading_day(self):
+        # PLAN.md: "a New York weekday with minute bars in it". Wednesday has only an evening bar: it is Thursday's
+        # trading day before, with no price at C, so Thursday has no Y and no row.
         thu = dt.date(2019, 3, 7)
-        wed_night = [bar(WED, C + 1, 150)]
-        rows = ps.trades(day(TUE, exit_=100) + wed_night + day(thu, s2=101, s1=101, entry=101, exit_=102), O, C)
-        self.assertEqual(len(rows), 1)
-        self.assertEqual(rows[0][1]["S1"], 1)
+        wed_evening = [bar(WED, 18 * 60, 150)]
+        rows = ps.trades(day(TUE, exit_=100) + wed_evening + day(thu, s2=101, s1=101, entry=101, exit_=102), O, C)
+        self.assertEqual(rows, [])
+        rows = ps.trades(day(TUE, exit_=100) + day(thu, s2=101, s1=101, entry=101, exit_=102), O, C)
+        self.assertEqual([r[0] for r in rows], [thu.toordinal()])
+
+    def test_a_contract_change_in_the_evening_of_the_day_means_no_row(self):
+        evening = [bar(TUE, 19 * 60, 102, iid=2)]
+        self.assertEqual(ps.trades(day(MON, exit_=100) + day(TUE, s2=101, s1=102, entry=102, exit_=103,
+                                                             extra=evening), O, C), [])
+
+    def test_within_eps_of_y_is_equal(self):
+        rows = ps.trades(day(MON, exit_=100) + day(TUE, s2=100 + 0.25e-7, s1=100 + 0.25e-7, entry=100, exit_=101),
+                         O, C, tick=0.25)
+        self.assertEqual(rows[0][1], {"S1": 0, "S2": 0, "S3": 0})
 
     def test_yesterday_is_the_open_of_the_close_bar_not_its_close(self):
         mon = [bar(MON, O, 100), bar(MON, C, 100, 104)]   # opens 100, closes 104

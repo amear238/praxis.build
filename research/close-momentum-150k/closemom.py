@@ -7,11 +7,12 @@ per_contract(mk, settings, fill, dates=None): the same on a levels.Market (its m
   settings: {"name", "signal": "S1" | "S2" | "S3", "k", "atr_days": 14}. fill: "midpoint" | "kind" |
   "harsh-stops". dates: a set of ISO dates to keep (None: every trading day).
 
-Each trading day d (a New York weekday with a bar stamped in [O, C)), against the trading day before it:
+Each trading day d (a New York weekday with minute bars in it), against the trading day before it:
   price at t = the open of the first bar stamped in [t, t + 5); last price before t = the close of the last bar
   stamped in [t - 5, t). Y = the price at C the day before. S1 = the last price before C - 30, S2 = the last
-  price before O + 30, each against Y; S3 = S1 when the two agree. No trade: no Y, no price at C - 30 or at C,
-  bars of more than one contract among those read, no side, or fewer than 14 daily bars dated before d.
+  price before O + 30, each against Y (more than eps away); S3 = S1 when the two agree. No trade: no Y, no price
+  at C - 30 or at C, Y's bar and the bars dated d (the evening included) not all of one contract, no side, or
+  fewer than 14 daily bars dated before d.
   entry = the open of the bar at C - 30 + side x slip, held inside that bar. dist = max(floor_tick(k x A), tick),
   A = the mean high - low of the 14 daily bars dated (UTC) before d. stop = entry - side x dist.
   The stop watches the entry bar and every bar after it before the exit bar, with fade._stop_fill (the levels
@@ -46,25 +47,19 @@ class _Index(object):
     def __init__(self, minutes):
         n = len(minutes)
         self.mod = [0] * n
-        self.start, self.end = {}, {}
+        self.start, self.end, self.iids = {}, {}, {}
         for i, b in enumerate(minutes):
             w = levels._wall(b.ts)
             d = w // 86400 + levels.EPOCH_ORD
             self.mod[i] = (w % 86400) // 60
             if d not in self.start:
                 self.start[d] = i
+                self.iids[d] = set()
             self.end[d] = i + 1
+            self.iids[d].add(b.iid)
 
-    def trading_days(self, o, c):
-        out = []
-        for d in sorted(self.start):
-            if dt.date.fromordinal(d).weekday() >= 5:
-                continue
-            s, e = self.start[d], self.end[d]
-            j = bisect.bisect_left(self.mod, o, s, e)
-            if j < e and self.mod[j] < c:
-                out.append(d)
-        return out
+    def trading_days(self):
+        return [d for d in sorted(self.start) if dt.date.fromordinal(d).weekday() < 5]
 
     def price_at(self, d, t):
         """Index of the first bar stamped in [t, t + 5) on date d, or None."""
@@ -94,8 +89,8 @@ def _atr_fn(daily):
     return atr
 
 
-def _side(px, y):
-    if px is None or px == y:
+def _side(px, y, eps):
+    if px is None or abs(px - y) <= eps:
         return 0
     return 1 if px > y else -1
 
@@ -106,7 +101,7 @@ def run(minutes, daily, spec, market, settings, fill, dates=None):
     eps = tick * fade.EPS_T
     ix = _Index(minutes)
     atr = _atr_fn(daily)
-    days = ix.trading_days(o, c)
+    days = ix.trading_days()
     trades = []
     for k in range(1, len(days)):
         d, prev = days[k], days[k - 1]
@@ -117,12 +112,12 @@ def run(minutes, daily, spec, market, settings, fill, dates=None):
         if yi is None or ei is None or xi is None:
             continue
         s1i, s2i = ix.last_before(d, c - 30), ix.last_before(d, o + 30)
-        if len({minutes[i].iid for i in (yi, ei, xi, s1i, s2i) if i is not None}) != 1:
+        if ix.iids[d] != {minutes[yi].iid}:
             continue
         y = minutes[yi].open
         s1 = minutes[s1i].close if s1i is not None else None
         s2 = minutes[s2i].close if s2i is not None else None
-        a, b = _side(s1, y), _side(s2, y)
+        a, b = _side(s1, y, eps), _side(s2, y, eps)
         side = {"S1": a, "S2": b, "S3": a if a == b else 0}[settings["signal"]]
         if side == 0:
             continue
