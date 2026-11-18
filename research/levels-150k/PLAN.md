@@ -114,3 +114,17 @@ If the minutes end before 3:55 (an early close), the trade closes at the last mi
 - Round numbers are the futures prices, not the cash market's (the yen is the exception, by construction).
 - 72 settings on eleven markets invite a lucky pick. The profit bar on 2024 onward, which the measuring pass never sees, is the main guard.
 - The rule stands for his marking only as far as the blind check shows; until then it stands for itself.
+
+## Amendment, 2026-11-18: candidate 2, break and retest. The exact rule
+
+Written after candidate 1 failed at the gate (`out/VERDICT.md`: every version lost money, even before costs), and before any candidate 2 code or result. Everything in "Candidate 1 ... The exact rule" holds unless this section changes it. That covers the clock, the traded contract, P0, ATR and d, the seven kinds of level and ALL, the stop distances, the exits (flat at 3:55, the stop fills, the target), the money and the day records. It also covers the independent check's readings R1 to R20 in `rule_check.py`. The bars, the grid (8 kinds x k 0.1, 0.2, 0.4 x T 3, 5, none), the market sets and the pre-run gate are unchanged.
+
+**Armed levels.** Exactly candidate 1's armed set, with the same filters and the same merge. Each armed level is traded the other way: a level above P0 long, after a break up; a level below P0 short, after a break down. Call the new side s (+1 long, -1 short).
+
+**The retest price R and the stop.** A line level: R is the level, and the stop is d beyond it on the other side (long: R - d). A zone, which is armed only on its own side as in candidate 1: R is the zone's far edge, and the stop is d beyond its near edge (a supply zone above P0, broken up: R is its top, the stop its bottom - d). The stop distance is |R - stop|, the same figure as in candidate 1.
+
+**15-minute bars.** On the clock, from 9:30. Each holds the minutes stamped in one quarter hour: 9:30 to before 9:45, 9:45 to before 10:00, and so on. A bar's close is the close of its last minute. A quarter hour with no minute has no bar.
+
+**The break.** The first 15-minute bar of D, from the one starting at 9:30 to the one starting at 2:45 PM, that closes at least one tick beyond R in the direction s (long: close >= R + one tick). A break is recorded whether or not a position is open. A level not broken by the bar starting at 2:45 PM never trades.
+
+**The retest entry.** A resting limit at R, from the first minute after the break bar's last minute to the last minute stamped before 3:00 PM. A long fills on the first such minute whose low is at least one tick below R, at R exactly. A short mirrors with the high. One position per market at a time. A broken level whose fill condition is met while a position is open, or on the minute a trade exits, is spent with no trade. When one minute meets the fill condition of two broken levels, the one whose R is nearer the minute's open fills (ties: the one nearer P0, then the long), and the other is spent. The stop is checked on the entry minute, the target from the next minute, as in candidate 1. The target is R + s x T x the stop distance.
