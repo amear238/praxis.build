@@ -92,3 +92,29 @@ The drop rule does not fire, so the full method runs, on the grid and markets fi
 - The first-half-hour signal (S2) loses on the Nasdaq in 2021 to 2023 (-17.4 ticks before costs).
 
 Checked: 17 tests, 16 faults planted in the pre-screen and all caught; the first two Nasdaq days of 2018 read by hand against the raw minutes; a second run byte for byte the same.
+
+## Amendment, 2026-11-18, before any engine code: the fills, the size, and what each trade records
+
+Written after the pre-screen and before the engine, so the independent check and the engine read the same words. It spells out rules 4 to 6 and replaces rule 7.
+
+**Ticks.** tick, slip (= slippage ticks × tick), pv, comm and max_qty are the market's in `specs.py`. eps = tick × 10⁻⁶ in every comparison. floor_tick(x) = floor(x / tick + 10⁻⁶) × tick; ceil_tick(x) = ceil(x / tick − 10⁻⁶) × tick. Prices are used raw, never rounded, except where a rule says floor_tick or ceil_tick.
+
+**Entry (rule 4).** The entry bar is the bar that gives the price at C − 30. side = +1 long, −1 short. entry = the entry bar's open + side × slip, then held inside that bar: no higher than its high, no lower than its low.
+
+**Stop distance (rule 5).** A = the mean of (high − low) of the 14 daily bars (back-adjusted, `specs.load`) whose UTC date is before day d; fewer than 14 such bars: no trade. dist = max(floor_tick(k × A), tick). stop = entry − side × dist, raw.
+
+**The minutes the stop watches.** Every minute bar from the entry bar itself up to, not including, the exit bar (the bar that gives the price at C). On each, in time order, for a long (a short mirrors it, with high for low, ≥ for ≤, and ceil_tick for floor_tick):
+- if open ≤ stop + eps: it fills, reference = the open, gap = true;
+- else if low ≤ stop + eps: it fills, reference = the stop, gap = false;
+- the fill: midpoint (judged) = floor_tick((reference + low) / 2); kind = max(reference − slip, low); harsh = low.
+The first minute that fills ends the trade: reason "stop".
+
+**Exit (rule 6).** If the stop has not filled, the trade closes at the exit bar's open − side × slip, held inside that bar's high and low: reason "close", gap = false. The exit bar is not checked for the stop.
+
+**Each trade records:** market; date (the New York date d, ISO); signal ("S1", "S2" or "S3"); side; y (yesterday's close Y); s1 (the S1 price, the last price before C − 30) and s2 (the S2 price, the last price before O + 30), each None when that bar is missing; atr (A); dist; entry_ts (the entry bar's time stamp); entry; stop; exit_ts (the time stamp of the minute it closes in: the stop's minute or the exit bar); exit; reason; gap; points = (exit − entry) × side; worst = the lowest of (the adverse extreme − entry) × side over the minutes from the entry bar to the exit minute, where a stop's minute counts whole and the exit bar counts only at its fill, (exit − entry) × side. The adverse extreme is the low for a long and the high for a short.
+
+**Size (replaces rule 7).** As the levels plan's account (`research/levels-150k/fade.account`, which the gate's account check already replays): every trade of a date is sized from the realised balance at the start of that date; risk = balance × risk % / 100; loss a contract = (dist + slip) × pv + comm; quantity = the whole number of contracts that loss fits into risk, at most max_qty; under one contract: skipped. Not split across markets. Rule 7's "split across the markets, as in the trend plan" was written before any sizing code and would have needed a new, unchecked account; this keeps the one already checked.
+
+**The settings.** {"name": "S1-k0.025", "signal": "S1", "k": 0.025, "atr_days": 14}, and so on: the three signals × k in (0.025, 0.05, 0.1, 0.2), 12 in all. Fills: midpoint on all 12 for the measuring pass; the check replays all 12 at all three fills and the account at two sizes.
+
+**Measured as the levels candidates were** (`research/levels-150k/measure.py`): every figure in R at one contract; the eleven markets together and the stable set (the markets with net R above zero in 2018-2020 and in 2021-2023 at that setting); the gate: average winner at least 2R, never more than 7 days with no trade, projected profit at least $9,000.
