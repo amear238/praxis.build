@@ -13,6 +13,10 @@ check_account(result, per_contract_by_market, specs_by_market, risk_pct, start) 
     result = the engine's account output; sizing, net, balances, skips and day records are recomputed from the
     per-contract trades by the plan's "Money" paragraph.
 replay_market(...) and replay_account(...) return the rule's own output, in the engine's shapes.
+check_market2(...) and replay_market2(...), the same arguments, do candidate 2, "break and retest" (PLAN.md,
+    "Amendment, 2026-11-18: candidate 2, break and retest. The exact rule", read at commit c105ac1). Its
+    "armed" holds (kind, s, R, stop); each trade has level = R and break_ts, the stamp of the break bar's last
+    minute. check_account serves both candidates (the money rules are the same).
 
 Trades are matched by (date, side, level), so a wrong entry minute shows as a differing field. The armed sets
 are compared date by date as multisets of (kind, side, level, stop); a date with an empty list is the same as a
@@ -108,6 +112,35 @@ R19. Money: loss for one = (dist + slip) x pv + comm. Contracts = floor(balance_
 R20. Midpoint stop fill: floor((reference + low) / 2 to the tick) for a long and ceil((reference + high) / 2 to
      the tick) for a short, with a 1e-7 tick allowance for float noise.
 
+Candidate 2, break and retest. R1 to R20 hold unless one below changes them.
+
+R21. The armed set is candidate 1's, after its filters and merge and in its order, each level turned to the
+     other side: s = minus candidate 1's side. "armed" lists every one of them, with s, R and the stop, whether
+     or not it is ever broken.
+R22. 15-minute bars are quarter hours on the New York clock (:00, :15, :30, :45; the UTC quarter hours are the
+     same, the offset being whole hours). They hold D's minutes stamped from 9:30 to before 3:00 PM, so they are
+     exactly the bars starting 9:30 to 2:45 PM. A quarter with a single minute is a bar. A bar's close is its
+     last minute's own close, unrounded (R6: trading prices are raw).
+R23. The break: a bar's close >= R + 1 tick for s = +1, or <= R - 1 tick for s = -1, within a millionth of a
+     tick. The first such bar breaks the level for the rest of the day, whatever price does afterwards. Only the
+     closes decide it: an open position, a spent level and the bar's high and low play no part. break_ts is the
+     stamp of the break bar's last minute.
+R24. The retest window runs from the next minute in the data after the break bar's last minute, to the last
+     minute stamped before 3:00 PM. A break on the bar starting at 2:45 PM therefore leaves no minute to retest
+     in, and that level never trades. This follows from the plan's two windows; it is written here so the
+     window is never stretched past 3:00 PM.
+R25. The retest fill: a long when a raw low <= R - 1 tick, a short when a raw high >= R + 1 tick, filled at R
+     even when the minute opens beyond R. A broken level's fate is fixed at its first such minute in its
+     window, as in R15. If a position is open then (its entry minute through its exit minute, both included),
+     the level is spent. If not, it fills, unless another broken level meets its fill condition on that minute
+     and its R is nearer the open.
+R26. Ties go first to the R nearer the minute's open, then to the level nearer P0, by |R - P0|. That is the
+     retest price, not candidate 1's level, and the two differ for a zone. Then the long. Two broken levels with
+     the same R and the same s (a zone's far edge lying on another level) are still tied: the one candidate 1's
+     arming took first fills (R14's order).
+R27. The exits, worst and the money are candidate 1's (R16 to R20), with entry R and target R + s x T x the stop
+     distance. A trade's level is R and its kind is the armed level's kind.
+
 Standard library only. Python 3.14, run with python3 -I -B.
 """
 import bisect
@@ -149,7 +182,10 @@ class _NoJoin(Exception):
     """A minute the kind needs cannot be joined to the traded contract (R4, R5)."""
 
 
-_Lv = namedtuple("_Lv", "kind side L stop dist near")      # an armed level, prices in ticks; near = |L - P0|
+# An armed level, prices in ticks. L = the entry price (candidate 1: the level; candidate 2: R); near = |L - P0|;
+# brk = the index of the break bar's last minute (candidate 2); order = its place in candidate 1's arming.
+_Lv = namedtuple("_Lv", "kind side L stop dist near brk order", defaults=(None, 0))
+QUARTER_NS = 900 * NS
 
 
 # ------------------------------------------------------------------------------------------------ the clock
@@ -229,6 +265,7 @@ class _Prep:
         self.dday = [a.bar.ts // DAY_NS for a in daily]
         self.drng = [a.adj_high - a.adj_low for a in daily]
         self._shift, self._groups, self._levels, self._chains, self._ctx = {}, {}, {}, {}, {}
+        self._quarters = {}
 
     # -------------------------------------------------------------------------------------- prices on the grid
     def _rt(self, p):
@@ -508,6 +545,20 @@ class _Prep:
                 for n in range(math.ceil(lo_p / step), math.floor(hi_p / step) + 1)]
 
     # -------------------------------------------------------------------------------------- the trading minutes
+    def quarters(self, D):
+        """Candidate 2's 15-minute bars of D, the ones starting 9:30 to 2:45 PM (R22): the index of each bar's
+        last minute, in time order. They hold exactly D's minutes stamped from 9:30 to before 3:00 PM."""
+        q = self._quarters.get(D)
+        if q is None:
+            i930, i1500 = self.tinfo[D][3], self.tinfo[D][4]
+            q, i = [], i930
+            while i < i1500:
+                e = bisect.bisect_left(self.ts, (self.ts[i] // QUARTER_NS + 1) * QUARTER_NS, i, i1500)
+                q.append(e - 1)
+                i = e
+            self._quarters[D] = q
+        return q
+
     def chains(self, D):
         """Next strictly lower low and next strictly higher high of each minute from the P0 minute on."""
         ch = self._chains.get(D)
@@ -560,12 +611,17 @@ def clear_cache():
 
 
 # ------------------------------------------------------------------------------------------------ arming and trading
+def _d_ticks(atr, k, tick):
+    """The stop distance d in ticks: k x ATR rounded down to the tick, at least one tick (R7)."""
+    return max(math.floor(k * atr / tick + _Q), 1)
+
+
 def _arm(prep, D, kinds, k, n_atr):
     atr = prep.atr(D, n_atr)
     if atr is None:
         return []
     tick = prep.tick
-    d = max(math.floor(k * atr / tick + _Q), 1)
+    d = _d_ticks(atr, k, tick)
     p0, band = prep.p0(D) / tick, 2 * atr / tick
     sides = {1: [], -1: []}
     for kind in kinds:
@@ -587,8 +643,24 @@ def _arm(prep, D, kinds, k, n_atr):
                 continue
             taken = L
             stop = (L if zone is None else zone[1]) - side * d
-            armed.append(_Lv(kind, side, L, stop, (L - stop) * side, near))
+            armed.append(_Lv(kind, side, L, stop, (L - stop) * side, near, None, len(armed)))
     return armed
+
+
+def _arm2(prep, D, kinds, k, n_atr):
+    """Candidate 2's armed set: candidate 1's, each traded the other way (R21)."""
+    a1 = _arm(prep, D, kinds, k, n_atr)
+    if not a1:
+        return []
+    d = _d_ticks(prep.atr(D, n_atr), k, prep.tick)
+    p0 = prep.p0(D) / prep.tick
+    out = []
+    for a in a1:
+        s = -a.side
+        R = a.stop + a.side * d             # candidate 1's stop is d beyond the far edge: R is the far edge
+        stop = a.L - s * d                  # d beyond the near edge, which is the level itself for a line
+        out.append(_Lv(a.kind, s, R, stop, abs(R - stop), abs(R - p0), None, a.order))
+    return out
 
 
 def _stop_fill(o, h, l, stop, side, slip, tick, fill):
@@ -610,22 +682,58 @@ def _stop_fill(o, h, l, stop, side, slip, tick, fill):
     return h, gap
 
 
-def _trade_day(prep, D, armed, t_mult, fill, slip, market):
+def _fill_minute(prep, D, a, start):
+    """The first minute from `start` to before 3:00 PM whose price trades a tick through a.L against the side
+    (a long: low <= L - 1 tick), or None."""
     tick, eps = prep.tick, prep.tick * _EPS
-    _s0, s1, _i900, i930, i1500, i1555 = prep.tinfo[D]
+    i930, i1500 = prep.tinfo[D][3], prep.tinfo[D][4]
+    nl, nh = prep.chains(D)
+    if a.side > 0:
+        f = _first(prep.l, nl, i930, start, (a.L - 1) * tick + eps, i1500, True)
+    else:
+        f = _first(prep.h, nh, i930, start, (a.L + 1) * tick - eps, i1500, False)
+    return f if f < i1500 else None
+
+
+def _touches1(prep, D, armed):
+    """Candidate 1: each armed level's first trade-through from 9:30."""
+    out = []
+    for a in armed:
+        f = _fill_minute(prep, D, a, prep.tinfo[D][3])
+        if f is not None:
+            out.append((f, a))
+    return out
+
+
+def _touches2(prep, D, armed):
+    """Candidate 2: each armed level's break bar (R22, R23), then its first retest minute after it (R24, R25)."""
+    tick, eps, C = prep.tick, prep.tick * _EPS, prep.c
+    out = []
+    for a in armed:
+        if a.side > 0:
+            x = (a.L + 1) * tick - eps
+            brk = next((j for j in prep.quarters(D) if C[j] >= x), None)
+        else:
+            x = (a.L - 1) * tick + eps
+            brk = next((j for j in prep.quarters(D) if C[j] <= x), None)
+        if brk is None:
+            continue
+        f = _fill_minute(prep, D, a, brk + 1)
+        if f is not None:
+            out.append((f, a._replace(brk=brk)))
+    return out
+
+
+def _trade_day(prep, D, touches, t_mult, fill, slip, market):
+    """The day's trades from [(fill-condition minute, armed level)]: one position at a time, spent levels, the
+    nearer-the-open rule, then the exits."""
+    tick, eps = prep.tick, prep.tick * _EPS
+    _s0, s1, _i900, i930, _i1500, i1555 = prep.tinfo[D]
     O, H, L, C, TS = prep.o, prep.h, prep.l, prep.c, prep.ts
     nl, nh = prep.chains(D)
     flat = i1555 if i1555 < s1 else None
     lim = s1 if flat is None else flat
-    touches = []
-    for a in armed:
-        if a.side > 0:
-            f = _first(L, nl, i930, i930, (a.L - 1) * tick + eps, i1500, True)
-        else:
-            f = _first(H, nh, i930, i930, (a.L + 1) * tick - eps, i1500, False)
-        if f < i1500:
-            touches.append((f, a))
-    touches.sort(key=lambda x: x[0])
+    touches = sorted(touches, key=lambda x: x[0])
     out, busy, q = [], -1, 0
     while q < len(touches):
         f = touches[q][0]
@@ -636,7 +744,7 @@ def _trade_day(prep, D, armed, t_mult, fill, slip, market):
         if f <= busy:                       # traded through while a position is open, or on its exit minute
             continue
         op = O[f] / tick
-        a = min(group, key=lambda g: (round(abs(g.L - op), 6), round(g.near, 6), -g.side))
+        a = min(group, key=lambda g: (round(abs(g.L - op), 6), round(g.near, 6), -g.side, g.order))
         side, entry, stop = a.side, a.L * tick, a.stop * tick
         target = None if t_mult is None else (a.L + side * t_mult * a.dist) * tick
         if side > 0:
@@ -661,10 +769,13 @@ def _trade_day(prep, D, armed, t_mult, fill, slip, market):
         if held_to > f:
             ext = min(L[f:held_to]) if side > 0 else max(H[f:held_to])
             worst = min(worst, (ext - entry) * side)
-        out.append({"market": market, "date": _iso(D), "kind": a.kind, "level": entry, "side": side,
-                    "entry_ts": TS[f], "entry": entry, "stop": stop, "dist": a.dist * tick, "target": target,
-                    "exit_ts": TS[x], "exit": px, "reason": reason, "gap": gap,
-                    "points": (px - entry) * side, "worst": worst})
+        t = {"market": market, "date": _iso(D), "kind": a.kind, "level": entry, "side": side,
+             "entry_ts": TS[f], "entry": entry, "stop": stop, "dist": a.dist * tick, "target": target,
+             "exit_ts": TS[x], "exit": px, "reason": reason, "gap": gap,
+             "points": (px - entry) * side, "worst": worst}
+        if a.brk is not None:
+            t["break_ts"] = TS[a.brk]
+        out.append(t)
         busy = x
     return out
 
@@ -679,8 +790,7 @@ def _settings(settings):
     return (KINDS if kind == "ALL" else (kind,)), float(settings["k"]), t, int(settings.get("atr_days", 14))
 
 
-def replay_market(minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
-    """The rule's own per_contract output for one market: {"trades": [...], "armed": {date: [...]}}."""
+def _replay(arm, touches, minutes, daily, rolls, spec, settings, fill, market, first, last):
     if fill not in FILLS:
         raise ValueError(f"fill {fill!r} is not one of {FILLS}")
     kinds, k, t_mult, n_atr = _settings(settings)
@@ -692,13 +802,24 @@ def replay_market(minutes, daily, rolls, spec, settings, fill, market, first=Non
     for D in prep.trading:
         if not lo <= D <= hi:
             continue
-        armed = _arm(prep, D, kinds, k, n_atr)
+        armed = arm(prep, D, kinds, k, n_atr)
         if not armed:
             continue
         armed_out[_iso(D)] = [{"kind": a.kind, "side": a.side, "level": a.L * tick, "stop": a.stop * tick}
                               for a in armed]
-        trades.extend(_trade_day(prep, D, armed, t_mult, fill, slip, market))
+        trades.extend(_trade_day(prep, D, touches(prep, D, armed), t_mult, fill, slip, market))
     return {"trades": trades, "armed": armed_out}
+
+
+def replay_market(minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 1, the rule's own per_contract output for one market: {"trades": [...], "armed": {...}}."""
+    return _replay(_arm, _touches1, minutes, daily, rolls, spec, settings, fill, market, first, last)
+
+
+def replay_market2(minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 2 (break and retest), the same shape: "armed" holds (kind, s, R, stop) and each trade has
+    level = R and break_ts."""
+    return _replay(_arm2, _touches2, minutes, daily, rolls, spec, settings, fill, market, first, last)
 
 
 # ------------------------------------------------------------------------------------------------ comparing
@@ -801,17 +922,32 @@ def _compare_armed(breaks, market, mine, theirs, tick, tol):
 
 
 def check_market(got, minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
-    """Breaks between the engine's per_contract output for one market and the rule's replay (empty = clean)."""
+    """Candidate 1: breaks between the engine's per_contract output for one market and the rule's replay."""
     if fill not in FILLS:
         return [f"fill {fill!r} is not one of {FILLS}"]
     mine = replay_market(minutes, daily, rolls, spec, settings, fill, market, first, last)
+    return _check(got, mine, spec, market, _T_FIELDS)
+
+
+_T2_FIELDS = _T_FIELDS + (("break_ts", "eq"),)
+
+
+def check_market2(got, minutes, daily, rolls, spec, settings, fill, market, first=None, last=None):
+    """Candidate 2 (break and retest): breaks between the engine's per_contract output and the rule's replay."""
+    if fill not in FILLS:
+        return [f"fill {fill!r} is not one of {FILLS}"]
+    mine = replay_market2(minutes, daily, rolls, spec, settings, fill, market, first, last)
+    return _check(got, mine, spec, market, _T2_FIELDS)
+
+
+def _check(got, mine, spec, market, fields):
     tick = float(spec["tick"])
     tol = tick * _EPS
     breaks = []
     if not isinstance(got, dict):
         return [f"{market}: the engine's output is not a dict"]
     _compare_armed(breaks, market, mine["armed"], got.get("armed", {}), tick, tol)
-    _compare_trades(breaks, market, mine["trades"], got.get("trades", []), tick, tol, _T_FIELDS,
+    _compare_trades(breaks, market, mine["trades"], got.get("trades", []), tick, tol, fields,
                     lambda t: (t["date"], t["side"], _tick_key(t["level"], tick, tol)))
     return breaks
 
@@ -944,7 +1080,8 @@ def check_account(result, per_contract_by_market, specs_by_market, risk_pct, sta
         m, t = mk[k], by_key[k]
         label = f"account: trade {k[0]} {k[1]} entered {k[2]}"
         tol = float(specs_by_market[k[0]]["tick"]) * _EPS
-        _field_breaks(breaks, label, m, t, _A_PRICE_FIELDS + (("qty", "eq"),), tol)
+        extra = (("break_ts", "eq"),) if "break_ts" in m else ()          # candidate 2's trades carry it
+        _field_breaks(breaks, label, m, t, _A_PRICE_FIELDS + extra + (("qty", "eq"),), tol)
         for f in ("planned_cost", "net"):
             if f not in t:
                 breaks.append(f"{label}: field {f} missing")

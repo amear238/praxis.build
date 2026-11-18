@@ -926,6 +926,217 @@ class AccountTests(unittest.TestCase):
                 self.assertTrue(any(": net is" in x for x in b), b)
 
 
+# ---------------------------------------------------------------------------------------------- candidate 2
+# Break and retest (the amendment of 2026-11-18). Candidate 1's armed set is traded the other way: on 03-05 the
+# PD high 110 (above P0) becomes a long, R 110, stop 108, after a 15-minute close >= 111; the PD low 90 becomes
+# a short, R 90, stop 92, after a close <= 89. The retest: a long fills at R on a minute whose low <= R - 1 tick,
+# from the minute after the break bar's last minute to the last minute before 3:00 PM.
+ARMED2 = {"2024-03-05": [arm("PD", 1, 110, 108), arm("PD", -1, 90, 92)]}
+
+
+def trade2(day, kind, side, R, stop, dist, target, entry_at, exit_at, exit_, reason, worst, break_at, gap=False):
+    return dict(trade(day, kind, side, R, stop, dist, target, entry_at, exit_at, exit_, reason, worst, gap),
+                break_ts=ts(f"{day} {break_at}"))
+
+
+class Case2(Case):
+    def breaks(self, g, minutes, settings, rolls=(), fill=None, market=None, spec=None, daily_=None):
+        return rc.check_market2(g, minutes, self.daily_ if daily_ is None else daily_, list(rolls),
+                                spec or self.spec, settings, fill or self.fill, market or self.market)
+
+
+class Candidate2Tests(Case2):
+    # Q1. The 9:30 bar (9:30 and 9:44) closes 110 = R: not a tick beyond, though its high is 112. The 9:45 bar
+    # (9:50 and 9:59) closes 111: the break, break_ts 9:59. Its own minutes 9:50 and 9:59 dip to 109, but the
+    # retest counts only from 10:00: 10:00's low 110 is not through; 10:05's low 109 fills the long at 110, stop
+    # 108 untouched. T 3: target 116, hit at 10:10 (high 117). worst 109 - 110 = -1.
+    Q1 = day5(("09:44", 109, 112, 109, 110), ("09:50", 110, 112, 109, 111), ("09:59", 111, 112, 109, 111),
+              ("10:00", 111, 112, 110, 112), ("10:05", 111, 111, 109, 110), ("10:10", 110, 117, 110, 116),
+              ("16:00", 116, 116, 116, 116))
+    Q1_TRADE = trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "10:05", "10:10", 116, "target", -1, "09:59")
+
+    def test_break_is_a_quarter_close_a_tick_beyond_and_retest_follows_the_break_bar(self):
+        self.clean(got([self.Q1_TRADE], ARMED2), self.Q1, st("PD", 0.2, 3))
+        # the break taken on the 9:30 bar (its high, or a close at R): retest from 9:45, filled at 9:50
+        g = got([dict(self.Q1_TRADE, entry_ts=ts("2024-03-05 09:50"), break_ts=ts("2024-03-05 09:44"))], ARMED2)
+        self.caught(g, "entry_ts", self.Q1, st("PD", 0.2, 3))
+        # the retest counted inside the break bar: filled at 9:50 although the break came at 9:59
+        g = got([dict(self.Q1_TRADE, entry_ts=ts("2024-03-05 09:50"))], ARMED2)
+        self.caught(g, "entry_ts", self.Q1, st("PD", 0.2, 3))
+        # break_ts as the break bar's start, not its last minute
+        g = got([dict(self.Q1_TRADE, break_ts=ts("2024-03-05 09:45"))], ARMED2)
+        self.caught(g, "break_ts", self.Q1, st("PD", 0.2, 3))
+
+    def test_armed_set_is_candidate_1s_traded_the_other_way(self):
+        self.clean(got([self.Q1_TRADE], ARMED2), self.Q1, st("PD", 0.2, 3))
+        self.caught(got([self.Q1_TRADE], PD_ARMED), "missing", self.Q1, st("PD", 0.2, 3))
+
+    def test_quarter_hours_run_on_the_clock_from_930(self):
+        # The first minute after 9:30 is 9:33 (P0 100). The 9:30 to 9:45 bar holds 9:33 and 9:44 and closes 111:
+        # the break, break_ts 9:44. 9:46 retests (low 109): long 110, stop 108; 10:00 hits the target 116.
+        # Bars rolling from the first minute (9:33 to 9:48) would close 110 at 9:46: no break there, no trade.
+        mins = [PRIOR[0], m("2024-03-05 09:33", 100, 101, 99, 100), m("2024-03-05 09:44", 105, 111, 105, 111),
+                m("2024-03-05 09:46", 111, 111, 109, 110), m("2024-03-05 10:00", 110, 117, 110, 116),
+                m("2024-03-05 16:00", 116, 116, 116, 116)]
+        right = got([trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "09:46", "10:00", 116, "target", -1, "09:44")],
+                    ARMED2)
+        self.clean(right, mins, st("PD", 0.2, 3))
+        self.caught(got([], ARMED2), "missing", mins, st("PD", 0.2, 3))
+
+    def test_last_retestable_break_is_the_bar_starting_1430(self):
+        # The 2:30 bar's last minute 14:44 closes 111: broken. 14:50 retests (low 109): long 110, flat at 15:55
+        # at 112 - 1 = 111. worst: 14:50's low 109 -> -1; the flat minute only at its fill.
+        mins = day5(("14:44", 105, 111, 105, 111), ("14:50", 111, 111, 109, 110), ("15:55", 112, 113, 111, 112),
+                    ("16:00", 112, 112, 112, 112))
+        right = got([trade2("2024-03-05", "PD", 1, 110, 108, 2, None, "14:50", "15:55", 111, "flat", -1, "14:44")],
+                    ARMED2)
+        self.clean(right, mins, st("PD"))
+        self.caught(got([], ARMED2), "missing", mins, st("PD"))
+
+    def test_a_break_on_the_bar_starting_1445_has_no_minute_left_to_retest(self):
+        # The 2:45 bar runs to 15:00, so its last minute (14:59, close 111) is the last entry minute: nothing is
+        # left after it. 15:00's low 109 would retest, but 15:00 is past the last entry (R24).
+        mins = day5(("14:59", 105, 111, 105, 111), ("15:00", 111, 111, 109, 110), ("15:55", 112, 113, 111, 112),
+                    ("16:00", 112, 112, 112, 112))
+        self.clean(got([], ARMED2), mins, st("PD"))
+        g = got([trade2("2024-03-05", "PD", 1, 110, 108, 2, None, "15:00", "15:55", 111, "flat", -1, "14:59")],
+                ARMED2)
+        self.caught(g, "extra", mins, st("PD"))
+
+    def test_no_retest_entry_at_1500(self):
+        # Broken at 14:44; 14:50 stays above 109; the first retest minute is 15:00: too late, no trade.
+        mins = day5(("14:44", 105, 111, 105, 111), ("14:50", 111, 112, 110, 111), ("15:00", 111, 111, 109, 110),
+                    ("15:55", 112, 113, 111, 112), ("16:00", 112, 112, 112, 112))
+        self.clean(got([], ARMED2), mins, st("PD"))
+        g = got([trade2("2024-03-05", "PD", 1, 110, 108, 2, None, "15:00", "15:55", 111, "flat", -1, "14:44")],
+                ARMED2)
+        self.caught(g, "extra", mins, st("PD"))
+
+    # Zones. The demand zone 100 to 103 of KindTests.SD_BARS (P0 110) is armed in candidate 1 as a long at its
+    # near edge 103. In candidate 2 it is a short: R = the far edge 100, stop = the near edge 103 + d = 105,
+    # distance 5. The 9:30 bar dips to 98 (at 9:35 and on its last minute 9:44) but closes 101: no break.
+    # The 9:45 bar closes 99 (<= 100 - 1) at 9:59: broken. Its 9:50 high 101 is inside the break bar; 10:05's
+    # high 101 retests: short at 100. T 3: target 100 - 15 = 85, hit at 10:10 (low 84); its high 100 is under
+    # the stop. worst (101 - 100) x -1 = -1.
+    def sd2(self):
+        return sorted(KindTests.sd(self) + [
+            m("2024-03-15 09:35", 103, 103, 98, 101), m("2024-03-15 09:44", 101, 102, 98, 101),
+            m("2024-03-15 09:50", 101, 101, 98, 99), m("2024-03-15 09:59", 99, 100, 98, 99),
+            m("2024-03-15 10:05", 99, 101, 98, 100), m("2024-03-15 10:10", 100, 100, 84, 85)], key=lambda b: b.ts)
+
+    SD_BARS = KindTests.SD_BARS
+
+    def test_zone_retests_at_the_far_edge_with_the_stop_beyond_the_near_edge(self):
+        right_trade = trade2("2024-03-15", "SD", -1, 100, 105, 5, 85, "10:05", "10:10", 85, "target", -1, "09:59")
+        right = got([right_trade], {"2024-03-15": [arm("SD", -1, 100, 105)]})
+        self.clean(right, self.sd2(), st("SD", 0.2, 3))
+        # R at the near edge 103: the retest needs a high of 104, never reached
+        self.caught(got([], {"2024-03-15": [arm("SD", -1, 103, 105)]}), "missing", self.sd2(), st("SD", 0.2, 3))
+        # the stop d beyond the far edge (102): distance 2, target 94
+        g = got([dict(right_trade, stop=102.0, dist=2.0, target=94.0, exit=94.0, points=6.0)],
+                {"2024-03-15": [arm("SD", -1, 100, 102)]})
+        self.caught(g, ": stop is 102", self.sd2(), st("SD", 0.2, 3))
+        # the break read off the 9:30 bar's low (98): broken at 9:44, retested and filled at 9:50
+        g = got([dict(right_trade, entry_ts=ts("2024-03-15 09:50"), break_ts=ts("2024-03-15 09:44"))],
+                {"2024-03-15": [arm("SD", -1, 100, 105)]})
+        self.caught(g, "entry_ts", self.sd2(), st("SD", 0.2, 3))
+
+    def test_supply_zone_above_p0_retests_at_its_top(self):
+        # The mirrored zone 97 to 100 lies above P0 90: broken up, R = its top 100, stop = its bottom 97 - 2 = 95.
+        mins = KindTests.sd(self, mirror=True)
+        self.clean(got([], {"2024-03-15": [arm("SD", 1, 100, 95)]}), mins, st("SD"))
+        self.caught(got([], {"2024-03-15": [arm("SD", 1, 97, 95)]}), "missing", mins, st("SD"))
+
+    # ALL on 03-05: S(03-04) is one minute 110 / 90 (volume 1) and one at 100 (volume 1000), so its volume levels
+    # all sit at 100, within d of P0. ON (03-05 9:00) is 104 / 99. Candidate 1 arms shorts ON 104 and PD 110 and
+    # a long PD 90 (ON 99 is within d; RN 100 too). Candidate 2: longs ON R 104 stop 102 and PD R 110 stop 108,
+    # a short PD R 90 stop 92.
+    BASE2 = [m("2024-03-04 10:00", 100, 110, 90, 100, v=1), m("2024-03-04 10:01", 100, 100, 100, 100, v=1000),
+             m("2024-03-05 09:00", 100, 104, 99, 100), m("2024-03-05 09:30", 100, 101, 99, 100)]
+    ALL2 = {"2024-03-05": [arm("ON", 1, 104, 102), arm("PD", 1, 110, 108), arm("PD", -1, 90, 92)]}
+
+    def all2(self, *rows):
+        return self.BASE2 + [m(f"2024-03-05 {t}", o, h, l, c) for t, o, h, l, c in rows]
+
+    def test_broken_level_retested_while_a_position_is_open_is_spent(self):
+        # 9:44 closes 105: ON broken. 9:50 (low 103) fills the ON long at 104. The 10:00 bar closes 111 at 10:14:
+        # PD 110 broken while the long is open. 10:20 (low 109) meets PD's retest while the long is open: spent.
+        # 11:00 stops the long (reference 102, midpoint 101.5 -> 101). 11:50 meets PD's retest again: no trade.
+        # worst: lows held 103, 108, 109, 101 -> -3.
+        mins = self.all2(("09:44", 101, 105, 101, 105), ("09:50", 105, 105, 103, 104), ("10:14", 108, 111, 108, 111),
+                         ("10:20", 111, 111, 109, 110), ("11:00", 110, 110, 101, 102),
+                         ("11:44", 105, 111, 105, 111), ("11:50", 111, 111, 109, 110), ("16:00", 110, 110, 110, 110))
+        on = trade2("2024-03-05", "ON", 1, 104, 102, 2, None, "09:50", "11:00", 101, "stop", -3, "09:44")
+        self.clean(got([on], self.ALL2), mins, st("ALL"))
+        g = got([on, trade2("2024-03-05", "PD", 1, 110, 108, 2, None, "11:50", "16:00", 110, "flat", -1, "10:14")],
+                self.ALL2)
+        self.caught(g, "extra", mins, st("ALL"))
+
+    def test_broken_level_retested_on_a_trades_exit_minute_is_spent(self):
+        # T 5. The ON long (9:50) has target 104 + 10 = 114. PD 110 breaks at 10:14 (close 111, high 111: under
+        # ON's target). 10:20 (high 115, low 109) is ON's exit at its target 114, and the first minute of PD's
+        # retest: on the exit minute, so PD is spent. 10:30 meets PD's retest again: no trade.
+        # worst: lows held 103, 108, 109 -> -1.
+        mins = self.all2(("09:44", 101, 105, 101, 105), ("09:50", 105, 105, 103, 104), ("10:14", 108, 111, 108, 111),
+                         ("10:20", 113, 115, 109, 110), ("10:30", 110, 110, 109, 110), ("16:00", 110, 110, 110, 110))
+        on = trade2("2024-03-05", "ON", 1, 104, 102, 2, 114, "09:50", "10:20", 114, "target", -1, "09:44")
+        self.clean(got([on], self.ALL2), mins, st("ALL", 0.2, 5))
+        pd = trade2("2024-03-05", "PD", 1, 110, 108, 2, 120, "10:20", "16:00", 110, "flat", -1, "10:14")
+        self.caught(got([on, pd], self.ALL2), "extra", mins, st("ALL", 0.2, 5))
+
+    def test_a_break_counts_while_a_position_is_open(self):
+        # T 3. The ON long (9:50, target 110) exits at 10:14 (high 111), the same minute that closes the 10:00
+        # bar at 111 and breaks PD 110 while the long was open. 10:20 retests PD (low 109) after the exit: long
+        # 110, target 116, hit at 10:30.
+        mins = self.all2(("09:44", 101, 105, 101, 105), ("09:50", 105, 105, 103, 104), ("10:14", 108, 111, 108, 111),
+                         ("10:20", 111, 111, 109, 110), ("10:30", 110, 117, 110, 116), ("16:00", 116, 116, 116, 116))
+        right = got([trade2("2024-03-05", "ON", 1, 104, 102, 2, 110, "09:50", "10:14", 110, "target", -1, "09:44"),
+                     trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "10:20", "10:30", 116, "target", -1, "10:14")],
+                    self.ALL2)
+        self.clean(right, mins, st("ALL", 0.2, 3))
+        g = copy.deepcopy(right)
+        del g["trades"][1]                              # the break ignored because a position was open
+        self.caught(g, "missing", mins, st("ALL", 0.2, 3))
+
+    def test_two_retests_in_one_minute_nearer_the_open_fills(self):
+        # 9:44 closes 111: ON 104 and PD 110 both broken. 9:50 opens 105 with low 103: both retests met. ON's R
+        # is 1 from the open, PD's 5: the ON long fills (stop 102 untouched) and PD is spent. T 3: ON's target
+        # 110 at 10:00. 10:10 (low 108) meets PD's retest again: spent, no trade.
+        mins = self.all2(("09:44", 101, 112, 101, 111), ("09:50", 105, 106, 103, 104), ("10:00", 104, 111, 104, 110),
+                         ("10:10", 110, 110, 108, 109), ("16:00", 109, 109, 109, 109))
+        on = trade2("2024-03-05", "ON", 1, 104, 102, 2, 110, "09:50", "10:00", 110, "target", -1, "09:44")
+        self.clean(got([on], self.ALL2), mins, st("ALL", 0.2, 3))
+        pd = trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "10:10", "16:00", 109, "flat", -2, "09:44")
+        self.caught(got([on, pd], self.ALL2), "extra", mins, st("ALL", 0.2, 3))
+
+    def test_two_retests_the_later_listed_level_can_be_nearer_the_open(self):
+        # 9:50 opens 109: PD's R 110 is 1 away, ON's 104 is 5. The PD long fills and the same minute stops it
+        # (low 103 <= 108; reference 108, midpoint 105.5 -> 105). ON is spent. 10:30 meets ON's retest: no trade.
+        mins = self.all2(("09:44", 101, 112, 101, 111), ("09:50", 109, 109, 103, 104), ("10:30", 104, 104, 102, 103),
+                         ("16:00", 103, 103, 103, 103))
+        pd = trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "09:50", "09:50", 105, "stop", -7, "09:44")
+        self.clean(got([pd], self.ALL2), mins, st("ALL", 0.2, 3))
+        on = trade2("2024-03-05", "ON", 1, 104, 102, 2, 110, "09:50", "09:50", 102, "stop", -1, "09:44")
+        self.caught(got([on], self.ALL2), "missing", mins, st("ALL", 0.2, 3))
+
+    def test_two_retests_equally_near_the_open_go_to_the_r_nearer_p0(self):
+        # 9:50 opens 107: both R are 3 away. ON's R 104 is 4 from P0, PD's 110 is 10: ON fills (R26).
+        mins = self.all2(("09:44", 101, 112, 101, 111), ("09:50", 107, 107, 103, 104), ("10:00", 104, 111, 104, 110),
+                         ("16:00", 110, 110, 110, 110))
+        on = trade2("2024-03-05", "ON", 1, 104, 102, 2, 110, "09:50", "10:00", 110, "target", -1, "09:44")
+        self.clean(got([on], self.ALL2), mins, st("ALL", 0.2, 3))
+        pd = trade2("2024-03-05", "PD", 1, 110, 108, 2, 116, "09:50", "09:50", 105, "stop", -7, "09:44")
+        self.caught(got([pd], self.ALL2), "missing", mins, st("ALL", 0.2, 3))
+
+    def test_account_carries_break_ts_through(self):
+        per = {"NQ": {"trades": [self.Q1_TRADE]}}
+        r = rc.replay_account(per, {"NQ": SPEC}, 1.0, 10000.0)
+        self.assertEqual(rc.check_account(r, per, {"NQ": SPEC}, 1.0, 10000.0), [])
+        r["trades"][0]["break_ts"] += 60 * NS
+        b = rc.check_account(r, per, {"NQ": SPEC}, 1.0, 10000.0)
+        self.assertTrue(any("break_ts" in x for x in b), b)
+
+
 # ---------------------------------------------------------------------------------------------- a random market
 class RandomMarketTests(unittest.TestCase):
     """Twenty days of random-walk minutes, every kind: the replay must run end to end, agree with itself, find
@@ -1006,6 +1217,48 @@ class RandomMarketTests(unittest.TestCase):
             else:
                 t[f] += 0.25
             b = rc.check_market(h, self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+            self.assertTrue(any(f"{f} is" in x for x in b), (f, b))
+
+    def test_candidate_2_runs_agrees_with_itself_and_trades(self):
+        by_ts = {b.ts: b for b in self.mins}
+        seen = set()
+        for kind in rc.KINDS + ("ALL",):
+            for k, target in ((0.1, 3), (0.4, None)):
+                for fill in rc.FILLS:
+                    s = st(kind, k, target)
+                    g = rc.replay_market2(self.mins, self.daily, self.rolls, self.spec, s, fill, "NQ")
+                    self.assertEqual(rc.check_market2(g, self.mins, self.daily, self.rolls, self.spec, s, fill,
+                                                      "NQ"), [], (kind, k, target, fill))
+                    if g["trades"]:
+                        seen.add(kind)
+                    for t in g["trades"]:
+                        a = {(x["kind"], x["side"], x["level"], x["stop"]) for x in g["armed"][t["date"]]}
+                        self.assertIn((t["kind"], t["side"], t["level"], t["stop"]), a)
+                        self.assertLess(t["break_ts"], t["entry_ts"])
+                        close = by_ts[t["break_ts"]].close
+                        self.assertGreaterEqual((close - t["level"]) * t["side"], 0.25 - 1e-9)
+                        wall = datetime.fromtimestamp(t["entry_ts"] // NS, NY)
+                        self.assertLess((wall.hour, wall.minute), (15, 0))
+                        if t["reason"] == "target":
+                            self.assertAlmostEqual(t["points"], target * t["dist"])
+        self.assertEqual(seen, set(rc.KINDS) | {"ALL"})
+
+    def test_candidate_2_any_changed_field_is_caught(self):
+        s = st("ALL", 0.1, 3)
+        g = rc.replay_market2(self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
+        self.assertGreater(len(g["trades"]), 10)
+        rnd = random.Random(8)
+        for _ in range(40):
+            h = copy.deepcopy(g)
+            t = rnd.choice(h["trades"])
+            f = rnd.choice(("entry", "stop", "dist", "exit", "worst", "entry_ts", "exit_ts", "break_ts", "kind"))
+            if f.endswith("_ts"):
+                t[f] += 60 * NS
+            elif f == "kind":
+                t[f] = "ON" if t[f] != "ON" else "PD"
+            else:
+                t[f] += 0.25
+            b = rc.check_market2(h, self.mins, self.daily, self.rolls, self.spec, s, "midpoint", "NQ")
             self.assertTrue(any(f"{f} is" in x for x in b), (f, b))
 
     def test_reproduces_on_a_second_run_and_from_a_cold_cache(self):
