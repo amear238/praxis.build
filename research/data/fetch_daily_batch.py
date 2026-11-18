@@ -12,7 +12,6 @@ import os
 import struct
 import sys
 import time
-import zipfile
 from compression import zstd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -20,6 +19,45 @@ import databento as db  # noqa: E402
 import fetch_databento as f  # noqa: E402
 
 SCHEMA, START = "ohlcv-1d", "2010-06-06"
+
+
+def _download_files(client, jid, keep, threads=16):
+    """Every file of a finished job, one request each over HTTPS, checked against its sha256; files already
+    present and matching are skipped. (The single zip of a job broke at the same byte on every try.)
+    A finished job's files download again at no charge."""
+    import concurrent.futures as cf
+    import hashlib
+    import requests
+    key = client._key
+    want = [x for x in client.batch.list_files(jid) if x["filename"].endswith(".dbn.zst")]
+
+    def one(x):
+        dest = os.path.join(keep, x["filename"])
+        exp = x["hash"].split(":", 1)[1]
+        if os.path.exists(dest) and hashlib.sha256(open(dest, "rb").read()).hexdigest() == exp:
+            return 0
+        for attempt in range(1, 6):
+            try:
+                r = requests.get(x["urls"]["https"], auth=(key, ""), timeout=60)
+                r.raise_for_status()
+                if hashlib.sha256(r.content).hexdigest() != exp:
+                    raise ValueError("checksum mismatch")
+                with open(dest + ".part", "wb") as fh:
+                    fh.write(r.content)
+                os.replace(dest + ".part", dest)
+                return 1
+            except Exception as e:  # noqa: BLE001 - retried, then reported
+                last = e
+                time.sleep(2 * attempt)
+        raise RuntimeError(f"{x['filename']}: {last}")
+
+    done = 0
+    with cf.ThreadPoolExecutor(threads) as ex:
+        for i, n in enumerate(ex.map(one, want), 1):
+            done += n
+            if i % 5000 == 0:
+                print(f"  {i}/{len(want)} files checked", flush=True)
+    print(f"  job {jid}: {len(want)} files present and checked ({done} downloaded now)", flush=True)
 
 
 def _join(paths, dest):
@@ -83,20 +121,7 @@ def main():
             time.sleep(15)
         keep = os.path.join(f.OUT, f"batch-{jid}")   # paid data: a kept folder, never a temporary one
         os.makedirs(keep, exist_ok=True)
-        for attempt in range(1, 8):   # a finished job's files download again at no charge
-            try:
-                for z in glob.glob(os.path.join(keep, "**", "*.zip"), recursive=True):
-                    os.remove(z)
-                client.batch.download(job_id=jid, output_dir=keep)
-                break
-            except db.BentoError as e:
-                print(f"  download retry {attempt}: {e}", flush=True)
-                time.sleep(15 * attempt)
-        else:
-            sys.exit(f"FAILED: could not download job {jid}")
-        for z in glob.glob(os.path.join(keep, "**", "*.zip"), recursive=True):
-            with zipfile.ZipFile(z) as zf:
-                zf.extractall(os.path.dirname(z))
+        _download_files(client, jid, keep)
         files = [p for p in glob.glob(os.path.join(keep, "**", "*.dbn.zst"), recursive=True)]
         for m in syms:
             hit = sorted(p for p in files if os.path.basename(p).endswith(f".{m}.{r}.dbn.zst"))
