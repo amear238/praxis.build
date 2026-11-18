@@ -37,6 +37,7 @@ for p in (_HERE, _TREND):
         sys.path.append(p)
 import fade  # noqa: E402
 import levels  # noqa: E402
+import retest  # noqa: E402
 import specs as specs_mod  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("trend_measure", os.path.join(_TREND, "measure.py"))
@@ -47,7 +48,7 @@ FIRST, END = "2018-01-01", "2023-12-31"
 YEARS = ("2018", "2019", "2020", "2021", "2022", "2023")
 LIMIT, TARGET = 4500.0, 9000.0
 KINDS = levels.KINDS + ("ALL",)
-ENGINES = {"1": fade}
+ENGINES = {"1": fade, "2": retest}
 TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)"}
 CAND = "1"
 

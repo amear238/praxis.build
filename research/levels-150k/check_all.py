@@ -17,6 +17,7 @@ for p in (_HERE, _TREND):
     if p not in sys.path:
         sys.path.append(p)
 import fade  # noqa: E402
+import retest  # noqa: E402
 import levels  # noqa: E402
 import measure  # noqa: E402
 import rule_check  # noqa: E402
