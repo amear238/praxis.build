@@ -36,7 +36,7 @@ For everything else: take the sensible option, tell him in one line, carry on. H
 - Every trade has a stop-market order placed at entry.
 - One strategy at a time. Noise-Area is retested first, with a real stop.
 - Nothing goes to execution without enough backtest data.
-- Fully automated. AI in trade decisions is allowed only if it is backtested like any other strategy (ruling of 2026-11-17).
+- Execution fully automated. AI in trade decisions is allowed only if it is backtested like any other strategy (ruling of 2026-11-17). Amear may mark chart levels himself outside trading hours, on 15-minute or longer charts, with the automation placing every order (ruling of 2026-11-18).
 
 ## Talking to Amear
 - Plain English. No code names. One step at a time.

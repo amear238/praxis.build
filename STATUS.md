@@ -33,13 +33,20 @@ Nothing.
 
 ## What is next, in order
 
-1. A fresh research pass for the next candidate (task `Praxis_build-8h5`). Decided without waiting, reversible: four families have now failed on the same frame. The common squeeze is that winners at least twice the risk come with long losing runs, and the $4,500 limit then allows too little size to reach $9,000. So the pass looks for published records where the profit is large compared with the losing runs, after costs, on any of the eleven markets already bought. Under the 2026-11-17 ruling, AI-made decisions are allowed if backtested the same way.
+1. **The fresh research pass, widened by the 2026-11-18 ruling** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). The new shape: Amear marks levels or zones on 15-minute or longer charts outside trading hours; the automation places every entry, stop-market order and exit during the session. The aim includes learning the marking well enough to automate it later.
+   - What the pass looks for: level-based methods on 15-minute-plus charts with a published record where the profit is large compared with the losing runs, after costs. Examples to weigh: prior day or week high and low, the overnight range, swing highs and lows, the prior session's volume profile (value area, point of control), supply and demand zones, round numbers. Any of the eleven markets already bought. The four failures share one squeeze: winners at least twice the risk come with long losing runs, so the $4,500 limit allows too little size to reach $9,000. A candidate must ease that.
+   - The backtest problem, decided without waiting, reversible. His hand marks cannot be replayed on 2018 to 2026. So each candidate's marking is first written as a mechanical rule a computer can draw, and that rule is backtested on the five bars like any strategy. Then Amear marks past days blind (charts cut off at the session's start, without the outcome). His marks are compared with the rule's, to see whether the backtest stands for what he would do. Execution rules (entry trigger at a level, stop beyond the zone, target, size) are fixed in code either way.
+   - Write the pass's plan with the bars locked before any result, as `research/trend-150k/PLAN.md` was. Reuse: `research/trend-150k/mdata.py` and `specs.py` for the bars and the eleven markets, `rule_check.py`'s method (an independent check written from the plan), `measure.py`'s R-based measuring and safe-size projection, and `full_run.py` with the noise-area judge at the $4,500 limit.
+   - Fewer trades on 15-minute-plus charts put the seven-day bar at risk; spreading across markets helps.
+   - Later, only for a finalist: the signal path takes his marks as a levels file read by the NinjaScript watcher, the same file-drop design as now.
 2. Before any final run on micros: confirm MyFundedFutures lists every micro used.
 3. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
 1. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+
+Decided without waiting, reversible (2026-11-18, his ruling): "mark out the charts or spreads" is read as marking levels on price charts. Trading one market against another (a spread) is not in the pass unless he says so.
 
 Decided without waiting, reversible (2026-11-18, trend build): where the plan's words left a choice, the engines follow the independent check's literal reading. The last bar of the data and a holiday early close are at the close with no slippage. The day's worst open loss counts the whole minute in which the stop fills.
 

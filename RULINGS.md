@@ -66,7 +66,7 @@ On a design with no known maximum loss: "Then that's not compatible." Asked whet
 
 > "I'm currently committing to um, uh, non-discretionary trading, which is fully automated"
 
-On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions. (Changed 2026-11-17: AI is allowed if backtested. See "AI in trade decisions" below.)
+On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions. (Changed 2026-11-17: AI is allowed if backtested. See "AI in trade decisions" below.) (Widened 2026-11-18: his own chart marking outside trading hours is allowed, with automated execution. See "His own chart marking, automated execution" below.)
 
 **Numbers that are not set yet.** They come from backtest data.
 
@@ -257,3 +257,11 @@ Reading: his yes to buying one-minute history for several markets, offered at ab
 > "Okay, I have been overruled by your advice."
 
 Reading: buy the broad set only, $122.16 of free credit. No money of his is spent. The extra $125 waits until a scalping candidate needs data.
+
+## His own chart marking, automated execution (2026-11-18)
+
+Typed by Amear in the Claude Code session, verbatim, after being told that Noise-Area, the opening range breakout, the session sweep and trend-following had all failed on the $150,000 frame:
+
+> "i want to expand the limits of the stratagy at least till we find a stratagy to be one that allows for Technical analysis done by me the human outside of trading hours the strategy I would like to optimize for or what desire here is one where the actual execution intruders are done by the Automation process, and I mark out the charts or spreads myself what this will allow for my physical intervention and understanding of the strategy to potentially and eventuallydevelop skills to have that process even automated so it's not necessarily a fallback, but could even be a blessing in disguise in order for this to work in simplest way. i would propose something with highier time frame chrting like 15min +"
+
+Reading, not his words: this widens the 2026-11-14 "fully automated" commitment, at least until a strategy is found. Amear may mark levels or zones on the charts himself, outside trading hours; the entries, stops and exits are then placed by the automation, with no hand on the order during the session. The aim includes learning the marking well enough to automate it later. Charts of 15 minutes or longer. Unchanged: the cost of each trade set before entry, a stop-market order at entry, one strategy at a time, and nothing goes to execution without enough backtest data, so the marking has to be written as a rule that can be backtested.
