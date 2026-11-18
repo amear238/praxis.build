@@ -43,7 +43,10 @@ Opening range breakout on the same $150,000 frame, 2026-11-17: **none of 108 ver
 
 ## What is next, in order
 
-1. Trend-following, two versions side by side on the $150,000 frame: same-day (flat by 4:00 PM) and multi-week. Markets beyond NQ, on bought one-minute data. Data: 1-minute bars for 11 markets from 2018 and daily bars from 2010, bought from Databento on the free credit ($122.16), saved, not committed, at `market-data/databento` (git-ignored) by `research/data/fetch_databento.py`.
+1. Trend-following, two versions side by side on the $150,000 frame: same-day (flat by 3:55 PM) and multi-week. Plan, bars locked before any result: `research/trend-150k/PLAN.md`.
+   - Data bought and checked (2026-11-17): Databento, eleven markets, 1-minute bars 2018 on and daily bars 2010 on, worst-case $124.64 of the $125 free credit, none of Amear's money. Saved, not committed, in `market-data/databento`. NQ matches the NinjaTrader file (97% of 1.86M minutes within two ticks); all 729 rolls joined.
+   - Built, test first: data reader (11 tests), multi-week engine (14), same-day engine (9). No backtest run yet.
+   - Next: the independent rule check, then the measuring pass on 2018 to 2023, then the locked list.
 2. Earlier: Amear's word on where the search goes now that Noise-Area and the opening range breakout have both failed on the $150,000 frame. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
 3. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
