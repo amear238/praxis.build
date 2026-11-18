@@ -22,9 +22,10 @@ full_days the calendar's length from 2018-01-01 to the data's end, headroom = pr
 Gate (plan step 3): average winner >= 2R, max_gap <= 7 and projected_profit >= 9,000.
 
 Candidate 3 (value area traversal, traverse.py) has its own grid: k in (0.1, 0.2, 0.4) x min_rr in (0, 2, 3), 9
-settings; the same R, market sets, portfolio figures and gate.
+settings; the same R, market sets, portfolio figures and gate. Candidate 4 (acceleration through a level, accel.py):
+the eight kinds x k in (0.1, 0.2, 0.4), the target fixed at 3: 24 settings.
 
-Run: python3 -I -B research/levels-150k/measure.py [1|2|3] (candidate; one worker per market). Candidate 1 writes
+Run: python3 -I -B research/levels-150k/measure.py [1|2|3|4] (candidate; one worker per market). Candidate 1 writes
 out/, candidate N out/cN/. Standard library only.
 """
 import importlib.util
@@ -42,6 +43,7 @@ import fade  # noqa: E402
 import levels  # noqa: E402
 import retest  # noqa: E402
 import traverse  # noqa: E402
+import accel  # noqa: E402
 import specs as specs_mod  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("trend_measure", os.path.join(_TREND, "measure.py"))
@@ -52,9 +54,9 @@ FIRST, END = "2018-01-01", "2023-12-31"
 YEARS = ("2018", "2019", "2020", "2021", "2022", "2023")
 LIMIT, TARGET = 4500.0, 9000.0
 KINDS = levels.KINDS + ("ALL",)
-ENGINES = {"1": fade, "2": retest, "3": traverse}
+ENGINES = {"1": fade, "2": retest, "3": traverse, "4": accel}
 TITLES = {"1": "Candidate 1 (fade the first touch of a marked level)", "2": "Candidate 2 (break and retest)",
-          "3": "Candidate 3 (value area traversal)"}
+          "3": "Candidate 3 (value area traversal)", "4": "Candidate 4 (acceleration through a level)"}
 CAND = "1"
 
 
@@ -66,6 +68,9 @@ def grid(cand=None):
     if (cand or CAND) == "3":
         return [{"name": "VA-k%g-m%d" % (k, m), "kind": "VA", "k": k, "min_rr": m, "atr_days": 14}
                 for k in (0.1, 0.2, 0.4) for m in (0, 2, 3)]
+    if (cand or CAND) == "4":
+        return [{"name": "%s-k%g-T3" % (kd, k), "kind": kd, "k": k, "target": 3, "atr_days": 14}
+                for kd in KINDS for k in (0.1, 0.2, 0.4)]
     return [{"name": "%s-k%g-T%s" % (kd, k, "none" if t is None else t), "kind": kd, "k": k, "target": t,
              "atr_days": 14} for kd in KINDS for k in (0.1, 0.2, 0.4) for t in (3, 5, None)]
 

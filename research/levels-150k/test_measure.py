@@ -92,6 +92,15 @@ class Grid(unittest.TestCase):
         self.assertEqual(len(measure.grid("2")), 72)
         self.assertIs(measure.ENGINES["3"].__name__, "traverse")
 
+    def test_twenty_four_settings_for_candidate_4(self):
+        g = measure.grid("4")
+        self.assertEqual(len(g), 24)
+        self.assertEqual([s["name"] for s in g[:3]], ["PD-k0.1-T3", "PD-k0.2-T3", "PD-k0.4-T3"])
+        self.assertEqual({s["kind"] for s in g}, {"PD", "ON", "PW", "SW", "RN", "VP", "SD", "ALL"})
+        self.assertEqual(sorted({(s["k"], s["target"], s["atr_days"]) for s in g}),
+                         [(0.1, 3, 14), (0.2, 3, 14), (0.4, 3, 14)])
+        self.assertIs(measure.ENGINES["4"].__name__, "accel")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)

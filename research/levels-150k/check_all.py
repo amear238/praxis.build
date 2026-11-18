@@ -4,7 +4,7 @@ run against every trade of every measured setting of candidate 1: 72 settings x 
 2018-01-01 to 2023-12-31, midpoint fills, plus the kind and harsh fills on every setting with ALL; then the
 account check on two risk sizes for every k and target of ALL. Writes out/check_all.json; exit 1 on any break.
 
-Run: python3 -I -B research/levels-150k/check_all.py [1|2|3] (candidate N uses rule_check.check_marketN and writes
+Run: python3 -I -B research/levels-150k/check_all.py [1|2|3|4] (candidate N uses rule_check.check_marketN and writes
 out/cN/). Candidate 3 has 9 settings, all of one kind, so every one gets the kind and harsh fills and the account
 check. Standard library only.
 """
