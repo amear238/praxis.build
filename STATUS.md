@@ -47,6 +47,7 @@ Opening range breakout on the same $150,000 frame, 2026-11-17: **none of 108 ver
    - Data bought and checked (2026-11-17): Databento, eleven markets, 1-minute bars 2018 on and daily bars 2010 on, worst-case $124.64 of the $125 free credit, none of Amear's money. Saved, not committed, in `market-data/databento`. NQ matches the NinjaTrader file (97% of 1.86M minutes within two ticks); all 729 rolls joined.
    - Built, test first: data reader (11 tests), multi-week engine (14), same-day engine (9). No backtest run yet.
    - Next: the independent rule check, then the measuring pass on 2018 to 2023, then the locked list.
+   - Before any result: note in the plan that risk is a set % of the realised balance per trade, not split across markets (the engines already do this). Still to build: the runner and judge (reuse the survival code in `research/intraday-momentum-long/run.py`), the specs for the 11 micros. Confirm MFFU lists every micro before the final run.
 2. Earlier: Amear's word on where the search goes now that Noise-Area and the opening range breakout have both failed on the $150,000 frame. Until then: a fresh research pass for the next candidate (task `Praxis_build-8h5`).
 3. Results for the stop-distance versions and candidates 2 to 4 sit on worktree branches not merged into main.
 
