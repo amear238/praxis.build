@@ -92,13 +92,25 @@ class PerContractTests(unittest.TestCase):
     def test_last_bar_before_flat_closes_at_its_close_when_no_flat_bar(self):
         m = minutes("2024-03-04", [("09:35", 100, 101, 99, 100), ("13:00", 104, 105, 103, 104)])
         t = one(m)[0]
-        self.assertEqual((t["reason"], t["exit"]), ("flat", 103.0))   # close 104 - 1
+        self.assertEqual((t["reason"], t["exit"]), ("flat", 104))   # the close, no slippage (PLAN amendment)
 
     def test_signal_uses_only_days_before_the_trade_date(self):
         # a daily bar dated the trade date itself (close 50) must not flip the signal
         d = daily([100, 100, 110, 50])
         m = minutes("2024-03-04", [("09:35", 100, 101, 99, 100), ("15:55", 101, 102, 100, 101)])
         self.assertEqual(one(m, d)[0]["side"], "long")
+
+
+class TouchTests(unittest.TestCase):
+    def test_uses_the_same_touch_and_sign_as_weekly(self):
+        self.assertTrue(sameday._reaches(1.3033, 13033 * 0.0001, 0.0001, "short"))
+        self.assertEqual(sameday._sign(0.1 + 0.2, 0.3, 0.0001), 0)
+
+    def test_net_uses_the_unrounded_points(self):
+        # 0.3 - 0.1 is 0.19999999999999998: net at 50 contracts, pv 12.5 must be 124.99999.. -> 125.00, the same
+        # money as (exit - entry) computed directly
+        x = {"points": round(0.3 - 0.1, 10), "exit": 0.3, "entry": 0.1, "side": "long"}
+        self.assertEqual(sameday._net(x, 12.5, 0.0, 50), round((0.3 - 0.1) * 12.5 * 50, 2))
 
 
 class AccountTests(unittest.TestCase):

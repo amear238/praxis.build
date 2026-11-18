@@ -389,7 +389,25 @@ def a4_expected():
             "days": [aday("2024-03-05", 10000, 10024, 10000 - 30 - 6)]}
 
 
+# A5. A holiday: trading halts at 13:00 New York and reopens at 18:00 the same date. Nothing is held past 16:00
+# (PLAN, version A), so the 18:00 minutes are not part of the trading day: the minutes end at 12:59 and the
+# trade closes at its close 103, no slippage, reason flat. Long, dist 2, 3 contracts, buy 101, stop 99.
+# points 2, worst -1 (the entry minute's low 100), net 60-6 = 54. The 18:00 minute's low of 96 is never seen.
+A5_MIN = {"A": [M("2024-03-05 14:35", 100, 101, 100, 101), M("2024-03-05 17:59", 103, 104, 102, 103),
+                M("2024-03-05 23:00", 110, 111, 96, 110)]}
+
+
+def a5_expected():
+    t = at("A", "2024-03-05", "long", 101, 103, 99, 2, "flat", False, 2, -1, 3, 96.0, 54.0, 10054.0)
+    return {"risk_pct": 1, "start": 10000.0, "trades": [t], "skipped": [],
+            "days": [aday("2024-03-05", 10000, 10054, 10000 - 30 - 6)]}
+
+
 class SamedayCleanTests(unittest.TestCase):
+    def test_a5_holiday_halt_closes_at_the_last_minute_before_16(self):
+        self.assertEqual(rule_check.check_sameday(a5_expected(), A5_MIN, {"A": A3_DAILY["A"]}, {"A": S1}, A_SET,
+                                                  "kind"), [])
+
     def test_a4_flat_with_slippage_before_the_stop(self):
         self.assertEqual(rule_check.check_sameday(a4_expected(), A4_MIN, {"A": A3_DAILY["A"]}, {"A": S1}, A_SET,
                                                   "kind"), [])

@@ -17,7 +17,7 @@ Per date (the union of the markets' dates, ascending), two phases.
   a. Orders decided at the previous close fill at this bar's open, slip against, kept inside the bar's range:
      an exit first (reason "signal"), then an entry. The entry's stop rests at entry -/+ dist (dist from the
      decision bar).
-  b. Stop. long: open <= stop is a gap; else low <= stop. kind: the stop (the open on a gap) minus slip, not below
+  b. Stop. long: open <= stop is a gap; else low <= stop (both within a millionth of a tick, _reaches). kind: the stop (the open on a gap) minus slip, not below
      the low; midpoint: halfway between the stop (the open on a gap) and the low, to the tick below; harsh-stops:
      the low. Shorts mirror (high, tick above). Checked on the entry bar too. The stopped market makes no
      decision on this bar.
@@ -33,14 +33,16 @@ Per date (the union of the markets' dates, ascending), two phases.
   Size at the decision: risk = balance * risk_pct / 100, balance = start + net of every trade closed so far
   (this date's phase 1 included). loss a contract = (dist + slip) * pv + comm. qty = floor(risk / that), at most
   max_qty. qty < 1: skipped ("under one contract"), nothing entered.
- At the end of the data, a position still open closes at its last bar's close, slip against, reason "end".
+ At a market's last bar (phase 2), a position still open closes at that close, no slippage, reason "end", and
+ no decision is made. signal: within a millionth of a tick of equal is no signal (_sign). A signal exit's gap
+ flag is False (the flag marks stop fills through the open).
 
 Trade: market, side, qty, entry_day, entry, exit_day, exit, stop_initial, dist, planned_cost, reason
 ("stop" | "signal" | "end"), gap, rolls, net = (exit - entry) * sign * pv * qty - comm * qty
 - rolls * (comm + 2 * slip * pv) * qty, to the cent.
 Day: {day, date, start, end, low}. end = realised balance + every open position marked at the close, its
-commission already deducted; low = the lowest of start, end and realised + every open position marked at its
-bar's adverse extreme (all at once; conservative). start = the previous day's end.
+commission already deducted; low = realised + every open position marked at
+its bar's adverse extreme (a market with no bar that day: its last close) (all at once; conservative), not clamped to start or end. start = the previous day's end.
 
 Standard library only. Run tests with python3 -I -B.
 """
@@ -63,6 +65,17 @@ def _ceil_tick(x, tick):
 
 def _inside(x, lo, hi):
     return min(max(x, lo), hi)
+
+
+def _reaches(price, stop, tick, side):
+    """A long's stop is reached at or below it, a short's at or above, within a millionth of a tick (float noise
+    in back-adjusted prices must not turn a touch into a miss)."""
+    return price <= stop + tick * 1e-6 if side == "long" else price >= stop - tick * 1e-6
+
+
+def _sign(c, c_back, tick):
+    d = c - c_back
+    return 0 if abs(d) <= tick * 1e-6 else (1 if d > 0 else -1)
 
 
 class _Pos:
@@ -115,8 +128,7 @@ def run(series, specs, settings, fill="midpoint", start=150000.0, rolls=None):
                 p = pos[m]
                 if do_exit and p is not None:
                     px = _inside(o - slip if p.side == "long" else o + slip, l, h)
-                    stop_beyond = (o < p.stop) if p.side == "long" else (o > p.stop)
-                    close(m, p, day, px, "signal", stop_beyond)
+                    close(m, p, day, px, "signal", False)
                     pos[m] = None
                 if entry is not None:
                     side, qty, dist, planned = entry
@@ -130,8 +142,8 @@ def run(series, specs, settings, fill="midpoint", start=150000.0, rolls=None):
             if p is None:
                 continue
             if p.side == "long":
-                gap = o <= p.stop
-                if gap or l <= p.stop:
+                gap = _reaches(o, p.stop, sp["tick"], "long")
+                if gap or _reaches(l, p.stop, sp["tick"], "long"):
                     ref = o if gap else p.stop
                     px = {"kind": max(l, ref - slip), "midpoint": _floor_tick((ref + l) / 2, sp["tick"]),
                           "harsh-stops": l}[fill]
@@ -141,8 +153,8 @@ def run(series, specs, settings, fill="midpoint", start=150000.0, rolls=None):
                     continue
                 p.best = h if p.best is None else max(p.best, h)
             else:
-                gap = o >= p.stop
-                if gap or h >= p.stop:
+                gap = _reaches(o, p.stop, sp["tick"], "short")
+                if gap or _reaches(h, p.stop, sp["tick"], "short"):
                     ref = o if gap else p.stop
                     px = {"kind": min(h, ref + slip), "midpoint": _ceil_tick((ref + h) / 2, sp["tick"]),
                           "harsh-stops": h}[fill]
@@ -154,11 +166,18 @@ def run(series, specs, settings, fill="midpoint", start=150000.0, rolls=None):
         # phase 2
         for m in markets:
             i = idx[m].get(day)
-            if i is None or m in stopped or i < L or i < N - 1:
+            if i is None:
+                continue
+            if i == len(series[m]) - 1:      # the market's last bar: close what is open, decide nothing
+                if pos[m] is not None:
+                    close(m, pos[m], day, series[m][i].adj_close, "end", False)
+                    pos[m] = None
+                continue
+            if m in stopped or i < L or i < N - 1:
                 continue
             s, sp = series[m], specs[m]
-            c, c_back = s[i].adj_close, s[i - L].adj_close
-            signal = "long" if c > c_back else "short" if c < c_back else None
+            sg = _sign(s[i].adj_close, s[i - L].adj_close, sp["tick"])
+            signal = "long" if sg > 0 else "short" if sg < 0 else None
             p = pos[m]
             if p is not None and (signal is None or signal == p.side):
                 if t is not None:
@@ -190,25 +209,21 @@ def run(series, specs, settings, fill="midpoint", start=150000.0, rolls=None):
                 continue
             sp = specs[m]
             i = idx[m].get(day)
-            if i is None:      # no bar for this market today: carry its last close
+            no_bar = i is None
+            if no_bar:         # no bar for this market today: its last close for both marks
                 i = max(j for d, j in idx[m].items() if d < day)
             a = series[m][i]
             sign = 1 if p.side == "long" else -1
-            adverse = a.adj_low if p.side == "long" else a.adj_high
+            adverse = a.adj_close if no_bar else (a.adj_low if p.side == "long" else a.adj_high)
             end += (a.adj_close - p.entry) * sign * sp["pv"] * p.qty - sp["comm"] * p.qty
             low += (adverse - p.entry) * sign * sp["pv"] * p.qty - sp["comm"] * p.qty
-        end, low = round(end, 2), round(min(low, end, prev_end), 2)
+        end, low = round(end, 2), round(low, 2)
         date = _dt.datetime.fromtimestamp(day * 86400, _dt.UTC).date().isoformat()
         days.append({"day": day, "date": date, "start": prev_end, "end": end, "low": low})
         prev_end = end
 
-    for m in markets:
-        p = pos[m]
-        if p is not None:
-            a, sp = series[m][-1], specs[m]
-            slip = sp["slip_ticks"] * sp["tick"]
-            px = _inside(a.adj_close - slip if p.side == "long" else a.adj_close + slip, a.adj_low, a.adj_high)
-            close(m, p, a.bar.ts // DAY_NS, px, "end", False)
+    if any(p is not None for p in pos.values()):
+        raise AssertionError("a position is open after every market's last bar")
     trades.sort(key=lambda x: (x["entry_day"], markets.index(x["market"])))
     digest = hashlib.sha256(json.dumps(trades, sort_keys=True).encode()).hexdigest()
     return {"settings": settings, "fill": fill, "start": start, "trades": trades, "days": days,

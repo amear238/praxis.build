@@ -24,6 +24,9 @@ Readings chosen where the plan is not explicit (the most literal one each time):
     contracts); with the commission, so low never exceeds end.
  8. A "worst" includes the whole range of every minute held, the entry minute and the stop minute included; a
     15:55 flat minute adds only its exit price (the trade is closed at its open).
+ 8b. A: a day's minutes are those starting at or before 16:00 New York (the plan: nothing held past 16:00). Added
+    2026-11-18 by the engine author after the first real-data run: a holiday halt at 13:00 with a reopen at 18:00
+    was being flattened at the 18:00 open. Test A5.
  9. A: a market with no entry minute that date gives no trade and no skip; a skip is listed only when an entry
     minute exists. A skip record is {"market", "date", "side", "reason"}. Within a date, trades are realised in
     market (dict) order for each trade's "balance".
@@ -379,7 +382,10 @@ def _replay_sameday(risk, start, minutes, daily, specs, settings, fill):
     L, n_atr, mult, t_mult = settings["lookback"], settings["atr_days"], settings["stop_mult"], settings["trail_mult"]
     entry_min, flat_min = _hm(settings["entry"]), _hm(settings["flat"])
     markets = list(minutes)
-    by_day = {m: _ny_minutes(minutes[m], tz) for m in markets}
+    # nothing is held past 16:00 (PLAN, version A): a day's minutes are those starting at or before 16:00, so an
+    # evening reopen after a holiday halt is not part of the trading day
+    by_day = {m: {D: [x for x in v if x[0] <= 16 * 60] for D, v in _ny_minutes(minutes[m], tz).items()}
+              for m in markets}
     dstamps = {m: [a.bar.ts // DAY_NS for a in daily.get(m, [])] for m in markets}
     balance = start
     trades, skipped, days = [], [], []

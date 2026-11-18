@@ -16,9 +16,11 @@ per_contract(minute_bars, daily, spec, settings, fill) -> one market's trades at
     trade at its open, slip against, inside the bar, reason "flat", gap when that open is beyond the stop;
     (b) stop: long open <= stop is a gap, else low <= stop; kind = stop (open on a gap) - slip, not below the
     low; midpoint = halfway to the low, tick below; harsh-stops = the low (shorts mirror); reason "stop";
-    (c) mark the adverse extreme into `worst`, update best; (d) trail (trail_mult t): stop moves to best -/+
+    (c) update best (the adverse extreme of every minute before the
+    flat minute, the stop minute included, is marked into `worst` first); (d) trail (trail_mult t): stop moves to best -/+
     t * dist on the grid away from price, only toward the price, acting from the next bar.
-    Bars run out before flat: close at the last bar's close, slip against, reason "flat".
+    Bars run out before flat: close at the last bar's close, no slippage, reason "flat". Stop reached and
+    equal closes within a millionth of a tick (_reaches, _sign). gap is True only for a stop through the open.
   Trade: market (filled by the caller), date, side, entry, exit, stop_initial, dist, reason, gap,
   points = (exit - entry) * sign, worst = the lowest (adverse extreme - entry) * sign over bars marked (<= 0).
 
@@ -26,7 +28,7 @@ account(per_contract_by_market, specs, risk_pct, start) -> trades sized on one b
   Dates ascending; on each date every market's trade is sized from the realised balance at the day's start
   (all are flat overnight): risk = balance * risk_pct / 100; loss a contract = (dist + slip) * pv + comm;
   qty = floor(risk / that), at most max_qty; qty < 1 skipped ("under one contract").
-  net = points * pv * qty - comm * qty, to the cent. Day {date, start, end, low}: low = start + the sum of every
+  net = (exit - entry) * side * pv * qty - comm * qty from the unrounded prices, to the cent. Day {date, start, end, low}: low = start + the sum of every
   trade's (worst * pv * qty - comm * qty) (all at once; conservative), never above min(start, end).
 
 Standard library only. Run tests with python3 -I -B.
@@ -52,6 +54,22 @@ def _ceil_tick(x, tick):
 
 def _inside(x, lo, hi):
     return min(max(x, lo), hi)
+
+
+def _reaches(price, stop, tick, side):
+    """As weekly._reaches: at or beyond the stop within a millionth of a tick."""
+    return price <= stop + tick * 1e-6 if side == "long" else price >= stop - tick * 1e-6
+
+
+def _sign(c, c_back, tick):
+    d = c - c_back
+    return 0 if abs(d) <= tick * 1e-6 else (1 if d > 0 else -1)
+
+
+def _net(x, pv, comm, qty):
+    """Net money of a trade from its unrounded prices."""
+    sign = 1 if x["side"] == "long" else -1
+    return round((x["exit"] - x["entry"]) * sign * pv * qty - comm * qty, 2)
 
 
 def _hhmm(s):
@@ -90,9 +108,10 @@ def per_contract(minute_bars, daily, spec, settings, fill, days=None):
         if j < L or j < N - 1:
             continue
         c, cb = daily[j].adj_close, daily[j - L].adj_close
-        if c == cb:
+        sg = _sign(c, cb, tick)
+        if sg == 0:
             continue
-        side, sign = ("long", 1) if c > cb else ("short", -1)
+        side, sign = ("long", 1) if sg > 0 else ("short", -1)
         atr = sum(a.adj_high - a.adj_low for a in daily[j - N + 1:j + 1]) / N
         dist = max(_floor_tick(k * atr, tick), tick)
         rows = [(mod, b) for mod, b in days[date] if mod >= e_min]
@@ -106,35 +125,34 @@ def per_contract(minute_bars, daily, spec, settings, fill, days=None):
         for mod, b in rows:
             if mod >= f_min:
                 px = _inside(b.open - slip * sign, b.low, b.high)
-                done = (px, "flat", (b.open - stop) * sign <= 0)
+                done = (px, "flat", False)
                 break
+            worst = min(worst, ((b.low if sign == 1 else b.high) - entry) * sign)
             if sign == 1:
-                gap = b.open <= stop
-                if gap or b.low <= stop:
+                gap = _reaches(b.open, stop, tick, "long")
+                if gap or _reaches(b.low, stop, tick, "long"):
                     ref = b.open if gap else stop
                     px = {"kind": max(b.low, ref - slip), "midpoint": _floor_tick((ref + b.low) / 2, tick),
                           "harsh-stops": b.low}[fill]
                     done = (px, "stop", gap)
                     break
-                worst = min(worst, b.low - entry)
                 best = b.high if best is None else max(best, b.high)
                 if t is not None:
                     stop = max(stop, _floor_tick(best - t * dist, tick))
             else:
-                gap = b.open >= stop
-                if gap or b.high >= stop:
+                gap = _reaches(b.open, stop, tick, "short")
+                if gap or _reaches(b.high, stop, tick, "short"):
                     ref = b.open if gap else stop
                     px = {"kind": min(b.high, ref + slip), "midpoint": _ceil_tick((ref + b.high) / 2, tick),
                           "harsh-stops": b.high}[fill]
                     done = (px, "stop", gap)
                     break
-                worst = min(worst, entry - b.high)
                 best = b.low if best is None else min(best, b.low)
                 if t is not None:
                     stop = min(stop, _ceil_tick(best + t * dist, tick))
         if done is None:
             lb = rows[-1][1]
-            done = (_inside(lb.close - slip * sign, lb.low, lb.high), "flat", False)
+            done = (lb.close, "flat", False)
         px, reason, gap = done
         trade.update(exit=px, reason=reason, gap=gap, points=round((px - entry) * sign, 10),
                      worst=round(min(worst, (px - entry) * sign), 10))
@@ -158,7 +176,7 @@ def account(per_contract_by_market, specs, risk_pct, start=150000.0):
             if qty < 1:
                 skipped.append({"market": x["market"], "date": date, "side": x["side"], "reason": "under one contract"})
                 continue
-            net = round(x["points"] * sp["pv"] * qty - sp["comm"] * qty, 2)
+            net = _net(x, sp["pv"], sp["comm"], qty)
             low_sum += x["worst"] * sp["pv"] * qty - sp["comm"] * qty
             todays.append(dict(x, qty=qty, planned_cost=round(qty * lpc, 2), net=net))
         for x in todays:

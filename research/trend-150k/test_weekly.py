@@ -101,6 +101,21 @@ class StopTests(unittest.TestCase):
         self.assertEqual(tr[1]["entry_day"], 6)
 
 
+class TouchTests(unittest.TestCase):
+    def test_a_touch_within_float_noise_reaches_the_stop(self):
+        # 2018-10-29, 6E: the stop 13033 ticks * 0.0001 and the high 1.3033 differ only by float noise
+        stop = 13033 * 0.0001
+        self.assertTrue(weekly._reaches(1.3033, stop, 0.0001, "short"))
+        self.assertTrue(weekly._reaches(stop, 1.3033, 0.0001, "long"))
+        self.assertFalse(weekly._reaches(1.30329, stop, 0.0001, "short"))
+        self.assertFalse(weekly._reaches(1.30331, 1.3033, 0.0001, "long"))
+
+    def test_equal_closes_within_noise_give_no_signal(self):
+        self.assertEqual(weekly._sign(0.1 + 0.2, 0.3, 0.0001), 0)
+        self.assertEqual(weekly._sign(0.3001, 0.3, 0.0001), 1)
+        self.assertEqual(weekly._sign(0.2999, 0.3, 0.0001), -1)
+
+
 class TrailAndReverseTests(unittest.TestCase):
     def test_trail_moves_only_toward_price(self):
         rows = flat_then([(100, 115, 105, 110), (111, 130, 110, 128),    # entry day 4, best 130
@@ -159,6 +174,18 @@ class PortfolioTests(unittest.TestCase):
                        rolls={"A": [], "B": []})
         self.assertEqual([t["market"] for t in r["trades"]], ["A", "B"])
         self.assertEqual(r["days"][-1]["end"], 10000.0 + 2 * r["trades"][0]["net"])
+
+    def test_a_market_with_no_bar_is_marked_at_its_last_close_for_the_low_too(self):
+        # A: quiet, never a signal, gives the calendar day 5. B: long from day 4 (signal on day 3), no bar on day 5.
+        # On day 5 B did not trade, so its low mark is its day-4 close, the same as its end mark (not day 4's low).
+        quiet = bars([(100, 105, 95, 100)] * 7)
+        b_all = flat_then([(100, 115, 105, 110), (111, 120, 109, 118), (118, 125, 117, 124), (124, 130, 123, 129)])
+        b = [x for x in b_all if x.bar.ts // DAY != 5]
+        r = weekly.run({"A": quiet, "B": b}, {"A": SPEC, "B": SPEC}, S, fill="kind", start=10000.0,
+                       rolls={"A": [], "B": []})
+        d5 = [d for d in r["days"] if d["day"] == 5][0]
+        self.assertEqual(d5["low"], d5["end"])
+        self.assertLess([d for d in r["days"] if d["day"] == 4][0]["low"], d5["low"])
 
 
 if __name__ == "__main__":

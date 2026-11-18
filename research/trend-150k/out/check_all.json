@@ -1,0 +1,542 @@
+{
+ "A-L120-k0.5-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k0.5-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k0.5-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k0.5-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k0.5-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k0.5-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k1-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k1-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k1-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k1-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k1-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k1-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k2-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k2-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k2-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k2-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L120-k2-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17030
+ },
+ "A-L120-k2-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17029
+ },
+ "A-L20-k0.5-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k0.5-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k0.5-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k0.5-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k0.5-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k0.5-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k1-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k1-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k1-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k1-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k1-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k1-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k2-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k2-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k2-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k2-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L20-k2-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17012
+ },
+ "A-L20-k2-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17011
+ },
+ "A-L250-k0.5-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k0.5-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k0.5-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k0.5-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k0.5-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k0.5-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k1-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k1-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k1-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k1-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k1-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k1-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k2-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k2-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k2-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k2-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L250-k2-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16903
+ },
+ "A-L250-k2-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 16902
+ },
+ "A-L60-k0.5-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k0.5-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k0.5-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k0.5-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k0.5-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k0.5-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k1-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k1-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k1-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k1-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k1-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k1-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k2-t0.5-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k2-t0.5-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k2-t1-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k2-t1-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "A-L60-k2-t2-0935": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17025
+ },
+ "A-L60-k2-t2-1000": {
+  "breaks": 0,
+  "first": [],
+  "trades": 17024
+ },
+ "B-L120-k2-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 3774
+ },
+ "B-L120-k2-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1776
+ },
+ "B-L120-k2-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 955
+ },
+ "B-L120-k3-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2476
+ },
+ "B-L120-k3-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1114
+ },
+ "B-L120-k3-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 764
+ },
+ "B-L120-k4-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1775
+ },
+ "B-L120-k4-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 883
+ },
+ "B-L120-k4-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 700
+ },
+ "B-L20-k2-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 4138
+ },
+ "B-L20-k2-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2374
+ },
+ "B-L20-k2-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1757
+ },
+ "B-L20-k3-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2957
+ },
+ "B-L20-k3-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1864
+ },
+ "B-L20-k3-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1641
+ },
+ "B-L20-k4-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2375
+ },
+ "B-L20-k4-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1717
+ },
+ "B-L20-k4-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1622
+ },
+ "B-L250-k2-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 3646
+ },
+ "B-L250-k2-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1618
+ },
+ "B-L250-k2-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 787
+ },
+ "B-L250-k3-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2336
+ },
+ "B-L250-k3-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 947
+ },
+ "B-L250-k3-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 563
+ },
+ "B-L250-k4-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1608
+ },
+ "B-L250-k4-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 685
+ },
+ "B-L250-k4-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 480
+ },
+ "B-L60-k2-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 3852
+ },
+ "B-L60-k2-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1925
+ },
+ "B-L60-k2-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1190
+ },
+ "B-L60-k3-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 2597
+ },
+ "B-L60-k3-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1342
+ },
+ "B-L60-k3-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1000
+ },
+ "B-L60-k4-t0.5": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1919
+ },
+ "B-L60-k4-t1": {
+  "breaks": 0,
+  "first": [],
+  "trades": 1127
+ },
+ "B-L60-k4-t2": {
+  "breaks": 0,
+  "first": [],
+  "trades": 949
+ }
+}
