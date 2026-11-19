@@ -2,6 +2,7 @@
 
 ## The goal
 One strategy that passes backtesting on the personal $10,000 account under Amear's trading rules. Then the full pipeline running on a sim account in live markets. Work that does not move toward that is frozen.
+Under review since 2026-11-19: he paused full automation for a strategy "fully executed by human" (`RULINGS.md`, "Human execution, automation paused"). The new wording is his to give.
 
 ## Identity
 - Signal flow: TradingView alert → webhook → n8n workflow → JSON file drop → NinjaScript FileSystemWatcher → bracket order → Rithmic
@@ -36,7 +37,7 @@ For everything else: take the sensible option, tell him in one line, carry on. H
 - Every trade has a stop-market order placed at entry.
 - One strategy at a time. Noise-Area is retested first, with a real stop.
 - Nothing goes to execution without enough backtest data.
-- Execution fully automated. AI in trade decisions is allowed only if it is backtested like any other strategy (ruling of 2026-11-17). Amear may mark chart levels himself outside trading hours, on 15-minute or longer charts, with the automation placing every order (ruling of 2026-11-18).
+- Execution fully automated. AI in trade decisions is allowed only if it is backtested like any other strategy (ruling of 2026-11-17). Amear may mark chart levels himself outside trading hours, on 15-minute or longer charts, with the automation placing every order (ruling of 2026-11-18). Paused 2026-11-19: a human places the orders for now, and an AI model may later assist (`RULINGS.md`, "Human execution, automation paused").
 
 ## Talking to Amear
 - Plain English. No code names. One step at a time.

@@ -66,7 +66,7 @@ On a design with no known maximum loss: "Then that's not compatible." Asked whet
 
 > "I'm currently committing to um, uh, non-discretionary trading, which is fully automated"
 
-On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions. (Changed 2026-11-17: AI is allowed if backtested. See "AI in trade decisions" below.) (Widened 2026-11-18: his own chart marking outside trading hours is allowed, with automated execution. See "His own chart marking, automated execution" below.)
+On 2026-11-15, asked whether to save an AI "sit out today" filter as a parked idea: "No." No AI in trade decisions. (Changed 2026-11-17: AI is allowed if backtested. See "AI in trade decisions" below.) (Widened 2026-11-18: his own chart marking outside trading hours is allowed, with automated execution. See "His own chart marking, automated execution" below.) (Paused 2026-11-19: he wants a strategy "fully executed by human" and to "temporarily retire" the idea of complete non-discretion. See "Human execution, automation paused" below.)
 
 **Numbers that are not set yet.** They come from backtest data.
 
@@ -265,3 +265,51 @@ Typed by Amear in the Claude Code session, verbatim, after being told that Noise
 > "i want to expand the limits of the stratagy at least till we find a stratagy to be one that allows for Technical analysis done by me the human outside of trading hours the strategy I would like to optimize for or what desire here is one where the actual execution intruders are done by the Automation process, and I mark out the charts or spreads myself what this will allow for my physical intervention and understanding of the strategy to potentially and eventuallydevelop skills to have that process even automated so it's not necessarily a fallback, but could even be a blessing in disguise in order for this to work in simplest way. i would propose something with highier time frame chrting like 15min +"
 
 Reading, not his words: this widens the 2026-11-14 "fully automated" commitment, at least until a strategy is found. Amear may mark levels or zones on the charts himself, outside trading hours; the entries, stops and exits are then placed by the automation, with no hand on the order during the session. The aim includes learning the marking well enough to automate it later. Charts of 15 minutes or longer. Unchanged: the cost of each trade set before entry, a stop-market order at entry, one strategy at a time, and nothing goes to execution without enough backtest data, so the marking has to be written as a rule that can be backtested.
+
+(Changed 2026-11-19: the orders are to be placed by a human, not the automation. Reading, not his words: his chart marking is now one possible part of a human-executed strategy. See "Human execution, automation paused" below.)
+
+## Human execution, automation paused (2026-11-19)
+
+From the voice call on the brief `docs/reports/2026-11-19-voice-brief-search-next.md`, about 07:10 to 07:35 ET. Full notes: `docs/reports/2026-11-19-voice-notes-search-next.md`. Spoken quotes are as the transcript caught them, as relayed by the Claude.ai session that ran the call. The voice agent's own sentences are not rulings.
+
+**Nothing is re-run.** Asked whether the tested strategies should be run again:
+
+> "Then no, I don't want to run them again because it's just a waste of time."
+
+Reading, not his words: he did not say in so many words that the bars stay. His 2026-11-17 "Why would I want to change any of them?" stands unless he changes it.
+
+**The seven-day bar.** Asked whether it means the strategy's own setup within seven trading days or the firm's rule (any trade within seven calendar days), the transcript shows "Affirms rule." Asked about a small trade placed only to stay active: "Yeah."
+
+Reading, not his words: the firm's rule, any trade within seven calendar days. Not confirmed in a sentence of his own. Whether the firm accepts a trade placed only to stay active was never checked.
+
+**The nearest miss.**
+
+> "Yeah, but $9,000 or less than $9,000 over a five-year period is fucking pathetic."
+
+**A check from 2023 onward.**
+
+> "can you check, let's say that each of these accounts were to be tested from January 1st of 2023 till the nearest um, the nearest like date we have."
+
+> "Test what the P&L would be and whether it would fall under the pass for criteria or not."
+
+> "Yeah, do that for all of them. But when you check, just do the math. You don't need to actually run the, the thing, do you?"
+
+Reading, not his words: done as math on the saved results. Nothing passes from 2023 either (the notes file).
+
+**Human execution.**
+
+> "at this point, I would like to uh, find a strategy I want to like uh, temporarily retire the um, idea of completely non-discretionary but I want to find a strategy that is fully executed by human"
+
+> "I would like to slowly uh, teach an AI model, whether it be a visual model or something like that, to be able to assist with the execution. If I'm actually pulling the trigger myself or doing some intervention or checks, that's totally fine. Um, the reality is, uh, I feel like getting a full strategy to operate with AI execution on its own is pretty ambitious since, uh, market makers spend billions of dollars a year to, uh, have algo traders and, or al algorithmic, uh, bots in the markets to do fake outs. Manipulate markets and all that shit. So, um, I think I'm ready to retire the idea of uh, full automation."
+
+> "Especially when I'm not directly engineering it. So, what I want the code agent to now do, or actually, what's better than the code agent, since this is not a coding task, um, is uh, I would like the, uh, to run a couple. Uh, research agents uh, to find strategies that a you know steak and potatoes day trader would adopt. The thing is, is there's a lot of influencer bullshit that teach strategies, and they could show like wins in the short term, that's something I fell for before, and then I've lost accounts."
+
+> "I think the best thing is for the Claude AI chat is to interview me prior.."
+
+Readings, not his words:
+1. The 2026-11-14 commitment to fully automated execution is paused. He said "temporarily retire" once and "retire" once. Both stand as said; this is not recorded as permanent.
+2. A human places the orders. An AI model, a visual model for example, may later assist "slowly" with execution, checks or interventions. AI in trade decisions was already allowed if backtested (2026-11-17).
+3. The research is not coding work. It goes to research agents in the Claude.ai chat, after an interview of him.
+4. "Steak and potatoes" means ordinary, widely used day-trading strategies, vetted against influencer material, whose short-term wins have fooled him before.
+
+What this leaves open is listed as questions for him in `STATUS.md`, "What waits on Amear". Those questions are not rulings.
