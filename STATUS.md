@@ -54,7 +54,7 @@ Nothing. Heavy jobs one at a time: two at once ran the machine out of memory on 
 ## Decided without waiting, reversible
 
 - 2026-11-19: the free search of published research for scalping and order-flow edges is paused until he gives a direction. It was framed as part of the automated search.
-- 2026-11-19: the files held back for personal data (a support-reply screenshot showing a third party's name and address, and 7 older reports) stay out of the repo.
+- 2026-11-19: the files held back for personal data (a support-reply screenshot showing a third party's name and address, and 7 older reports) stay out of the repo. So do the two handoff files of 2026-11-19 in `docs/reports`: the repo is public, and the second holds personal history. What the first asked for is committed.
 - 2026-11-18: "mark out the charts or spreads" read as marking levels on price charts. Momentum into the close: stock index trades close at 4:00 PM. Candidate 4: the midpoint fill ruling covers a stop order that enters a trade. Trend build: engines follow the independent check's literal reading where the plan left a choice.
 
 ## Where things are
