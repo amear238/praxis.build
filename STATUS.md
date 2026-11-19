@@ -1,6 +1,6 @@
 # PRAXIS status
 
-Last updated: 2026-11-18.
+Last updated: 2026-11-19.
 
 ## The goal
 
@@ -39,14 +39,15 @@ Nothing. Run the heavy jobs one at a time: two at once ran the machine out of me
 ## What is next, in order
 
 1. **The widened research pass** (task `Praxis_build-8h5`; ruling in `RULINGS.md`, "His own chart marking, automated execution"). The marked-levels plan is finished, and the published-record search of 2026-11-18 (`research/close-momentum-150k/PLAN.md`) left one family standing, momentum into the close, which has now failed too.
-   - **Next: decide where the search goes.** Across every family tried, the versions that trade often enough for the 7-day bar win on average less than twice the risk, and the published intraday edges are smaller than our costs. Ruled out by the record: the drift before Fed and other announcements (gone after 2015, or its side not knowable), the overnight drift (flat 2021-2025), the Treasury auction cycle (needs a hold of days). No family left in that search meets all the bars at once.
+   - **Next: his answers to the voice brief of 2026-11-19 (below).** Free work that waits on nothing: a search of the published research for scalping and order-flow edges after costs, not yet done. Across every family tried, the versions that trade often enough for the 7-day bar win on average less than twice the risk, and the published intraday edges are smaller than our costs. Ruled out by the record: the drift before Fed and other announcements (gone after 2015, or its side not knowable), the overnight drift (flat 2021-2025), the Treasury auction cycle (needs a hold of days). No family left in that search meets all the bars at once.
 2. Before any final run on micros: confirm MyFundedFutures lists every micro used.
 3. Results for the stop-distance versions and candidates 2 to 4 of the old shortlist sit on worktree branches not merged into main.
 
 ## What waits on Amear
 
-1. **Where the search goes next.** The paths left need his word: his own bars (winners at twice the risk; even without that bar, no version has met the 7-day bar and $9,000 at once), buying finer data for order-flow or scalping ideas (spending), or his own hand marks tested directly (his time). Recommended: a short voice brief on those three.
-2. **Files held back from the repo for personal data:** one screenshot of a support reply that shows a third party's name and address, and 7 older reports. Commit, mask, or leave out.
+1. **Where the search goes next.** Voice brief written 2026-11-19: `docs/reports/2026-11-19-voice-brief-search-next.md`. Three questions: do the bars stay, and does the seven-day bar mean a setup within seven trading days or the firm's rule (any trade within seven calendar days); does the money for finer data still wait for a scalping idea; does he want to mark past days himself for a direct test. His answers go in `docs/reports/2026-11-19-voice-notes-search-next.md`.
+
+Decided without waiting, reversible (2026-11-19): the files held back for personal data (one support-reply screenshot showing a third party's name and address, and 7 older reports) stay out of the repo. Not one of the four things that wait for him, and leaving them out keeps the no-names rule.
 
 Decided without waiting, reversible (2026-11-18, his ruling): "mark out the charts or spreads" is read as marking levels on price charts. Trading one market against another (a spread) is not in the pass unless he says so.
 
